@@ -93,8 +93,8 @@ def client_facing_summary(
     primary_impact = _money(primary.get("estimated_monthly_opportunity", 0))
 
     summary = {
-        "headline": (f"{client_name} is currently leaking approximately "
-                     f"${primary_impact:,} per month from the top identified issue alone."),
+        "headline": (f"Estimated recovery opportunity for {client_name}: "
+                     f"${primary_impact:,} per month from the top identified issue."),
         "primary_opportunity": primary_client,
         "additional_opportunities": additional_client,
         "total_monthly_opportunity": _money(total),
