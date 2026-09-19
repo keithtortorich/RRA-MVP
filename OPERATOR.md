@@ -7,8 +7,10 @@ Run the smallest end-to-end system that can produce a credible paid revenue-reco
 ## Prerequisites
 
 - Python environment suitable for the repository.
-- Claude Code CLI available as `claude`.
-- The four worker repositories cloned locally:
+- Python 3.10+.
+- No external worker repositories are required for the default fallback path.
+
+Optional full-fidelity worker mode can use:
   - `ai-marketing-claude`
   - `geo-seo-claude`
   - `ai-reputation-claude`
@@ -22,7 +24,7 @@ no worker subprocess involved. You do not need this fifth repo to run the
 live path; it's unused configuration, not a missing prerequisite. If a
 worker actually calls it in the future, add it here as a real prerequisite.
 
-## Configure workers
+## Optional worker configuration
 
 From the RRA repository root:
 
@@ -90,9 +92,9 @@ Never send the internal view to a prospect.
 
 Before using a real prospect, confirm:
 
-- `which claude` succeeds.
-- All four worker repository paths exist.
-- All four environment variables resolve correctly.
+- Installation completes.
+- The default fallback scan works without sibling repositories.
+- If using optional worker mode, `which claude` succeeds and configured worker paths resolve.
 - Installation completes.
 - A scan against a harmless test URL completes.
 - Audit output is created.
