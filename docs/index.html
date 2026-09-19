@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#12110F">
+<title>NETBUILD.PRO — Sizzle Sales Tool</title>
+<!-- Placeholder favicon. Replace with the approved NETBUILD.PRO Seal asset when available. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312110F'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='13' font-weight='600' fill='%23C5A572' text-anchor='middle'%3ENB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   NETBUILD.PRO BRAND TOKENS — Sizzle Sales Tool
+   Single source of truth for color/type. Swap values here only;
+   nothing below this block should hard-code a brand color or font.
+   Custom-property names keep the internal "rra" prefix (repo history,
+   storage keys) — never rendered to the customer; visible copy is
+   NETBUILD.PRO throughout.
+   ============================================================ */
+:root{
+  /* -- surfaces (Ink) -- */
+  --rra-obsidian:#12110F;
+  --rra-slate:#1C1B18;
+  --rra-slate2:#242320;
+  --rra-border:#2A2824;
+  /* -- ink (readouts) -- */
+  --rra-bone:#F4F1EA;
+  --rra-white:#FAF7F1;
+  --rra-muted:#6F6A62;
+  /* -- accent (primary brand) -- */
+  --rra-brass:#C5A572;
+  --rra-brass-deep:#6E5428;
+  --rra-brass-bg:rgba(197,165,114,.14);
+  /* -- semantic: financial state only, never decorative -- */
+  --rra-green:#2F5A40;
+  --rra-green-text:#7FB393;
+  --rra-green-bg:rgba(47,90,64,.22);
+  --rra-red:#8F2E28;
+  --rra-red-text:#E28A83;
+  --rra-red-bg:rgba(143,46,40,.22);
+  --rra-amber:#C9862C;
+  --rra-amber-bg:rgba(201,134,44,.16);
+  /* -- type -- */
+  --font-display:'Newsreader',Georgia,'Times New Roman',serif;
+  --font-heading:'Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-body:'Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif;
+  --font-mono:'Source Code Pro',ui-monospace,'SF Mono',Menlo,Consolas,monospace;
+  /* -- geometry: restrained, architectural, not consumer-app rounded -- */
+  --r:2px;
+  --r-lg:2px;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{font-family:var(--font-body);background:var(--rra-obsidian);color:var(--rra-bone);overflow-x:hidden}
+.shell{display:flex;flex-direction:column;height:100dvh;max-width:900px;margin:auto;background:var(--rra-obsidian);position:relative;border-inline:1px solid var(--rra-border)}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer;-webkit-appearance:none}
+::-webkit-scrollbar{width:0;height:0}
+::selection{background:var(--rra-brass);color:var(--rra-obsidian)}
+
+/* financial figures: monospace, tabular, no invented precision */
+.mono,.money,#calcResult,#calcResultAnnual,.stat strong,.evrow .impact,.callimpact,.pcard .leak,.impact-lg{
+  font-family:var(--font-mono);
+  font-variant-numeric:tabular-nums;
+  letter-spacing:-.01em;
+}
+
+/* -- financial diagnostic result block (calculator output) -- */
+.diagresult{border:1px solid var(--rra-border);border-radius:var(--r);background:var(--rra-obsidian);padding:16px;margin-bottom:12px}
+.diagrow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.diagrow-sub{margin-top:10px;padding-top:10px;border-top:1px solid var(--rra-border)}
+.diaglabel{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--rra-muted);font-weight:700}
+.diagqual{color:var(--rra-brass);font-family:var(--font-mono);text-transform:uppercase}
+.diagfigure{font-size:28px;font-weight:600;color:var(--rra-red-text)}
+.diagfigure-sm{font-size:17px}
+
+/* -- top bar / brand lockup -- */
+.top{background:var(--rra-obsidian);border-bottom:1px solid var(--rra-border);padding:calc(12px + env(safe-area-inset-top)) 16px 12px;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0}
+.lockup{display:flex;flex-direction:column;gap:2px}
+.lockup .mark{display:flex;align-items:baseline;gap:1px}
+.lockup .mark-img{height:22px;width:auto;display:block}
+.lockup .nb{font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:.08em;color:var(--rra-bone)}
+.lockup .pro{font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--rra-brass)}
+.lockup .full{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rra-muted);font-weight:600}
+.lockup .product{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rra-brass);font-weight:700;margin-top:3px;font-family:var(--font-heading)}
+.lockup .meta{display:flex;gap:10px;margin-top:5px;flex-wrap:wrap}
+.lockup .meta span{font-family:var(--font-mono);font-size:9px;letter-spacing:.04em;color:var(--rra-muted);border:1px solid var(--rra-border);border-radius:var(--r);padding:2px 6px}
+.top .right{display:flex;gap:8px;align-items:center}
+.iconbtn{background:transparent;border:1px solid var(--rra-brass);color:var(--rra-brass);border-radius:var(--r);padding:9px 12px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;min-height:40px}
+.iconbtn:active{background:var(--rra-brass-bg)}
+
+/* -- tabs -- */
+.tabs{display:flex;overflow-x:auto;background:var(--rra-obsidian);border-bottom:1px solid var(--rra-border);flex-shrink:0;-webkit-overflow-scrolling:touch}
+.tab{min-width:64px;flex:1 0 auto;padding:12px 10px;border:0;border-bottom:2px solid transparent;background:none;color:var(--rra-muted);font-family:var(--font-heading);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;min-height:46px}
+.tab.active{color:var(--rra-brass);border-bottom-color:var(--rra-brass)}
+
+.panels{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--rra-obsidian)}
+.panel{display:none;padding:14px 14px 90px}
+.panel.active{display:block}
+
+/* -- generic components -- */
+.card{border:1px solid var(--rra-border);border-radius:var(--r-lg);padding:16px;margin-bottom:12px;background:var(--rra-slate)}
+.head{font-family:var(--font-heading);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--rra-bone)}
+.head small{font-weight:600;color:var(--rra-muted);font-size:9.5px;text-transform:uppercase;font-family:var(--font-body);letter-spacing:.02em}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:10px;font-weight:700;color:var(--rra-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:12px 12px;border:1px solid var(--rra-border);border-radius:var(--r);background:var(--rra-obsidian);color:var(--rra-bone);min-height:44px}
+.field input::placeholder,.field textarea::placeholder{color:#565c68}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--rra-brass);outline-offset:-1px;border-color:var(--rra-brass)}
+.field textarea{min-height:70px;resize:vertical}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+@media(max-width:480px){.g2,.g3{grid-template-columns:1fr 1fr}}
+@media print{
+  body *{visibility:hidden}
+  #packetPreview,#packetPreview *{visibility:visible}
+  #packetPreview{position:absolute;top:0;left:0;width:100%;padding:24px;color:#111;background:#fff}
+  #packetPreview .pkitem{border-color:#ccc}
+  #packetPreview .pkhead{color:#111}
+  #packetPreview .pksub,#packetPreview .pknote{color:#555}
+}
+.pkitem{border:1px solid var(--rra-border);border-radius:var(--r);padding:10px 12px;margin-bottom:8px}
+.pkhead{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-weight:700;color:var(--rra-bone)}
+.pksub{font-size:11px;color:var(--rra-muted);margin-top:3px}
+.pknote{font-size:12.5px;margin-top:4px;color:var(--rra-bone)}
+.btn{border:1px solid transparent;border-radius:var(--r);padding:13px 16px;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;min-height:46px;font-family:var(--font-heading)}
+.btn.block{width:100%;margin-top:8px}
+.primary{background:var(--rra-bone);color:var(--rra-obsidian)}
+.accentbtn{background:var(--rra-brass);color:var(--rra-obsidian)}
+.outline{background:transparent;color:var(--rra-bone);border-color:var(--rra-border)}
+.danger{background:transparent;color:var(--rra-red-text);border-color:var(--rra-red)}
+.ghost{background:transparent;color:var(--rra-muted);border:1px dashed var(--rra-border)}
+.row{display:flex;gap:8px;flex-wrap:wrap}
+.pill{border:1px solid var(--rra-border);background:transparent;color:var(--rra-bone);border-radius:var(--r);padding:9px 13px;font-weight:600;font-size:11.5px;min-height:38px}
+.pill.on{background:var(--rra-brass);color:var(--rra-obsidian);border-color:var(--rra-brass)}
+.pill:disabled{opacity:.45;cursor:not-allowed}
+.badge{font-family:var(--font-mono);font-size:9.5px;font-weight:600;padding:4px 8px;border-radius:var(--r);background:var(--rra-slate2);border:1px solid var(--rra-border);color:var(--rra-muted);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.badge.known{background:var(--rra-brass-bg);color:var(--rra-brass);border-color:var(--rra-brass)}
+.badge.estimated{background:var(--rra-slate2);color:var(--rra-bone);border-color:var(--rra-border)}
+.badge.benchmark{background:var(--rra-slate2);color:var(--rra-muted);border-color:var(--rra-border);border-style:dashed}
+.badge.state{background:var(--rra-slate2);color:var(--rra-bone);border-color:var(--rra-border)}
+.badge.won{background:var(--rra-green-bg);color:var(--rra-green-text);border-color:var(--rra-green)}
+.badge.lost{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
+.badge.overdue{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
+.badge.today{background:var(--rra-amber-bg);color:var(--rra-amber);border-color:var(--rra-amber)}
+.note{font-size:12px;color:var(--rra-muted);line-height:1.55}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
+.stat{background:var(--rra-slate);border:1px solid var(--rra-border);border-radius:var(--r);padding:11px 5px;text-align:center}
+.stat strong{display:block;font-size:19px;line-height:1.15;color:var(--rra-bone);font-weight:600}
+.stat span{font-size:8px;color:var(--rra-muted);text-transform:uppercase;font-weight:700;letter-spacing:.03em;font-family:var(--font-body)}
+.hidden{display:none !important}
+.copybtn{font-size:11px;padding:8px 12px;min-height:36px}
+
+/* -- home / next action: dominant, restrained (no glow/gradient) -- */
+.nextaction{background:var(--rra-slate);border:1px solid var(--rra-border);border-left:3px solid var(--rra-brass);border-radius:var(--r-lg);padding:20px;margin-bottom:14px}
+.nextaction small{color:var(--rra-brass);text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:700;font-family:var(--font-heading)}
+.nextaction .txt{font-family:var(--font-display);font-size:19px;font-weight:600;margin:10px 0 14px;line-height:1.35;color:var(--rra-bone)}
+.queue{border:1px solid var(--rra-border);border-radius:var(--r);overflow:hidden}
+.queueitem{padding:11px 13px;border-bottom:1px solid var(--rra-border);font-size:12.5px;display:flex;justify-content:space-between;gap:8px;align-items:center;color:var(--rra-bone)}
+.queueitem:last-child{border-bottom:0}
+
+/* -- prospect board -- */
+.slotgrid{display:grid;grid-template-columns:1fr;gap:10px}
+.pcard{border:1px solid var(--rra-border);border-radius:var(--r-lg);padding:14px;background:var(--rra-slate);width:100%;text-align:left}
+.pcard.empty{display:flex;align-items:center;justify-content:center;min-height:76px;border-style:dashed;color:var(--rra-muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em;background:transparent;font-family:var(--font-heading)}
+.pcard .top2{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.pcard .co{font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--rra-bone)}
+.pcard .sub{font-size:11.5px;color:var(--rra-muted);margin-top:2px}
+.pcard .leak{margin-top:9px;font-size:12px;background:var(--rra-obsidian);border:1px solid var(--rra-border);border-radius:var(--r);padding:9px 10px;color:var(--rra-red-text)}
+.pcard .leak b{font-family:var(--font-body);color:var(--rra-bone);font-weight:600;display:block;margin-bottom:3px}
+.pcard .followrow{margin-top:9px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--rra-bone)}
+.pcard .nextrow{margin-top:9px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11.5px;color:var(--rra-bone);border-top:1px solid var(--rra-border);padding-top:9px}
+.pcard .nextrow .nextlabel{color:var(--rra-muted);text-transform:uppercase;font-size:9.5px;letter-spacing:.04em;font-family:var(--font-mono);flex-shrink:0}
+.warnflag{display:flex;align-items:flex-start;gap:7px;margin-top:8px;padding:9px 10px;background:var(--rra-amber-bg);border:1px solid var(--rra-amber);border-radius:var(--r);color:var(--rra-amber);font-size:11.5px;line-height:1.4}
+.warnflag b{color:var(--rra-amber)}
+.readyflag{display:flex;align-items:flex-start;gap:7px;margin-top:8px;padding:9px 10px;background:var(--rra-green-bg);border:1px solid var(--rra-green);border-radius:var(--r);color:var(--rra-green-text);font-size:11.5px;line-height:1.4}
+.verifyitem{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--rra-border)}
+.verifyitem:first-child{border-top:0}
+.verifyitem input[type=checkbox]{width:20px;height:20px;flex-shrink:0;margin-top:2px;accent-color:var(--rra-brass)}
+.verifyitem .vlabel{font-size:12.5px;color:var(--rra-bone);line-height:1.4}
+.verifyitem.done .vlabel{color:var(--rra-muted);text-decoration:line-through}
+.verifyitem .vnote{margin-top:6px;width:100%;padding:8px 10px;border:1px solid var(--rra-border);border-radius:var(--r);background:var(--rra-obsidian);color:var(--rra-bone);font-size:11.5px}
+.verifyitem .vbody{flex:1;min-width:0}
+
+/* -- modal / detail -- */
+.overlay{position:fixed;inset:0;background:rgba(11,14,20,.72);display:flex;align-items:flex-end;justify-content:center;z-index:50}
+.overlay.center{align-items:center;padding:14px}
+.sheet{background:var(--rra-obsidian);width:100%;max-width:900px;max-height:92vh;border-radius:var(--r-lg) var(--r-lg) 0 0;border:1px solid var(--rra-border);border-bottom:0;display:flex;flex-direction:column;overflow:hidden}
+.overlay.center .sheet{border-radius:var(--r-lg);border-bottom:1px solid var(--rra-border);max-height:88vh}
+.sheethead{padding:calc(12px + env(safe-area-inset-top)) 16px 10px;border-bottom:1px solid var(--rra-border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sheethead .ttl{font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--rra-bone)}
+.sheetbody{overflow-y:auto;padding:14px 16px calc(24px + env(safe-area-inset-bottom))}
+.subtabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--rra-border);flex-shrink:0}
+.subtab{padding:12px 12px;border:0;background:none;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--rra-muted);border-bottom:2px solid transparent;white-space:nowrap;min-height:44px;font-family:var(--font-heading)}
+.subtab.active{color:var(--rra-brass);border-bottom-color:var(--rra-brass)}
+.subpanel{display:none}
+.subpanel.active{display:block}
+.closeicon{background:transparent;border:1px solid var(--rra-border);border-radius:var(--r);width:36px;height:36px;font-size:16px;font-weight:700;color:var(--rra-muted)}
+
+.evrow{border:1px solid var(--rra-border);border-radius:var(--r);padding:11px;margin-bottom:8px;background:var(--rra-slate)}
+.evrow .evtop{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px}
+.evrow .impact{font-weight:600;font-size:15px;color:var(--rra-red-text)}
+.evrow b{color:var(--rra-bone)}
+.toprow{border-color:var(--rra-brass);border-left:3px solid var(--rra-brass)}
+
+.pitchbox{white-space:pre-wrap;background:var(--rra-slate);border:1px solid var(--rra-border);color:var(--rra-bone);padding:16px;border-radius:var(--r);line-height:1.6;font-size:13px;font-family:var(--font-mono);margin:10px 0}
+.pitchtypes{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:4px}
+.ptype{padding:10px;border:1px solid var(--rra-border);border-radius:var(--r);background:transparent;color:var(--rra-bone);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;min-height:42px;font-family:var(--font-heading)}
+.ptype.active{background:var(--rra-brass);color:var(--rra-obsidian);border-color:var(--rra-brass)}
+
+.obj{border:1px solid var(--rra-border);border-radius:var(--r);margin-bottom:8px;overflow:hidden;background:var(--rra-slate)}
+.obj button.q{width:100%;border:0;background:transparent;color:var(--rra-bone);padding:13px;text-align:left;font-weight:600;min-height:46px;font-size:13px}
+.obj .ans{display:none;padding:13px;border-top:1px solid var(--rra-border);font-size:12.5px;line-height:1.55;color:var(--rra-muted);background:var(--rra-obsidian)}
+.obj .ans.open{display:block}
+.obj .ans p{color:var(--rra-bone)}
+
+/* -- call mode: maximum readability, brand-consistent -- */
+.callwrap{position:fixed;inset:0;background:var(--rra-obsidian);z-index:60;display:flex;flex-direction:column;color:var(--rra-bone)}
+.callhead{padding:calc(14px + env(safe-area-inset-top)) 16px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--rra-border)}
+.callbody{flex:1;overflow-y:auto;padding:16px 16px calc(30px + env(safe-area-inset-bottom))}
+.callco{font-family:var(--font-display);font-size:25px;font-weight:600;margin-bottom:2px;color:var(--rra-bone)}
+.callsection{margin-top:18px}
+.callsection h4{font-family:var(--font-heading);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--rra-brass);margin-bottom:8px;font-weight:700}
+.callimpact{font-size:32px;font-weight:600;color:var(--rra-red-text)}
+.calltext{background:var(--rra-slate);border:1px solid var(--rra-border);border-radius:var(--r);padding:14px;font-size:14px;line-height:1.6}
+.callq{padding:9px 0;border-bottom:1px solid var(--rra-border);font-size:14px}
+.callq:last-child{border-bottom:0}
+.callobj summary{cursor:pointer;font-weight:600;padding:9px 0;font-size:13.5px;color:var(--rra-bone)}
+.callobj p{font-size:12.5px;color:var(--rra-muted);padding-bottom:9px;line-height:1.5}
+
+/* -- toast -- */
+.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--rra-bone);color:var(--rra-obsidian);padding:11px 18px;border-radius:var(--r);font-size:12.5px;font-weight:700;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+
+.banner{background:var(--rra-red-bg);border:1px solid var(--rra-red);color:var(--rra-red-text);padding:11px 14px;border-radius:var(--r);font-size:12px;font-weight:600;margin-bottom:12px}
+.launchstep{border-left:3px solid var(--rra-brass);padding:10px 12px;margin:9px 0;background:var(--rra-obsidian);border:1px solid var(--rra-border);border-left:3px solid var(--rra-brass);border-radius:0 var(--r) var(--r) 0}
+.launchstep b{color:var(--rra-bone)}
+.known{color:var(--rra-brass);font-weight:700}
+.assumed{color:var(--rra-brass);font-weight:700}
+</style>
+</head>
+<body>
+<div class="shell" id="app">
+
+  <div class="top">
+    <!-- Typographic placeholder lockup, not final brand art.
+         Swap-in point for the approved Seal: add
+         <img src="NETBUILD_Seal.svg" alt="" class="mark-img"> before .nb —
+         no other header markup needs to change. -->
+    <div class="lockup">
+      <div class="mark"><span class="nb">NETBUILD</span><span class="pro">.PRO</span></div>
+      <span class="full">Revenue Recovery Firm</span>
+      <span class="product">Sizzle &middot; Sales Tool</span>
+      <div class="meta">
+        <span>Residential HVAC</span>
+        <span>Cohort 01</span>
+        <span>5-Prospect Validation</span>
+      </div>
+    </div>
+    <div class="right">
+      <button class="iconbtn" id="btnCallMode">Call Mode</button>
+    </div>
+  </div>
+
+  <div class="tabs" id="mainTabs">
+    <button class="tab active" data-p="home">Home</button>
+    <button class="tab" data-p="prospects">Prospects</button>
+    <button class="tab" data-p="objections">Objections</button>
+    <button class="tab" data-p="activity">Activity</button>
+    <button class="tab" data-p="notes">Notes</button>
+    <button class="tab" data-p="launch">Launch</button>
+  </div>
+
+  <div class="panels" id="panels">
+
+    <!-- HOME -->
+    <section class="panel active" id="p-home">
+      <div id="corruptBanner"></div>
+      <div class="nextaction">
+        <small>Next Action</small>
+        <div class="txt" id="heroAction">Loading…</div>
+        <button class="btn accentbtn" id="heroGo">Open</button>
+      </div>
+      <div class="card">
+        <div class="head">Priority Queue<small id="queueCount"></small></div>
+        <div class="queue" id="queueList"></div>
+      </div>
+      <div class="card">
+        <div class="head">Launch Metrics</div>
+        <div class="stats" id="homeStats"></div>
+        <p class="note">This tracks the first-five commercial validation cycle. It shows what happened — it does not decide whether NETBUILD.PRO works.</p>
+      </div>
+    </section>
+
+    <!-- PROSPECTS -->
+    <section class="panel" id="p-prospects">
+      <div class="card">
+        <div class="head">Launch Cohort — Five Prospects<small id="slotCount"></small></div>
+        <p class="note">Exactly five HVAC targets for this validation cycle. Replace a LOST slot rather than exceeding five.</p>
+      </div>
+      <div class="slotgrid" id="slotGrid"></div>
+
+      <div class="card" style="margin-top:14px">
+        <div class="head">Bench<small id="benchCount"></small></div>
+        <p class="note">Raw contacts you've researched but haven't put into an active slot yet. Landing five real conversations takes more than five contacts — work this list, promote one in when a slot frees up.</p>
+        <div class="field"><textarea id="bfDossier" rows="3" placeholder="Paste a dossier (Company:, City:, Contact:, Phone:, Website:, Source:, Notes:) and parse it into the fields below."></textarea></div>
+        <button class="btn outline block" id="btnParseBenchDossier" type="button">Parse into fields</button>
+        <div class="g2">
+          <div class="field"><label>Company</label><input id="bfCompany"></div>
+          <div class="field"><label>City</label><input id="bfCity"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label>Contact</label><input id="bfContact"></div>
+          <div class="field"><label>Phone</label><input id="bfPhone"></div>
+        </div>
+        <div class="field"><label>Website</label><input id="bfWebsite" type="url" placeholder="https://"></div>
+        <div class="field"><label>Why / source</label><textarea id="bfWhy" rows="2" placeholder="Why this target, and where the info came from"></textarea></div>
+        <button class="btn outline block" id="btnAddBench">Add to bench</button>
+      </div>
+      <div id="benchList"></div>
+    </section>
+
+    <!-- OBJECTIONS -->
+    <section class="panel" id="p-objections">
+      <div class="card">
+        <div class="head">Objection Responses</div>
+        <p class="note">Never promise guaranteed recovered revenue. Lead with evidence, economics, and the fixed-fee single wedge.</p>
+      </div>
+      <div id="objList"></div>
+    </section>
+
+    <!-- ACTIVITY -->
+    <section class="panel" id="p-activity">
+      <div class="stats" id="activityStats"></div>
+      <div class="card">
+        <div class="head">Log Activity</div>
+        <div class="field"><label>Prospect</label><select id="actProspect"></select></div>
+        <div class="field"><label>Type</label>
+          <select id="actType">
+            <option value="scan">Scan</option>
+            <option value="verification">Verification</option>
+            <option value="email">Email</option>
+            <option value="call">Call</option>
+            <option value="voicemail">Voicemail</option>
+            <option value="follow-up">Follow-up</option>
+            <option value="reply">Reply</option>
+            <option value="conversation">Conversation</option>
+            <option value="proposal">Proposal</option>
+            <option value="won">Won</option>
+            <option value="lost">Lost</option>
+          </select>
+        </div>
+        <div class="field"><label>Note (optional)</label><input id="actNote" placeholder="e.g. left voicemail, asked to call back Thursday"></div>
+        <button class="btn primary block" id="btnLogActivity">Log activity</button>
+      </div>
+      <div class="card">
+        <div class="head">Activity Log<small id="activityCount"></small></div>
+        <div id="activityLog"></div>
+        <button class="btn outline block" id="btnExportCsv">Export CSV</button>
+      </div>
+    </section>
+
+    <!-- NOTES -->
+    <section class="panel" id="p-notes">
+      <div class="card">
+        <div class="head">Founder Notes</div>
+        <p class="note">General notes not tied to a single prospect. Per-prospect notes live on each prospect card.</p>
+        <div class="field"><textarea id="genNoteText" rows="4" placeholder="Objection patterns, offer feedback, targeting ideas..."></textarea></div>
+        <button class="btn primary block" id="btnSaveGenNote">Save note</button>
+      </div>
+      <div id="genNoteList"></div>
+    </section>
+
+    <!-- LAUNCH -->
+    <section class="panel" id="p-launch">
+      <div class="card">
+        <div class="head">First-Five Scoreboard</div>
+        <div class="stats" id="scoreboardStats"></div>
+        <p class="note" id="scoreboardVerdict"></p>
+      </div>
+      <div class="card">
+        <div class="head">Launch Protocol</div>
+        <div class="launchstep"><b>1. Select exactly five HVAC targets.</b><br><span class="note">Residential, owner-operated, 2-15 techs. No franchises, agencies, commercial-only shops, or firms with full-time marketing staff.</span></div>
+        <div class="launchstep"><b>2. Audit each target.</b><br><span class="note">Run the audit, then manually verify the top revenue leak.</span></div>
+        <div class="launchstep"><b>3. Do the 20-minute truth pass.</b><br><span class="note">Reviews, mobile call/booking path, after-hours handling, service promise. Upgrade assumptions to <span class="known">KNOWN</span> wherever possible.</span></div>
+        <div class="launchstep"><b>4. Build the $997 Good proposal.</b><br><span class="note">Lead with one evidence-backed number tied to the top validated leak. Never send the internal view.</span></div>
+        <div class="launchstep"><b>5. Send and follow up.</b><br><span class="note">Day 0 first touch, Day 4 follow-up, Day 11 final launch follow-up. Every sent prospect gets a next-action date.</span></div>
+        <div class="launchstep"><b>6. Read the market.</b><br><span class="note">2-3 sales: deliver and measure. Zero sales with conversations: change one variable. Zero replies: change target/message/evidence, not product architecture.</span></div>
+      </div>
+      <div class="card">
+        <div class="head">Launch Freeze</div>
+        <p class="note">No dashboard, CRM integration, billing system, second vertical, autonomous execution, orchestrator expansion, architecture refactor, or paid lead stack before the first-five cycle produces evidence.</p>
+      </div>
+      <div class="card">
+        <div class="head">Data Management</div>
+        <div class="row">
+          <button class="btn outline" id="btnExportJson">Export data</button>
+          <button class="btn outline" id="btnImportJson">Import data</button>
+          <input type="file" id="importFile" accept="application/json" class="hidden">
+        </div>
+        <button class="btn danger block" id="btnResetTool">Reset tool</button>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- Prospect add/edit + detail sheet -->
+<div class="overlay hidden" id="prospectOverlay">
+  <div class="sheet">
+    <div class="sheethead">
+      <div class="ttl" id="sheetTitle">Prospect</div>
+      <button class="closeicon" id="btnCloseSheet">&times;</button>
+    </div>
+    <div class="subtabs" id="sheetSubtabs">
+      <button class="subtab active" data-s="overview">Overview</button>
+      <button class="subtab" data-s="evidence">Evidence</button>
+      <button class="subtab" data-s="outreach">Outreach</button>
+      <button class="subtab" data-s="offer">Implementation</button>
+      <button class="subtab" data-s="packet">Client Packet</button>
+      <button class="subtab" data-s="handoff">Handoff</button>
+      <button class="subtab" data-s="pnotes">Notes</button>
+    </div>
+    <div class="sheetbody">
+
+      <div class="subpanel active" id="s-overview">
+        <div class="card">
+          <div class="head">Paste dossier</div>
+          <p class="note">Paste your research write-up (labeled lines like Company:, City:, Contact:, Phone:, Website:, Source:, Notes:). Parse fills the fields below — nothing is overwritten for a label the dossier didn't include.</p>
+          <div class="field"><textarea id="pfDossier" rows="4" placeholder="Company: Reed Heating and Air&#10;City: Melissa, TX&#10;Contact: Eric Reed&#10;Phone: (972) 555-1234&#10;Website: https://reedhvac.com&#10;Source: Google Maps + Yelp reviews&#10;Notes: Site claims 24/7 but reviews complain about missed after-hours calls — needs verifying."></textarea></div>
+          <button class="btn outline block" id="btnParseDossier" type="button">Parse into fields</button>
+        </div>
+        <div class="g2">
+          <div class="field"><label>Company</label><input id="pfCompany"></div>
+          <div class="field"><label>City / State</label><input id="pfCity"></div>
+        </div>
+        <div class="field"><label>Website</label><input id="pfWebsite" type="url" placeholder="https://"></div>
+        <div class="g2">
+          <div class="field"><label>Contact name</label><input id="pfContact"></div>
+          <div class="field"><label>Phone</label><input id="pfPhone" type="tel"></div>
+        </div>
+        <div class="g2">
+          <div class="field"><label>Email</label><input id="pfEmail" type="email"></div>
+          <div class="field"><label>Source</label><input id="pfSource" placeholder="Google Maps, referral..."></div>
+        </div>
+        <div class="card">
+          <div class="head">Research<small id="researchStatus"></small></div>
+          <p class="note">Confirm identity and contact channels before anything gets sent.</p>
+          <div id="researchList"></div>
+        </div>
+        <div class="card">
+          <div class="head">Verify<small id="verifyStatus"></small></div>
+          <p class="note">The manual pass: reviews and an after-hours call result. Confirm these before a dollar figure goes to the client. Each check can carry a short source note.</p>
+          <div id="verifyList"></div>
+        </div>
+        <div class="field"><label>Why this target</label><textarea id="pfWhy" rows="2"></textarea></div>
+        <div class="field"><label>Pipeline state</label>
+          <select id="pfState">
+            <option value="TARGET">TARGET</option>
+            <option value="AUDITED">AUDITED</option>
+            <option value="VERIFIED">VERIFIED</option>
+            <option value="PROPOSAL_READY">PROPOSAL_READY</option>
+            <option value="SENT">SENT</option>
+            <option value="CONVERSATION">CONVERSATION</option>
+            <option value="WON">WON</option>
+            <option value="LOST">LOST</option>
+            <option value="NURTURE">NURTURE</option>
+          </select>
+        </div>
+        <div class="field hidden" id="pfSentDateWrap"><label>First-touch (Day 0) date</label><input id="pfSentDate" type="date"></div>
+        <div class="row" id="followupActions"></div>
+        <div class="card" id="callLogCard">
+          <div class="head">Log Call</div>
+          <p class="note">Right after a call: log the outcome, the objection if any, and what's next — in one save.</p>
+          <div class="field"><label>Outcome</label>
+            <select id="clOutcome">
+              <option value="connected">Connected</option>
+              <option value="voicemail">Voicemail</option>
+              <option value="no_answer">No answer</option>
+              <option value="interested">Interested</option>
+              <option value="not_now">Not now</option>
+              <option value="declined">Declined</option>
+              <option value="wrong_contact">Wrong contact</option>
+            </select>
+          </div>
+          <div class="field"><label>Contact reached</label><input id="clContact" placeholder="Name of who you spoke with"></div>
+          <div class="field"><label>One-line note</label><input id="clNote" placeholder="What happened on the call"></div>
+          <div class="field"><label>Objection (if any)</label>
+            <select id="clObjection"><option value="">No objection</option></select>
+          </div>
+          <div class="g2">
+            <div class="field"><label>Next action</label><input id="clNextAction" placeholder="e.g. Call back Thursday"></div>
+            <div class="field"><label>Next date</label><input id="clNextDate" type="date"></div>
+          </div>
+          <button class="btn accentbtn block" id="btnLogCall">Save call log</button>
+        </div>
+        <button class="btn primary block" id="btnSaveProspect">Save prospect</button>
+        <button class="btn danger block" id="btnDeleteProspect">Delete / reset this slot</button>
+      </div>
+
+      <div class="subpanel" id="s-evidence">
+        <div class="card">
+          <div class="head">Revenue Leakage Diagnostic</div>
+          <div class="row" style="margin-bottom:10px">
+            <button class="pill on" data-calc="missed">Missed-call leak</button>
+            <button class="pill" data-calc="booking">Booking-friction leak</button>
+          </div>
+          <div id="calcMissed">
+            <div class="g2">
+              <div class="field"><label>Inbound calls / month</label><input id="cMissedInbound" type="number" min="0" inputmode="numeric" placeholder="e.g. 140"></div>
+              <div class="field"><label>Missed-call rate %</label><input id="cMissedPct" type="number" min="0" max="100" inputmode="numeric" value="45"></div>
+              <div class="field"><label>Close rate on recovered calls %</label><input id="cMissedClose" type="number" min="0" max="100" inputmode="numeric" value="35"></div>
+              <div class="field"><label>Average job value $</label><input id="cMissedTicket" type="number" min="0" inputmode="numeric" value="550"></div>
+            </div>
+          </div>
+          <div id="calcBooking" class="hidden">
+            <div class="g2">
+              <div class="field"><label>Monthly site visits/contacts</label><input id="cBookVisits" type="number" min="0" inputmode="numeric" placeholder="e.g. 400"></div>
+              <div class="field"><label>Current booking/contact rate %</label><input id="cBookNow" type="number" min="0" max="100" inputmode="numeric" placeholder="e.g. 5"></div>
+              <div class="field"><label>Achievable booking rate %</label><input id="cBookTarget" type="number" min="0" max="100" inputmode="numeric" placeholder="e.g. 9"></div>
+              <div class="field"><label>Average job value $</label><input id="cBookTicket" type="number" min="0" inputmode="numeric" value="550"></div>
+            </div>
+          </div>
+          <div class="field"><label>Input quality</label>
+            <select id="cQuality"><option>KNOWN</option><option selected>ESTIMATED</option><option>BENCHMARK</option></select>
+          </div>
+          <div class="diagresult">
+            <div class="diagrow">
+              <span class="diaglabel">Monthly Leakage <span id="calcQualityLabel" class="diagqual">estimated</span></span>
+              <strong id="calcResult" class="diagfigure">$0</strong>
+            </div>
+            <div class="diagrow diagrow-sub">
+              <span class="diaglabel">Annual Leakage</span>
+              <strong id="calcResultAnnual" class="diagfigure diagfigure-sm">$0</strong>
+            </div>
+            <div class="note" id="calcSub"></div>
+          </div>
+          <p class="note">This is a modeled opportunity, not a promise of recovered revenue. Replace estimates with owner-provided or directly observed numbers before sending a proposal.</p>
+          <div class="field"><label>Associated HVAC leak</label><select id="cLeakId"></select></div>
+          <div class="field"><label>Observed issue</label><input id="cIssue" placeholder="After-hours calls ring to voicemail"></div>
+          <div class="field"><label>Evidence / source</label><input id="cSource" placeholder="Called Tuesday 6:45pm; no live response"></div>
+          <button class="btn accentbtn block" id="btnAddEvidence">Add as evidence</button>
+        </div>
+        <div class="card">
+          <div class="head">Validated Evidence<small id="evCount"></small></div>
+          <div id="evList"></div>
+          <p class="note">The top validated opportunity below drives the $997 fixed-fee implementation.</p>
+        </div>
+      </div>
+
+      <div class="subpanel" id="s-outreach">
+        <div class="pitchtypes">
+          <button class="ptype" data-t="scan">Free scan invite</button>
+          <button class="ptype active" data-t="email">First email</button>
+          <button class="ptype" data-t="call">Cold call opener</button>
+          <button class="ptype" data-t="d4">Day 4 follow-up</button>
+          <button class="ptype" data-t="d11">Day 11 follow-up</button>
+        </div>
+        <div id="pitchWarn"></div>
+        <div class="pitchbox" id="pitchOut">Add evidence first, then generate outreach.</div>
+        <button class="btn outline block copybtn" id="btnCopyPitch">Copy to clipboard</button>
+      </div>
+
+      <div class="subpanel" id="s-offer">
+        <div id="offerOut"></div>
+      </div>
+
+      <div class="subpanel" id="s-packet">
+        <div class="card">
+          <div class="head">Client Packet</div>
+          <p class="note">One page for the client: every recorded observation with its source and date beside it. Pulled straight from the Evidence tab — nothing added, nothing hidden.</p>
+          <div id="packetPreview"></div>
+        </div>
+        <div class="card">
+          <button class="btn outline block" id="btnCopyPacket">Copy message</button>
+          <button class="btn outline block" id="btnPrintPacket">Print / Save PDF</button>
+        </div>
+        <div class="card">
+          <div class="head">Mark as sent</div>
+          <div class="g2">
+            <div class="field"><label>Sent date</label><input id="pkSentDate" type="date"></div>
+            <div class="field"><label>Method</label>
+              <select id="pkMethod">
+                <option value="email">Email</option>
+                <option value="call">Phone / call</option>
+                <option value="text">Text</option>
+                <option value="in_person">In person</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn primary block" id="btnMarkPacketSent">Mark packet sent</button>
+          <div class="note" id="packetSentStatus"></div>
+        </div>
+      </div>
+
+      <div class="subpanel" id="s-handoff">
+        <div id="handoffNotWon"></div>
+        <div id="handoffBody" class="hidden">
+          <div class="card">
+            <div class="head">Agreed Fix<small id="handoffStatus"></small></div>
+            <div id="handoffLeak"></div>
+          </div>
+          <div class="card">
+            <div class="head">Baseline Measurement</div>
+            <p class="note">The starting numbers agreed with the client before the fix goes in — this is what the 30-day measurement compares against.</p>
+            <div class="field"><textarea id="hfBaseline" rows="3" placeholder="e.g. 14 missed calls/week measured Mon-Fri 8am-6pm before the fix"></textarea></div>
+          </div>
+          <div class="card">
+            <div class="head">Minimum Handoff Checklist<small id="handoffCount"></small></div>
+            <div id="handoffList"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="subpanel" id="s-pnotes">
+        <div class="field"><textarea id="pNoteText" rows="3" placeholder="Call notes, objections raised, next step..."></textarea></div>
+        <button class="btn primary block" id="btnSavePNote">Save note</button>
+        <div id="pNoteList"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Reset confirm -->
+<div class="overlay center hidden" id="resetOverlay">
+  <div class="sheet" style="max-width:420px">
+    <div class="sheethead"><div class="ttl">Reset tool</div><button class="closeicon" id="btnCloseReset">&times;</button></div>
+    <div class="sheetbody">
+      <p class="note" style="margin-bottom:10px">This permanently deletes all prospects, evidence, activity, and notes on this device. Export a backup first if you want to keep this data.</p>
+      <div class="field"><label>Type RESET to confirm</label><input id="resetConfirmInput" placeholder="RESET"></div>
+      <button class="btn danger block" id="btnConfirmReset">Permanently reset</button>
+    </div>
+  </div>
+</div>
+
+<!-- Won detail -->
+<div class="overlay center hidden" id="wonOverlay">
+  <div class="sheet" style="max-width:420px">
+    <div class="sheethead"><div class="ttl">Mark WON</div><button class="closeicon" id="btnCloseWon">&times;</button></div>
+    <div class="sheetbody">
+      <div class="field"><label>Tier sold</label>
+        <select id="wonTier">
+          <option value="good">Good — $997 fixed fee</option>
+          <option value="better">Better — $5,000 setup + $2,500/mo</option>
+          <option value="best">Best — $7,500/mo</option>
+        </select>
+      </div>
+      <div class="field"><label>Amount collected so far $</label><input id="wonAmount" type="number" min="0" value="997"></div>
+      <button class="btn primary block" id="btnConfirmWon">Confirm win</button>
+    </div>
+  </div>
+</div>
+
+<!-- Call mode -->
+<div class="callwrap hidden" id="callWrap">
+  <div class="callhead">
+    <select id="callProspectSelect" style="background:#ffffff14;color:#fff;border:1px solid #ffffff33;border-radius:8px;padding:10px;min-height:44px;flex:1;margin-right:10px"></select>
+    <button class="iconbtn" id="btnExitCall">Exit</button>
+  </div>
+  <div class="callbody" id="callBody"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- constants ---------- */
+var LEAK_LIBRARY=[
+  {id:"HVAC-LEAK-001",name:"Missed calls and slow lead response",category:"lead_capture",action:"Deploy missed-call text-back + AI receptionist / after-hours routing"},
+  {id:"HVAC-LEAK-002",name:"Booking friction on website and mobile",category:"conversion_friction",action:"Simplify booking flow: above-fold CTA, short form, one-tap call"},
+  {id:"HVAC-LEAK-003",name:"Weak estimate / quote follow-up",category:"follow_up",action:"Install estimate follow-up sequence (email + SMS + call)"},
+  {id:"HVAC-LEAK-004",name:"Unworked leads and no systematic follow-up",category:"follow_up",action:"Deploy lead qualification + follow-up automation"},
+  {id:"HVAC-LEAK-005",name:"Weak local visibility and Google Business Profile",category:"local_visibility",action:"Optimize GMB, service-area pages, local citations"},
+  {id:"HVAC-LEAK-006",name:"Poor AI-search visibility (GEO)",category:"ai_search_visibility",action:"Add schema, structured content, and citation-ready assets"},
+  {id:"HVAC-LEAK-007",name:"Weak reputation and unanswered reviews",category:"reputation_trust",action:"Deploy review monitoring, responses, and post-job review requests"},
+  {id:"HVAC-LEAK-008",name:"Weak service pages",category:"conversion_friction",action:"Rewrite high-value service pages"},
+  {id:"HVAC-LEAK-009",name:"Weak maintenance-plan conversion",category:"conversion_friction",action:"Install maintenance-agreement conversion sequence"},
+  {id:"HVAC-LEAK-010",name:"No systematic referral system",category:"follow_up",action:"Install referral + review request sequence"}
+];
+function leakById(id){for(var i=0;i<LEAK_LIBRARY.length;i++){if(LEAK_LIBRARY[i].id===id)return LEAK_LIBRARY[i];}return null;}
+
+var PIPELINE_STATES=["TARGET","AUDITED","VERIFIED","PROPOSAL_READY","SENT","CONVERSATION","WON","LOST","NURTURE"];
+var MAX_SLOTS=5;
+var STORAGE_KEY="rra_state_v2";
+var BACKUP_KEY="rra_state_v2_backup";
+
+var OBJECTIONS=[
+  ["We're fine.","Good — then this costs you ten minutes to confirm. If the leak I found isn't real, I'll say so and we're done. If it is, you'll know exactly what it's costing you."],
+  ["My receptionist handles that.","Then the question isn't whether someone answers — it's whether the specific gap I observed still happens. I called at [time] and got [result]. If your receptionist covers that window, I'll remove it from the analysis."],
+  ["We already have software.","Software that isn't closing this specific gap is exactly why the leak is still showing up. I'm not asking you to replace anything — just fix the one leak the evidence points to."],
+  ["We don't miss many calls.","That's a testable claim, not a guess — I'll show you exactly how I observed the gap. If your real numbers are better than what I assumed, give them to me and I'll recalculate it live."],
+  ["Send me information.","Absolutely — I'll send the client-facing breakdown with the evidence, the assumptions, and the one number that matters. Can we put 10 minutes on the calendar after you've looked at it?"],
+  ["$997 is expensive.","If the validated opportunity doesn't clear $997, you shouldn't buy it — that's the test. Give me your real call volume, close rate, and ticket value and let's see if the economics hold up."],
+  ["I need to think about it.","Fair. What specifically needs thought — whether the leak is real, the size of the number, or whether $997 is worth it to find out?"],
+  ["I need to talk to my partner.","Makes sense. Want me to send the one-page breakdown so you both have the same evidence in front of you before that conversation?"],
+  ["We already have an agency.","This isn't an agency engagement — it's one fixed-fee fix for one documented leak. It doesn't compete with anything your agency is already doing."],
+  ["How do I know this will work?","You'll know because we measure it. Thirty days after the fix, we look at the same numbers we used to size the leak and compare. If it didn't move, you'll see that too."],
+  ["Can you guarantee revenue?","No — and anyone who does is guessing. What I can guarantee is a documented leak, a conservative estimate labeled by how sure we are, and a fixed price to fix the single biggest one."],
+  ["Not now.","Understood. I'll mark this for a 30-day re-engage rather than keep chasing you. If something changes sooner, you have my number."]
+];
+document.getElementById("clObjection").innerHTML='<option value="">No objection</option>'+OBJECTIONS.map(function(o){return '<option value="'+esc(o[0])+'">'+esc(o[0])+"</option>";}).join("");
+
+var DISCOVERY_QUESTIONS=[
+  "Roughly how many inbound calls do you receive in a normal month?",
+  "What happens when nobody answers?",
+  "Do missed callers receive an immediate text?",
+  "How many of those calls become booked jobs?",
+  "What's an average completed job worth to you?",
+  "How are after-hours calls handled today?"
+];
+
+/* ---------- state ---------- */
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,8);}
+function todayISO(){return new Date().toISOString().slice(0,10);}
+function nowISO(){return new Date().toISOString();}
+function fmtMoney(n){n=Math.round(Number(n)||0);return "$"+n.toLocaleString();}
+function fmtDate(d){if(!d)return "";var dt=(d instanceof Date)?d:new Date(d);if(isNaN(dt))return "";return dt.toLocaleDateString(undefined,{month:"short",day:"numeric"});}
+function addDays(dateStr,days){var d=new Date(dateStr+"T00:00:00");d.setDate(d.getDate()+days);return d;}
+function daysBetween(a,b){return Math.round((b-a)/86400000);}
+function esc(s){var d=document.createElement("div");d.textContent=s==null?"":String(s);return d.innerHTML;}
+
+/* ---------- dossier parser: paste labeled research notes, fill fields in one step ---------- */
+var DOSSIER_FIELD_MAP=[
+  {key:"company",labels:["company","business","business name","name","prospect"]},
+  {key:"city",labels:["city","city/state","location","market"]},
+  {key:"contact",labels:["contact","contact name","owner","owner name"]},
+  {key:"phone",labels:["phone","phone number","tel","telephone"]},
+  {key:"website",labels:["website","site","url","web"]},
+  {key:"email",labels:["email","e-mail"]},
+  {key:"source",labels:["source","evidence source","found via","research source"]},
+  {key:"notes",labels:["notes","why","why this target","open questions","questions","evidence","observations"]}
+];
+var SINGLE_LINE_FIELDS={company:1,city:1,contact:1,phone:1,website:1,email:1};
+function parseDossier(text){
+  var out={};
+  var lastKey=null;
+  (text||"").split(/\r?\n/).forEach(function(line){
+    var m=line.match(/^\s*([A-Za-z][A-Za-z \/\-]{1,30}?)\s*[:\-–]\s*(.*)$/);
+    var matchedKey=null;
+    if(m){
+      var label=m[1].trim().toLowerCase();
+      for(var i=0;i<DOSSIER_FIELD_MAP.length;i++){
+        if(DOSSIER_FIELD_MAP[i].labels.indexOf(label)>=0){matchedKey=DOSSIER_FIELD_MAP[i].key;break;}
+      }
+    }
+    if(matchedKey){
+      var val=m[2].trim();
+      out[matchedKey]=out[matchedKey]?out[matchedKey]+(val?"\n"+val:""):val;
+      lastKey=matchedKey;
+    }else if(lastKey&&!SINGLE_LINE_FIELDS[lastKey]&&line.trim()){
+      out[lastKey]=(out[lastKey]?out[lastKey]+"\n":"")+line.trim();
+    }
+  });
+  return out;
+}
+function applyDossierToFields(parsed,fieldMap){
+  var filled=[];
+  Object.keys(fieldMap).forEach(function(key){
+    if(parsed[key]){
+      var el=document.getElementById(fieldMap[key]);
+      if(el){el.value=parsed[key];filled.push(key);}
+    }
+  });
+  return filled;
+}
+
+function defaultState(){
+  return {version:2,prospects:[],bench:[],activities:[],generalNotes:[],settings:{}};
+}
+
+var STATE=null;
+var corrupted=false;
+
+function safeParse(raw){
+  try{
+    var obj=JSON.parse(raw);
+    if(!obj||typeof obj!=="object"||!Array.isArray(obj.prospects))return null;
+    return obj;
+  }catch(e){return null;}
+}
+
+function migrateOldData(state){
+  try{
+    var rawLeads=localStorage.getItem("rra_leads");
+    var rawActivity=localStorage.getItem("rra_activity");
+    var rawNotes=localStorage.getItem("rra_notes");
+    if(!rawLeads&&!rawActivity&&!rawNotes)return state;
+    var nameToId={};
+    if(rawLeads){
+      var leads=JSON.parse(rawLeads);
+      if(Array.isArray(leads)){
+        leads.forEach(function(l){
+          var id=uid();
+          nameToId[(l.biz||"").toLowerCase()]=id;
+          var evidence=[];
+          if(l.why){evidence.push({id:uid(),issue:l.why,source:"",leakId:null,quality:"ESTIMATED",impact:0,priority:3,notes:"",ts:nowISO()});}
+          var st=PIPELINE_STATES.indexOf(l.state)>=0?l.state:"TARGET";
+          state.prospects.push({
+            id:id,company:l.biz||"(unnamed)",website:l.url||"",city:"",contact:l.owner||"",email:"",phone:l.phone||"",
+            source:"migrated",notes:[],state:st,dateAdded:nowISO(),lastContact:"",sentDate:null,followupsSent:0,
+            outcome:(st==="WON"||st==="LOST"||st==="NURTURE")?st:null,wonDetails:null,
+            calc:{mode:"missed"},evidence:evidence,topLeakId:evidence[0]?evidence[0].id:null
+          });
+        });
+      }
+    }
+    if(rawActivity){
+      var acts=JSON.parse(rawActivity);
+      var typeMap={"No Answer":"call","Sent":"email","Reply":"reply","Conversation":"conversation","Lost":"lost","Sale":"won"};
+      if(Array.isArray(acts)){
+        acts.forEach(function(a){
+          state.activities.push({id:uid(),prospectId:nameToId[(a.biz||"").toLowerCase()]||null,prospectName:a.biz||"(unnamed)",type:typeMap[a.out]||"call",ts:a.ts||nowISO(),note:""});
+        });
+      }
+    }
+    if(rawNotes){
+      var notes=JSON.parse(rawNotes);
+      if(Array.isArray(notes)){
+        notes.forEach(function(n){state.generalNotes.push({id:uid(),text:n.t||"",ts:n.ts||nowISO()});});
+      }
+    }
+  }catch(e){/* migration is best-effort; never block load */}
+  return state;
+}
+
+var DEFAULT_SEED_JSON=`{"version": 2, "prospects": [{"id": "seed-exodus-mechanical", "company": "Exodus Mechanical", "city": "Melissa, TX", "website": "https://www.exodusmechanical.com", "contact": "Brian & Kristi", "phone": "469-500-7977", "email": "", "source": "Public listing research (company site, Yelp/Houzz reviews) — see pipeline.md", "notes": [{"id": "seed-note-exodus-1", "text": "Owners publicly advertise \\"call or text\\" on this number — a direct SMS outreach route. Reported (unverified on-site): never charges for after-hours service, offers emergency service, guaranteed same-day service, Neighborhood Favorite 2021-2023. If accurate, missed-call/after-hours may NOT be the right wedge here — check reviews/booking/follow-up angles first during the manual pass instead of defaulting to the standard playbook.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-exodus-1", "issue": "Owners advertise a direct call/text number — but site/reviews claim no after-hours charge, emergency service, and same-day guarantee, so the missed-call wedge needs verifying, not assuming.", "source": "Company site + Yelp/Houzz reviews (search-indexed, not directly verified on-site)", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the 20-minute manual pass identifies the actual leak.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-exodus-1"}, {"id": "seed-ample-services", "company": "Ample Services", "city": "Fulshear, TX", "website": "https://www.amplehouston.com", "contact": "Robert Coufal", "phone": "832-794-4878", "email": "", "source": "Public listing research (BBB, company site) — see pipeline.md", "notes": [{"id": "seed-note-ample-1", "text": "Owner confirmed via BBB. Site claims 24/7 emergency HVAC service — directly testable with a 7pm call. That's the wedge to verify first.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-ample-1", "issue": "Site claims 24/7 emergency service — test whether a call after hours actually gets a live response.", "source": "Company site (amplehouston.com), search-indexed, not yet verified with a real test call", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the 7pm test call.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-ample-1"}, {"id": "seed-bill-anderson-air", "company": "Bill Anderson Air", "city": "Katy/Fulshear, TX", "website": "https://www.billandersonair.com", "contact": "Bill Anderson", "phone": "281-769-9999", "email": "", "source": "Public listing research (BBB, Yelp, company site) — see pipeline.md", "notes": [{"id": "seed-note-banderson-1", "text": "Family-owned since 1998. Posted hours Mon-Fri 8am-4pm, no weekend/after-hours coverage found in listings — plausible after-hours/weekend capture wedge, worth the 7pm and Saturday test.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-banderson-1", "issue": "Posted business hours are Mon-Fri 8am-4pm only — no after-hours/weekend coverage advertised. Verify what actually happens on a call outside those hours.", "source": "BBB/Yelp business listings (search-indexed, not yet verified with a real test call)", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the manual pass.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-banderson-1"}, {"id": "seed-castle-ac-heating", "company": "Castle Air Conditioning & Heating", "city": "Fulshear, TX", "website": "https://castleacandheating.com", "contact": "Josh Cartwright", "phone": "713-667-7606", "email": "", "source": "Public listing research (company site, LinkedIn, BBB) — see pipeline.md", "notes": [{"id": "seed-note-castle-1", "text": "Owner-operated since 2014, confirmed via company site and LinkedIn. No specific claims found yet to test against — needs the full manual pass, no shortcuts assumed.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [], "topLeakId": null}, {"id": "seed-reed-heating-air", "company": "Reed Heating and Air", "city": "Melissa, TX", "website": "", "contact": "Eric Reed", "phone": "469-831-9842", "email": "", "source": "Public listing research (BBB, LinkedIn) — see pipeline.md", "notes": [{"id": "seed-note-reed-1", "text": "Owner and ~20+ years in business confirmed via BBB and LinkedIn. Website NOT confirmed — multiple unrelated Texas HVAC companies also use \\"Reed\\" in their name/domain. Confirm the real site directly (call or Google Maps) before running revenue-scan/audit against any reed*.com domain.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [], "topLeakId": null}], "activities": [], "generalNotes": [{"id": "seed-gen-note-1", "text": "Batch 1 seeded from public-listing research (BBB, LinkedIn, company sites, aggregator reviews). This research came from an environment whose network egress was allowlisted — it could not load these companies' own sites directly to quote exact on-page text or detect booking/chat/SMS widgets, only search-indexed summaries. Treat every seeded evidence entry as ESTIMATED/reported, not KNOWN, until verified by the Step 3 manual pass (call at 7pm, check the site on a phone, count reviews) and/or an actual revenue-scan/revenue-audit run from a normal internet connection.", "ts": "2026-09-17T00:14:23.000Z"}], "settings": {}, "bench": [{"id": "bench-chillzone", "company": "Chillzone Refrigeration & Air Conditioning", "city": "Fulshear, TX", "contact": "", "phone": "832-599-0677", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Owner not yet identified; website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-aba-one", "company": "Aba One Plumbing", "city": "Fulshear, TX", "contact": "", "phone": "346-509-2900", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Plumbing-primary — confirm they also do residential HVAC before qualifying. Owner not yet identified; website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-kmi", "company": "KMI A/C and Heating", "city": "Celina, TX", "contact": "", "phone": "972-382-1110", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website confirmed to exist but URL and owner not yet identified.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-tl-central", "company": "T L Central Heating & Air", "city": "Celina, TX", "contact": "Tim Looper (BBB-confirmed)", "phone": "972-382-2663", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-blessed-air", "company": "Blessed Air & Refrigeration Service", "city": "Celina, TX", "contact": "Terry Dorris (owner)", "phone": "972-382-2479", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-air-rescue", "company": "Air Rescue Heating & Cooling", "city": "Celina, TX", "contact": "", "phone": "469-294-2616", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Owner not yet identified; website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-dyno", "company": "Dyno Heating & Cooling", "city": "Melissa, TX", "contact": "Marcus Stevenson (BBB-confirmed)", "phone": "972-838-7075", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-arrowhead", "company": "Arrowhead Air Solutions", "city": "Melissa, TX", "contact": "Randy S. Landers (owner/license holder)", "phone": "469-993-8283", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-h2-mechanical", "company": "H2 Mechanical Services", "city": "Melissa, TX", "contact": "Ryan (owner)", "phone": "", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Phone not yet identified — lowest-priority bench entry until found.", "addedAt": "2026-09-18T00:00:00.000Z"}]}`;
+
+function loadState(){
+  var raw=localStorage.getItem(STORAGE_KEY);
+  if(raw){
+    var parsed=safeParse(raw);
+    if(parsed)return parsed;
+    var backupRaw=localStorage.getItem(BACKUP_KEY);
+    var backup=backupRaw?safeParse(backupRaw):null;
+    corrupted=true;
+    return backup||defaultState();
+  }
+  var fresh=defaultState();
+  fresh=migrateOldData(fresh);
+  if(!fresh.prospects.length){
+    var seeded=safeParse(DEFAULT_SEED_JSON);
+    if(seeded)return seeded;
+  }
+  return fresh;
+}
+
+function saveState(){
+  try{
+    var raw=JSON.stringify(STATE);
+    var prev=localStorage.getItem(STORAGE_KEY);
+    if(prev)localStorage.setItem(BACKUP_KEY,prev);
+    localStorage.setItem(STORAGE_KEY,raw);
+  }catch(e){toast("Save failed — storage may be full");}
+}
+
+/* ---------- derived helpers ---------- */
+function prospectById(id){for(var i=0;i<STATE.prospects.length;i++){if(STATE.prospects[i].id===id)return STATE.prospects[i];}return null;}
+function evidenceSorted(p){return (p.evidence||[]).slice().sort(function(a,b){return (b.impact||0)-(a.impact||0);});}
+function topEvidence(p){
+  if(p.topLeakId){var pinned=(p.evidence||[]).filter(function(e){return e.id===p.topLeakId;})[0];if(pinned)return pinned;}
+  var sorted=evidenceSorted(p);
+  return sorted[0]||null;
+}
+
+/* ---------- verify checklist: confirm before a dollar claim goes to the client ---------- */
+var RESEARCH_ITEMS=[
+  {id:"business",label:"Correct business identity confirmed (name, address, owner match)"},
+  {id:"phone",label:"Phone number confirmed (correct, working line)"},
+  {id:"website",label:"Website confirmed (loads, matches business)"}
+];
+var VERIFY_ITEMS=[
+  {id:"reviews",label:"Reviews checked (Google/Yelp — claims vs. complaints)"},
+  {id:"afterHours",label:"After-hours call result recorded (test call made and logged)"}
+];
+function checklistProgress(items,p){
+  var v=(p&&p.verify)||{};
+  var done=items.filter(function(it){return v[it.id]&&v[it.id].done;}).length;
+  return {done:done,total:items.length,allDone:done===items.length};
+}
+function nextChecklistItem(items,p){
+  var v=(p&&p.verify)||{};
+  for(var i=0;i<items.length;i++){if(!(v[items[i].id]&&v[items[i].id].done))return items[i];}
+  return null;
+}
+function researchProgress(p){return checklistProgress(RESEARCH_ITEMS,p);}
+function nextResearchItem(p){return nextChecklistItem(RESEARCH_ITEMS,p);}
+function verifyProgress(p){return checklistProgress(VERIFY_ITEMS,p);}
+function nextVerifyItem(p){return nextChecklistItem(VERIFY_ITEMS,p);}
+function readyToShare(p){
+  return researchProgress(p).allDone&&verifyProgress(p).allDone&&(p.evidence||[]).length>0;
+}
+/* ---------- explicit readiness gates (spec: RESEARCH/VERIFY/DIAGNOSE/SHARE/...) ---------- */
+function freeScanReady(p){
+  return researchProgress(p).allDone&&(p.evidence||[]).length>0;
+}
+function diagnosticAuditReady(p){
+  var top=topEvidence(p);
+  return !!top&&top.quality==="KNOWN";
+}
+function offerReady(p){
+  var top=topEvidence(p);
+  return !!top&&top.quality==="KNOWN";
+}
+function prospectStage(p){
+  if(p.outcome==="WON")return handoffProgress(p).allDone?"MEASURE":"ONBOARD";
+  if(p.outcome==="LOST")return "LOST";
+  if(p.outcome==="NURTURE")return "FOLLOW UP";
+  var fu=followupInfo(p);
+  if(fu||p.state==="CONVERSATION"||p.state==="SENT")return "FOLLOW UP";
+  if(p.state==="PROPOSAL_READY")return "SHARE";
+  if(!researchProgress(p).allDone)return "RESEARCH";
+  if(!verifyProgress(p).allDone)return "VERIFY";
+  if(!offerReady(p))return "DIAGNOSE";
+  return "SHARE";
+}
+
+/* ---------- handoff checklist: what a WON prospect needs before work starts ---------- */
+var HANDOFF_ITEMS=[
+  {id:"contact",label:"Client contact confirmed for scheduling the fix"},
+  {id:"baseline",label:"Baseline numbers captured (agreed starting point before the fix)"},
+  {id:"access",label:"Access gathered — scoped to only what this fix needs, nothing broader"},
+  {id:"measurement",label:"Client told to expect a 30-day measurement follow-up"}
+];
+function handoffProgress(p){
+  var h=(p&&p.handoff&&p.handoff.items)||{};
+  var done=HANDOFF_ITEMS.filter(function(it){return h[it.id]&&h[it.id].done;}).length;
+  return {done:done,total:HANDOFF_ITEMS.length,allDone:done===HANDOFF_ITEMS.length};
+}
+function nextHandoffItem(p){
+  var h=(p&&p.handoff&&p.handoff.items)||{};
+  for(var i=0;i<HANDOFF_ITEMS.length;i++){if(!(h[HANDOFF_ITEMS[i].id]&&h[HANDOFF_ITEMS[i].id].done))return HANDOFF_ITEMS[i];}
+  return null;
+}
+
+function followupInfo(p){
+  if(!p.sentDate)return null;
+  if(p.state!=="SENT"&&p.state!=="CONVERSATION")return null;
+  if(p.outcome)return null;
+  var seq=[4,11];
+  if(p.followupsSent>=seq.length){
+    return {due:null,label:"Follow-up cycle complete",status:"complete"};
+  }
+  var dueDate=addDays(p.sentDate,seq[p.followupsSent]);
+  var today=new Date();today.setHours(0,0,0,0);
+  var diff=daysBetween(today,dueDate);
+  var status=diff<0?"overdue":(diff===0?"today":"upcoming");
+  return {due:dueDate,label:"Day "+seq[p.followupsSent]+" follow-up",status:status};
+}
+
+function prospectAction(p){
+  if(p.outcome==="WON"){
+    var hNext=nextHandoffItem(p);
+    if(hNext)return {text:"ONBOARD: "+hNext.label+" — "+p.company,urgency:1,kind:"handoff"};
+    return null;
+  }
+  if(p.outcome==="LOST")return null;
+  if(p.outcome==="NURTURE"){
+    if(p.nurtureReengageDate&&new Date(p.nurtureReengageDate)<=new Date()){
+      return {text:"FOLLOW UP: Re-engage "+p.company+" (30-day mark passed)",urgency:2,kind:"reengage"};
+    }
+    return null;
+  }
+  var fu=followupInfo(p);
+  if(fu&&fu.status==="overdue")return {text:"FOLLOW UP: "+fu.label+" OVERDUE — "+p.company,urgency:0,kind:"followup"};
+  if(fu&&fu.status==="today")return {text:"FOLLOW UP: "+fu.label+" due today — "+p.company,urgency:1,kind:"followup"};
+  if(p.state==="CONVERSATION")return {text:"FOLLOW UP: Continue conversation — push next step with "+p.company,urgency:2,kind:"conversation"};
+  if(p.state==="PROPOSAL_READY")return {text:"SHARE: Send initial outreach to "+p.company,urgency:3,kind:"send"};
+  if(p.state==="VERIFIED"){
+    if((p.evidence||[]).length)return {text:"SHARE: Build the $997 proposal for "+p.company,urgency:4,kind:"offer"};
+    return {text:"DIAGNOSE: Add evidence for "+p.company,urgency:4,kind:"evidence"};
+  }
+  if(p.state==="AUDITED"){
+    var vNext=nextVerifyItem(p);
+    if(vNext)return {text:"VERIFY: "+vNext.label+" — "+p.company,urgency:5,kind:"verify"};
+    return {text:"DIAGNOSE: Mark "+p.company+" VERIFIED — checklist complete",urgency:5,kind:"verify"};
+  }
+  if(p.state==="TARGET"){
+    var rNext=nextResearchItem(p);
+    if(rNext)return {text:"RESEARCH: "+rNext.label+" — "+p.company,urgency:6,kind:"research"};
+    if(!(p.evidence||[]).length)return {text:"DIAGNOSE: Scan "+p.company,urgency:6,kind:"scan"};
+    return {text:"VERIFY: Mark "+p.company+" AUDITED once scanned",urgency:6,kind:"audit"};
+  }
+  if(fu&&fu.status==="upcoming")return {text:"FOLLOW UP: "+p.company+" — "+fu.label+" upcoming ("+fmtDate(fu.due)+")",urgency:8,kind:"upcoming"};
+  return null;
+}
+
+function prospectActionCard(p){
+  if(p.outcome==="WON"){
+    var hNextC=nextHandoffItem(p);
+    if(hNextC)return {text:"ONBOARD: "+hNextC.label,due:null,status:""};
+    return null;
+  }
+  if(p.outcome==="LOST")return null;
+  if(p.outcome==="NURTURE"){
+    if(p.nurtureReengageDate&&new Date(p.nurtureReengageDate)<=new Date()){
+      return {text:"FOLLOW UP: Re-engage (30-day mark passed)",due:null,status:"today"};
+    }
+    return null;
+  }
+  var fu=followupInfo(p);
+  if(fu&&fu.status==="overdue")return {text:"FOLLOW UP: "+fu.label+" OVERDUE",due:fu.due,status:"overdue"};
+  if(fu&&fu.status==="today")return {text:"FOLLOW UP: "+fu.label+" due today",due:fu.due,status:"today"};
+  if(p.state==="CONVERSATION")return {text:"FOLLOW UP: Continue conversation — push next step",due:null,status:""};
+  if(p.state==="PROPOSAL_READY")return {text:"SHARE: Send initial outreach",due:null,status:""};
+  if(p.state==="VERIFIED"){
+    if((p.evidence||[]).length)return {text:"SHARE: Build the $997 proposal",due:null,status:""};
+    return {text:"DIAGNOSE: Add evidence",due:null,status:""};
+  }
+  if(p.state==="AUDITED"){
+    var vNextC=nextVerifyItem(p);
+    if(vNextC)return {text:"VERIFY: "+vNextC.label,due:null,status:""};
+    return {text:"DIAGNOSE: Mark VERIFIED — checklist complete",due:null,status:""};
+  }
+  if(p.state==="TARGET"){
+    var rNextC=nextResearchItem(p);
+    if(rNextC)return {text:"RESEARCH: "+rNextC.label,due:null,status:""};
+    if(!(p.evidence||[]).length)return {text:"DIAGNOSE: Scan website",due:null,status:""};
+    return {text:"VERIFY: Mark AUDITED once scanned",due:null,status:""};
+  }
+  if(fu&&fu.status==="upcoming")return {text:"FOLLOW UP: "+fu.label+" upcoming",due:fu.due,status:"upcoming"};
+  return null;
+}
+
+function nextActionQueue(){
+  var items=[];
+  STATE.prospects.forEach(function(p){
+    var a=prospectAction(p);
+    if(a){a.prospectId=p.id;items.push(a);}
+  });
+  var filled=STATE.prospects.length;
+  if(filled<MAX_SLOTS){
+    items.push({text:"Add Prospect #"+(filled+1)+" — cohort not full",urgency:9,kind:"add"});
+  }
+  items.sort(function(a,b){return a.urgency-b.urgency;});
+  return items;
+}
+
+/* ---------- toast ---------- */
+var toastTimer=null;
+function toast(msg){
+  var el=document.getElementById("toast");
+  el.textContent=msg;el.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer=setTimeout(function(){el.classList.remove("show");},1800);
+}
+
+function copyText(text){
+  function ok(){toast("Copied");}
+  function fail(){
+    try{
+      var ta=document.createElement("textarea");
+      ta.value=text;ta.style.position="fixed";ta.style.opacity="0";
+      document.body.appendChild(ta);ta.focus();ta.select();
+      document.execCommand("copy");document.body.removeChild(ta);ok();
+    }catch(e){toast("Copy failed — select text manually");}
+  }
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(ok,fail);
+  }else{fail();}
+}
+
+/* ---------- tabs ---------- */
+document.getElementById("mainTabs").addEventListener("click",function(e){
+  var btn=e.target.closest(".tab");if(!btn)return;
+  document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("active");});
+  document.querySelectorAll(".panel").forEach(function(x){x.classList.remove("active");});
+  btn.classList.add("active");
+  document.getElementById("p-"+btn.dataset.p).classList.add("active");
+});
+function gotoTab(name){
+  document.querySelectorAll(".tab").forEach(function(x){x.classList.toggle("active",x.dataset.p===name);});
+  document.querySelectorAll(".panel").forEach(function(x){x.classList.toggle("active",x.id==="p-"+name);});
+}
+
+/* ============ HOME ============ */
+function renderHome(){
+  var q=nextActionQueue();
+  var hero=q[0];
+  document.getElementById("heroAction").textContent=hero?hero.text:"Nothing due — add a prospect to begin.";
+  var goBtn=document.getElementById("heroGo");
+  goBtn.onclick=function(){
+    if(!hero||hero.kind==="add"){gotoTab("prospects");return;}
+    openProspectSheet(hero.prospectId);
+  };
+  var rest=q.slice(1,5);
+  document.getElementById("queueCount").textContent=rest.length?(rest.length+" more"):"";
+  var list=document.getElementById("queueList");
+  if(!rest.length){
+    list.innerHTML='<div class="queueitem"><span class="note">Nothing else due right now.</span></div>';
+  }else{
+    list.innerHTML=rest.map(function(it){
+      return '<div class="queueitem" data-goto="'+esc(it.prospectId||"")+'" data-kind="'+esc(it.kind)+'"><span>'+esc(it.text)+"</span><span>&rsaquo;</span></div>";
+    }).join("");
+    Array.prototype.forEach.call(list.querySelectorAll(".queueitem"),function(el){
+      el.addEventListener("click",function(){
+        var id=el.getAttribute("data-goto");
+        if(el.getAttribute("data-kind")==="add"){gotoTab("prospects");return;}
+        if(id)openProspectSheet(id);
+      });
+    });
+  }
+
+  var scans=STATE.prospects.filter(function(p){return p.state!=="TARGET"||(p.evidence||[]).length;}).length;
+  var opps=STATE.prospects.reduce(function(s,p){return s+(p.evidence||[]).length;},0);
+  var sent=STATE.prospects.filter(function(p){return !!p.sentDate;}).length;
+  var replies=STATE.activities.filter(function(a){return a.type==="reply";}).length;
+  var convos=STATE.prospects.filter(function(p){return p.state==="CONVERSATION"||p.outcome==="WON";}).length;
+  var proposals=STATE.activities.filter(function(a){return a.type==="proposal";}).length;
+  var wins=STATE.prospects.filter(function(p){return p.outcome==="WON";}).length;
+  var collected=STATE.prospects.reduce(function(s,p){return s+((p.wonDetails&&p.wonDetails.amount)||0);},0);
+
+  var stats=[
+    ["Prospects",STATE.prospects.length+"/"+MAX_SLOTS],
+    ["Scanned",scans],
+    ["Opportunities",opps],
+    ["Sent",sent],
+    ["Replies",replies],
+    ["Conversations",convos],
+    ["Proposals",proposals],
+    ["Won",wins]
+  ];
+  document.getElementById("homeStats").innerHTML=stats.map(function(s){
+    var isWon=s[0]==="Won";
+    return '<div class="stat"><strong'+(isWon&&s[1]?' style="color:var(--rra-green-text)"':"")+'>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";
+  }).join("")+'<div class="stat" style="grid-column:span 4"><strong style="color:var(--rra-green-text)">'+fmtMoney(collected)+'</strong><span>Collected Revenue</span></div>';
+
+  var banner=document.getElementById("corruptBanner");
+  banner.innerHTML=corrupted?'<div class="banner">Local data on this device was corrupted and has been reset (a backup copy was used if one existed). If you have an exported JSON backup, use Launch &rarr; Import data to restore it.</div>':"";
+}
+
+/* ============ PROSPECTS ============ */
+function renderSlots(){
+  document.getElementById("slotCount").textContent=STATE.prospects.length+"/"+MAX_SLOTS+" filled";
+  var grid=document.getElementById("slotGrid");
+  var html="";
+  for(var i=0;i<MAX_SLOTS;i++){
+    var p=STATE.prospects[i];
+    if(!p){
+      html+='<button class="pcard empty" data-add="1">+ Add Prospect #'+(i+1)+"</button>";
+      continue;
+    }
+    var top=topEvidence(p);
+    var stateBadge='<span class="badge state">'+esc(p.state)+"</span>";
+    if(p.state==="CONVERSATION")stateBadge='<span class="badge known">'+esc(p.state)+"</span>";
+    if(p.outcome==="WON")stateBadge='<span class="badge won">WON</span>';
+    if(p.outcome==="LOST")stateBadge='<span class="badge lost">LOST</span>';
+    var leakHtml=top?('<div class="leak"><b>'+esc(top.issue||"Top leak")+"</b><br>"+fmtMoney(top.impact)+"/mo &middot; "+fmtMoney(top.impact*12)+"/yr &middot; "+qualityBadge(top.quality)+(top.quality!=="KNOWN"?' <span class="note">confirm before quoting</span>':"")+"</div>"):'<div class="leak note">No evidence yet — run a scan and add findings.</div>';
+    var act=prospectActionCard(p);
+    var nextHtml="";
+    if(act){
+      var acls=act.status==="overdue"?"overdue":(act.status==="today"?"today":"");
+      nextHtml='<div class="nextrow"><span class="nextlabel">Next</span><span style="flex:1">'+esc(act.text)+"</span>"+(acls?'<span class="badge '+acls+'">'+act.status.toUpperCase()+"</span>":(act.due?'<span class="note">'+fmtDate(act.due)+"</span>":""))+"</div>";
+    }
+    html+='<button class="pcard" data-open="'+p.id+'"><div class="top2"><div><div class="co">'+esc(p.company)+'</div><div class="sub">'+esc(p.city||"")+(p.contact?" &middot; "+esc(p.contact):"")+"</div></div>"+stateBadge+"</div>"+leakHtml+nextHtml+"</button>";
+  }
+  grid.innerHTML=html;
+  Array.prototype.forEach.call(grid.querySelectorAll("[data-open]"),function(el){
+    el.addEventListener("click",function(){openProspectSheet(el.getAttribute("data-open"));});
+  });
+  Array.prototype.forEach.call(grid.querySelectorAll("[data-add]"),function(el){
+    el.addEventListener("click",function(){openProspectSheet(null);});
+  });
+}
+function qualityBadge(q){
+  q=q||"ESTIMATED";
+  var cls=q==="KNOWN"?"known":(q==="BENCHMARK"?"benchmark":"estimated");
+  return '<span class="badge '+cls+'">'+q+"</span>";
+}
+
+/* ---------- bench (raw contacts not yet in an active slot) ---------- */
+function renderBench(){
+  var bench=STATE.bench||[];
+  document.getElementById("benchCount").textContent=bench.length+" on file";
+  var list=document.getElementById("benchList");
+  if(!bench.length){list.innerHTML="";return;}
+  var slotsFull=STATE.prospects.length>=MAX_SLOTS;
+  list.innerHTML=bench.map(function(b){
+    return '<div class="card pcard" data-bench="'+b.id+'">'+
+      '<div class="top2"><div><div class="co">'+esc(b.company)+'</div><div class="sub">'+esc(b.city||"")+(b.contact?" &middot; "+esc(b.contact):"")+(b.phone?" &middot; "+esc(b.phone):"")+"</div></div></div>"+
+      (b.notes?'<p class="note" style="margin-top:6px">'+esc(b.notes)+"</p>":"")+
+      '<div class="row" style="margin-top:8px">'+
+        '<button class="pill'+(slotsFull?"":" on")+'" data-promote="'+b.id+'"'+(slotsFull?" disabled":"")+'>'+(slotsFull?"Slots full":"Promote to active slot")+"</button>"+
+        '<button class="pill" data-rmbench="'+b.id+'">Remove</button>'+
+      "</div></div>";
+  }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll("[data-promote]"),function(el){
+    el.addEventListener("click",function(){promoteBench(el.getAttribute("data-promote"));});
+  });
+  Array.prototype.forEach.call(list.querySelectorAll("[data-rmbench]"),function(el){
+    el.addEventListener("click",function(){
+      var id=el.getAttribute("data-rmbench");
+      STATE.bench=(STATE.bench||[]).filter(function(x){return x.id!==id;});
+      saveState();renderBench();
+    });
+  });
+}
+document.getElementById("btnAddBench").addEventListener("click",function(){
+  var company=document.getElementById("bfCompany").value.trim();
+  if(!company){toast("Company name required");return;}
+  STATE.bench=STATE.bench||[];
+  STATE.bench.push({
+    id:uid(),company:company,city:document.getElementById("bfCity").value.trim(),
+    contact:document.getElementById("bfContact").value.trim(),phone:document.getElementById("bfPhone").value.trim(),
+    website:document.getElementById("bfWebsite").value.trim(),email:"",source:"",
+    notes:document.getElementById("bfWhy").value.trim(),addedAt:nowISO()
+  });
+  ["bfCompany","bfCity","bfContact","bfPhone","bfWebsite","bfWhy","bfDossier"].forEach(function(id){document.getElementById(id).value="";});
+  saveState();renderBench();toast("Added to bench");
+});
+document.getElementById("btnParseBenchDossier").addEventListener("click",function(){
+  var raw=document.getElementById("bfDossier").value;
+  if(!raw.trim()){toast("Paste a dossier first");return;}
+  var parsed=parseDossier(raw);
+  var filled=applyDossierToFields(parsed,{company:"bfCompany",city:"bfCity",contact:"bfContact",phone:"bfPhone",website:"bfWebsite"});
+  var why=[parsed.source,parsed.notes].filter(Boolean).join("\n");
+  if(why){document.getElementById("bfWhy").value=why;filled.push("why/source");}
+  toast(filled.length?"Parsed "+filled.length+" field"+(filled.length===1?"":"s"):"No recognized labels found — check field names");
+});
+function promoteBench(id){
+  if(STATE.prospects.length>=MAX_SLOTS){toast("Five slots are full — free one first");return;}
+  var b=(STATE.bench||[]).find(function(x){return x.id===id;});
+  if(!b)return;
+  var p={
+    id:uid(),company:b.company,city:b.city||"",website:b.website||"",contact:b.contact||"",
+    phone:b.phone||"",email:b.email||"",source:b.source||"promoted from bench",notes:[],
+    state:"TARGET",dateAdded:nowISO(),lastContact:"",sentDate:null,followupsSent:0,
+    outcome:null,wonDetails:null,calc:{mode:"missed"},evidence:[],topLeakId:null
+  };
+  if(b.notes){
+    var ev={id:uid(),issue:b.notes,source:"",leakId:null,quality:"ESTIMATED",impact:0,priority:3,notes:"",ts:nowISO()};
+    p.evidence.push(ev);p.topLeakId=ev.id;
+  }
+  STATE.prospects.push(p);
+  STATE.bench=STATE.bench.filter(function(x){return x.id!==id;});
+  saveState();renderAll();toast(b.company+" promoted to active slot");
+}
+
+/* ---------- prospect sheet ---------- */
+var currentProspectId=null;
+function openProspectSheet(id){
+  currentProspectId=id;
+  var p=id?prospectById(id):null;
+  document.getElementById("sheetTitle").textContent=p?p.company:"Add prospect";
+  document.getElementById("pfDossier").value="";
+  document.getElementById("pfCompany").value=p?p.company:"";
+  document.getElementById("pfCity").value=p?p.city||"":"";
+  document.getElementById("pfWebsite").value=p?p.website||"":"";
+  document.getElementById("pfContact").value=p?p.contact||"":"";
+  document.getElementById("pfPhone").value=p?p.phone||"":"";
+  document.getElementById("pfEmail").value=p?p.email||"":"";
+  document.getElementById("pfSource").value=p?p.source||"":"";
+  document.getElementById("pfWhy").value=p&&p.evidence&&p.evidence[0]?p.evidence[0].issue:"";
+  document.getElementById("pfState").value=p?p.state:"TARGET";
+  document.getElementById("pfSentDate").value=p&&p.sentDate?p.sentDate:todayISO();
+  toggleSentDateField();
+  renderFollowupActions(p);
+  document.getElementById("callLogCard").classList.toggle("hidden",!p);
+  document.getElementById("clOutcome").value="connected";
+  document.getElementById("clContact").value=p?p.contact||"":"";
+  document.getElementById("clNote").value="";
+  document.getElementById("clObjection").value="";
+  document.getElementById("clNextAction").value="";
+  document.getElementById("clNextDate").value="";
+  document.getElementById("btnDeleteProspect").classList.toggle("hidden",!p);
+  var leakSel=document.getElementById("cLeakId");
+  leakSel.innerHTML=LEAK_LIBRARY.map(function(l){return '<option value="'+l.id+'">'+esc(l.name)+"</option>";}).join("");
+  setSubtab("overview");
+  document.getElementById("calcResult").textContent="$0";
+  document.getElementById("calcResultAnnual").textContent="$0";
+  document.getElementById("calcSub").textContent="";
+  renderVerifyChecklist(p);
+  if(p)renderEvidence(p);
+  if(p)renderOutreachPanel(p);
+  if(p)renderOfferPanel(p);
+  renderPacket(p);
+  renderHandoff(p);
+  if(p)renderProspectNotes(p);
+  document.getElementById("prospectOverlay").classList.remove("hidden");
+}
+document.getElementById("btnLogCall").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  var outcome=document.getElementById("clOutcome").value;
+  var contact=document.getElementById("clContact").value.trim();
+  var note=document.getElementById("clNote").value.trim();
+  var objection=document.getElementById("clObjection").value;
+  var nextAction=document.getElementById("clNextAction").value.trim();
+  var nextDate=document.getElementById("clNextDate").value;
+  var outcomeLabels={connected:"Connected",voicemail:"Voicemail",no_answer:"No answer",interested:"Interested",not_now:"Not now",declined:"Declined",wrong_contact:"Wrong contact"};
+  var activityType={connected:"call",voicemail:"voicemail",no_answer:"call",interested:"conversation",not_now:"call",declined:"lost",wrong_contact:"call"}[outcome]||"call";
+  var lines=["Call log — "+outcomeLabels[outcome]];
+  if(contact)lines.push("Contact: "+contact);
+  if(note)lines.push(note);
+  if(objection)lines.push("Objection: \""+objection+"\"");
+  if(nextAction||nextDate)lines.push("Next: "+(nextAction||"follow up")+(nextDate?" ("+fmtDate(new Date(nextDate))+")":""));
+  var summary=lines.join(" — ");
+  p.notes=p.notes||[];
+  p.notes.unshift({id:uid(),text:summary,ts:nowISO()});
+  p.lastContact=nowISO();
+  if(outcome==="interested"){p.state="CONVERSATION";p.outcome=null;}
+  else if(outcome==="not_now"){p.outcome="NURTURE";p.nurtureReengageDate=addDays(todayISO(),30).toISOString();}
+  else if(outcome==="declined"){p.state="LOST";p.outcome="LOST";}
+  logActivity(p.id,activityType,summary);
+  saveState();
+  document.getElementById("clContact").value="";
+  document.getElementById("clNote").value="";
+  document.getElementById("clObjection").value="";
+  document.getElementById("clNextAction").value="";
+  document.getElementById("clNextDate").value="";
+  renderAll();
+  openProspectSheet(p.id);
+  toast("Call logged");
+});
+function closeProspectSheet(){document.getElementById("prospectOverlay").classList.add("hidden");currentProspectId=null;}
+document.getElementById("btnCloseSheet").addEventListener("click",closeProspectSheet);
+document.getElementById("btnParseDossier").addEventListener("click",function(){
+  var raw=document.getElementById("pfDossier").value;
+  if(!raw.trim()){toast("Paste a dossier first");return;}
+  var parsed=parseDossier(raw);
+  var filled=applyDossierToFields(parsed,{company:"pfCompany",city:"pfCity",contact:"pfContact",phone:"pfPhone",website:"pfWebsite",email:"pfEmail",source:"pfSource"});
+  if(parsed.notes){document.getElementById("pfWhy").value=parsed.notes;filled.push("notes");}
+  toast(filled.length?"Parsed "+filled.length+" field"+(filled.length===1?"":"s")+" — review, then save":"No recognized labels found — check field names");
+});
+
+document.getElementById("pfState").addEventListener("change",function(){
+  toggleSentDateField();
+  if((this.value==="SENT")&&!document.getElementById("pfSentDate").value){
+    document.getElementById("pfSentDate").value=todayISO();
+  }
+});
+function toggleSentDateField(){
+  var st=document.getElementById("pfState").value;
+  document.getElementById("pfSentDateWrap").classList.toggle("hidden",!(st==="SENT"||st==="CONVERSATION"));
+}
+function renderFollowupActions(p){
+  var wrap=document.getElementById("followupActions");
+  wrap.innerHTML="";
+  if(!p){return;}
+  var fu=followupInfo(p);
+  if(fu&&fu.status!=="complete"){
+    var btn=document.createElement("button");
+    btn.className="pill";btn.type="button";
+    btn.textContent="Log "+fu.label+" sent";
+    btn.onclick=function(){
+      p.followupsSent=(p.followupsSent||0)+1;
+      p.lastContact=nowISO();
+      logActivity(p.id,"follow-up","");
+      saveState();openProspectSheet(p.id);toast("Follow-up logged");
+    };
+    wrap.appendChild(btn);
+  }
+  if(p.state!=="WON"&&p.state!=="LOST"){
+    var winBtn=document.createElement("button");
+    winBtn.className="pill";winBtn.type="button";winBtn.textContent="Mark WON";
+    winBtn.onclick=function(){openWon(p.id);};
+    wrap.appendChild(winBtn);
+    var loseBtn=document.createElement("button");
+    loseBtn.className="pill";loseBtn.type="button";loseBtn.textContent="Mark LOST";
+    loseBtn.onclick=function(){
+      p.state="LOST";p.outcome="LOST";logActivity(p.id,"lost","");
+      saveState();openProspectSheet(p.id);renderAll();toast("Marked LOST");
+    };
+    wrap.appendChild(loseBtn);
+    var nurtureBtn=document.createElement("button");
+    nurtureBtn.className="pill";nurtureBtn.type="button";nurtureBtn.textContent="Mark NURTURE (+30d)";
+    nurtureBtn.onclick=function(){
+      p.outcome="NURTURE";
+      p.nurtureReengageDate=addDays(todayISO(),30).toISOString();
+      saveState();openProspectSheet(p.id);renderAll();toast("Marked NURTURE");
+    };
+    wrap.appendChild(nurtureBtn);
+  }
+}
+
+document.getElementById("btnSaveProspect").addEventListener("click",function(){
+  var company=document.getElementById("pfCompany").value.trim();
+  if(!company){toast("Company name required");return;}
+  var p=currentProspectId?prospectById(currentProspectId):null;
+  if(!p){
+    if(STATE.prospects.length>=MAX_SLOTS){toast("Five slots are full — free one first");return;}
+    p={id:uid(),dateAdded:nowISO(),lastContact:"",sentDate:null,followupsSent:0,outcome:null,wonDetails:null,notes:[],calc:{mode:"missed"},evidence:[],topLeakId:null};
+    STATE.prospects.push(p);
+    currentProspectId=p.id;
+  }
+  p.company=company;
+  p.city=document.getElementById("pfCity").value.trim();
+  p.website=document.getElementById("pfWebsite").value.trim();
+  p.contact=document.getElementById("pfContact").value.trim();
+  p.phone=document.getElementById("pfPhone").value.trim();
+  p.email=document.getElementById("pfEmail").value.trim();
+  p.source=document.getElementById("pfSource").value.trim();
+  var why=document.getElementById("pfWhy").value.trim();
+  if(why&&!p.evidence.length){
+    var ev={id:uid(),issue:why,source:"",leakId:null,quality:"ESTIMATED",impact:0,priority:3,notes:"",ts:nowISO()};
+    p.evidence.push(ev);p.topLeakId=ev.id;
+  }
+  var newState=document.getElementById("pfState").value;
+  p.state=newState;
+  if((newState==="SENT"||newState==="CONVERSATION")&&!p.sentDate){
+    p.sentDate=document.getElementById("pfSentDate").value||todayISO();
+  }
+  if(newState==="WON"||newState==="LOST"||newState==="NURTURE"){p.outcome=newState;}
+  else{p.outcome=null;}
+  saveState();
+  toast("Saved");
+  renderAll();
+  openProspectSheet(p.id);
+});
+
+document.getElementById("btnDeleteProspect").addEventListener("click",function(){
+  if(!currentProspectId)return;
+  if(!confirm("Remove this prospect and free the slot? This cannot be undone."))return;
+  STATE.prospects=STATE.prospects.filter(function(p){return p.id!==currentProspectId;});
+  saveState();closeProspectSheet();renderAll();toast("Prospect removed");
+});
+
+/* ---------- sub-tabs ---------- */
+document.getElementById("sheetSubtabs").addEventListener("click",function(e){
+  var btn=e.target.closest(".subtab");if(!btn)return;setSubtab(btn.dataset.s);
+});
+function setSubtab(name){
+  document.querySelectorAll(".subtab").forEach(function(x){x.classList.toggle("active",x.dataset.s===name);});
+  document.querySelectorAll(".subpanel").forEach(function(x){x.classList.toggle("active",x.id==="s-"+name);});
+}
+
+/* ---------- calculator ---------- */
+var calcMode="missed";
+document.querySelectorAll("[data-calc]").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    calcMode=btn.getAttribute("data-calc");
+    document.querySelectorAll("[data-calc]").forEach(function(b){b.classList.toggle("on",b===btn);});
+    document.getElementById("calcMissed").classList.toggle("hidden",calcMode!=="missed");
+    document.getElementById("calcBooking").classList.toggle("hidden",calcMode!=="booking");
+    runCalc();
+  });
+});
+["cMissedInbound","cMissedPct","cMissedClose","cMissedTicket","cBookVisits","cBookNow","cBookTarget","cBookTicket","cQuality"].forEach(function(id){
+  document.getElementById(id).addEventListener("input",runCalc);
+  document.getElementById(id).addEventListener("change",runCalc);
+});
+function calcValue(){
+  if(calcMode==="missed"){
+    var inbound=+document.getElementById("cMissedInbound").value||0;
+    var pct=(+document.getElementById("cMissedPct").value||0)/100;
+    var close=(+document.getElementById("cMissedClose").value||0)/100;
+    var ticket=+document.getElementById("cMissedTicket").value||0;
+    var missed=inbound*pct;
+    return {value:missed*close*ticket,detail:missed.toFixed(1)+" missed calls/mo &times; "+(close*100).toFixed(0)+"% close &times; "+fmtMoney(ticket)};
+  }
+  var visits=+document.getElementById("cBookVisits").value||0;
+  var now=(+document.getElementById("cBookNow").value||0)/100;
+  var target=(+document.getElementById("cBookTarget").value||0)/100;
+  var ticket2=+document.getElementById("cBookTicket").value||0;
+  var extraBookings=Math.max(0,visits*(target-now));
+  return {value:extraBookings*ticket2,detail:extraBookings.toFixed(1)+" additional bookings/mo &times; "+fmtMoney(ticket2)};
+}
+function runCalc(){
+  var r=calcValue();
+  var q=document.getElementById("cQuality").value;
+  document.getElementById("calcQualityLabel").textContent=q==="KNOWN"?"known":(q==="BENCHMARK"?"benchmark-based":"estimated");
+  document.getElementById("calcResult").textContent=fmtMoney(r.value);
+  document.getElementById("calcResultAnnual").textContent=fmtMoney(r.value*12);
+  var prefix=q==="KNOWN"?"Based on owner-confirmed numbers: ":(q==="BENCHMARK"?"Industry-benchmark approximation: ":"Conservative estimate: ");
+  document.getElementById("calcSub").innerHTML=prefix+r.detail;
+}
+document.getElementById("btnAddEvidence").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  var r=calcValue();
+  var issue=document.getElementById("cIssue").value.trim()||"Revenue leak identified";
+  var source=document.getElementById("cSource").value.trim();
+  var leakId=document.getElementById("cLeakId").value;
+  var quality=document.getElementById("cQuality").value;
+  if(r.value<=0){toast("Enter calculator inputs before adding evidence");return;}
+  var ev={id:uid(),issue:issue,source:source,leakId:leakId,quality:quality,impact:Math.round(r.value),priority:3,notes:"",ts:nowISO()};
+  p.evidence=p.evidence||[];
+  p.evidence.push(ev);
+  if(!p.topLeakId||ev.impact>((topEvidence(p)||{}).impact||0)){p.topLeakId=ev.id;}
+  saveState();
+  document.getElementById("cIssue").value="";document.getElementById("cSource").value="";
+  renderEvidence(p);renderOutreachPanel(p);renderOfferPanel(p);renderPacket(p);renderSlots();
+  toast("Evidence added");
+});
+function renderChecklist(items,p,listId,statusId,extraStatus){
+  var status=document.getElementById(statusId);
+  var list=document.getElementById(listId);
+  if(!p){
+    status.textContent="";
+    list.innerHTML='<p class="note">Save the prospect first, then confirm this.</p>';
+    return;
+  }
+  p.verify=p.verify||{};
+  var prog=checklistProgress(items,p);
+  status.textContent=prog.done+"/"+prog.total+" confirmed"+(extraStatus?extraStatus(p):"");
+  list.innerHTML=items.map(function(it){
+    var rec=p.verify[it.id]||{};
+    return '<div class="verifyitem'+(rec.done?" done":"")+'" data-vitem="'+it.id+'">'+
+      '<input type="checkbox" data-vcheck="'+it.id+'"'+(rec.done?" checked":"")+'>'+
+      '<div class="vbody"><div class="vlabel">'+esc(it.label)+(rec.ts?' <span class="note">('+esc(new Date(rec.ts).toLocaleDateString())+')</span>':"")+'</div>'+
+      '<input class="vnote" type="text" data-vnote="'+it.id+'" placeholder="Source / note (optional)" value="'+esc(rec.note||"")+'"></div>'+
+    "</div>";
+  }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll("[data-vcheck]"),function(el){
+    el.addEventListener("change",function(){
+      var id=el.getAttribute("data-vcheck");
+      p.verify[id]=p.verify[id]||{note:""};
+      p.verify[id].done=el.checked;
+      p.verify[id].ts=el.checked?nowISO():null;
+      saveState();renderVerifyChecklist(p);renderSlots();renderOutreachPanel(p);renderPacket(p);
+    });
+  });
+  Array.prototype.forEach.call(list.querySelectorAll("[data-vnote]"),function(el){
+    el.addEventListener("change",function(){
+      var id=el.getAttribute("data-vnote");
+      p.verify[id]=p.verify[id]||{done:false};
+      p.verify[id].note=el.value.trim();
+      saveState();
+    });
+  });
+}
+function renderVerifyChecklist(p){
+  renderChecklist(RESEARCH_ITEMS,p,"researchList","researchStatus");
+  renderChecklist(VERIFY_ITEMS,p,"verifyList","verifyStatus",function(pp){return readyToShare(pp)?" — ready to share":"";});
+}
+
+function renderEvidence(p){
+  document.getElementById("evCount").textContent=(p.evidence||[]).length+" on file";
+  var list=document.getElementById("evList");
+  var sorted=evidenceSorted(p);
+  if(!sorted.length){list.innerHTML='<p class="note">No evidence yet.</p>';return;}
+  var top=topEvidence(p);
+  list.innerHTML=sorted.map(function(ev){
+    var leak=leakById(ev.leakId);
+    var isTop=top&&top.id===ev.id;
+    return '<div class="evrow'+(isTop?" toprow":"")+'" data-ev="'+ev.id+'">'+
+      '<div class="evtop"><span class="impact">'+fmtMoney(ev.impact)+"/mo</span>"+qualityBadge(ev.quality)+"</div>"+
+      '<div class="note" style="margin-bottom:4px">Annual: '+fmtMoney(ev.impact*12)+"</div>"+
+      "<div><b>"+esc(ev.issue)+"</b></div>"+
+      (ev.source?'<div class="note">'+esc(ev.source)+"</div>":"")+
+      (leak?'<div class="note">Leak: '+esc(leak.name)+"</div>":"")+
+      (isTop&&ev.quality!=="KNOWN"?'<div class="warnflag"><span>&#9888;</span><span>This is the figure driving the pitch and offer, and it is not owner-confirmed.</span></div>':"")+
+      '<div class="row" style="margin-top:8px">'+
+        (isTop?'<span class="badge known">TOP LEAK</span>':'<button class="pill" data-pin="'+ev.id+'">Mark as top leak</button>')+
+        '<button class="pill" data-rmev="'+ev.id+'">Remove</button>'+
+      "</div></div>";
+  }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll("[data-pin]"),function(el){
+    el.addEventListener("click",function(){p.topLeakId=el.getAttribute("data-pin");saveState();renderEvidence(p);renderOutreachPanel(p);renderOfferPanel(p);renderPacket(p);renderSlots();});
+  });
+  Array.prototype.forEach.call(list.querySelectorAll("[data-rmev]"),function(el){
+    el.addEventListener("click",function(){
+      var id=el.getAttribute("data-rmev");
+      p.evidence=p.evidence.filter(function(e){return e.id!==id;});
+      if(p.topLeakId===id)p.topLeakId=null;
+      saveState();renderEvidence(p);renderOutreachPanel(p);renderOfferPanel(p);renderPacket(p);renderSlots();
+    });
+  });
+}
+
+/* ---------- outreach generator ---------- */
+var pitchType="email";
+document.querySelectorAll(".ptype").forEach(function(btn){
+  btn.addEventListener("click",function(){
+    pitchType=btn.getAttribute("data-t");
+    document.querySelectorAll(".ptype").forEach(function(b){b.classList.toggle("active",b===btn);});
+    var p=prospectById(currentProspectId);if(p)renderOutreachPanel(p);
+  });
+});
+function buildPitch(p,type){
+  var biz=p.company||"[Business]";
+  var owner=p.contact||"there";
+  if(type==="scan"){
+    var top0=topEvidence(p);
+    var leak0=top0&&leakById(top0.leakId);
+    var hint=leak0?(" Early signs point toward "+leak0.name.toLowerCase()+", but I want to confirm before I say more."):"";
+    return "Subject: Free revenue-leak scan for "+biz+"\n\n"+owner+",\n\nI run NETBUILD.PRO. I do a free scan of how HVAC businesses like "+biz+" handle missed calls, after-hours requests, and online booking — no dollar estimate, no pitch, just a plain-English readout of what I actually find."+hint+"\n\nWant me to run it and send you what I see?\n\n[YOUR NAME]";
+  }
+  var top=topEvidence(p);
+  if(!top)return null;
+  var leak=top.issue||"a revenue leak";
+  var ev=top.source||"observed directly";
+  var impact=top.impact?fmtMoney(top.impact)+"/month":"a meaningful monthly amount";
+  var hedge=top.quality==="KNOWN"?"":"roughly ";
+  var pitches={
+    email:"Subject: "+biz+" — one revenue leak I found\n\n"+owner+",\n\nI found one issue worth showing you: "+leak+".\n\nEvidence: "+ev+".\n\nUsing the assumptions in my breakdown, the opportunity is "+hedge+impact+". If you give me your actual numbers, I'll replace the estimates and recalculate it.\n\nMy first recommendation isn't a marketing package — it's one fix for the biggest leak I can validate. The fixed-fee option is $997.\n\nWorth 10 minutes to walk through the evidence?\n\n[YOUR NAME]",
+    call:owner+", I run NETBUILD.PRO. I looked at "+biz+" and found one leak worth verifying with you: "+leak+". The evidence I have is "+ev+". I'm not calling to sell marketing — I size revenue leaks and fix the biggest one first. My estimate is "+hedge+impact+", but I'd rather use your real numbers. Got two minutes for how you handle this today?",
+    d4:"Subject: Re: "+biz+" revenue leak\n\n"+owner+", following up on the "+leak+" I found at "+biz+". The important part is the evidence: "+ev+". If my assumptions are wrong, send me the real numbers and I'll recalculate it. If the leak is real, the fix is a fixed $997. Worth a quick look?",
+    d11:"Subject: Closing the loop on "+biz+"\n\n"+owner+", last follow-up from me on this. I flagged "+leak+" because "+ev+". If it's already handled, I'll close this out. If not, I can show you the evidence and the single-fix $997 option in 10 minutes."
+  };
+  return pitches[type];
+}
+function renderOutreachPanel(p){
+  var text=buildPitch(p,pitchType);
+  document.getElementById("pitchOut").textContent=text||"Add evidence first, then generate outreach.";
+  var top=topEvidence(p);
+  var warn=document.getElementById("pitchWarn");
+  var msgs=[];
+  if(pitchType!=="scan"){
+    var rProg=researchProgress(p),vProg=verifyProgress(p);
+    if(!(rProg.allDone&&vProg.allDone)){
+      msgs.push('<div class="warnflag"><span>&#9888;</span><span><b>Verification checklist incomplete ('+(rProg.done+vProg.done)+'/'+(rProg.total+vProg.total)+').</b> This script names a dollar figure before the basics are confirmed — consider the Free scan invite instead, or finish verifying first.</span></div>');
+    }
+    if(top&&top.quality!=="KNOWN"){
+      msgs.push('<div class="warnflag"><span>&#9888;</span><span><b>Dollar figure is '+esc(top.quality)+', not owner-confirmed.</b> This script hedges the number as an estimate — get real numbers before you promise a total.</span></div>');
+    }
+  }
+  warn.innerHTML=msgs.join("");
+}
+document.getElementById("btnCopyPitch").addEventListener("click",function(){
+  var text=document.getElementById("pitchOut").textContent;
+  if(!text||text.indexOf("Add evidence")===0){toast("Nothing to copy yet");return;}
+  copyText(text);
+});
+
+/* ---------- $997 offer builder ---------- */
+function renderOfferPanel(p){
+  var out=document.getElementById("offerOut");
+  var top=topEvidence(p);
+  if(!top){
+    out.innerHTML='<div class="card"><p class="note"><b>Insufficient evidence for a proposal.</b> Add at least one validated evidence entry on the Evidence tab before building the $997 offer.</p></div>';
+    return;
+  }
+  var leak=leakById(top.leakId);
+  var action=leak?leak.action:"Implement the fix for the validated leak";
+  var qualityNote=top.quality==="KNOWN"?"This figure is based on owner-confirmed numbers.":(top.quality==="BENCHMARK"?"This figure is a conservative industry-benchmark approximation.":"This figure is a conservative estimate pending owner-confirmed numbers.");
+  var offerWarn=top.quality!=="KNOWN"?('<div class="warnflag"><span>&#9888;</span><span><b>Unverified input.</b> '+esc(qualityNote)+' Confirm the underlying number with the owner before quoting this figure as fact.</span></div>'):"";
+  var rReadyProg=researchProgress(p),vReadyProg=verifyProgress(p);
+  var readyBanner=(rReadyProg.allDone&&vReadyProg.allDone)?
+    '<div class="readyflag"><span>&#10003;</span><span><b>Ready to share.</b> Verification checklist complete.</span></div>':
+    '<div class="warnflag"><span>&#9888;</span><span><b>Verification checklist incomplete ('+(rReadyProg.done+vReadyProg.done)+'/'+(rReadyProg.total+vReadyProg.total)+').</b> Finish it on the Overview tab before sending this as a confident client claim.</span></div>';
+  out.innerHTML=
+    readyBanner+
+    '<div class="card"><div class="head">Deploy $997 Implementation</div>'+
+    '<div class="field"><label>Top Revenue Leak</label><div>'+esc(top.issue)+"</div></div>"+
+    (top.source?'<div class="field"><label>Evidence</label><div>'+esc(top.source)+"</div></div>":"")+
+    '<div class="field"><label>Financial Impact</label>'+
+      '<div class="diagresult" style="padding:12px;margin-bottom:0">'+
+        '<div class="diagrow"><span class="diaglabel">Monthly Leakage</span><strong class="diagfigure" style="font-size:20px">'+fmtMoney(top.impact)+'</strong></div>'+
+        '<div class="diagrow diagrow-sub"><span class="diaglabel">Annual Leakage</span><strong class="diagfigure diagfigure-sm">'+fmtMoney(top.impact*12)+"</strong></div>"+
+      "</div>"+
+      '<div class="row" style="margin-top:8px">'+qualityBadge(top.quality)+"</div>"+offerWarn+"</div>"+
+    '<div class="field"><label>Recommended Recovery</label><div>'+esc(action)+"</div></div>"+
+    '<div class="field"><label>Fixed-Fee Implementation</label><div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--rra-brass)">$997 fixed fee</div></div>'+
+    '<div class="field"><label>Included</label><ul style="padding-left:18px;font-size:13px;line-height:1.7">'+
+      "<li>Deep diagnosis of the top validated leak</li><li>Implementation of the single fix above</li><li>30-day measurement of recovered activity</li></ul></div>"+
+    '<div class="field"><label>Not included</label><ul style="padding-left:18px;font-size:13px;line-height:1.7">'+
+      "<li>Secondary opportunities (see Better/Best)</li><li>Ongoing management or optimization</li><li>Revenue-share or performance guarantees — none exist at any tier</li></ul></div>"+
+    '<div class="field"><label>Next step</label><div>Reply to confirm and we start within 48 hours.</div></div>'+
+    "</div>"+
+    '<div class="card"><div class="head">Better / Best — Broader Recovery Scope</div>'+
+    '<p class="note"><b>Better:</b> $5,000 setup + $2,500/month — implement the top 3 opportunities, 90-day roadmap.<br><b>Best:</b> $7,500/month — full ongoing revenue recovery management.</p></div>';
+}
+
+/* ---------- client packet (Share stage) ---------- */
+function packetEvidence(p){
+  return evidenceSorted(p);
+}
+function buildPacketText(p){
+  var ev=packetEvidence(p);
+  var lines=[];
+  lines.push(p.company+" — Revenue Recovery Scan");
+  lines.push("Prepared "+new Date().toLocaleDateString());
+  lines.push("");
+  if(!ev.length){
+    lines.push("No findings recorded yet.");
+    return lines.join("\n");
+  }
+  lines.push("FINDINGS");
+  ev.forEach(function(e,i){
+    lines.push((i+1)+". "+e.issue);
+    lines.push("   Source: "+(e.source||"observed directly")+" ("+new Date(e.ts).toLocaleDateString()+") — "+e.quality);
+    lines.push("   Estimated impact: "+fmtMoney(e.impact)+"/mo ("+fmtMoney(e.impact*12)+"/yr)");
+    lines.push("");
+  });
+  var rProg=researchProgress(p),vProg=verifyProgress(p);
+  if(!(rProg.allDone&&vProg.allDone)){
+    lines.push("Note: verification in progress ("+(rProg.done+vProg.done)+"/"+(rProg.total+vProg.total)+") — figures above are subject to confirmation.");
+    lines.push("");
+  }
+  lines.push("Next step: a fixed-fee $997 implementation of the top validated leak, or a free walkthrough of these findings.");
+  return lines.join("\n");
+}
+function renderPacket(p){
+  var prev=document.getElementById("packetPreview");
+  var statusEl=document.getElementById("packetSentStatus");
+  if(!p){prev.innerHTML="";statusEl.textContent="";return;}
+  var ev=packetEvidence(p);
+  var rProg=researchProgress(p),vProg=verifyProgress(p);
+  var doneCount=rProg.done+vProg.done,totalCount=rProg.total+vProg.total;
+  var banner=(rProg.allDone&&vProg.allDone)?
+    '<div class="readyflag"><span>&#10003;</span><span><b>Ready to share.</b> Verification checklist complete.</span></div>':
+    (ev.length?'<div class="warnflag"><span>&#9888;</span><span><b>Verification checklist incomplete ('+doneCount+'/'+totalCount+').</b> The figures below are still subject to confirmation — that note is included in the copied/printed packet.</span></div>':"");
+  var body;
+  if(!ev.length){
+    body='<p class="note">No findings recorded yet. Add evidence on the Evidence tab first.</p>';
+  }else{
+    body=ev.map(function(e){
+      return '<div class="pkitem"><div class="pkhead"><span>'+esc(e.issue)+'</span>'+qualityBadge(e.quality)+"</div>"+
+        '<div class="pksub">Source: '+esc(e.source||"observed directly")+" &middot; "+esc(new Date(e.ts).toLocaleDateString())+"</div>"+
+        '<div class="pknote">'+fmtMoney(e.impact)+"/mo &middot; "+fmtMoney(e.impact*12)+"/yr</div></div>";
+    }).join("");
+  }
+  prev.innerHTML='<div class="pkhead" style="margin-bottom:4px">'+esc(p.company)+'<span class="pksub">'+esc(new Date().toLocaleDateString())+"</span></div>"+banner+body;
+  var pk=p.packet||{};
+  statusEl.textContent=pk.sentAt?("Sent "+new Date(pk.sentAt).toLocaleDateString()+" via "+(pk.method||"unknown")):"Not yet sent.";
+  document.getElementById("pkSentDate").value=pk.sentAt?pk.sentAt.slice(0,10):todayISO();
+  document.getElementById("pkMethod").value=pk.method||"email";
+}
+document.getElementById("btnCopyPacket").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  copyText(buildPacketText(p));
+});
+document.getElementById("btnPrintPacket").addEventListener("click",function(){
+  window.print();
+});
+document.getElementById("btnMarkPacketSent").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  var date=document.getElementById("pkSentDate").value||todayISO();
+  var method=document.getElementById("pkMethod").value;
+  p.packet={sentAt:new Date(date).toISOString(),method:method};
+  logActivity(p.id,"proposal","Client packet sent via "+method);
+  saveState();renderPacket(p);renderActivity();toast("Packet marked sent");
+});
+
+/* ---------- handoff checklist (Close and onboard stage) ---------- */
+function renderHandoff(p){
+  var notWon=document.getElementById("handoffNotWon");
+  var body=document.getElementById("handoffBody");
+  if(!p||p.outcome!=="WON"){
+    body.classList.add("hidden");
+    notWon.innerHTML=p?'<p class="note">Handoff opens once this prospect is marked WON.</p>':"";
+    return;
+  }
+  notWon.innerHTML="";
+  body.classList.remove("hidden");
+  p.handoff=p.handoff||{baseline:"",items:{}};
+  var top=topEvidence(p);
+  var leak=top?leakById(top.leakId):null;
+  document.getElementById("handoffLeak").innerHTML=top?(
+    '<div class="field"><label>Leak</label><div>'+esc(top.issue)+"</div></div>"+
+    '<div class="field"><label>Impact</label><div>'+fmtMoney(top.impact)+"/mo &middot; "+fmtMoney(top.impact*12)+"/yr &middot; "+qualityBadge(top.quality)+"</div></div>"+
+    '<div class="field"><label>First implementation step</label><div>'+esc(leak?leak.action:"Implement the fix for the validated leak")+"</div></div>"+
+    '<div class="field"><label>Deal</label><div>'+esc((p.wonDetails&&p.wonDetails.tier)||"good")+" &middot; "+fmtMoney((p.wonDetails&&p.wonDetails.amount)||0)+"</div></div>"
+  ):'<p class="note">No evidence on file for this deal.</p>';
+  var prog=handoffProgress(p);
+  document.getElementById("handoffStatus").textContent=prog.allDone?"Handoff complete":(prog.done+"/"+prog.total+" done");
+  document.getElementById("handoffCount").textContent=prog.done+"/"+prog.total;
+  document.getElementById("hfBaseline").value=p.handoff.baseline||"";
+  var list=document.getElementById("handoffList");
+  list.innerHTML=HANDOFF_ITEMS.map(function(it){
+    var rec=p.handoff.items[it.id]||{};
+    return '<div class="verifyitem'+(rec.done?" done":"")+'" data-hitem="'+it.id+'">'+
+      '<input type="checkbox" data-hcheck="'+it.id+'"'+(rec.done?" checked":"")+'>'+
+      '<div class="vbody"><div class="vlabel">'+esc(it.label)+(rec.ts?' <span class="note">('+esc(new Date(rec.ts).toLocaleDateString())+')</span>':"")+'</div>'+
+      '<input class="vnote" type="text" data-hnote="'+it.id+'" placeholder="Note (optional)" value="'+esc(rec.note||"")+'"></div>'+
+    "</div>";
+  }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll("[data-hcheck]"),function(el){
+    el.addEventListener("change",function(){
+      var id=el.getAttribute("data-hcheck");
+      p.handoff.items[id]=p.handoff.items[id]||{note:""};
+      p.handoff.items[id].done=el.checked;
+      p.handoff.items[id].ts=el.checked?nowISO():null;
+      saveState();renderHandoff(p);renderSlots();
+    });
+  });
+  Array.prototype.forEach.call(list.querySelectorAll("[data-hnote]"),function(el){
+    el.addEventListener("change",function(){
+      var id=el.getAttribute("data-hnote");
+      p.handoff.items[id]=p.handoff.items[id]||{done:false};
+      p.handoff.items[id].note=el.value.trim();
+      saveState();
+    });
+  });
+}
+document.getElementById("hfBaseline").addEventListener("change",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  p.handoff=p.handoff||{baseline:"",items:{}};
+  p.handoff.baseline=document.getElementById("hfBaseline").value.trim();
+  saveState();
+});
+
+/* ---------- prospect notes ---------- */
+function renderProspectNotes(p){
+  var list=document.getElementById("pNoteList");
+  list.innerHTML=(p.notes||[]).map(function(n){
+    return '<div class="card"><div class="note">'+esc(new Date(n.ts).toLocaleString())+"</div><div>"+esc(n.text)+'</div><div class="row" style="margin-top:8px"><button class="pill" data-rmnote="'+n.id+'">Delete</button></div></div>';
+  }).join("")||'<p class="note">No notes yet.</p>';
+  Array.prototype.forEach.call(list.querySelectorAll("[data-rmnote]"),function(el){
+    el.addEventListener("click",function(){
+      p.notes=(p.notes||[]).filter(function(n){return n.id!==el.getAttribute("data-rmnote");});
+      saveState();renderProspectNotes(p);toast("Note deleted");
+    });
+  });
+}
+document.getElementById("btnSavePNote").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  var t=document.getElementById("pNoteText").value.trim();if(!t)return;
+  p.notes=p.notes||[];
+  p.notes.unshift({id:uid(),text:t,ts:nowISO()});
+  saveState();document.getElementById("pNoteText").value="";renderProspectNotes(p);toast("Note saved");
+});
+
+/* ---------- WON modal ---------- */
+function openWon(id){
+  currentProspectId=id;
+  document.getElementById("wonAmount").value=997;
+  document.getElementById("wonTier").value="good";
+  document.getElementById("wonOverlay").classList.remove("hidden");
+}
+document.getElementById("btnCloseWon").addEventListener("click",function(){document.getElementById("wonOverlay").classList.add("hidden");});
+document.getElementById("wonTier").addEventListener("change",function(){
+  var defaults={good:997,better:5000,best:7500};
+  document.getElementById("wonAmount").value=defaults[this.value]||997;
+});
+document.getElementById("btnConfirmWon").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  p.state="WON";p.outcome="WON";
+  p.wonDetails={tier:document.getElementById("wonTier").value,amount:+document.getElementById("wonAmount").value||0,date:nowISO()};
+  logActivity(p.id,"won","");
+  saveState();
+  document.getElementById("wonOverlay").classList.add("hidden");
+  renderAll();
+  if(!document.getElementById("prospectOverlay").classList.contains("hidden"))openProspectSheet(p.id);
+  toast("Marked WON — nice work");
+});
+
+/* ============ OBJECTIONS ============ */
+function renderObjections(){
+  document.getElementById("objList").innerHTML=OBJECTIONS.map(function(o,i){
+    return '<div class="obj"><button class="q" data-i="'+i+'">&ldquo;'+esc(o[0])+'&rdquo;</button><div class="ans" id="oans'+i+'"><p>'+esc(o[1])+'</p><button class="pill copybtn" data-copy="'+i+'">Copy response</button></div></div>';
+  }).join("");
+  Array.prototype.forEach.call(document.querySelectorAll(".obj .q"),function(btn){
+    btn.addEventListener("click",function(){
+      document.getElementById("oans"+btn.getAttribute("data-i")).classList.toggle("open");
+    });
+  });
+  Array.prototype.forEach.call(document.querySelectorAll("[data-copy]"),function(btn){
+    btn.addEventListener("click",function(e){
+      e.stopPropagation();
+      copyText(OBJECTIONS[+btn.getAttribute("data-copy")][1]);
+    });
+  });
+}
+
+/* ============ ACTIVITY ============ */
+function fillProspectSelect(sel){
+  sel.innerHTML=STATE.prospects.map(function(p){return '<option value="'+p.id+'">'+esc(p.company)+"</option>";}).join("");
+}
+function logActivity(prospectId,type,note){
+  STATE.activities.push({id:uid(),prospectId:prospectId||null,prospectName:prospectId?(prospectById(prospectId)||{}).company:"",type:type,ts:nowISO(),note:note||""});
+}
+document.getElementById("btnLogActivity").addEventListener("click",function(){
+  var pid=document.getElementById("actProspect").value;
+  var type=document.getElementById("actType").value;
+  var note=document.getElementById("actNote").value.trim();
+  logActivity(pid,type,note);
+  saveState();
+  document.getElementById("actNote").value="";
+  renderActivity();renderHome();
+  toast("Logged");
+});
+function renderActivity(){
+  fillProspectSelect(document.getElementById("actProspect"));
+  var acts=STATE.activities.slice().reverse();
+  document.getElementById("activityCount").textContent=acts.length+" total";
+  var todayCount=acts.filter(function(a){return a.ts.slice(0,10)===todayISO();}).length;
+  document.getElementById("activityStats").innerHTML=
+    '<div class="stat"><strong>'+todayCount+'</strong><span>Today</span></div>'+
+    '<div class="stat"><strong>'+acts.length+'</strong><span>All time</span></div>'+
+    '<div class="stat"><strong>'+STATE.activities.filter(function(a){return a.type==="reply"||a.type==="conversation";}).length+'</strong><span>Replies+convos</span></div>'+
+    '<div class="stat"><strong>'+STATE.activities.filter(function(a){return a.type==="won";}).length+'</strong><span>Wins logged</span></div>';
+  var log=document.getElementById("activityLog");
+  log.innerHTML=acts.length?acts.slice(0,100).map(function(a){
+    var name=a.prospectId?((prospectById(a.prospectId)||{}).company||a.prospectName||"(removed prospect)"):(a.prospectName||"(general)");
+    return '<div class="queueitem"><span><b>'+esc(name)+"</b> &middot; "+esc(a.type)+(a.note?" &middot; "+esc(a.note):"")+'</span><span class="note">'+esc(new Date(a.ts).toLocaleDateString())+"</span></div>";
+  }).join(""):'<p class="note">No activity yet.</p>';
+}
+document.getElementById("btnExportCsv").addEventListener("click",function(){
+  var rows=[["Prospect","Type","Timestamp","Note"]].concat(STATE.activities.map(function(a){
+    var name=a.prospectId?((prospectById(a.prospectId)||{}).company||a.prospectName||""):(a.prospectName||"");
+    return [name,a.type,a.ts,a.note||""];
+  }));
+  var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
+  downloadFile("rra-sales-activity.csv",csv,"text/csv");
+});
+
+/* ============ NOTES ============ */
+document.getElementById("btnSaveGenNote").addEventListener("click",function(){
+  var t=document.getElementById("genNoteText").value.trim();if(!t)return;
+  STATE.generalNotes.unshift({id:uid(),text:t,ts:nowISO()});
+  saveState();document.getElementById("genNoteText").value="";renderGenNotes();toast("Note saved");
+});
+function renderGenNotes(){
+  document.getElementById("genNoteList").innerHTML=STATE.generalNotes.map(function(n){
+    return '<div class="card"><div class="note">'+esc(new Date(n.ts).toLocaleString())+"</div><div>"+esc(n.text)+"</div></div>";
+  }).join("")||'<p class="note">No general notes yet.</p>';
+}
+
+/* ============ LAUNCH / SCOREBOARD / DATA ============ */
+function renderLaunch(){
+  var total=STATE.prospects.length;
+  var contacted=STATE.prospects.filter(function(p){return !!p.sentDate;}).length;
+  var replies=STATE.activities.filter(function(a){return a.type==="reply";}).length;
+  var convos=STATE.activities.filter(function(a){return a.type==="conversation";}).length;
+  var proposals=STATE.activities.filter(function(a){return a.type==="proposal";}).length;
+  var wins=STATE.prospects.filter(function(p){return p.outcome==="WON";}).length;
+  var lost=STATE.prospects.filter(function(p){return p.outcome==="LOST";}).length;
+  var collected=STATE.prospects.reduce(function(s,p){return s+((p.wonDetails&&p.wonDetails.amount)||0);},0);
+  var scoreStats=[
+    ["Prospects",total+"/"+MAX_SLOTS],["Contacted",contacted+"/"+MAX_SLOTS],["Replies",replies],
+    ["Conversations",convos],["Proposals",proposals],["Wins",wins],["Lost",lost],["Collected",fmtMoney(collected)]
+  ];
+  document.getElementById("scoreboardStats").innerHTML=scoreStats.map(function(s){
+    var color=(s[0]==="Wins"&&wins)||s[0]==="Collected"?"var(--rra-green)":((s[0]==="Lost"&&lost)?"var(--rra-red-text)":"");
+    return '<div class="stat"><strong'+(color?' style="color:'+color+'"':"")+'>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";
+  }).join("");
+
+  var verdict;
+  if(total<MAX_SLOTS){verdict="Cohort not yet full ("+total+"/5). Select and add the remaining prospects before drawing conclusions.";}
+  else if(wins>=2){verdict="2 or more sold — treat this as validated. Move to delivery: fix the #1 leak, measure recovered revenue over 30 days, and use it as the first case study.";}
+  else if(wins===0&&convos>0){verdict="Zero sold but real conversations happened. Change one variable — targeting, evidence quality, wedge, price presentation, or proposal clarity — then run five more.";}
+  else if(wins===0&&replies===0&&contacted>=MAX_SLOTS){verdict="Zero replies across all five. Assume targeting/message/evidence failed to earn attention. Change targets or numbers rather than adding features.";}
+  else{verdict="Cycle in progress — results are not final until all five have been contacted and given time to respond.";}
+  document.getElementById("scoreboardVerdict").textContent=verdict;
+}
+
+function downloadFile(filename,content,mime){
+  var blob=new Blob([content],{type:mime});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);a.download=filename;
+  document.body.appendChild(a);a.click();document.body.removeChild(a);
+  setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
+}
+document.getElementById("btnExportJson").addEventListener("click",function(){
+  downloadFile("rra-data-"+todayISO()+".json",JSON.stringify(STATE,null,2),"application/json");
+  toast("Exported");
+});
+document.getElementById("btnImportJson").addEventListener("click",function(){document.getElementById("importFile").click();});
+document.getElementById("importFile").addEventListener("change",function(e){
+  var file=e.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(){
+    var parsed=safeParse(reader.result);
+    if(!parsed){toast("That file doesn't look like a valid data export");return;}
+    if(!confirm("Import will overwrite all current data on this device. Continue?"))return;
+    STATE=parsed;corrupted=false;saveState();renderAll();toast("Data imported");
+  };
+  reader.readAsText(file);
+  e.target.value="";
+});
+document.getElementById("btnResetTool").addEventListener("click",function(){
+  document.getElementById("resetConfirmInput").value="";
+  document.getElementById("resetOverlay").classList.remove("hidden");
+});
+document.getElementById("btnCloseReset").addEventListener("click",function(){document.getElementById("resetOverlay").classList.add("hidden");});
+document.getElementById("btnConfirmReset").addEventListener("click",function(){
+  if(document.getElementById("resetConfirmInput").value.trim()!=="RESET"){toast('Type "RESET" exactly to confirm');return;}
+  localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(BACKUP_KEY);
+  localStorage.removeItem("rra_leads");localStorage.removeItem("rra_activity");localStorage.removeItem("rra_notes");
+  STATE=defaultState();corrupted=false;saveState();
+  document.getElementById("resetOverlay").classList.add("hidden");
+  renderAll();toast("Tool reset");
+});
+
+/* ============ CALL MODE ============ */
+function openCallMode(){
+  if(!STATE.prospects.length){toast("Add a prospect first");return;}
+  var sel=document.getElementById("callProspectSelect");
+  fillProspectSelect(sel);
+  var keep=STATE.settings.callModeProspectId&&prospectById(STATE.settings.callModeProspectId);
+  sel.value=keep?STATE.settings.callModeProspectId:STATE.prospects[0].id;
+  renderCallBody();
+  document.getElementById("callWrap").classList.remove("hidden");
+}
+document.getElementById("btnCallMode").addEventListener("click",openCallMode);
+document.getElementById("btnExitCall").addEventListener("click",function(){document.getElementById("callWrap").classList.add("hidden");});
+document.getElementById("callProspectSelect").addEventListener("change",function(){
+  STATE.settings.callModeProspectId=this.value;saveState();renderCallBody();
+});
+function renderCallBody(){
+  var id=document.getElementById("callProspectSelect").value;
+  var p=prospectById(id);
+  var body=document.getElementById("callBody");
+  if(!p){body.innerHTML='<p class="note">No prospect selected.</p>';return;}
+  var top=topEvidence(p);
+  var action=prospectAction(p);
+  var opener=buildPitch(p,"call")||"No evidence yet — add at least one finding before calling.";
+  body.innerHTML=
+    '<div class="callco">'+esc(p.company)+"</div>"+
+    '<div style="color:var(--rra-muted);font-size:13px">'+esc(p.city||"")+(p.phone?" &middot; "+esc(p.phone):"")+"</div>"+
+    '<div class="callsection"><h4>Top Revenue Leak</h4><div class="calltext">'+(top?esc(top.issue):"No validated evidence yet")+"</div></div>"+
+    (top&&top.source?'<div class="callsection"><h4>Evidence</h4><div class="calltext">'+esc(top.source)+"</div></div>":"")+
+    (top?'<div class="callsection"><h4>Financial Impact</h4><div class="callimpact">'+fmtMoney(top.impact)+'/mo</div><div class="note" style="margin-top:4px">'+fmtMoney(top.impact*12)+" / yr &middot; "+qualityBadge(top.quality)+"</div></div>":"")+
+    '<div class="callsection"><h4>Call Opener</h4><div class="calltext">'+esc(opener)+"</div></div>"+
+    '<div class="callsection"><h4>Discovery Questions</h4>'+DISCOVERY_QUESTIONS.map(function(q){return '<div class="callq">'+esc(q)+"</div>";}).join("")+"</div>"+
+    '<div class="callsection"><h4>Objection Responses</h4>'+OBJECTIONS.map(function(o){return '<details class="callobj"><summary>&ldquo;'+esc(o[0])+'&rdquo;</summary><p>'+esc(o[1])+"</p></details>";}).join("")+"</div>"+
+    '<div class="callsection"><h4>Next Step</h4><div class="calltext">'+esc(action?action.text:"No action needed right now.")+"</div></div>";
+}
+
+/* ============ global render ============ */
+function renderAll(){
+  renderHome();
+  renderSlots();
+  renderBench();
+  renderObjections();
+  renderActivity();
+  renderGenNotes();
+  renderLaunch();
+}
+
+/* ---------- boot ---------- */
+STATE=loadState();
+if(!STATE.settings)STATE.settings={};
+if(!STATE.bench)STATE.bench=[];
+saveState();
+renderAll();
+
+})();
+</script>
+</body>
+</html>
