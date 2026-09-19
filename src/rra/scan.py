@@ -15,12 +15,21 @@ DEFAULT_OUTPUT_DIR = "reports/scans"
 
 def scan(url: str, output_dir: Optional[str] = None,
          workers: Optional[List[str]] = None) -> str:
-    workers = workers or SCAN_WORKERS
+    workers = workers or []
     output_dir = output_dir or DEFAULT_OUTPUT_DIR
     os.makedirs(output_dir, exist_ok=True)
 
-    print(f"[scan] running workers: {', '.join(workers)}")
-    results = run_workers_parallel(workers, url)
+    if workers:
+        print(f"[scan] running optional workers: {', '.join(workers)}")
+        results = run_workers_parallel(workers, url)
+    else:
+        from types import SimpleNamespace
+        from rra.fallback_scan import scan_public_url
+        try:
+            body = scan_public_url(url)
+            results = {"fallback": SimpleNamespace(status="ok", stdout=body, stderr="")}
+        except Exception as exc:
+            results = {"fallback": SimpleNamespace(status="error", stdout="", stderr=str(exc))}
 
     slug = _slugify(url)
     today = date.today().isoformat()
