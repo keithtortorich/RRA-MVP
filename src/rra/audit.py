@@ -18,7 +18,7 @@ def _ev(business_id, source, sig, confidence):
 def audit(client_name:str,url:str,output_dir:Optional[str]=None,client_metrics:Optional[Dict[str,float]]=None)->Dict[str,str]:
     if not str(client_name).strip(): raise ValueError("client_name is required")
     output_dir=output_dir or DEFAULT_OUTPUT_DIR; os.makedirs(output_dir,exist_ok=True)
-    worker_results=run_workers_parallel(SCAN_WORKERS,url); business_id=_business_id(client_name,url); evidence=[]
+    worker_results={}; business_id=_business_id(client_name,url); evidence=[]
     for worker,result in worker_results.items():
         if result.status!="ok": continue
         evidence += [_ev(business_id,worker,sig,.85) for sig in extract_signals_from_markdown(result.stdout)]
