@@ -3,45 +3,42 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#12110F">
-<title>NETBUILD.PRO — Sizzle Sales Tool</title>
-<!-- Placeholder favicon. Replace with the approved NETBUILD.PRO Seal asset when available. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2312110F'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='13' font-weight='600' fill='%23C5A572' text-anchor='middle'%3ENB%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#0B0E14">
+<title>RRA Diagnostic Terminal — Revenue Recovery Agency</title>
+<!-- Placeholder favicon. Replace with the approved RRA Seal asset when available. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0E14'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='11' font-weight='600' fill='%23C5A059' text-anchor='middle'%3ERRA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   NETBUILD.PRO BRAND TOKENS — Sizzle Sales Tool
-   Single source of truth for color/type. Swap values here only;
-   nothing below this block should hard-code a brand color or font.
-   Custom-property names keep the internal "rra" prefix (repo history,
-   storage keys) — never rendered to the customer; visible copy is
-   NETBUILD.PRO throughout.
+   RRA BRAND TOKENS — RRA Diagnostic Terminal
+   Approved RRA visual system. Single source of truth for color/type.
+   Internal rra-prefixed properties are retained for compatibility.
    ============================================================ */
 :root{
   /* -- surfaces (Ink) -- */
-  --rra-obsidian:#12110F;
-  --rra-slate:#1C1B18;
-  --rra-slate2:#242320;
-  --rra-border:#2A2824;
+  --rra-obsidian:#0B0E14;
+  --rra-slate:#1E222B;
+  --rra-slate2:#262B38;
+  --rra-border:#3A3F4D;
   /* -- ink (readouts) -- */
-  --rra-bone:#F4F1EA;
-  --rra-white:#FAF7F1;
-  --rra-muted:#6F6A62;
+  --rra-bone:#F4F4F0;
+  --rra-white:#FFFFFF;
+  --rra-muted:#8A909A;
   /* -- accent (primary brand) -- */
-  --rra-brass:#C5A572;
-  --rra-brass-deep:#6E5428;
-  --rra-brass-bg:rgba(197,165,114,.14);
+  --rra-brass:#C5A059;
+  --rra-brass-deep:#6E5731;
+  --rra-brass-bg:rgba(197,160,89,.14);
   /* -- semantic: financial state only, never decorative -- */
-  --rra-green:#2F5A40;
-  --rra-green-text:#7FB393;
-  --rra-green-bg:rgba(47,90,64,.22);
-  --rra-red:#8F2E28;
-  --rra-red-text:#E28A83;
-  --rra-red-bg:rgba(143,46,40,.22);
-  --rra-amber:#C9862C;
-  --rra-amber-bg:rgba(201,134,44,.16);
+  --rra-green:#05B269;
+  --rra-green-text:#4ADE9A;
+  --rra-green-bg:rgba(5,178,105,.22);
+  --rra-red:#E5484D;
+  --rra-red-text:#FF6B70;
+  --rra-red-bg:rgba(229,72,77,.22);
+  --rra-amber:#F5A623;
+  --rra-amber-bg:rgba(245,166,35,.16);
   /* -- type -- */
   --font-display:'Newsreader',Georgia,'Times New Roman',serif;
   --font-heading:'Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
@@ -239,6 +236,8 @@ button{cursor:pointer;-webkit-appearance:none}
 .launchstep b{color:var(--rra-bone)}
 .known{color:var(--rra-brass);font-weight:700}
 .assumed{color:var(--rra-brass);font-weight:700}
+.badge.benchmark{background:var(--rra-brass-bg);color:var(--rra-brass);border-color:var(--rra-brass)}
+.badge.estimated{background:var(--rra-amber-bg);color:var(--rra-amber);border-color:var(--rra-amber)}
 </style>
 </head>
 <body>
@@ -247,16 +246,16 @@ button{cursor:pointer;-webkit-appearance:none}
   <div class="top">
     <!-- Typographic placeholder lockup, not final brand art.
          Swap-in point for the approved Seal: add
-         <img src="NETBUILD_Seal.svg" alt="" class="mark-img"> before .nb —
+         <img src="rra-seal.svg" alt="" class="mark-img"> before .nb —
          no other header markup needs to change. -->
     <div class="lockup">
-      <div class="mark"><span class="nb">NETBUILD</span><span class="pro">.PRO</span></div>
-      <span class="full">Revenue Recovery Firm</span>
-      <span class="product">Sizzle &middot; Sales Tool</span>
+      <div class="mark"><span class="nb">RRA</span></div>
+      <span class="full">Revenue Recovery Agency</span>
+      <span class="product">RRA Diagnostic Terminal</span>
       <div class="meta">
         <span>Residential HVAC</span>
-        <span>Cohort 01</span>
-        <span>5-Prospect Validation</span>
+        <span id="campaignMetaBadge">Campaign 01</span>
+        <span id="batchMetaBadge">Batch 1/5</span>
       </div>
     </div>
     <div class="right">
@@ -290,7 +289,7 @@ button{cursor:pointer;-webkit-appearance:none}
       <div class="card">
         <div class="head">Launch Metrics</div>
         <div class="stats" id="homeStats"></div>
-        <p class="note">This tracks the first-five commercial validation cycle. It shows what happened — it does not decide whether NETBUILD.PRO works.</p>
+        <p class="note">This tracks the first-five commercial validation cycle. It shows what happened — it does not decide whether RRA works.</p>
       </div>
     </section>
 
@@ -375,6 +374,17 @@ button{cursor:pointer;-webkit-appearance:none}
 
     <!-- LAUNCH -->
     <section class="panel" id="p-launch">
+      <div class="card">
+        <div class="head">Pre-Seed Scoreboard</div>
+        <p class="note">Five validation metrics. CAC stays unknown until acquisition spend is known; Paid Sprints require explicit PAID status.</p>
+        <div class="stats" id="preSeedStats"></div>
+        <div class="field" style="margin-top:8px"><label>Actual acquisition spend to date $ (leave blank if unknown)</label><input id="acqSpendInput" type="number" min="0" inputmode="numeric" placeholder="Unknown"></div>
+      </div>
+      <div class="card">
+        <div class="head">Campaign 01 — 25 HVAC Targets, Five at a Time</div>
+        <p class="note">Bench holds researched targets; five active slots are the current working batch.</p>
+        <div class="stats" id="campaignStats"></div>
+      </div>
       <div class="card">
         <div class="head">First-Five Scoreboard</div>
         <div class="stats" id="scoreboardStats"></div>
@@ -611,6 +621,20 @@ button{cursor:pointer;-webkit-appearance:none}
             <div class="head">Minimum Handoff Checklist<small id="handoffCount"></small></div>
             <div id="handoffList"></div>
           </div>
+          <div class="card">
+            <div class="head">Sprint Delivery &amp; Measurement</div>
+            <p class="note">Actual results are independent of modeled opportunity. Enter only verified outcomes.</p>
+            <div class="field"><label>Payment status</label><select id="sdPaymentStatus"><option value="UNKNOWN">UNKNOWN</option><option value="UNPAID">UNPAID</option><option value="PAID">PAID</option></select></div>
+            <div class="field"><label>Fix deployed</label><div class="row"><input type="checkbox" id="sdFixDeployed" style="width:20px;height:20px;flex:0"><input id="sdFixDeployedDate" type="date" style="flex:1"></div></div>
+            <div class="g2"><div class="field"><label>Measurement start</label><input id="sdMeasureStart" type="date"></div><div class="field"><label>Measurement end (30 days)</label><input id="sdMeasureEnd" type="date"></div></div>
+            <div class="g2"><div class="field"><label>Recovered leads</label><input id="sdRecoveredLeads" type="number" min="0" value="0"></div><div class="field"><label>Booked jobs</label><input id="sdBookedJobs" type="number" min="0" value="0"></div></div>
+            <div class="g2"><div class="field"><label>Completed jobs</label><input id="sdCompletedJobs" type="number" min="0" value="0"></div><div class="field"><label>Booked revenue $</label><input id="sdBookedRevenue" type="number" min="0" value="0"></div></div>
+            <div class="field"><label>Documented recovered revenue $<br><span class="note">Only actual, verified customer revenue.</span></label><input id="sdDocumentedRevenue" type="number" min="0" value="0"></div>
+            <div class="g2"><div class="field"><label>Direct delivery cost $</label><input id="sdDeliveryCost" type="number" min="0" value="0"></div><div class="field"><label>Delivery hours</label><input id="sdDeliveryHours" type="number" min="0" step="0.25" value="0"></div></div>
+            <div class="field"><label>Measurement notes</label><textarea id="sdNotes" rows="2"></textarea></div>
+            <div class="diagresult"><div class="diagrow"><span class="diaglabel">Profit / Sprint</span><strong id="sdProfit" class="diagfigure">$0</strong></div></div>
+            <button class="btn outline block copybtn" id="btnCopyProof">Copy proof record</button>
+          </div>
         </div>
       </div>
 
@@ -643,7 +667,7 @@ button{cursor:pointer;-webkit-appearance:none}
     <div class="sheetbody">
       <div class="field"><label>Tier sold</label>
         <select id="wonTier">
-          <option value="good">Good — $997 fixed fee</option>
+          <option value="good">$997 Revenue Recovery Sprint</option>
           <option value="better">Better — $5,000 setup + $2,500/mo</option>
           <option value="best">Best — $7,500/mo</option>
         </select>
@@ -770,7 +794,7 @@ function applyDossierToFields(parsed,fieldMap){
 }
 
 function defaultState(){
-  return {version:2,prospects:[],bench:[],activities:[],generalNotes:[],settings:{}};
+  return {version:2,prospects:[],bench:[],activities:[],generalNotes:[],settings:{},campaign:{id:1,targetTotal:25}};
 }
 
 var STATE=null;
@@ -935,6 +959,52 @@ function nextHandoffItem(p){
   var h=(p&&p.handoff&&p.handoff.items)||{};
   for(var i=0;i<HANDOFF_ITEMS.length;i++){if(!(h[HANDOFF_ITEMS[i].id]&&h[HANDOFF_ITEMS[i].id].done))return HANDOFF_ITEMS[i];}
   return null;
+}
+
+function sprintRecord(p){
+  p.wonDetails=p.wonDetails||{}; var w=p.wonDetails;
+  if(w.tier===undefined)w.tier="good"; if(w.amount===undefined)w.amount=997;
+  if(w.paymentStatus===undefined)w.paymentStatus="UNKNOWN";
+  if(w.date===undefined)w.date=nowISO(); if(w.measurementStart===undefined)w.measurementStart=null;
+  if(w.measurementEnd===undefined)w.measurementEnd=null; if(w.fixDeployed===undefined)w.fixDeployed=false;
+  if(w.fixDeployedDate===undefined)w.fixDeployedDate=null; if(w.directDeliveryCost===undefined)w.directDeliveryCost=0;
+  if(w.deliveryHours===undefined)w.deliveryHours=0; if(w.recoveredLeads===undefined)w.recoveredLeads=0;
+  if(w.bookedJobs===undefined)w.bookedJobs=0; if(w.completedJobs===undefined)w.completedJobs=0;
+  if(w.bookedRevenue===undefined)w.bookedRevenue=0; if(w.documentedRecoveredRevenue===undefined)w.documentedRecoveredRevenue=0;
+  if(w.measurementNotes===undefined)w.measurementNotes=""; return w;
+}
+function sprintProfit(w){return (Number(w.amount)||0)-(Number(w.directDeliveryCost)||0);}
+function isPaidSprint(p){return p.outcome==="WON"&&p.wonDetails&&p.wonDetails.tier==="good"&&p.wonDetails.paymentStatus==="PAID";}
+function buildProofRecord(p){
+  var w=sprintRecord(p),top=topEvidence(p),leak=top?leakById(top.leakId):null,lines=[];
+  lines.push("RRA REVENUE RECOVERY — PROOF RECORD",p.company+(p.city?" ("+p.city+")":""),"");
+  lines.push("Leak: "+(top?top.issue:"—")+(leak?" ["+leak.name+"]":""));
+  lines.push("Evidence classification: "+(top?top.quality:"—"));
+  lines.push("Baseline: "+((p.handoff&&p.handoff.baseline)||"—"));
+  lines.push("Fix deployed: "+(w.fixDeployed?("Yes — "+(w.fixDeployedDate?fmtDate(w.fixDeployedDate):"date not recorded")):"Not yet recorded"));
+  lines.push("Measurement period: "+(w.measurementStart?fmtDate(w.measurementStart):"—")+" to "+(w.measurementEnd?fmtDate(w.measurementEnd):"—"),"","RESULTS");
+  lines.push("Recovered leads: "+w.recoveredLeads,"Booked jobs: "+w.bookedJobs,"Completed jobs: "+w.completedJobs);
+  lines.push("Booked revenue: "+fmtMoney(w.bookedRevenue),"Documented recovered revenue: "+fmtMoney(w.documentedRecoveredRevenue),"","SPRINT ECONOMICS");
+  lines.push("Payment status: "+w.paymentStatus,"Sprint price: "+fmtMoney(w.amount),"Direct delivery cost: "+fmtMoney(w.directDeliveryCost),"Profit/Sprint: "+fmtMoney(sprintProfit(w)),"Delivery hours: "+w.deliveryHours);
+  var customerInvestment=Number(w.amount)||0;
+  if(Number(w.documentedRecoveredRevenue)>0&&customerInvestment>0){
+    var roi=((Number(w.documentedRecoveredRevenue)-customerInvestment)/customerInvestment)*100;
+    lines.push("Customer ROI: "+Math.round(roi)+"% (documented recovered revenue vs. Sprint price)");
+  }
+  if(w.measurementNotes)lines.push("\nNotes: "+w.measurementNotes); return lines.join("\n");
+}
+function campaignStats(){
+  var c=STATE.campaign||{id:1,targetTotal:25},targetTotal=c.targetTotal||25;
+  var raw=(STATE.bench||[]).length+STATE.prospects.length,processed=Math.min(raw,targetTotal);
+  return {campaignId:c.id||1,targetTotal:targetTotal,processed:processed,remaining:Math.max(0,targetTotal-raw),batch:Math.min(5,Math.max(1,Math.ceil(processed/MAX_SLOTS)||1)),active:STATE.prospects.length};
+}
+function preSeedMetrics(){
+  var paid=STATE.prospects.filter(isPaidSprint),spend=STATE.settings&&STATE.settings.acquisitionSpend;
+  var cac=(spend!=null&&spend!==""&&paid.length)?Number(spend)/paid.length:null;
+  var profits=paid.map(function(p){return sprintProfit(sprintRecord(p));});
+  return {paidSprints:paid.length,cac:cac,avgProfit:profits.length?profits.reduce(function(a,b){return a+b;},0)/profits.length:null,
+    deliveryHours:STATE.prospects.filter(function(p){return p.outcome==="WON";}).reduce(function(n,p){return n+(Number(sprintRecord(p).deliveryHours)||0);},0),
+    documentedRevenue:STATE.prospects.filter(function(p){return p.outcome==="WON";}).reduce(function(n,p){return n+(Number(sprintRecord(p).documentedRecoveredRevenue)||0);},0)};
 }
 
 function followupInfo(p){
@@ -1576,7 +1646,7 @@ function buildPitch(p,type){
     var top0=topEvidence(p);
     var leak0=top0&&leakById(top0.leakId);
     var hint=leak0?(" Early signs point toward "+leak0.name.toLowerCase()+", but I want to confirm before I say more."):"";
-    return "Subject: Free revenue-leak scan for "+biz+"\n\n"+owner+",\n\nI run NETBUILD.PRO. I do a free scan of how HVAC businesses like "+biz+" handle missed calls, after-hours requests, and online booking — no dollar estimate, no pitch, just a plain-English readout of what I actually find."+hint+"\n\nWant me to run it and send you what I see?\n\n[YOUR NAME]";
+    return "Subject: Free revenue-leak scan for "+biz+"\n\n"+owner+",\n\nI run RRA — Revenue Recovery Agency. I do a free scan of how HVAC businesses like "+biz+" handle missed calls, after-hours requests, and online booking — no dollar estimate, no pitch, just a plain-English readout of what I actually find."+hint+"\n\nWant me to run it and send you what I see?\n\n[YOUR NAME]";
   }
   var top=topEvidence(p);
   if(!top)return null;
@@ -1586,7 +1656,7 @@ function buildPitch(p,type){
   var hedge=top.quality==="KNOWN"?"":"roughly ";
   var pitches={
     email:"Subject: "+biz+" — one revenue leak I found\n\n"+owner+",\n\nI found one issue worth showing you: "+leak+".\n\nEvidence: "+ev+".\n\nUsing the assumptions in my breakdown, the opportunity is "+hedge+impact+". If you give me your actual numbers, I'll replace the estimates and recalculate it.\n\nMy first recommendation isn't a marketing package — it's one fix for the biggest leak I can validate. The fixed-fee option is $997.\n\nWorth 10 minutes to walk through the evidence?\n\n[YOUR NAME]",
-    call:owner+", I run NETBUILD.PRO. I looked at "+biz+" and found one leak worth verifying with you: "+leak+". The evidence I have is "+ev+". I'm not calling to sell marketing — I size revenue leaks and fix the biggest one first. My estimate is "+hedge+impact+", but I'd rather use your real numbers. Got two minutes for how you handle this today?",
+    call:owner+", I run RRA. I looked at "+biz+" and found one leak worth verifying with you: "+leak+". The evidence I have is "+ev+". I'm not calling to sell marketing — I size revenue leaks and fix the biggest one first. My estimate is "+hedge+impact+", but I'd rather use your real numbers. Got two minutes for how you handle this today?",
     d4:"Subject: Re: "+biz+" revenue leak\n\n"+owner+", following up on the "+leak+" I found at "+biz+". The important part is the evidence: "+ev+". If my assumptions are wrong, send me the real numbers and I'll recalculate it. If the leak is real, the fix is a fixed $997. Worth a quick look?",
     d11:"Subject: Closing the loop on "+biz+"\n\n"+owner+", last follow-up from me on this. I flagged "+leak+" because "+ev+". If it's already handled, I'll close this out. If not, I can show you the evidence and the single-fix $997 option in 10 minutes."
   };
@@ -1633,7 +1703,7 @@ function renderOfferPanel(p){
     '<div class="warnflag"><span>&#9888;</span><span><b>Verification checklist incomplete ('+(rReadyProg.done+vReadyProg.done)+'/'+(rReadyProg.total+vReadyProg.total)+').</b> Finish it on the Overview tab before sending this as a confident client claim.</span></div>';
   out.innerHTML=
     readyBanner+
-    '<div class="card"><div class="head">Deploy $997 Implementation</div>'+
+    '<div class="card"><div class="head">$997 Revenue Recovery Sprint</div>'+
     '<div class="field"><label>Top Revenue Leak</label><div>'+esc(top.issue)+"</div></div>"+
     (top.source?'<div class="field"><label>Evidence</label><div>'+esc(top.source)+"</div></div>":"")+
     '<div class="field"><label>Financial Impact</label>'+
@@ -1737,6 +1807,7 @@ function renderHandoff(p){
   notWon.innerHTML="";
   body.classList.remove("hidden");
   p.handoff=p.handoff||{baseline:"",items:{}};
+  renderSprintDelivery(p);
   var top=topEvidence(p);
   var leak=top?leakById(top.leakId):null;
   document.getElementById("handoffLeak").innerHTML=top?(
@@ -1782,6 +1853,23 @@ document.getElementById("hfBaseline").addEventListener("change",function(){
   p.handoff.baseline=document.getElementById("hfBaseline").value.trim();
   saveState();
 });
+
+var SD_FIELDS=[["sdFixDeployedDate","fixDeployedDate"],["sdMeasureStart","measurementStart"],["sdMeasureEnd","measurementEnd"],["sdRecoveredLeads","recoveredLeads"],["sdBookedJobs","bookedJobs"],["sdCompletedJobs","completedJobs"],["sdBookedRevenue","bookedRevenue"],["sdDocumentedRevenue","documentedRecoveredRevenue"],["sdDeliveryCost","directDeliveryCost"],["sdDeliveryHours","deliveryHours"],["sdNotes","measurementNotes"]];
+function renderSprintDelivery(p){
+  if(!p||p.outcome!=="WON")return; var w=sprintRecord(p);
+  document.getElementById("sdPaymentStatus").value=w.paymentStatus;
+  document.getElementById("sdFixDeployed").checked=!!w.fixDeployed;
+  SD_FIELDS.forEach(function(x){document.getElementById(x[0]).value=w[x[1]]==null?"":w[x[1]];});
+  document.getElementById("sdProfit").textContent=fmtMoney(sprintProfit(w));
+}
+document.getElementById("sdPaymentStatus").addEventListener("change",function(){var p=prospectById(currentProspectId);if(!p)return;sprintRecord(p).paymentStatus=this.value;saveState();renderSprintDelivery(p);});
+document.getElementById("sdFixDeployed").addEventListener("change",function(){
+  var p=prospectById(currentProspectId);if(!p)return;var w=sprintRecord(p);w.fixDeployed=this.checked;
+  if(w.fixDeployed&&!w.fixDeployedDate){w.fixDeployedDate=todayISO();w.measurementStart=w.measurementStart||todayISO();w.measurementEnd=w.measurementEnd||addDays(todayISO(),30).toISOString().slice(0,10);}
+  saveState();renderSprintDelivery(p);
+});
+SD_FIELDS.forEach(function(x){document.getElementById(x[0]).addEventListener("change",function(){var p=prospectById(currentProspectId);if(!p)return;var el=this;sprintRecord(p)[x[1]]=el.type==="number"?(+el.value||0):el.value;saveState();renderSprintDelivery(p);});});
+document.getElementById("btnCopyProof").addEventListener("click",function(){var p=prospectById(currentProspectId);if(p)copyText(buildProofRecord(p));});
 
 /* ---------- prospect notes ---------- */
 function renderProspectNotes(p){
@@ -1901,7 +1989,16 @@ function renderGenNotes(){
 }
 
 /* ============ LAUNCH / SCOREBOARD / DATA ============ */
+function renderCampaignBadges(){var c=campaignStats(),a=document.getElementById("campaignMetaBadge"),b=document.getElementById("batchMetaBadge");if(a)a.textContent="Campaign "+String(c.campaignId).padStart(2,"0");if(b)b.textContent="Batch "+c.batch+"/5";}
+function renderPreSeedScoreboard(){
+  var m=preSeedMetrics(),c=campaignStats(),rows=[["Paid Sprints",m.paidSprints],["CAC",m.cac==null?"UNKNOWN / —":fmtMoney(m.cac)],["Profit / Sprint",m.avgProfit==null?"—":fmtMoney(m.avgProfit)],["Delivery Hours",m.deliveryHours],["Documented Recovery",fmtMoney(m.documentedRevenue)]];
+  document.getElementById("preSeedStats").innerHTML=rows.map(function(r){return '<div class="stat"><strong>'+esc(r[1])+"</strong><span>"+esc(r[0])+"</span></div>";}).join("");
+  document.getElementById("campaignStats").innerHTML=[["Campaign",c.campaignId],["Batch",c.batch+"/5"],["Processed",c.processed+"/"+c.targetTotal],["Active Slots",c.active+"/"+MAX_SLOTS],["Remaining",c.remaining]].map(function(r){return '<div class="stat"><strong>'+esc(r[1])+"</strong><span>"+esc(r[0])+"</span></div>";}).join("");
+  var i=document.getElementById("acqSpendInput");if(i&&document.activeElement!==i)i.value=STATE.settings&&STATE.settings.acquisitionSpend!=null?STATE.settings.acquisitionSpend:"";
+}
+document.getElementById("acqSpendInput").addEventListener("change",function(){STATE.settings=STATE.settings||{};STATE.settings.acquisitionSpend=this.value===""?null:(+this.value||0);saveState();renderPreSeedScoreboard();});
 function renderLaunch(){
+  renderCampaignBadges(); renderPreSeedScoreboard();
   var total=STATE.prospects.length;
   var contacted=STATE.prospects.filter(function(p){return !!p.sentDate;}).length;
   var replies=STATE.activities.filter(function(a){return a.type==="reply";}).length;
@@ -2016,6 +2113,7 @@ function renderAll(){
 STATE=loadState();
 if(!STATE.settings)STATE.settings={};
 if(!STATE.bench)STATE.bench=[];
+if(!STATE.campaign)STATE.campaign={id:1,targetTotal:25};
 saveState();
 renderAll();
 
