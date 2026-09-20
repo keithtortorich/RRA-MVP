@@ -1,0 +1,74 @@
+name: observe
+
+# Manually-triggered observation run. Renders a prospect's PUBLIC pages in a
+# headless browser on a runner with open internet, and hands back signals plus
+# PLANNED draft tests as a downloadable artifact.
+#
+# It never calls, texts, submits a form, or books an appointment — EXT-001..007
+# and EXT-015 stay manual by design. See src/rra/browser_scan.py.
+#
+# workflow_dispatch requires repo write access, so this is not publicly runnable.
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Public site to observe (https://...)"
+        required: true
+        type: string
+      phone:
+        description: "Published phone number, to check the click-to-call link against"
+        required: false
+        type: string
+        default: ""
+      pages:
+        description: "Max pages to render"
+        required: false
+        type: string
+        default: "12"
+
+permissions:
+  contents: read
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package and browser
+        run: |
+          python -m pip install -e ".[browser]"
+          python -m playwright install --with-deps chromium
+
+      - name: Run observation agent
+        # Inputs are passed through the environment, never interpolated into the
+        # shell command — a ${{ }} expansion inside run: would be a script
+        # injection vector for anyone who can trigger this workflow.
+        env:
+          TARGET_URL: ${{ inputs.url }}
+          TARGET_PHONE: ${{ inputs.phone }}
+          MAX_PAGES: ${{ inputs.pages }}
+        run: |
+          # --allow-private-hosts is deliberately NOT passed: the agent refuses
+          # loopback, private, link-local and cloud-metadata targets.
+          revenue-observe "$TARGET_URL" \
+            --phone "$TARGET_PHONE" \
+            --pages "$MAX_PAGES" \
+            --out reports/observations \
+            --screenshots reports/observations/screenshots \
+            --summary-md "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload observations
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: observations-${{ github.run_number }}
+          path: reports/observations/
+          if-no-files-found: warn
+          retention-days: 30
