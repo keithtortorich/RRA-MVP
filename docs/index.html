@@ -191,6 +191,13 @@ button{cursor:pointer;-webkit-appearance:none}
 .badge.pass{background:var(--rra-green-bg);color:var(--rra-green-text);border-color:var(--rra-green)}
 .badge.pending{background:var(--rra-amber-bg);color:var(--rra-amber);border-color:var(--rra-amber)}
 .badge.reopened{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
+.badge.agent{background:var(--rra-slate2);color:var(--rra-muted);border-color:var(--rra-border);border-style:dashed}
+.agentobs{margin-top:8px;padding:10px;border:1px solid var(--rra-border);border-left:3px solid var(--rra-brass);border-radius:var(--r);background:var(--rra-obsidian);font-size:12.5px;line-height:1.45;color:var(--rra-bone)}
+.agentobs b{color:var(--rra-brass);text-transform:uppercase;font-size:10px;letter-spacing:.05em;font-family:var(--font-heading)}
+.pill.confirmfail{border-color:var(--rra-red);color:var(--rra-red-text)}
+.pill.confirmfail:active{background:var(--rra-red-bg)}
+.pill.confirmpass{border-color:var(--rra-green);color:var(--rra-green-text)}
+.pill.confirmpass:active{background:var(--rra-green-bg)}
 
 /* -- modal / detail -- */
 .overlay{position:fixed;inset:0;background:rgba(11,14,20,.72);display:flex;align-items:flex-end;justify-content:center;z-index:50}
@@ -1009,7 +1016,10 @@ function promoteTestToEvidence(p,testId){
     quality:"KNOWN",observationQuality:"KNOWN",financialQuality:"ESTIMATED",
     impact:0,priority:3,notes:test.notes||"",ts:nowISO(),
     verificationTestId:test.id,checkId:test.checkId,relatedCheckIds:(test.relatedCheckIds||[]).slice(),
-    observedAt:testObservedAt(test),financialProvenance:""
+    observedAt:testObservedAt(test),financialProvenance:"",
+    /* How the observation was made travels with the evidence: an automated browser
+       check the operator confirmed must not later read as a manual test. */
+    observationMethod:test.observationMethod||"OPERATOR"
   };
   p.evidence=p.evidence||[];
   p.evidence.push(rec);
@@ -2041,7 +2051,8 @@ function renderEvidence(p){
       "<div><b>"+esc(ev.issue)+"</b></div>"+
       (ev.source?'<div class="note">'+esc(ev.source)+"</div>":"")+
       (leak?'<div class="note">Leak: '+esc(leak.name)+"</div>":"")+
-      (ev.verificationTestId?'<div class="note">Promoted from test '+esc(ev.checkId||"")+"</div>":"")+
+      (ev.verificationTestId?'<div class="note">Promoted from test '+esc(ev.checkId||"")+
+        (ev.observationMethod==="AGENT_CONFIRMED"?" &middot; automated browser check, operator-confirmed":"")+"</div>":"")+
       (needsQuant?'<div class="warnflag"><span>&#9888;</span><span>Zero modeled impact — this promoted failure still needs quantification before it drives a proposal.</span></div>':"")+
       (isTop&&q.observation!=="KNOWN"?'<div class="warnflag"><span>&#9888;</span><span>This is the figure driving the pitch and offer, and it is not owner-confirmed.</span></div>':"")+
       '<div class="field" style="margin-top:6px"><label>Financial provenance</label><input class="vnote" type="text" data-provenance="'+ev.id+'" placeholder="Modeled from benchmark / owner-confirmed call volume, etc." value="'+esc(ev.financialProvenance||"")+'"></div>'+
@@ -2193,7 +2204,7 @@ function importAgentObservations(p,payload){
   if(runId&&ev.importedRunIds.indexOf(runId)>=0){
     return {ok:true,alreadyImported:true,signalsAdded:0,signalsUpdated:0,draftsAdded:0,skipped:0,contactUsed:0};
   }
-  var signalsAdded=0,signalsUpdated=0,draftsAdded=0,skipped=0;
+  var signalsAdded=0,signalsUpdated=0,draftsAdded=0,skipped=0,unchanged=0;
 
   (Array.isArray(payload.signals)?payload.signals:[]).forEach(function(s){
     if(!s||typeof s!=="object")return;
@@ -2222,6 +2233,13 @@ function importAgentObservations(p,payload){
     /* An imported record never arrives determinate, whatever the file claims. The agent
        observes; the operator confirms. Same rule the dossier parser follows. */
     var observation=typeof d.agentObservation==="string"?d.agentObservation:"";
+    /* A weekly schedule re-reports the same thing every run. Only surface a draft when the
+       observation differs from one already on file for this check — otherwise drafts pile
+       up week after week, while a genuine change on the site still gets through. */
+    var duplicate=observation&&ev.tests.some(function(t){
+      return t.checkId===check.id&&t.status!=="CANCELLED"&&(t.agentObservation||"")===observation;
+    });
+    if(duplicate){unchanged++;return;}
     ev.tests.push({
       id:uid(),checkId:check.id,relatedCheckIds:[],
       status:"PLANNED",
@@ -2235,7 +2253,10 @@ function importAgentObservations(p,payload){
       testStartedAt:null,responseReceivedAt:null,responseMinutes:null,
       operatorTimezone:"",device:"headless Chromium (375px mobile)",
       evidenceReference:typeof d.evidenceReference==="string"?d.evidenceReference:"",
-      notes:("Agent observation — confirm before marking determinate: "+observation).trim(),
+      notes:"",
+      agentObservation:observation,
+      agentRunId:runId,
+      agentObservedAt:(typeof d.observedAt==="string"&&!isNaN(new Date(d.observedAt).getTime()))?d.observedAt:(payload.generatedAt||nowISO()),
       evidenceId:null,createdAt:nowISO(),updatedAt:nowISO()
     });
     draftsAdded++;
@@ -2245,8 +2266,38 @@ function importAgentObservations(p,payload){
   ensureExternalVerification(p);
   reevaluateTruthPass(p);
   return {ok:true,signalsAdded:signalsAdded,signalsUpdated:signalsUpdated,
-    draftsAdded:draftsAdded,skipped:skipped,
+    draftsAdded:draftsAdded,skipped:skipped,unchanged:unchanged,
     contactUsed:(payload.contactChannelsUsed||[]).length};
+}
+
+/* ---------- one-click confirmation of an agent observation ----------
+   The operator is attesting to what the agent recorded, having looked at the
+   screenshot — so the result is determinate, but it is stamped AGENT_CONFIRMED
+   and carries the run's timestamp. It must never read as a manual test: a
+   browser check the operator eyeballed is a different claim from "I called at
+   8:43pm", and the distinction has to survive into the evidence record. */
+function confirmAgentObservation(p,testId,outcome){
+  var ev=ensureExternalVerification(p);
+  var t=ev.tests.filter(function(x){return x.id===testId;})[0];
+  if(!t)return {ok:false,reason:"Test not found."};
+  if(!t.agentObservation)return {ok:false,reason:"This test has no agent observation to confirm."};
+  if(["VERIFIED_FAILURE","VERIFIED_PASS"].indexOf(outcome)<0)return {ok:false,reason:"Invalid outcome."};
+  var observedAt=t.agentObservedAt&&!isNaN(new Date(t.agentObservedAt).getTime())?t.agentObservedAt:nowISO();
+  t.status=outcome;
+  t.observedResult=t.agentObservation;
+  t.testStartedAt=observedAt;
+  t.operatorTimezone=t.operatorTimezone||(Intl.DateTimeFormat().resolvedOptions().timeZone||"");
+  t.observationMethod="AGENT_CONFIRMED";
+  t.confirmedAt=nowISO();
+  t.updatedAt=nowISO();
+  if(!isDeterminateTest(t)){
+    /* Missing a required field the confirmation could not supply — back out rather
+       than leave a half-valid determinate record behind. */
+    t.status="PLANNED";t.observedResult="";t.observationMethod=null;t.confirmedAt=null;
+    return {ok:false,reason:"Missing required fields — open the editor and complete it."};
+  }
+  reevaluateTruthPass(p);
+  return {ok:true,test:t};
 }
 
 /* ---------- auto-sync: pull published agent runs without a download or a file picker ---------- */
@@ -2298,7 +2349,8 @@ function syncAgentObservations(p,opts){
       document.getElementById("tpAgentSummary").innerHTML=warn+
         '<div class="readyflag"><span>&#10003;</span><span>Auto-synced the agent run from '+esc(fmtDate(run.generatedAt))+
         ": "+(r.signalsAdded+r.signalsUpdated)+" signal(s), "+r.draftsAdded+
-        " draft test(s), all PLANNED. Confirm each one yourself before it counts toward Truth Pass.</span></div>";
+        " draft test(s), all PLANNED"+(r.unchanged?", "+r.unchanged+" unchanged since the last run":"")+
+        ". Confirm each one yourself before it counts toward Truth Pass.</span></div>";
       if(!opts.quiet&&r.draftsAdded)toast("Synced "+r.draftsAdded+" draft test(s) from the agent");
     });
   }).catch(function(){
@@ -2335,6 +2387,7 @@ document.getElementById("observationsFile").addEventListener("change",function(e
     document.getElementById("tpAgentSummary").innerHTML=warn+
       '<div class="readyflag"><span>&#10003;</span><span>Imported '+(r.signalsAdded+r.signalsUpdated)+" signal(s) and "+r.draftsAdded+
       " draft test(s), all PLANNED. Confirm each one yourself before it counts toward Truth Pass."+
+      (r.unchanged?" "+r.unchanged+" check(s) unchanged since the last run.":"")+
       (r.skipped?" "+r.skipped+" unrecognized record(s) ignored.":"")+"</span></div>";
     toast("Imported "+r.draftsAdded+" draft test(s)");
   };
@@ -2470,7 +2523,19 @@ function renderTestLog(p){
     if(t._familyInvalid)warn+='<div class="warnflag"><span>&#9888;</span><span>Unknown or unresolvable primary check — ineligible for Truth Pass credit until corrected.</span></div>';
     else if(t._familyNormalized)warn+='<div class="warnflag"><span>&#9888;</span><span>Channel family normalized to the primary check\'s canonical family for review.</span></div>';
     var promoBtn=(t.status==="VERIFIED_FAILURE")?(t.evidenceId?'<span class="badge known">PROMOTED</span>':'<button class="pill" data-promote="'+t.id+'" type="button">Promote to evidence</button>'):"";
-    return '<div class="tprow"><div class="tptop"><span class="tpname">'+esc(c?c.id+" — "+c.name:t.checkId)+'</span><span class="badge '+statusCls+'">'+esc(t.status)+"</span></div>"+
+    /* One-click confirm, offered only on a draft that actually carries an agent observation. */
+    var confirmRow="";
+    if(t.status==="PLANNED"&&t.agentObservation){
+      confirmRow='<div class="agentobs"><b>Agent observed:</b> '+esc(t.agentObservation)+
+        (t.evidenceReference?'<div class="note">Screenshot: '+esc(t.evidenceReference)+"</div>":"")+
+        '<div class="note">Check the screenshot, then confirm what it shows. This records an automated browser check you verified — not a manual test.</div>'+
+        '<div class="row" style="margin-top:7px">'+
+          '<button class="pill confirmfail" data-confirmfail="'+t.id+'" type="button">Confirm failure</button>'+
+          '<button class="pill confirmpass" data-confirmpass="'+t.id+'" type="button">Confirm pass</button>'+
+        "</div></div>";
+    }
+    var methodBadge=t.observationMethod==="AGENT_CONFIRMED"?' <span class="badge agent">AGENT-CONFIRMED</span>':"";
+    return '<div class="tprow"><div class="tptop"><span class="tpname">'+esc(c?c.id+" — "+c.name:t.checkId)+'</span><span class="badge '+statusCls+'">'+esc(t.status)+"</span>"+methodBadge+"</div>"+confirmRow+
       '<div class="tpmeta">'+esc(t.channel||"")+(t.channelFamily?" &middot; "+esc(t.channelFamily):"")+(testObservedAt(t)?" &middot; "+fmtDate(testObservedAt(t)):"")+"</div>"+
       (t.publicClaim?'<div class="note">Claim: '+esc(t.publicClaim)+"</div>":"")+
       (t.observedResult?"<div><b>Observed:</b> "+esc(t.observedResult)+"</div>":"")+
@@ -2478,6 +2543,18 @@ function renderTestLog(p){
       warn+
       '<div class="row" style="margin-top:6px">'+promoBtn+'<button class="pill" data-edittest="'+t.id+'" type="button">Edit</button><button class="pill" data-deltest="'+t.id+'" type="button">Delete</button></div></div>';
   }).join("");
+  function wireConfirm(attr,outcome){
+    Array.prototype.forEach.call(list.querySelectorAll("["+attr+"]"),function(el){
+      el.addEventListener("click",function(){
+        var r=confirmAgentObservation(p,el.getAttribute(attr),outcome);
+        if(!r.ok){toast(r.reason);return;}
+        saveState();renderTruthPassSection(p);renderSlots();
+        toast(outcome==="VERIFIED_FAILURE"?"Confirmed as verified failure":"Confirmed as verified pass");
+      });
+    });
+  }
+  wireConfirm("data-confirmfail","VERIFIED_FAILURE");
+  wireConfirm("data-confirmpass","VERIFIED_PASS");
   Array.prototype.forEach.call(list.querySelectorAll("[data-promote]"),function(el){
     el.addEventListener("click",function(){
       var r=promoteTestToEvidence(p,el.getAttribute("data-promote"));
