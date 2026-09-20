@@ -1,39 +1,50 @@
 name: observe
 
-# Manually-triggered observation run. Renders a prospect's PUBLIC pages in a
-# headless browser on a runner with open internet, and hands back signals plus
-# PLANNED draft tests as a downloadable artifact.
+# Runs the observation agent over every target in targets.json, publishes the
+# results into docs/observations/, and commits them. The Sizzle tool pulls
+# them automatically on open — no download, no file picker.
 #
-# It never calls, texts, submits a form, or books an appointment — EXT-001..007
+# It never calls, texts, submits a form, or books an appointment. EXT-001..007
 # and EXT-015 stay manual by design. See src/rra/browser_scan.py.
-#
-# workflow_dispatch requires repo write access, so this is not publicly runnable.
 
 on:
   workflow_dispatch:
     inputs:
       url:
-        description: "Public site to observe (https://...)"
-        required: true
+        description: "Observe a single site instead of targets.json (optional)"
+        required: false
         type: string
+        default: ""
       phone:
-        description: "Published phone number, to check the click-to-call link against"
+        description: "Published phone, only used with a single-site run"
         required: false
         type: string
         default: ""
       pages:
-        description: "Max pages to render"
+        description: "Max pages to render per site"
         required: false
         type: string
         default: "12"
+      publish:
+        description: "Commit results to docs/observations/ for the tool to pull"
+        required: false
+        type: boolean
+        default: true
+  schedule:
+    # Mondays 13:00 UTC — observations stay current without anyone clicking.
+    - cron: "0 13 * * 1"
 
 permissions:
-  contents: read
+  contents: write
+
+concurrency:
+  group: observe
+  cancel-in-progress: false
 
 jobs:
   observe:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
 
@@ -47,28 +58,54 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Run observation agent
-        # Inputs are passed through the environment, never interpolated into the
-        # shell command — a ${{ }} expansion inside run: would be a script
-        # injection vector for anyone who can trigger this workflow.
+        # Dispatch inputs are passed through the environment, never interpolated
+        # into the shell — a ${{ }} expansion inside run: would be a script
+        # injection vector for anyone able to trigger this workflow.
         env:
           TARGET_URL: ${{ inputs.url }}
           TARGET_PHONE: ${{ inputs.phone }}
-          MAX_PAGES: ${{ inputs.pages }}
+          MAX_PAGES: ${{ inputs.pages || '12' }}
         run: |
-          # --allow-private-hosts is deliberately NOT passed: the agent refuses
-          # loopback, private, link-local and cloud-metadata targets.
-          revenue-observe "$TARGET_URL" \
-            --phone "$TARGET_PHONE" \
-            --pages "$MAX_PAGES" \
-            --out reports/observations \
-            --screenshots reports/observations/screenshots \
-            --summary-md "$GITHUB_STEP_SUMMARY"
+          set -euo pipefail
+          # --allow-private-hosts is deliberately never passed: the agent
+          # refuses loopback, private, link-local and cloud-metadata targets.
+          if [ -n "$TARGET_URL" ]; then
+            revenue-observe "$TARGET_URL" \
+              --phone "$TARGET_PHONE" \
+              --pages "$MAX_PAGES" \
+              --out docs/observations \
+              --screenshots docs/observations/screenshots \
+              --summary-md "$GITHUB_STEP_SUMMARY"
+          else
+            revenue-observe \
+              --targets targets.json \
+              --pages "$MAX_PAGES" \
+              --out docs/observations \
+              --screenshots docs/observations/screenshots \
+              --summary-md "$GITHUB_STEP_SUMMARY"
+          fi
 
-      - name: Upload observations
+      - name: Publish observations
+        if: ${{ inputs.publish != false }}
+        run: |
+          set -euo pipefail
+          if [ -z "$(git status --porcelain docs/observations)" ]; then
+            echo "No observation changes to publish."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/observations
+          git commit -m "Publish agent observations ($(date -u +%Y-%m-%d))"
+          # Another run may have landed while this one was rendering.
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - name: Upload observations artifact
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: observations-${{ github.run_number }}
-          path: reports/observations/
+          path: docs/observations/
           if-no-files-found: warn
           retention-days: 30
