@@ -180,6 +180,17 @@ button{cursor:pointer;-webkit-appearance:none}
 .verifyitem.done .vlabel{color:var(--rra-muted);text-decoration:line-through}
 .verifyitem .vnote{margin-top:6px;width:100%;padding:8px 10px;border:1px solid var(--rra-border);border-radius:var(--r);background:var(--rra-obsidian);color:var(--rra-bone);font-size:11.5px}
 .verifyitem .vbody{flex:1;min-width:0}
+.tprow{border:1px solid var(--rra-border);border-radius:var(--r);padding:10px;margin-bottom:7px;background:var(--rra-slate)}
+.tprow .tptop{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
+.tprow .tpname{font-weight:700;color:var(--rra-bone);font-size:12.5px}
+.tprow .tpmeta{font-size:11px;color:var(--rra-muted);margin-top:3px}
+.dualqual{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
+.dualqual .dq{font-size:9.5px;color:var(--rra-muted)}
+.na-badge{background:var(--rra-slate2);color:var(--rra-muted);border:1px solid var(--rra-border);border-radius:var(--r);padding:3px 7px;font-size:9.5px;text-transform:uppercase;font-weight:700}
+.badge.fail{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
+.badge.pass{background:var(--rra-green-bg);color:var(--rra-green-text);border-color:var(--rra-green)}
+.badge.pending{background:var(--rra-amber-bg);color:var(--rra-amber);border-color:var(--rra-amber)}
+.badge.reopened{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
 
 /* -- modal / detail -- */
 .overlay{position:fixed;inset:0;background:rgba(11,14,20,.72);display:flex;align-items:flex-end;justify-content:center;z-index:50}
@@ -511,6 +522,74 @@ button{cursor:pointer;-webkit-appearance:none}
       </div>
 
       <div class="subpanel" id="s-evidence">
+        <div class="card" id="tpSuggestCard">
+          <div class="head">Suggested Next Test</div>
+          <div class="note" id="tpSuggestText">—</div>
+        </div>
+        <div class="card">
+          <div class="head">External Verification — Truth Pass<small id="tpStatusBadge"></small></div>
+          <p class="note">Public claims are signals, not evidence. A scoped no-leak conclusion requires at least three determinate high-value tests across two channel families, plus phone/digital requirements when applicable.</p>
+          <div class="stats" id="tpProgressStats"></div>
+          <div id="tpMissingList"></div>
+          <div class="g2" style="margin-top:8px">
+            <div class="field"><label>Phone requirement</label><div id="tpPhoneReq" class="note"></div></div>
+            <div class="field"><label>Digital requirement</label><div id="tpDigitalReq" class="note"></div></div>
+          </div>
+          <div id="tpNAForms"></div>
+          <div class="field"><label>Completion notes</label><textarea id="tpNotes" rows="2" placeholder="Scope notes for a no-leak conclusion, or context on the verified failure(s)."></textarea></div>
+          <button class="btn accentbtn block" id="btnCompleteTruthPass" disabled>Complete Truth Pass</button>
+          <div class="note" id="tpResultNote" style="margin-top:8px"></div>
+        </div>
+        <div class="card">
+          <div class="head">Test Catalog<small>15 checks</small></div>
+          <p class="note">Tap a check to log a new test against it. Related checks may be attached but never add separate Truth Pass credit.</p>
+          <div id="tpCatalogList"></div>
+        </div>
+        <div class="card hidden" id="tpEditorCard">
+          <div class="head" id="tpEditorTitle">Log Test</div>
+          <div class="field"><label>Primary check</label><select id="teCheckId"></select></div>
+          <div class="field"><label>Related checks (optional — do not add Truth Pass credit)</label><div id="teRelatedChecks" class="row"></div></div>
+          <div class="g2">
+            <div class="field"><label>Status</label><select id="teStatus">
+              <option value="PLANNED">PLANNED</option><option value="IN_PROGRESS">IN_PROGRESS</option>
+              <option value="VERIFIED_FAILURE">VERIFIED_FAILURE</option><option value="VERIFIED_PASS">VERIFIED_PASS</option>
+              <option value="INCONCLUSIVE">INCONCLUSIVE</option><option value="CANCELLED">CANCELLED</option>
+            </select></div>
+            <div class="field"><label>Channel</label><select id="teChannel"></select></div>
+          </div>
+          <div class="g2">
+            <div class="field"><label>Public claim</label><input id="tePublicClaim" placeholder="24/7 emergency service"></div>
+            <div class="field"><label>Source URL</label><input id="teSourceUrl" type="url" placeholder="https://"></div>
+          </div>
+          <div class="g2">
+            <div class="field"><label>Expected result</label><input id="teExpectedResult"></div>
+            <div class="field"><label>Observed result</label><input id="teObservedResult"></div>
+          </div>
+          <div class="g2">
+            <div class="field"><label>Test started at</label><input id="teStartedAt" type="datetime-local"></div>
+            <div class="field"><label>Response received at</label><input id="teResponseAt" type="datetime-local"></div>
+          </div>
+          <div class="g2">
+            <div class="field"><label>Operator timezone</label><input id="teTimezone" placeholder="America/Chicago"></div>
+            <div class="field"><label>Device</label><input id="teDevice" placeholder="iPhone Safari"></div>
+          </div>
+          <div class="field"><label>Evidence reference</label><input id="teEvidenceRef" placeholder="Screenshot filename, call-log reference"></div>
+          <div class="field"><label>Notes / cancellation reason</label><textarea id="teNotes" rows="2"></textarea></div>
+          <div id="teWarnings"></div>
+          <div class="row">
+            <button class="btn primary" id="btnSaveTest">Save test</button>
+            <button class="btn outline" id="btnCancelTestEdit" type="button">Cancel</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="head">Test Log<small id="tpTestCount"></small></div>
+          <div id="tpTestList"></div>
+        </div>
+        <div class="card">
+          <div class="head">Investigation Signals</div>
+          <p class="note">Signals recommend a test. They never create evidence, select a leak, or populate a dollar amount.</p>
+          <div id="tpSignalList"></div>
+        </div>
         <div class="card">
           <div class="head">Revenue Leakage Diagnostic</div>
           <div class="row" style="margin-bottom:10px">
@@ -708,6 +787,228 @@ var LEAK_LIBRARY=[
 ];
 function leakById(id){for(var i=0;i<LEAK_LIBRARY.length;i++){if(LEAK_LIBRARY[i].id===id)return LEAK_LIBRARY[i];}return null;}
 
+/* ---------- external verification: check catalog, signals, channels (Sizzle external-leak verification) ---------- */
+var CHANNELS=["PHONE","SMS","WEB_FORM","BOOKING","WEBSITE","DIRECTORY_COMPARISON"];
+var CHANNEL_FAMILIES=["PHONE","MESSAGE","FORM","BOOKING","WEBSITE"];
+var TEST_STATUSES=["PLANNED","IN_PROGRESS","VERIFIED_FAILURE","VERIFIED_PASS","INCONCLUSIVE","CANCELLED"];
+var DETERMINATE_STATUSES=["VERIFIED_FAILURE","VERIFIED_PASS"];
+var CHECK_CATALOG=[
+  {id:"EXT-001",name:"After-hours call handling",leakId:"HVAC-LEAK-001",channelFamily:"PHONE",channels:["PHONE"],highValue:true,satisfiesPhone:true,satisfiesDigital:false,responseObservation:false,procedure:"Call the published number after posted business hours.",expected:"Live answer or a stated emergency routing message.",failureCondition:"Call goes unanswered, rings out, or reaches a generic voicemail with no routing."},
+  {id:"EXT-002",name:"24/7 promise delivery",leakId:"HVAC-LEAK-001",channelFamily:"PHONE",channels:["PHONE"],highValue:true,satisfiesPhone:true,satisfiesDigital:false,responseObservation:false,procedure:"Call the published number at a time the site claims 24/7 coverage.",expected:"Live answer or emergency routing consistent with the 24/7 claim.",failureCondition:"The claimed 24/7 coverage does not hold up on the test call."},
+  {id:"EXT-003",name:"Callback response",leakId:"HVAC-LEAK-001",channelFamily:"PHONE",channels:["PHONE"],highValue:true,satisfiesPhone:true,satisfiesDigital:false,responseObservation:true,procedure:"Leave a voicemail or request a callback and time the response.",expected:"Callback within a reasonable SLA window.",failureCondition:"No callback received within the documented window."},
+  {id:"EXT-004",name:"SMS response",leakId:"HVAC-LEAK-001",channelFamily:"MESSAGE",channels:["SMS"],highValue:true,satisfiesPhone:false,satisfiesDigital:false,responseObservation:true,procedure:"Text the published SMS-capable number with a legitimate inquiry.",expected:"A response within a reasonable SLA window.",failureCondition:"No response received within the documented window."},
+  {id:"EXT-005",name:"Web form function",leakId:"HVAC-LEAK-002",channelFamily:"FORM",channels:["WEB_FORM"],highValue:true,satisfiesPhone:false,satisfiesDigital:true,responseObservation:false,procedure:"Submit the public contact/booking form with a legitimate inquiry.",expected:"Form submits successfully and shows a confirmation.",failureCondition:"Form errors, fails to submit, or gives no confirmation."},
+  {id:"EXT-006",name:"Web lead response",leakId:"HVAC-LEAK-004",channelFamily:"FORM",channels:["WEB_FORM"],highValue:true,satisfiesPhone:false,satisfiesDigital:true,responseObservation:true,procedure:"After a successful form submission, time the follow-up response.",expected:"A response within a reasonable SLA window.",failureCondition:"No response received within the documented window."},
+  {id:"EXT-007",name:"Online booking function",leakId:"HVAC-LEAK-002",channelFamily:"BOOKING",channels:["BOOKING"],highValue:true,satisfiesPhone:false,satisfiesDigital:true,responseObservation:false,procedure:"Attempt to book an appointment through the public booking path.",expected:"Booking completes and is confirmed.",failureCondition:"Booking path errors, dead-ends, or never confirms."},
+  {id:"EXT-008",name:"Mobile click to call",leakId:"HVAC-LEAK-002",channelFamily:"PHONE",channels:["PHONE"],highValue:true,satisfiesPhone:true,satisfiesDigital:false,responseObservation:false,procedure:"On a mobile device, tap the published click-to-call number.",expected:"The tap correctly dials the published number.",failureCondition:"The tap fails, dials a wrong number, or is not tappable."},
+  {id:"EXT-009",name:"Public phone validity",leakId:"HVAC-LEAK-001",channelFamily:"PHONE",channels:["PHONE"],highValue:true,satisfiesPhone:true,satisfiesDigital:false,responseObservation:false,procedure:"Call the published public phone number directly.",expected:"The number is in service and reaches the business.",failureCondition:"The number is disconnected, wrong, or does not reach the business."},
+  {id:"EXT-010",name:"Emergency contact friction",leakId:"HVAC-LEAK-002",channelFamily:"WEBSITE",channels:["WEBSITE"],highValue:false,satisfiesPhone:false,satisfiesDigital:true,responseObservation:false,procedure:"Attempt to find the emergency contact path from the homepage on mobile.",expected:"Emergency contact path is reachable within a couple of taps.",failureCondition:"Emergency contact path is buried, missing, or broken."},
+  {id:"EXT-011",name:"Conversion link integrity",leakId:"HVAC-LEAK-002",channelFamily:"WEBSITE",channels:["WEBSITE"],highValue:true,satisfiesPhone:false,satisfiesDigital:true,responseObservation:false,procedure:"Click every primary conversion link (call, form, booking) from the homepage.",expected:"Every conversion link resolves to a working destination.",failureCondition:"One or more conversion links are dead, broken, or misdirected."},
+  {id:"EXT-012",name:"Hours consistency",leakId:"HVAC-LEAK-002",channelFamily:"WEBSITE",channels:["WEBSITE","DIRECTORY_COMPARISON"],highValue:false,satisfiesPhone:false,satisfiesDigital:false,responseObservation:false,procedure:"Compare posted hours across website, Google Business Profile, and directories.",expected:"Hours are consistent across all public sources.",failureCondition:"Hours conflict across public sources."},
+  {id:"EXT-013",name:"Service-area conversion path",leakId:"HVAC-LEAK-008",channelFamily:"WEBSITE",channels:["WEBSITE"],highValue:false,satisfiesPhone:false,satisfiesDigital:true,responseObservation:false,procedure:"Attempt to convert from a service-area page for a claimed coverage city.",expected:"A clear conversion path exists on the service-area page.",failureCondition:"No conversion path, or the page does not exist for a claimed area."},
+  {id:"EXT-014",name:"Form friction",leakId:"HVAC-LEAK-002",channelFamily:"WEBSITE",channels:["WEB_FORM"],highValue:false,satisfiesPhone:false,satisfiesDigital:true,responseObservation:false,procedure:"Time and count the steps required to complete the public form on mobile.",expected:"Form is short and low-friction on mobile.",failureCondition:"Form is long, broken on mobile, or requires excessive fields."},
+  {id:"EXT-015",name:"Submission confirmation",leakId:"HVAC-LEAK-002",channelFamily:"FORM",channels:["WEB_FORM"],highValue:false,satisfiesPhone:false,satisfiesDigital:true,responseObservation:true,procedure:"Submit the form and observe what confirmation is shown/sent.",expected:"A clear on-screen or emailed confirmation is provided.",failureCondition:"No confirmation is shown or sent after submission."}
+];
+function checkMeta(id){for(var i=0;i<CHECK_CATALOG.length;i++){if(CHECK_CATALOG[i].id===id)return CHECK_CATALOG[i];}return null;}
+function canonicalFamilyFor(checkId){var c=checkMeta(checkId);return c?c.channelFamily:null;}
+var HIGH_VALUE_CHECK_IDS=CHECK_CATALOG.filter(function(c){return c.highValue;}).map(function(c){return c.id;});
+
+var SIGNAL_TYPES=[
+  {id:"NO_CHAT_WIDGET",label:"No chat widget detected"},
+  {id:"NO_ONLINE_BOOKING",label:"No online booking detected"},
+  {id:"NO_FINANCING",label:"No visible financing option"},
+  {id:"SLOW_PERFORMANCE",label:"Slow page or poor performance score"},
+  {id:"LOW_REVIEW_RESPONSE",label:"Low review-response rate"},
+  {id:"OLD_LATEST_REVIEW",label:"Old latest review"},
+  {id:"LOW_REVIEW_COUNT",label:"Low review count"},
+  {id:"WEAK_SEARCH_VISIBILITY",label:"Weak search visibility"},
+  {id:"THIN_SERVICE_PAGES",label:"Missing or thin service pages"},
+  {id:"NO_SMS_OPTION",label:"No visible SMS option"},
+  {id:"NO_PRICING_GUIDANCE",label:"No pricing guidance"},
+  {id:"PHONE_NOT_PROMINENT",label:"Phone number not prominent"},
+  {id:"WEAK_CTA",label:"Weak or generic call to action"}
+];
+var SIGNAL_STATUSES=["NOT_REVIEWED","PRESENT","ABSENT","NOT_APPLICABLE"];
+
+function defaultExternalVerification(){
+  return {signals:[],tests:[],truthPass:{status:"INCOMPLETE",result:null,qualifyingTestIds:[],channelFamilies:[],notApplicable:[],completedAt:null,notes:"",reopenedAt:null,reopenedReason:null}};
+}
+/* Lazily attach + sanitize externalVerification on any prospect, old or new — never crash on malformed nested data. */
+function ensureExternalVerification(p){
+  if(!p.externalVerification||typeof p.externalVerification!=="object")p.externalVerification=defaultExternalVerification();
+  var ev=p.externalVerification;
+  if(!Array.isArray(ev.signals))ev.signals=[];
+  if(!Array.isArray(ev.tests))ev.tests=[];
+  if(!ev.truthPass||typeof ev.truthPass!=="object")ev.truthPass={};
+  var tp=ev.truthPass;
+  if(["INCOMPLETE","COMPLETE","REOPENED"].indexOf(tp.status)<0)tp.status="INCOMPLETE";
+  if(["EXTERNAL_LEAK_FOUND","NO_EXTERNAL_LEAK_FOUND"].indexOf(tp.result)<0)tp.result=null;
+  if(tp.status!=="COMPLETE")tp.result=null;
+  if(!Array.isArray(tp.qualifyingTestIds))tp.qualifyingTestIds=[];
+  if(!Array.isArray(tp.channelFamilies))tp.channelFamilies=[];
+  if(!Array.isArray(tp.notApplicable))tp.notApplicable=[];
+  if(typeof tp.notes!=="string")tp.notes="";
+  if(tp.completedAt&&isNaN(new Date(tp.completedAt).getTime()))tp.completedAt=null;
+  if(tp.reopenedAt&&isNaN(new Date(tp.reopenedAt).getTime()))tp.reopenedAt=null;
+  if(typeof tp.reopenedReason!=="string")tp.reopenedReason=tp.reopenedReason||null;
+  /* sanitize signals: drop malformed entries, keep valid siblings */
+  ev.signals=ev.signals.filter(function(s){return s&&typeof s==="object";}).map(function(s){
+    if(!s.id)s.id=uid();
+    if(!SIGNAL_TYPES.some(function(t){return t.id===s.signalType;}))s.signalType=s.signalType||"UNKNOWN";
+    if(SIGNAL_STATUSES.indexOf(s.status)<0)s.status="NOT_REVIEWED";
+    if(typeof s.notes!=="string")s.notes="";
+    if(typeof s.sourceUrl!=="string")s.sourceUrl="";
+    if(!s.createdAt)s.createdAt=nowISO();
+    if(!s.updatedAt)s.updatedAt=s.createdAt;
+    return s;
+  });
+  /* sanitize tests: drop non-object garbage, normalize fields, never invent determinate status */
+  ev.tests=ev.tests.filter(function(t){return t&&typeof t==="object";}).map(function(t){
+    if(!t.id)t.id=uid();
+    if(TEST_STATUSES.indexOf(t.status)<0)t.status="PLANNED";
+    if(!Array.isArray(t.relatedCheckIds))t.relatedCheckIds=[];
+    t.relatedCheckIds=t.relatedCheckIds.filter(function(id){return !!checkMeta(id);});
+    if(CHANNELS.indexOf(t.channel)<0)t.channel=null;
+    var canon=canonicalFamilyFor(t.checkId);
+    t._familyInvalid=!canon; /* unknown/unresolvable primary check -> ineligible for credit until corrected */
+    if(canon&&t.channelFamily!==canon){t._familyNormalized=(t.channelFamily!=null&&t.channelFamily!==canon);t.channelFamily=canon;}
+    else if(!canon){t.channelFamily=t.channelFamily||null;}
+    ["publicClaim","sourceUrl","testMethod","expectedResult","observedResult","operatorTimezone","device","evidenceReference","notes"].forEach(function(k){if(typeof t[k]!=="string")t[k]=t[k]?String(t[k]):"";});
+    if(t.testStartedAt&&isNaN(new Date(t.testStartedAt).getTime()))t.testStartedAt=null;
+    if(t.responseReceivedAt&&isNaN(new Date(t.responseReceivedAt).getTime()))t.responseReceivedAt=null;
+    if(t.responseMinutes!=null&&isNaN(Number(t.responseMinutes)))t.responseMinutes=null;
+    if(t.evidenceId&&typeof t.evidenceId!=="string")t.evidenceId=null;
+    if(!t.createdAt)t.createdAt=nowISO();
+    if(!t.updatedAt)t.updatedAt=t.createdAt;
+    return t;
+  });
+  return ev;
+}
+function testObservedAt(t){return t.responseReceivedAt||t.testStartedAt||null;}
+function testHasValidChannel(t){var c=checkMeta(t.checkId);return !!(c&&t.channel&&c.channels.indexOf(t.channel)>=0);}
+function isDeterminateTest(t){
+  if(!t)return false;
+  if(DETERMINATE_STATUSES.indexOf(t.status)<0)return false;
+  if(!t.checkId||!checkMeta(t.checkId))return false;
+  if(t._familyInvalid)return false;
+  var ts=testObservedAt(t);
+  if(!ts||isNaN(new Date(ts).getTime()))return false;
+  if(!t.observedResult||!t.observedResult.trim())return false;
+  if(!testHasValidChannel(t))return false;
+  return true;
+}
+function isQualifyingTest(t){
+  if(!isDeterminateTest(t))return false;
+  var c=checkMeta(t.checkId);
+  return !!(c&&c.highValue);
+}
+function activeTestsFor(p){return ensureExternalVerification(p).tests.filter(function(t){return t.status!=="CANCELLED";});}
+function sameIdSet(a,b){if(a.length!==b.length)return false;var s=a.slice().sort();var t=b.slice().sort();for(var i=0;i<s.length;i++){if(s[i]!==t[i])return false;}return true;}
+
+/* ---------- Minimum Truth Pass: derive current state from records, never trust a stale flag ---------- */
+function computeTruthPass(p){
+  var ev=ensureExternalVerification(p);
+  var tests=activeTestsFor(p);
+  var qualifying=tests.filter(isQualifyingTest);
+  var families={};
+  qualifying.forEach(function(t){families[canonicalFamilyFor(t.checkId)]=true;});
+  var familyList=Object.keys(families);
+  var missing=[];
+  if(qualifying.length<3)missing.push("Need "+(3-qualifying.length)+" more determinate high-value test(s) — have "+qualifying.length+"/3.");
+  if(familyList.length<2)missing.push("Need coverage across at least 2 channel families — have "+familyList.length+"/2.");
+  var hasPhone=!!(p.phone&&String(p.phone).trim());
+  var hasDigital=!!(p.website&&String(p.website).trim());
+  var naEntries=ev.truthPass.notApplicable||[];
+  var naPhone=naEntries.some(function(n){return n.requirement==="PHONE";});
+  var naDigital=naEntries.some(function(n){return n.requirement==="DIGITAL";});
+  var phoneSatisfied=qualifying.some(function(t){var c=checkMeta(t.checkId);return c&&c.satisfiesPhone;});
+  var digitalSatisfied=qualifying.some(function(t){var c=checkMeta(t.checkId);return c&&c.satisfiesDigital;});
+  if(hasPhone&&!phoneSatisfied&&!naPhone)missing.push("Phone-handling test required (public phone number on file), or document NOT_APPLICABLE.");
+  if(hasDigital&&!digitalSatisfied&&!naDigital)missing.push("Digital conversion-path test required (public website on file), or document NOT_APPLICABLE.");
+  var anyFailure=qualifying.some(function(t){return t.status==="VERIFIED_FAILURE";});
+  var complete=missing.length===0;
+  return {
+    complete:complete,missing:missing,
+    qualifyingTestIds:qualifying.map(function(t){return t.id;}),
+    channelFamilies:familyList,
+    result:complete?(anyFailure?"EXTERNAL_LEAK_FOUND":"NO_EXTERNAL_LEAK_FOUND"):null,
+    hasPhoneReq:hasPhone,hasDigitalReq:hasDigital,
+    phoneSatisfied:phoneSatisfied||naPhone,digitalSatisfied:digitalSatisfied||naDigital,
+    anyFailure:anyFailure,qualifyingCount:qualifying.length
+  };
+}
+/* Recompute against current records; auto-reopen a completed Truth Pass whose basis no longer holds. Never fabricates completion. */
+function reevaluateTruthPass(p){
+  var ev=ensureExternalVerification(p);
+  var computed=computeTruthPass(p);
+  if(ev.truthPass.status==="COMPLETE"){
+    var stillGood=computed.complete&&computed.result===ev.truthPass.result&&sameIdSet(computed.qualifyingTestIds,ev.truthPass.qualifyingTestIds);
+    if(!stillGood){
+      ev.truthPass.status="REOPENED";
+      ev.truthPass.reopenedAt=nowISO();
+      ev.truthPass.reopenedReason="Underlying qualifying test data changed since completion.";
+    }
+  }
+  return computed;
+}
+function completeTruthPass(p,notes){
+  var ev=ensureExternalVerification(p);
+  var computed=computeTruthPass(p);
+  if(!computed.complete)return {ok:false,computed:computed};
+  ev.truthPass.status="COMPLETE";
+  ev.truthPass.result=computed.result;
+  ev.truthPass.qualifyingTestIds=computed.qualifyingTestIds;
+  ev.truthPass.channelFamilies=computed.channelFamilies;
+  ev.truthPass.completedAt=nowISO();
+  ev.truthPass.notes=notes||"";
+  ev.truthPass.reopenedAt=null;
+  ev.truthPass.reopenedReason=null;
+  return {ok:true,computed:computed};
+}
+function addNotApplicable(p,requirement,reason,sourceUrl,notes){
+  var ev=ensureExternalVerification(p);
+  ev.truthPass.notApplicable=ev.truthPass.notApplicable.filter(function(n){return n.requirement!==requirement;});
+  ev.truthPass.notApplicable.push({id:uid(),requirement:requirement,reason:reason||"",operator:"",recordedAt:nowISO(),sourceUrl:sourceUrl||"",notes:notes||""});
+  reevaluateTruthPass(p);
+}
+function removeNotApplicable(p,requirement){
+  var ev=ensureExternalVerification(p);
+  ev.truthPass.notApplicable=ev.truthPass.notApplicable.filter(function(n){return n.requirement!==requirement;});
+  reevaluateTruthPass(p);
+}
+
+/* ---------- evidence promotion: VERIFIED_FAILURE test -> evidence record, operational KNOWN / financial ESTIMATED ---------- */
+function evidenceQuality(ev){
+  return {observation:ev.observationQuality||ev.quality||"ESTIMATED",financial:ev.financialQuality||(ev.quality==="BENCHMARK"?"BENCHMARK":"ESTIMATED")};
+}
+function activeEvidence(p){return (p.evidence||[]).filter(function(e){return e&&!e._staleLink;});}
+function promoteTestToEvidence(p,testId){
+  var ev=ensureExternalVerification(p);
+  var test=ev.tests.filter(function(t){return t.id===testId;})[0];
+  if(!test)return {ok:false,reason:"Test not found."};
+  if(!isDeterminateTest(test)||test.status!=="VERIFIED_FAILURE")return {ok:false,reason:"Only a currently valid VERIFIED_FAILURE test can be promoted."};
+  if(test.evidenceId){
+    var existing=(p.evidence||[]).filter(function(e){return e.id===test.evidenceId&&!e._staleLink;})[0];
+    if(existing)return {ok:true,evidence:existing,created:false};
+    test.evidenceId=null; /* stale link — fall through to a fresh promotion */
+  }
+  var check=checkMeta(test.checkId);
+  var rec={
+    id:uid(),issue:test.publicClaim?("Claim \""+test.publicClaim+"\" — observed: "+test.observedResult):(test.observedResult||"Verified operational failure"),
+    source:test.sourceUrl||test.evidenceReference||"",leakId:check?check.leakId:null,
+    quality:"KNOWN",observationQuality:"KNOWN",financialQuality:"ESTIMATED",
+    impact:0,priority:3,notes:test.notes||"",ts:nowISO(),
+    verificationTestId:test.id,checkId:test.checkId,relatedCheckIds:(test.relatedCheckIds||[]).slice(),
+    observedAt:testObservedAt(test),financialProvenance:""
+  };
+  p.evidence=p.evidence||[];
+  p.evidence.push(rec);
+  test.evidenceId=rec.id;
+  test.updatedAt=nowISO();
+  if(!p.topLeakId)p.topLeakId=rec.id;
+  return {ok:true,evidence:rec,created:true};
+}
+
 var PIPELINE_STATES=["TARGET","AUDITED","VERIFIED","PROPOSAL_READY","SENT","CONVERSATION","WON","LOST","NURTURE"];
 var MAX_SLOTS=5;
 var STORAGE_KEY="rra_state_v2";
@@ -757,9 +1058,48 @@ var DOSSIER_FIELD_MAP=[
   {key:"website",labels:["website","site","url","web"]},
   {key:"email",labels:["email","e-mail"]},
   {key:"source",labels:["source","evidence source","found via","research source"]},
-  {key:"notes",labels:["notes","why","why this target","open questions","questions","evidence","observations"]}
+  {key:"notes",labels:["notes","why","why this target","open questions","questions","evidence","observations"]},
+  {key:"publicClaim",labels:["public claim"]},
+  {key:"claimSource",labels:["claim source"]},
+  {key:"suggestedTest",labels:["suggested test"]},
+  {key:"observedResult",labels:["observed result"]},
+  {key:"observedAt",labels:["observed at"]},
+  {key:"responseTime",labels:["response time"]},
+  {key:"operationalQuality",labels:["operational quality"]},
+  {key:"financialQuality",labels:["financial quality"]}
 ];
-var SINGLE_LINE_FIELDS={company:1,city:1,contact:1,phone:1,website:1,email:1};
+var SINGLE_LINE_FIELDS={company:1,city:1,contact:1,phone:1,website:1,email:1,publicClaim:1,claimSource:1,suggestedTest:1,observedResult:1,observedAt:1,responseTime:1,operationalQuality:1,financialQuality:1};
+/* Dossier parsing may create a signal or a non-determinate draft test — it must never fabricate a VERIFIED_FAILURE or KNOWN financial evidence, however confident the pasted text sounds. */
+function applyDossierExternalVerification(parsed,p){
+  if(!p)return 0;
+  var hasAny=parsed.publicClaim||parsed.claimSource||parsed.suggestedTest||parsed.observedResult;
+  if(!hasAny)return 0;
+  var ev=ensureExternalVerification(p);
+  var matchedCheck=null;
+  if(parsed.suggestedTest){
+    var needle=parsed.suggestedTest.toLowerCase();
+    matchedCheck=CHECK_CATALOG.filter(function(c){return needle.indexOf(c.id.toLowerCase())>=0||needle.indexOf(c.name.toLowerCase())>=0||c.name.toLowerCase().indexOf(needle)>=0;})[0]||null;
+  }
+  var draft={
+    id:uid(),checkId:matchedCheck?matchedCheck.id:null,relatedCheckIds:[],
+    status:"PLANNED", /* never auto-determinate, regardless of how confident the pasted "Operational quality:"/"Financial quality:" language sounds */
+    channel:null,channelFamily:matchedCheck?matchedCheck.channelFamily:null,
+    publicClaim:parsed.publicClaim||"",sourceUrl:parsed.claimSource||"",
+    testMethod:parsed.suggestedTest||"",expectedResult:matchedCheck?matchedCheck.expected:"",
+    observedResult:parsed.observedResult||"",
+    testStartedAt:parsed.observedAt&&!isNaN(new Date(parsed.observedAt).getTime())?new Date(parsed.observedAt).toISOString():null,
+    responseReceivedAt:null,responseMinutes:parsed.responseTime||null,
+    operatorTimezone:"",device:"",evidenceReference:"",
+    notes:["Imported from dossier paste — review and complete before marking determinate.",
+      parsed.operationalQuality?("Reported operational quality: "+parsed.operationalQuality+" (not applied — requires operator confirmation)"):"",
+      parsed.financialQuality?("Reported financial quality: "+parsed.financialQuality+" (not applied — requires operator confirmation)"):""
+    ].filter(Boolean).join(" "),
+    evidenceId:null,createdAt:nowISO(),updatedAt:nowISO()
+  };
+  ev.tests.push(draft);
+  ensureExternalVerification(p); /* re-sanitize the newly pushed draft through the same guards as any other test */
+  return 1;
+}
 function parseDossier(text){
   var out={};
   var lastKey=null;
@@ -871,6 +1211,27 @@ function loadState(){
     if(seeded)return seeded;
   }
   return fresh;
+}
+
+/* Idempotent v3 migration: add externalVerification defaults, back-fill evidence quality split, never re-run effects twice. */
+function migrateExternalVerificationV3(state){
+  (state.prospects||[]).forEach(function(p){
+    ensureExternalVerification(p);
+    (p.evidence||[]).forEach(function(e){
+      if(!e)return;
+      if(e.observationQuality===undefined){
+        e.observationQuality=e.quality||"ESTIMATED";
+      }
+      if(e.financialQuality===undefined){
+        e.financialQuality=e.quality==="BENCHMARK"?"BENCHMARK":"ESTIMATED";
+        if(e.impact>0&&e.quality==="KNOWN")e._migrationReview=true; /* operational KNOWN never implies financial KNOWN */
+      }
+      if(e.financialProvenance===undefined)e.financialProvenance="";
+      if(e.relatedCheckIds===undefined)e.relatedCheckIds=[];
+    });
+  });
+  if((state.version||2)<3)state.version=3;
+  return state;
 }
 
 function saveState(){
@@ -1022,6 +1383,47 @@ function followupInfo(p){
   return {due:dueDate,label:"Day "+seq[p.followupsSent]+" follow-up",status:status};
 }
 
+/* ---------- external-verification NEXT ACTION precedence (evaluated on current derived state, never a stale flag) ---------- */
+function truthPassNextAction(p){
+  var ev=ensureExternalVerification(p);
+  var computed=reevaluateTruthPass(p);
+  var truthIncomplete=ev.truthPass.status!=="COMPLETE";
+  var tests=activeTestsFor(p);
+
+  var inProg=tests.filter(function(t){var c=checkMeta(t.checkId);return t.status==="IN_PROGRESS"&&c&&c.responseObservation&&c.highValue&&t.testStartedAt;});
+  if(truthIncomplete&&inProg.length){
+    inProg.sort(function(a,b){return new Date(a.testStartedAt)-new Date(b.testStartedAt);});
+    return {text:"VERIFY: Check for response — "+checkMeta(inProg[0].checkId).name,kind:"tp"};
+  }
+  var planned=tests.filter(function(t){return t.status==="PLANNED"&&checkMeta(t.checkId)&&checkMeta(t.checkId).highValue;});
+  if(planned.length)return {text:"VERIFY: Complete "+checkMeta(planned[0].checkId).name,kind:"tp"};
+
+  var signals=ev.signals.filter(function(s){return s.status==="PRESENT"||s.status==="ABSENT";});
+  if(signals.length&&!tests.length)return {text:"VERIFY: Run suggested Truth Pass test",kind:"tp"};
+
+  var unpromoted=tests.filter(function(t){return t.status==="VERIFIED_FAILURE"&&isDeterminateTest(t)&&!t.evidenceId;});
+  if(unpromoted.length){
+    unpromoted.sort(function(a,b){return new Date(a.createdAt)-new Date(b.createdAt);});
+    return {text:"DIAGNOSE: Promote verified failure to evidence — "+checkMeta(unpromoted[0].checkId).name,kind:"tp"};
+  }
+
+  var zeroImpact=(p.evidence||[]).filter(function(e){return e.verificationTestId&&!e._staleLink&&(!e.impact||e.impact<=0);});
+  if(zeroImpact.length)return {text:"QUANTIFY: Model recovery opportunity",kind:"tp"};
+
+  var noProv=(p.evidence||[]).filter(function(e){return e.verificationTestId&&!e._staleLink&&e.impact>0&&!(e.financialProvenance&&e.financialProvenance.trim());});
+  if(noProv.length)return {text:"VERIFY: Confirm financial assumptions",kind:"tp"};
+
+  if(computed.qualifyingCount<3)return {text:"VERIFY: Continue Minimum Truth Pass ("+computed.qualifyingCount+"/3 tests)",kind:"tp"};
+  if(computed.channelFamilies.length<2)return {text:"VERIFY: Test another channel family ("+computed.channelFamilies.length+"/2)",kind:"tp"};
+
+  var inconclusive=tests.filter(function(t){return t.status==="INCONCLUSIVE";});
+  if(inconclusive.length)return {text:"VERIFY: Repeat safely or choose another qualifying test",kind:"tp"};
+
+  if(ev.truthPass.status==="COMPLETE"&&ev.truthPass.result==="NO_EXTERNAL_LEAK_FOUND")return {text:"RESEARCH: Investigate another evidence-backed wedge",kind:"tp"};
+
+  return null; /* nothing new to surface — fall through to existing contact/Sprint flow */
+}
+
 function prospectAction(p){
   if(p.outcome==="WON"){
     var hNext=nextHandoffItem(p);
@@ -1039,6 +1441,8 @@ function prospectAction(p){
   if(fu&&fu.status==="overdue")return {text:"FOLLOW UP: "+fu.label+" OVERDUE — "+p.company,urgency:0,kind:"followup"};
   if(fu&&fu.status==="today")return {text:"FOLLOW UP: "+fu.label+" due today — "+p.company,urgency:1,kind:"followup"};
   if(p.state==="CONVERSATION")return {text:"FOLLOW UP: Continue conversation — push next step with "+p.company,urgency:2,kind:"conversation"};
+  var tpa=truthPassNextAction(p);
+  if(tpa)return {text:tpa.text+" — "+p.company,urgency:4,kind:tpa.kind};
   if(p.state==="PROPOSAL_READY")return {text:"SHARE: Send initial outreach to "+p.company,urgency:3,kind:"send"};
   if(p.state==="VERIFIED"){
     if((p.evidence||[]).length)return {text:"SHARE: Build the $997 proposal for "+p.company,urgency:4,kind:"offer"};
@@ -1076,6 +1480,8 @@ function prospectActionCard(p){
   if(fu&&fu.status==="overdue")return {text:"FOLLOW UP: "+fu.label+" OVERDUE",due:fu.due,status:"overdue"};
   if(fu&&fu.status==="today")return {text:"FOLLOW UP: "+fu.label+" due today",due:fu.due,status:"today"};
   if(p.state==="CONVERSATION")return {text:"FOLLOW UP: Continue conversation — push next step",due:null,status:""};
+  var tpaC=truthPassNextAction(p);
+  if(tpaC)return {text:tpaC.text,due:null,status:""};
   if(p.state==="PROPOSAL_READY")return {text:"SHARE: Send initial outreach",due:null,status:""};
   if(p.state==="VERIFIED"){
     if((p.evidence||[]).length)return {text:"SHARE: Build the $997 proposal",due:null,status:""};
@@ -1241,6 +1647,11 @@ function qualityBadge(q){
   var cls=q==="KNOWN"?"known":(q==="BENCHMARK"?"benchmark":"estimated");
   return '<span class="badge '+cls+'">'+q+"</span>";
 }
+/* Operational and financial certainty are independent — never collapse one into the other. */
+function dualQualityBadges(ev){
+  var q=evidenceQuality(ev);
+  return '<div class="dualqual"><span class="dq">Operational</span>'+qualityBadge(q.observation)+'<span class="dq">Financial</span>'+qualityBadge(q.financial)+"</div>";
+}
 
 /* ---------- bench (raw contacts not yet in an active slot) ---------- */
 function renderBench(){
@@ -1344,7 +1755,10 @@ function openProspectSheet(id){
   document.getElementById("calcResultAnnual").textContent="$0";
   document.getElementById("calcSub").textContent="";
   renderVerifyChecklist(p);
+  document.getElementById("tpEditorCard").classList.add("hidden");
+  editingTestId=null;
   if(p)renderEvidence(p);
+  if(p)renderTruthPassSection(p);
   if(p)renderOutreachPanel(p);
   if(p)renderOfferPanel(p);
   renderPacket(p);
@@ -1393,6 +1807,9 @@ document.getElementById("btnParseDossier").addEventListener("click",function(){
   var parsed=parseDossier(raw);
   var filled=applyDossierToFields(parsed,{company:"pfCompany",city:"pfCity",contact:"pfContact",phone:"pfPhone",website:"pfWebsite",email:"pfEmail",source:"pfSource"});
   if(parsed.notes){document.getElementById("pfWhy").value=parsed.notes;filled.push("notes");}
+  var p=currentProspectId?prospectById(currentProspectId):null;
+  var draftCreated=applyDossierExternalVerification(parsed,p);
+  if(draftCreated){saveState();renderTruthPassSection(p);filled.push("draft test (review in Evidence tab)");}
   toast(filled.length?"Parsed "+filled.length+" field"+(filled.length===1?"":"s")+" — review, then save":"No recognized labels found — check field names");
 });
 
@@ -1605,18 +2022,34 @@ function renderEvidence(p){
   list.innerHTML=sorted.map(function(ev){
     var leak=leakById(ev.leakId);
     var isTop=top&&top.id===ev.id;
+    var q=evidenceQuality(ev);
+    var needsQuant=ev.verificationTestId&&(!ev.impact||ev.impact<=0);
     return '<div class="evrow'+(isTop?" toprow":"")+'" data-ev="'+ev.id+'">'+
-      '<div class="evtop"><span class="impact">'+fmtMoney(ev.impact)+"/mo</span>"+qualityBadge(ev.quality)+"</div>"+
-      '<div class="note" style="margin-bottom:4px">Annual: '+fmtMoney(ev.impact*12)+"</div>"+
+      '<div class="evtop"><span class="impact">'+fmtMoney(ev.impact)+"/mo</span></div>"+
+      dualQualityBadges(ev)+
+      '<div class="note" style="margin-bottom:4px">Annual: '+fmtMoney(ev.impact*12)+(ev.impact>0?(" ("+(q.financial==="KNOWN"?"known":"estimated recovery opportunity")+")"):"")+"</div>"+
       "<div><b>"+esc(ev.issue)+"</b></div>"+
       (ev.source?'<div class="note">'+esc(ev.source)+"</div>":"")+
       (leak?'<div class="note">Leak: '+esc(leak.name)+"</div>":"")+
-      (isTop&&ev.quality!=="KNOWN"?'<div class="warnflag"><span>&#9888;</span><span>This is the figure driving the pitch and offer, and it is not owner-confirmed.</span></div>':"")+
+      (ev.verificationTestId?'<div class="note">Promoted from test '+esc(ev.checkId||"")+"</div>":"")+
+      (needsQuant?'<div class="warnflag"><span>&#9888;</span><span>Zero modeled impact — this promoted failure still needs quantification before it drives a proposal.</span></div>':"")+
+      (isTop&&q.observation!=="KNOWN"?'<div class="warnflag"><span>&#9888;</span><span>This is the figure driving the pitch and offer, and it is not owner-confirmed.</span></div>':"")+
+      '<div class="field" style="margin-top:6px"><label>Financial provenance</label><input class="vnote" type="text" data-provenance="'+ev.id+'" placeholder="Modeled from benchmark / owner-confirmed call volume, etc." value="'+esc(ev.financialProvenance||"")+'"></div>'+
       '<div class="row" style="margin-top:8px">'+
         (isTop?'<span class="badge known">TOP LEAK</span>':'<button class="pill" data-pin="'+ev.id+'">Mark as top leak</button>')+
         '<button class="pill" data-rmev="'+ev.id+'">Remove</button>'+
       "</div></div>";
   }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll("[data-provenance]"),function(el){
+    el.addEventListener("change",function(){
+      var id=el.getAttribute("data-provenance");
+      var e=(p.evidence||[]).filter(function(x){return x.id===id;})[0];
+      if(!e)return;
+      e.financialProvenance=el.value.trim();
+      if(e.financialProvenance&&e.financialQuality==="ESTIMATED"){/* provenance narrows the gap but never auto-upgrades to KNOWN */}
+      saveState();
+    });
+  });
   Array.prototype.forEach.call(list.querySelectorAll("[data-pin]"),function(el){
     el.addEventListener("click",function(){p.topLeakId=el.getAttribute("data-pin");saveState();renderEvidence(p);renderOutreachPanel(p);renderOfferPanel(p);renderPacket(p);renderSlots();});
   });
@@ -1626,6 +2059,301 @@ function renderEvidence(p){
       p.evidence=p.evidence.filter(function(e){return e.id!==id;});
       if(p.topLeakId===id)p.topLeakId=null;
       saveState();renderEvidence(p);renderOutreachPanel(p);renderOfferPanel(p);renderPacket(p);renderSlots();
+    });
+  });
+}
+
+/* ---------- external verification: suggested test, Truth Pass, catalog, test log, signals ---------- */
+function suggestedNextTest(p){
+  var ev=ensureExternalVerification(p);
+  var tests=activeTestsFor(p);
+  var testedCheckIds={};tests.forEach(function(t){testedCheckIds[t.checkId]=true;});
+  var hasClaim24=(p.notes||[]).concat(ev.signals||[]).some(function(){return false;});
+  if(!hasPhoneCheckTested(tests)&&p.phone)return "Public 24/7 or after-hours claim without a call test — verify after-hours handling (EXT-001/EXT-002).";
+  if(!testedCheckIds["EXT-005"]&&p.website)return "Public form without a form test — verify web form function (EXT-005).";
+  if(testedCheckIds["EXT-005"]&&!testedCheckIds["EXT-006"])return "Successful form submission without a response observation — measure web lead response (EXT-006).";
+  if(!testedCheckIds["EXT-007"]&&p.website)return "Public booking path without a booking test — verify online booking function (EXT-007).";
+  if(!tests.length)return "No tests logged yet. Start with the highest-value claim on the public site (24/7, after-hours, or online booking).";
+  var qualifying=tests.filter(isQualifyingTest);
+  if(!qualifying.some(function(t){return t.status==="VERIFIED_FAILURE";})&&qualifying.length<3)return "No verified failures yet — continue the Minimum Truth Pass rather than assuming a leak.";
+  return "Continue Minimum Truth Pass coverage, or complete it if all requirements are satisfied below.";
+}
+function hasPhoneCheckTested(tests){return tests.some(function(t){var c=checkMeta(t.checkId);return c&&c.satisfiesPhone;});}
+
+function renderTruthPassSection(p){
+  if(!p)return;
+  var ev=ensureExternalVerification(p);
+  document.getElementById("tpSuggestText").textContent=suggestedNextTest(p);
+
+  var computed=reevaluateTruthPass(p);
+  var statusBadgeEl=document.getElementById("tpStatusBadge");
+  var statusCls=ev.truthPass.status==="COMPLETE"?"known":(ev.truthPass.status==="REOPENED"?"reopened":"estimated");
+  statusBadgeEl.innerHTML='<span class="badge '+statusCls+'">'+ev.truthPass.status+"</span>"+(ev.truthPass.status==="COMPLETE"?(' <span class="badge '+(ev.truthPass.result==="EXTERNAL_LEAK_FOUND"?"fail":"pass")+'">'+ev.truthPass.result.replace(/_/g," ")+"</span>"):"");
+
+  var tests=activeTestsFor(p);
+  var qualifying=tests.filter(isQualifyingTest);
+  var promoted=(p.evidence||[]).filter(function(e){return e.verificationTestId;}).length;
+  var stats=[
+    ["Planned",tests.filter(function(t){return t.status==="PLANNED";}).length],
+    ["In progress",tests.filter(function(t){return t.status==="IN_PROGRESS";}).length],
+    ["Verified failures",tests.filter(function(t){return t.status==="VERIFIED_FAILURE";}).length],
+    ["Verified passes",tests.filter(function(t){return t.status==="VERIFIED_PASS";}).length],
+    ["Inconclusive",tests.filter(function(t){return t.status==="INCONCLUSIVE";}).length],
+    ["Promoted",promoted],
+    ["Qualifying tests",computed.qualifyingCount+"/3"],
+    ["Channel families",computed.channelFamilies.length+"/2"]
+  ];
+  document.getElementById("tpProgressStats").innerHTML=stats.map(function(s){return '<div class="stat"><strong>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";}).join("");
+  document.getElementById("tpMissingList").innerHTML=computed.missing.length?('<div class="warnflag"><span>&#9888;</span><span>'+computed.missing.map(esc).join("<br>")+"</span></div>"):(ev.truthPass.status==="COMPLETE"?'<div class="readyflag"><span>&#10003;</span><span>Minimum Truth Pass requirements satisfied as of last completion.</span></div>':'<div class="readyflag"><span>&#10003;</span><span>All current requirements satisfied — ready to complete.</span></div>');
+
+  var naEntries=ev.truthPass.notApplicable||[];
+  var naPhone=naEntries.filter(function(n){return n.requirement==="PHONE";})[0];
+  var naDigital=naEntries.filter(function(n){return n.requirement==="DIGITAL";})[0];
+  document.getElementById("tpPhoneReq").innerHTML=!computed.hasPhoneReq?"Not applicable — no public phone number on file.":(computed.phoneSatisfied?(naPhone?"Documented NOT_APPLICABLE: "+esc(naPhone.reason):"Satisfied by a qualifying phone test."):"Unresolved — required.");
+  document.getElementById("tpDigitalReq").innerHTML=!computed.hasDigitalReq?"Not applicable — no public website on file.":(computed.digitalSatisfied?(naDigital?"Documented NOT_APPLICABLE: "+esc(naDigital.reason):"Satisfied by a qualifying digital test."):"Unresolved — required.");
+
+  var naForms='';
+  if(computed.hasPhoneReq&&!computed.phoneSatisfied){
+    naForms+='<div class="field"><label>Document phone requirement as NOT_APPLICABLE</label><div class="row"><input type="text" id="tpNaPhoneReason" placeholder="Reason" style="flex:1"><button class="pill" id="btnNaPhone" type="button">Save N/A</button></div></div>';
+  }
+  if(computed.hasDigitalReq&&!computed.digitalSatisfied){
+    naForms+='<div class="field"><label>Document digital requirement as NOT_APPLICABLE</label><div class="row"><input type="text" id="tpNaDigitalReason" placeholder="Reason" style="flex:1"><button class="pill" id="btnNaDigital" type="button">Save N/A</button></div></div>';
+  }
+  document.getElementById("tpNAForms").innerHTML=naForms;
+  var naPhoneBtn=document.getElementById("btnNaPhone");
+  if(naPhoneBtn)naPhoneBtn.addEventListener("click",function(){
+    var reason=document.getElementById("tpNaPhoneReason").value.trim();
+    if(!reason){toast("Reason required");return;}
+    addNotApplicable(p,"PHONE",reason);saveState();renderTruthPassSection(p);toast("Documented NOT_APPLICABLE");
+  });
+  var naDigitalBtn=document.getElementById("btnNaDigital");
+  if(naDigitalBtn)naDigitalBtn.addEventListener("click",function(){
+    var reason=document.getElementById("tpNaDigitalReason").value.trim();
+    if(!reason){toast("Reason required");return;}
+    addNotApplicable(p,"DIGITAL",reason);saveState();renderTruthPassSection(p);toast("Documented NOT_APPLICABLE");
+  });
+
+  document.getElementById("tpNotes").value=ev.truthPass.notes||"";
+  var completeBtn=document.getElementById("btnCompleteTruthPass");
+  completeBtn.disabled=!computed.complete;
+  var resultNote=document.getElementById("tpResultNote");
+  if(ev.truthPass.status==="COMPLETE"){
+    resultNote.textContent=(ev.truthPass.result==="EXTERNAL_LEAK_FOUND"?"A verified operational failure was found within the documented scope. This does not by itself establish financial impact.":"No failure was found within the documented scope tested. This does not mean the business has no other revenue leaks.")+" Completed "+fmtDate(ev.truthPass.completedAt)+".";
+  }else if(ev.truthPass.status==="REOPENED"){
+    resultNote.textContent="Reopened — "+(ev.truthPass.reopenedReason||"underlying data changed")+" Re-complete once current requirements are satisfied again.";
+  }else{
+    resultNote.textContent="";
+  }
+
+  renderTestCatalog(p);
+  renderTestLog(p);
+  renderSignalList(p);
+}
+document.getElementById("btnCompleteTruthPass").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  var notes=document.getElementById("tpNotes").value.trim();
+  var r=completeTruthPass(p,notes);
+  if(!r.ok){toast("Requirements not yet satisfied");return;}
+  saveState();renderTruthPassSection(p);renderSlots();toast("Truth Pass completed — "+r.computed.result.replace(/_/g," "));
+});
+document.getElementById("tpNotes").addEventListener("change",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  ensureExternalVerification(p).truthPass.notes=this.value.trim();saveState();
+});
+
+function renderTestCatalog(p){
+  var tests=activeTestsFor(p);
+  document.getElementById("tpCatalogList").innerHTML=CHECK_CATALOG.map(function(c){
+    var count=tests.filter(function(t){return t.checkId===c.id;}).length;
+    return '<div class="tprow"><div class="tptop"><span class="tpname">'+esc(c.id)+" — "+esc(c.name)+'</span><span class="badge '+(c.highValue?"known":"state")+'">'+(c.highValue?"HIGH-VALUE":"SUPPORTING")+"</span></div>"+
+      '<div class="tpmeta">Family: '+esc(c.channelFamily)+" &middot; Leak: "+esc((leakById(c.leakId)||{}).name||c.leakId)+(count?" &middot; "+count+" test(s) logged":"")+"</div>"+
+      '<div class="row" style="margin-top:6px"><button class="pill" data-newtest="'+c.id+'" type="button">Log test</button></div></div>';
+  }).join("");
+  Array.prototype.forEach.call(document.getElementById("tpCatalogList").querySelectorAll("[data-newtest]"),function(el){
+    el.addEventListener("click",function(){openTestEditor(p,null,el.getAttribute("data-newtest"));});
+  });
+}
+
+var editingTestId=null;
+function openTestEditor(p,testId,presetCheckId){
+  editingTestId=testId;
+  var ev=ensureExternalVerification(p);
+  var t=testId?ev.tests.filter(function(x){return x.id===testId;})[0]:null;
+  document.getElementById("tpEditorCard").classList.remove("hidden");
+  document.getElementById("tpEditorTitle").textContent=t?"Edit Test — "+t.checkId:"Log Test";
+  var checkSel=document.getElementById("teCheckId");
+  checkSel.innerHTML=CHECK_CATALOG.map(function(c){return '<option value="'+c.id+'">'+esc(c.id)+" — "+esc(c.name)+"</option>";}).join("");
+  checkSel.value=(t&&t.checkId)||presetCheckId||CHECK_CATALOG[0].id;
+  renderRelatedCheckPicker(t);
+  renderChannelOptions(checkSel.value,t&&t.channel);
+  checkSel.onchange=function(){renderChannelOptions(checkSel.value,null);renderRelatedCheckPicker(t);};
+  document.getElementById("teStatus").value=(t&&t.status)||"PLANNED";
+  document.getElementById("tePublicClaim").value=(t&&t.publicClaim)||"";
+  document.getElementById("teSourceUrl").value=(t&&t.sourceUrl)||p.website||"";
+  document.getElementById("teExpectedResult").value=(t&&t.expectedResult)||(checkMeta(checkSel.value)||{}).expected||"";
+  document.getElementById("teObservedResult").value=(t&&t.observedResult)||"";
+  document.getElementById("teStartedAt").value=t&&t.testStartedAt?isoToLocalInput(t.testStartedAt):"";
+  document.getElementById("teResponseAt").value=t&&t.responseReceivedAt?isoToLocalInput(t.responseReceivedAt):"";
+  document.getElementById("teTimezone").value=(t&&t.operatorTimezone)||Intl.DateTimeFormat().resolvedOptions().timeZone||"";
+  document.getElementById("teDevice").value=(t&&t.device)||"";
+  document.getElementById("teEvidenceRef").value=(t&&t.evidenceReference)||"";
+  document.getElementById("teNotes").value=(t&&t.notes)||"";
+  document.getElementById("teWarnings").innerHTML="";
+  document.getElementById("tpEditorCard").scrollIntoView({block:"nearest"});
+}
+function isoToLocalInput(iso){var d=new Date(iso);if(isNaN(d))return"";var pad=function(n){return String(n).padStart(2,"0");};return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes());}
+function renderChannelOptions(checkId,preselect){
+  var c=checkMeta(checkId);
+  var sel=document.getElementById("teChannel");
+  var opts=c?c.channels:CHANNELS;
+  sel.innerHTML=opts.map(function(ch){return '<option value="'+ch+'">'+ch+"</option>";}).join("");
+  sel.value=preselect&&opts.indexOf(preselect)>=0?preselect:opts[0];
+}
+function renderRelatedCheckPicker(t){
+  var primary=document.getElementById("teCheckId").value;
+  var selected=(t&&t.relatedCheckIds)||[];
+  document.getElementById("teRelatedChecks").innerHTML=CHECK_CATALOG.filter(function(c){return c.id!==primary;}).map(function(c){
+    return '<button type="button" class="pill'+(selected.indexOf(c.id)>=0?" on":"")+'" data-related="'+c.id+'">'+c.id+"</button>";
+  }).join("");
+  Array.prototype.forEach.call(document.getElementById("teRelatedChecks").querySelectorAll("[data-related]"),function(el){
+    el.addEventListener("click",function(){el.classList.toggle("on");});
+  });
+}
+document.getElementById("btnCancelTestEdit").addEventListener("click",function(){
+  document.getElementById("tpEditorCard").classList.add("hidden");editingTestId=null;
+});
+document.getElementById("btnSaveTest").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p)return;
+  var ev=ensureExternalVerification(p);
+  var checkId=document.getElementById("teCheckId").value;
+  var status=document.getElementById("teStatus").value;
+  var relatedCheckIds=Array.prototype.map.call(document.getElementById("teRelatedChecks").querySelectorAll(".pill.on"),function(el){return el.getAttribute("data-related");});
+  var startedLocal=document.getElementById("teStartedAt").value;
+  var responseLocal=document.getElementById("teResponseAt").value;
+  var observedResult=document.getElementById("teObservedResult").value.trim();
+  var notes=document.getElementById("teNotes").value.trim();
+  var warnings=[];
+  if((status==="VERIFIED_FAILURE"||status==="VERIFIED_PASS")){
+    if(!startedLocal&&!responseLocal)warnings.push("Timestamp required for a determinate result.");
+    if(!observedResult)warnings.push("Observed result required for a determinate result.");
+  }
+  if(status==="CANCELLED"&&!notes)warnings.push("Cancellation reason required (use Notes).");
+  if(warnings.length){
+    document.getElementById("teWarnings").innerHTML='<div class="warnflag"><span>&#9888;</span><span>'+warnings.map(esc).join("<br>")+' Saved as a non-determinate draft until these are filled in.</span></div>';
+  }else{
+    document.getElementById("teWarnings").innerHTML="";
+  }
+  var t=editingTestId?ev.tests.filter(function(x){return x.id===editingTestId;})[0]:null;
+  var isNew=!t;
+  if(!t){t={id:uid(),createdAt:nowISO(),evidenceId:null};ev.tests.push(t);}
+  var priorDeterminate=isDeterminateTest(t);
+  t.checkId=checkId;
+  t.relatedCheckIds=relatedCheckIds;
+  /* if required fields are missing, block the determinate status rather than silently fabricating one */
+  t.status=warnings.length&&(status==="VERIFIED_FAILURE"||status==="VERIFIED_PASS")?"IN_PROGRESS":status;
+  t.channel=document.getElementById("teChannel").value;
+  t.channelFamily=canonicalFamilyFor(checkId);
+  t.publicClaim=document.getElementById("tePublicClaim").value.trim();
+  t.sourceUrl=document.getElementById("teSourceUrl").value.trim();
+  t.expectedResult=document.getElementById("teExpectedResult").value.trim();
+  t.observedResult=observedResult;
+  t.testStartedAt=startedLocal?new Date(startedLocal).toISOString():(t.testStartedAt||null);
+  t.responseReceivedAt=responseLocal?new Date(responseLocal).toISOString():null;
+  t.operatorTimezone=document.getElementById("teTimezone").value.trim();
+  t.device=document.getElementById("teDevice").value.trim();
+  t.evidenceReference=document.getElementById("teEvidenceRef").value.trim();
+  t.notes=notes;
+  t.updatedAt=nowISO();
+  t._familyInvalid=!t.channelFamily;
+  var nowDeterminate=isDeterminateTest(t);
+  if(priorDeterminate&&!nowDeterminate){
+    /* status changed away from determinate — immediately drops from Truth Pass, may reopen it */
+  }
+  reevaluateTruthPass(p);
+  saveState();
+  document.getElementById("tpEditorCard").classList.add("hidden");
+  editingTestId=null;
+  renderTruthPassSection(p);renderSlots();
+  toast(isNew?"Test logged":"Test updated");
+});
+
+function renderTestLog(p){
+  var ev=ensureExternalVerification(p);
+  var tests=ev.tests.slice().sort(function(a,b){return new Date(b.updatedAt||b.createdAt)-new Date(a.updatedAt||a.createdAt);});
+  document.getElementById("tpTestCount").textContent=tests.length+" on file";
+  var list=document.getElementById("tpTestList");
+  if(!tests.length){list.innerHTML='<p class="note">No tests logged yet.</p>';return;}
+  list.innerHTML=tests.map(function(t){
+    var c=checkMeta(t.checkId);
+    var statusCls=t.status==="VERIFIED_FAILURE"?"fail":(t.status==="VERIFIED_PASS"?"pass":(t.status==="CANCELLED"?"state":"pending"));
+    var warn="";
+    if(t._familyInvalid)warn+='<div class="warnflag"><span>&#9888;</span><span>Unknown or unresolvable primary check — ineligible for Truth Pass credit until corrected.</span></div>';
+    else if(t._familyNormalized)warn+='<div class="warnflag"><span>&#9888;</span><span>Channel family normalized to the primary check\'s canonical family for review.</span></div>';
+    var promoBtn=(t.status==="VERIFIED_FAILURE")?(t.evidenceId?'<span class="badge known">PROMOTED</span>':'<button class="pill" data-promote="'+t.id+'" type="button">Promote to evidence</button>'):"";
+    return '<div class="tprow"><div class="tptop"><span class="tpname">'+esc(c?c.id+" — "+c.name:t.checkId)+'</span><span class="badge '+statusCls+'">'+esc(t.status)+"</span></div>"+
+      '<div class="tpmeta">'+esc(t.channel||"")+(t.channelFamily?" &middot; "+esc(t.channelFamily):"")+(testObservedAt(t)?" &middot; "+fmtDate(testObservedAt(t)):"")+"</div>"+
+      (t.publicClaim?'<div class="note">Claim: '+esc(t.publicClaim)+"</div>":"")+
+      (t.observedResult?"<div><b>Observed:</b> "+esc(t.observedResult)+"</div>":"")+
+      (t.relatedCheckIds&&t.relatedCheckIds.length?'<div class="note">Related: '+t.relatedCheckIds.map(esc).join(", ")+"</div>":"")+
+      warn+
+      '<div class="row" style="margin-top:6px">'+promoBtn+'<button class="pill" data-edittest="'+t.id+'" type="button">Edit</button><button class="pill" data-deltest="'+t.id+'" type="button">Delete</button></div></div>';
+  }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll("[data-promote]"),function(el){
+    el.addEventListener("click",function(){
+      var r=promoteTestToEvidence(p,el.getAttribute("data-promote"));
+      if(!r.ok){toast(r.reason);return;}
+      reevaluateTruthPass(p);
+      saveState();renderTruthPassSection(p);renderEvidence(p);renderOutreachPanel(p);renderOfferPanel(p);renderPacket(p);renderSlots();
+      toast(r.created?"Promoted to evidence":"Already promoted — showing existing evidence");
+    });
+  });
+  Array.prototype.forEach.call(list.querySelectorAll("[data-edittest]"),function(el){
+    el.addEventListener("click",function(){openTestEditor(p,el.getAttribute("data-edittest"));});
+  });
+  Array.prototype.forEach.call(list.querySelectorAll("[data-deltest]"),function(el){
+    el.addEventListener("click",function(){
+      var id=el.getAttribute("data-deltest");
+      if(!confirm("Delete this test? History is not recoverable."))return;
+      var t=ev.tests.filter(function(x){return x.id===id;})[0];
+      if(t&&t.evidenceId){
+        var linked=(p.evidence||[]).filter(function(e){return e.id===t.evidenceId;})[0];
+        if(linked)linked._staleLink=true; /* preserve the evidence record but stop treating it as active promotion */
+      }
+      ev.tests=ev.tests.filter(function(x){return x.id!==id;});
+      reevaluateTruthPass(p);
+      saveState();renderTruthPassSection(p);renderEvidence(p);renderSlots();toast("Test deleted");
+    });
+  });
+}
+
+function renderSignalList(p){
+  var ev=ensureExternalVerification(p);
+  document.getElementById("tpSignalList").innerHTML=SIGNAL_TYPES.map(function(st){
+    var rec=ev.signals.filter(function(s){return s.signalType===st.id;})[0];
+    var status=rec?rec.status:"NOT_REVIEWED";
+    return '<div class="tprow"><div class="tptop"><span class="tpname">'+esc(st.label)+'</span></div>'+
+      '<div class="row" style="margin-top:6px">'+SIGNAL_STATUSES.map(function(s){
+        return '<button type="button" class="pill'+(status===s?" on":"")+'" data-sigset="'+st.id+'|'+s+'">'+s.replace("_"," ")+"</button>";
+      }).join("")+"</div>"+
+      (status==="NOT_APPLICABLE"||rec?'<input class="vnote" style="margin-top:6px" type="text" data-signote="'+st.id+'" placeholder="'+(status==="NOT_APPLICABLE"?"Required — why this does not apply":"Notes / source URL (optional)")+'" value="'+esc((rec&&rec.notes)||"")+'">':"")+
+      "</div>";
+  }).join("");
+  Array.prototype.forEach.call(document.getElementById("tpSignalList").querySelectorAll("[data-sigset]"),function(el){
+    el.addEventListener("click",function(){
+      var parts=el.getAttribute("data-sigset").split("|");
+      var signalType=parts[0],status=parts[1];
+      var rec=ev.signals.filter(function(s){return s.signalType===signalType;})[0];
+      if(!rec){rec={id:uid(),signalType:signalType,status:status,sourceUrl:"",notes:"",observedAt:nowISO(),createdAt:nowISO(),updatedAt:nowISO()};ev.signals.push(rec);}
+      else{rec.status=status;rec.updatedAt=nowISO();}
+      saveState();renderSignalList(p);renderTruthPassSection(p);
+    });
+  });
+  Array.prototype.forEach.call(document.getElementById("tpSignalList").querySelectorAll("[data-signote]"),function(el){
+    el.addEventListener("change",function(){
+      var signalType=el.getAttribute("data-signote");
+      var rec=ev.signals.filter(function(s){return s.signalType===signalType;})[0];
+      if(!rec)return;
+      rec.notes=el.value.trim();rec.updatedAt=nowISO();saveState();
     });
   });
 }
@@ -1695,8 +2423,9 @@ function renderOfferPanel(p){
   }
   var leak=leakById(top.leakId);
   var action=leak?leak.action:"Implement the fix for the validated leak";
-  var qualityNote=top.quality==="KNOWN"?"This figure is based on owner-confirmed numbers.":(top.quality==="BENCHMARK"?"This figure is a conservative industry-benchmark approximation.":"This figure is a conservative estimate pending owner-confirmed numbers.");
-  var offerWarn=top.quality!=="KNOWN"?('<div class="warnflag"><span>&#9888;</span><span><b>Unverified input.</b> '+esc(qualityNote)+' Confirm the underlying number with the owner before quoting this figure as fact.</span></div>'):"";
+  var tq=evidenceQuality(top);
+  var qualityNote=tq.financial==="KNOWN"?"This figure is based on owner-confirmed numbers.":(tq.financial==="BENCHMARK"?"This figure is a conservative industry-benchmark approximation.":"This is a modeled, estimated recovery opportunity — not documented recovered revenue.");
+  var offerWarn=tq.financial!=="KNOWN"?('<div class="warnflag"><span>&#9888;</span><span><b>Unverified financial input.</b> '+esc(qualityNote)+' Confirm the underlying number with the owner before quoting this figure as fact.</span></div>'):"";
   var rReadyProg=researchProgress(p),vReadyProg=verifyProgress(p);
   var readyBanner=(rReadyProg.allDone&&vReadyProg.allDone)?
     '<div class="readyflag"><span>&#10003;</span><span><b>Ready to share.</b> Verification checklist complete.</span></div>':
@@ -1707,11 +2436,12 @@ function renderOfferPanel(p){
     '<div class="field"><label>Top Revenue Leak</label><div>'+esc(top.issue)+"</div></div>"+
     (top.source?'<div class="field"><label>Evidence</label><div>'+esc(top.source)+"</div></div>":"")+
     '<div class="field"><label>Financial Impact</label>'+
+      '<div class="note">Operational evidence: '+esc(tq.observation)+"</div>"+
       '<div class="diagresult" style="padding:12px;margin-bottom:0">'+
-        '<div class="diagrow"><span class="diaglabel">Monthly Leakage</span><strong class="diagfigure" style="font-size:20px">'+fmtMoney(top.impact)+'</strong></div>'+
-        '<div class="diagrow diagrow-sub"><span class="diaglabel">Annual Leakage</span><strong class="diagfigure diagfigure-sm">'+fmtMoney(top.impact*12)+"</strong></div>"+
+        '<div class="diagrow"><span class="diaglabel">Monthly '+(tq.financial==="KNOWN"?"Recovery Opportunity":"Estimated Recovery Opportunity")+'</span><strong class="diagfigure" style="font-size:20px">'+fmtMoney(top.impact)+'</strong></div>'+
+        '<div class="diagrow diagrow-sub"><span class="diaglabel">Annual</span><strong class="diagfigure diagfigure-sm">'+fmtMoney(top.impact*12)+"</strong></div>"+
       "</div>"+
-      '<div class="row" style="margin-top:8px">'+qualityBadge(top.quality)+"</div>"+offerWarn+"</div>"+
+      '<div class="row" style="margin-top:8px">'+dualQualityBadges(top)+"</div>"+offerWarn+"</div>"+
     '<div class="field"><label>Recommended Recovery</label><div>'+esc(action)+"</div></div>"+
     '<div class="field"><label>Fixed-Fee Implementation</label><div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--rra-brass)">$997 fixed fee</div></div>'+
     '<div class="field"><label>Included</label><ul style="padding-left:18px;font-size:13px;line-height:1.7">'+
@@ -2114,6 +2844,7 @@ STATE=loadState();
 if(!STATE.settings)STATE.settings={};
 if(!STATE.bench)STATE.bench=[];
 if(!STATE.campaign)STATE.campaign={id:1,targetTotal:25};
+migrateExternalVerificationV3(STATE);
 saveState();
 renderAll();
 
