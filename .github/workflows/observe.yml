@@ -6,6 +6,10 @@ name: observe
 #
 # It never calls, texts, submits a form, or books an appointment. EXT-001..007
 # and EXT-015 stay manual by design. See src/rra/browser_scan.py.
+#
+# The verification plan rules out a scanner and scheduled monitoring. This
+# workflow is both, and is an authorised exception — see the scope decision in
+# OPERATOR.md before removing or widening it.
 
 on:
   workflow_dispatch:

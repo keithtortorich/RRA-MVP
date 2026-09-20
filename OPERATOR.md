@@ -54,6 +54,21 @@ revenue-propose "ACME HVAC" path/to/opportunities.json
 
 ### Observation agent (optional)
 
+> **Scope decision — read before changing or removing this.**
+> The Sizzle External Leak Verification plan states "do not create a scanner"
+> and rules out a crawler or monitoring. `revenue-observe` and the weekly
+> `observe` workflow are a scanner and scheduled monitoring, and they are an
+> **authorised exception to that constraint**, decided by the repository owner
+> after the agent was built. Do not delete them as a plan violation.
+>
+> The exception has a boundary, and the boundary is the part that still binds:
+> the agent observes public pages and nothing else. It never contacts a
+> business — no form submission, no booking, no call, no text — and it never
+> produces a determinate result. EXT-001 through EXT-007 and EXT-015 stay
+> manual. Do not extend the agent past that line without asking the owner; the
+> plan's other guardrails (§13, and "the application records tests; operators
+> execute them") are unaffected by this exception.
+
 `revenue-observe` renders a prospect's public pages in a headless browser and
 writes signals plus pre-filled **draft** tests for the checks a browser can see
 on its own. Install the extra first:
