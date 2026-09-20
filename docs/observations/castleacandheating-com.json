@@ -1,0 +1,159 @@
+{
+  "rraObservations": 1,
+  "runId": "cce9618a4ffb4bc3aef08e1658e08ce1",
+  "generatedAt": "2026-09-20T23:22:23.808850+00:00",
+  "target": "https://castleacandheating.com",
+  "company": "Castle Air Conditioning & Heating",
+  "host": "castleacandheating.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://castleacandheating.com/",
+    "https://castleacandheating.com/contact-us-your-ac-and-heating-experts/",
+    "https://castleacandheating.com/ac-and-heatings-comfort-zone-blog/",
+    "https://castleacandheating.com/ac-service-and-repair/",
+    "https://castleacandheating.com/ac-installation-and-replacement/",
+    "https://castleacandheating.com/ac-and-heating-repair-appointment/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "ABSENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "Chat widget detected: podium.com.",
+      "observedAt": "2026-09-20T23:22:23.808893+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "Booking path found: widget:housecallpro, https://castleacandheating.com/ac-and-heating-repair-appointment/",
+      "observedAt": "2026-09-20T23:22:23.808901+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-20T23:22:23.808905+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "Homepage rendered in 1441ms (threshold 4000ms).",
+      "observedAt": "2026-09-20T23:22:23.808909+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-20T23:22:23.808917+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-20T23:22:23.808921+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-20T23:22:23.808924+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "Above-fold CTA(s): Book An Appointment; Call or Text 713-667-7606",
+      "observedAt": "2026-09-20T23:22:23.808928+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://castleacandheating.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-20T23:22:23.808933+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-20T23:22:23.808935+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-20T23:22:23.808938+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-20T23:22:23.808940+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-20T23:22:23.808942+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://castleacandheating.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+17136677606) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/castleacandheating-com/home.png",
+      "observedAt": "2026-09-20T23:22:23.808963+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://castleacandheating.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 1 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/castleacandheating-com/home.png",
+      "observedAt": "2026-09-20T23:22:23.808967+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://castleacandheating.com/",
+      "expectedResult": "",
+      "agentObservation": "7 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/castleacandheating-com/home.png",
+      "observedAt": "2026-09-20T23:22:23.808976+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "",
+      "sourceUrl": "https://castleacandheating.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 1 field(s), 1 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/castleacandheating-com/home.png",
+      "observedAt": "2026-09-20T23:22:23.808986+00:00"
+    }
+  ],
+  "file": "castleacandheating-com.json"
+}
