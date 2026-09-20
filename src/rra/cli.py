@@ -43,6 +43,8 @@ def observe_cmd(argv=None) -> int:
     parser.add_argument("--allow-private-hosts", action="store_true",
                         help="Permit non-public targets. Off by default; for local test "
                              "fixtures only, so the suite never touches a real business.")
+    parser.add_argument("--summary-md", default=None,
+                        help="Append a Markdown summary here (e.g. $GITHUB_STEP_SUMMARY)")
     args = parser.parse_args(argv)
 
     payload = browser_scan_mod.observe_site(
@@ -54,6 +56,9 @@ def observe_cmd(argv=None) -> int:
         executable_path=args.browser_path,
     )
     path = browser_scan_mod.write_observations(payload, args.out, args.url)
+    if args.summary_md:
+        with open(args.summary_md, "a", encoding="utf-8") as fh:
+            fh.write(browser_scan_mod.format_summary(payload) + "\n")
     print(path)
     print(f"[observe] {len(payload['signals'])} signal(s), "
           f"{len(payload['draftTests'])} draft test(s) — all PLANNED, none verified.")

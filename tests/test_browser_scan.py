@@ -183,6 +183,40 @@ def test_missing_tel_link_is_reported():
 
 
 # --------------------------------------------------------------------------
+# Job summary
+# --------------------------------------------------------------------------
+
+def test_summary_repeats_the_scope_caveat():
+    payload = bs.build_observations([_home()], "https://example-hvac.com/")
+    md = bs.format_summary(payload)
+    assert "never called, texted, submitted a form, or booked" in md
+    assert "all PLANNED, none verified" in md
+    assert "EXT-001..007 and EXT-015 remain manual" in md
+
+
+def test_summary_escapes_pipes_so_tables_survive():
+    pages = [_home(tel_links=["tel:+1888|999"])]
+    payload = bs.build_observations(pages, "https://example-hvac.com/",
+                                    published_phone="832-555-1234")
+    md = bs.format_summary(payload)
+    for line in md.splitlines():
+        if line.startswith("| `EXT-008`"):
+            assert "\\|" in line  # the pipe inside the content was escaped
+            unescaped = sum(1 for i, ch in enumerate(line)
+                            if ch == "|" and (i == 0 or line[i - 1] != "\\"))
+            assert unescaped == 4  # 3 cells => 4 delimiters, table stays intact
+            break
+    else:
+        pytest.fail("EXT-008 row missing from summary")
+
+
+def test_summary_lists_unreadable_pages():
+    pages = [_home(), bs.PageFacts(url="https://example-hvac.com/x", error="timeout")]
+    md = bs.format_summary(bs.build_observations(pages, "https://example-hvac.com/"))
+    assert "could not be read" in md and "timeout" in md
+
+
+# --------------------------------------------------------------------------
 # Safety rails
 # --------------------------------------------------------------------------
 

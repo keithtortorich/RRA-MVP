@@ -636,6 +636,72 @@ def _emergency_clicks(links: List[Dict[str, Any]], body_lower: str) -> Optional[
     return None
 
 
+def format_summary(payload: Dict[str, Any]) -> str:
+    """Render the payload as Markdown for a CI job summary or a terminal read.
+
+    Deliberately repeats the scope caveat: nothing here is a verified finding,
+    and the checks that carry Truth Pass weight are not in this file.
+    """
+    signals = payload.get("signals", [])
+    drafts = payload.get("draftTests", [])
+    errors = payload.get("errors", [])
+    observed = [s for s in signals if s.get("status") in ("PRESENT", "ABSENT")]
+    unreviewed = [s for s in signals if s.get("status") == "NOT_REVIEWED"]
+
+    lines: List[str] = []
+    lines.append(f"## Observation run — {payload.get('target', 'unknown target')}")
+    lines.append("")
+    lines.append(f"- Pages rendered: **{len(payload.get('pagesObserved', []))}**")
+    lines.append(f"- Signals recorded: **{len(observed)}** "
+                 f"({len(unreviewed)} left NOT_REVIEWED)")
+    lines.append(f"- Draft tests: **{len(drafts)}** — all PLANNED, none verified")
+    lines.append(f"- Contact channels used: **{len(payload.get('contactChannelsUsed', [])) or 'none'}**")
+    lines.append("")
+    lines.append("> The agent never called, texted, submitted a form, or booked. "
+                 "EXT-001..007 and EXT-015 remain manual, and nothing below counts "
+                 "toward a Minimum Truth Pass until you confirm it yourself.")
+    lines.append("")
+
+    if drafts:
+        lines.append("### Draft tests (confirm each before it counts)")
+        lines.append("")
+        lines.append("| Check | Status | What the agent saw |")
+        lines.append("|---|---|---|")
+        for d in drafts:
+            note = str(d.get("agentObservation", "")).replace("|", "\\|")
+            lines.append(f"| `{d.get('checkId', '?')}` | {d.get('status', '?')} | {note} |")
+        lines.append("")
+
+    if observed:
+        lines.append("### Signals")
+        lines.append("")
+        lines.append("| Signal | Status | Note |")
+        lines.append("|---|---|---|")
+        for s in observed:
+            note = str(s.get("notes", "")).replace("|", "\\|")
+            lines.append(f"| `{s.get('signalType')}` | {s.get('status')} | {note} |")
+        lines.append("")
+
+    if unreviewed:
+        lines.append("### Not reviewed")
+        lines.append("")
+        lines.append("Needs Google Business Profile or search data the agent does not "
+                     "collect — check these by hand: "
+                     + ", ".join(f"`{s.get('signalType')}`" for s in unreviewed))
+        lines.append("")
+
+    if errors:
+        lines.append("### Pages that could not be read")
+        lines.append("")
+        for e in errors:
+            lines.append(f"- `{e.get('url')}` — {e.get('error')}")
+        lines.append("")
+
+    lines.append("Import the JSON in the Sizzle tool: prospect → Evidence → "
+                 "**Import agent observations**.")
+    return "\n".join(lines)
+
+
 def write_observations(payload: Dict[str, Any], output_dir: str, url: str) -> str:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
