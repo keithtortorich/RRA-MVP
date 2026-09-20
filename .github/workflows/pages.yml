@@ -1,0 +1,63 @@
+name: pages
+
+# Publishes docs/ (the Sizzle tool and the agent's observation files) to GitHub
+# Pages. Serving the tool over HTTP is what lets it fetch observations/index.json
+# on its own — a page opened as a local file cannot.
+#
+# configure-pages runs with enablement: true, so the first successful run turns
+# Pages on via the API. No repository setting needs touching by hand.
+#
+# Uses the Actions deployment source rather than a branch source: the artifact is
+# built per run, the permissions below are scoped to exactly what deployment
+# needs, and the deployment shows up against the github-pages environment.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      # Redeploys when the observe workflow commits new agent runs, so a fresh
+      # scan reaches the tool without anyone pressing anything.
+      - "docs/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+# Least privilege: read the repo, write the Pages deployment, and mint the OIDC
+# token deploy-pages exchanges. Nothing else.
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# One deployment at a time, and never cancel one in flight — a half-finished
+# deploy would take the tool down for whoever is mid-prospect.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          # Turns Pages on if it is not already enabled.
+          enablement: true
+
+      - name: Upload docs/ as the Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
