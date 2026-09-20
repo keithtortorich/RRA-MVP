@@ -5,6 +5,9 @@ a browser, so CI stays fast and never touches a real business.
 """
 from __future__ import annotations
 
+import json
+import pathlib
+
 import pytest
 
 from rra import browser_scan as bs
@@ -180,6 +183,66 @@ def test_missing_tel_link_is_reported():
     pages = [_home(tel_links=[], tel_above_fold=False)]
     draft = next(d for d in bs.build_draft_tests(pages) if d["checkId"] == "EXT-008")
     assert "No tel: link" in draft["agentObservation"]
+
+
+# --------------------------------------------------------------------------
+# Batch targets and the published index
+# --------------------------------------------------------------------------
+
+def _write_targets(tmp_path, targets):
+    path = tmp_path / "targets.json"
+    path.write_text(json.dumps({"targets": targets}), encoding="utf-8")
+    return str(path)
+
+
+def test_targets_without_a_url_are_skipped_with_a_reason_not_guessed(tmp_path):
+    path = _write_targets(tmp_path, [
+        {"company": "Ample", "url": "https://amplehouston.com", "phone": "832"},
+        {"company": "Reed Heating and Air", "url": None, "phone": "469",
+         "note": "Website not confirmed — do not guess."},
+    ])
+    runnable, skipped = bs.load_targets(path)
+    assert [t["company"] for t in runnable] == ["Ample"]
+    assert skipped[0]["company"] == "Reed Heating and Air"
+    assert "do not guess" in skipped[0]["reason"].lower()
+
+
+def test_repo_targets_file_keeps_reed_unresolved():
+    """The real list must not acquire a guessed domain for Reed."""
+    runnable, skipped = bs.load_targets(
+        str(pathlib.Path(__file__).resolve().parents[1] / "targets.json"))
+    assert any("Reed" in s["company"] for s in skipped)
+    assert all("reed" not in t["url"].lower() for t in runnable)
+
+
+def test_each_run_gets_a_distinct_run_id():
+    a = bs.build_observations([_home()], "https://example-hvac.com/")
+    b = bs.build_observations([_home()], "https://example-hvac.com/")
+    assert a["runId"] and a["runId"] != b["runId"]
+
+
+def test_payload_carries_host_for_matching():
+    payload = bs.build_observations([_home()], "https://www.example-hvac.com/")
+    assert payload["host"] == "example-hvac.com"
+
+
+def test_index_maps_hosts_to_files_and_records_skips():
+    payloads = [bs.build_observations([_home()], "https://www.example-hvac.com/",
+                                      company="Example HVAC")]
+    index = bs.build_index(payloads, [{"company": "Reed", "reason": "no url"}])
+    assert index["rraObservationsIndex"] == 1
+    run = index["runs"][0]
+    assert run["host"] == "example-hvac.com"
+    assert run["file"] == "www-example-hvac-com.json"
+    assert run["company"] == "Example HVAC"
+    assert index["skipped"][0]["company"] == "Reed"
+
+
+def test_index_file_name_matches_what_write_observations_produces(tmp_path):
+    payload = bs.build_observations([_home()], "https://www.example-hvac.com/")
+    written = bs.write_observations(payload, str(tmp_path), "https://www.example-hvac.com/")
+    index = bs.build_index([payload], [])
+    assert pathlib.Path(written).name == index["runs"][0]["file"]
 
 
 # --------------------------------------------------------------------------

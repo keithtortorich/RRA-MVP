@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sys
 
 from rra import audit as audit_mod
@@ -30,7 +31,10 @@ def observe_cmd(argv=None) -> int:
         description="Observation-only browser agent. Renders a prospect's public pages and "
                     "records signals plus PLANNED draft tests. It never submits a form, "
                     "books an appointment, calls, or texts — those checks stay manual.")
-    parser.add_argument("url")
+    parser.add_argument("url", nargs="?", default=None,
+                        help="Single site to observe. Omit when using --targets.")
+    parser.add_argument("--targets", default=None,
+                        help="JSON file of targets to run in one pass (see targets.json)")
     parser.add_argument("--phone", default="",
                         help="Published phone number, to check the click-to-call link against")
     parser.add_argument("--out", default="reports/observations")
@@ -47,23 +51,62 @@ def observe_cmd(argv=None) -> int:
                         help="Append a Markdown summary here (e.g. $GITHUB_STEP_SUMMARY)")
     args = parser.parse_args(argv)
 
-    payload = browser_scan_mod.observe_site(
-        args.url,
-        published_phone=args.phone,
-        max_pages=args.pages or browser_scan_mod.MAX_PAGES,
-        screenshot_dir=args.screenshots,
-        allow_private_hosts=args.allow_private_hosts,
-        executable_path=args.browser_path,
-    )
-    path = browser_scan_mod.write_observations(payload, args.out, args.url)
+    if not args.url and not args.targets:
+        parser.error("give a url, or --targets pointing at a target list")
+
+    if args.targets:
+        runnable, skipped = browser_scan_mod.load_targets(args.targets)
+    else:
+        runnable = [{"company": "", "url": args.url, "phone": args.phone}]
+        skipped = []
+
+    stems = browser_scan_mod.unique_slugs([t["url"] for t in runnable])
+    payloads, failures = [], []
+    for target in runnable:
+        stem = stems[target["url"]]
+        label = target["company"] or target["url"]
+        print(f"[observe] {label} — {target['url']}")
+        try:
+            payload = browser_scan_mod.observe_site(
+                target["url"],
+                published_phone=target["phone"] or args.phone,
+                max_pages=args.pages or browser_scan_mod.MAX_PAGES,
+                screenshot_dir=(os.path.join(args.screenshots, stem)
+                                if args.screenshots else None),
+                allow_private_hosts=args.allow_private_hosts,
+                executable_path=args.browser_path,
+                company=target["company"],
+            )
+        except Exception as exc:
+            # One unreachable prospect must not sink the rest of the batch.
+            print(f"[observe] FAILED {label}: {exc}")
+            failures.append({"company": target["company"], "url": target["url"],
+                             "error": str(exc)[:200]})
+            continue
+        payload["file"] = f"{stem}.json"
+        path = browser_scan_mod.write_observations(payload, args.out, target["url"], stem)
+        payloads.append(payload)
+        print(f"[observe]   -> {path} "
+              f"({len(payload['draftTests'])} draft test(s), all PLANNED)")
+
+    index = browser_scan_mod.build_index(payloads, skipped + failures)
+    index_path = os.path.join(args.out, "index.json")
+    os.makedirs(args.out, exist_ok=True)
+    with open(index_path, "w", encoding="utf-8") as fh:
+        json.dump(index, fh, indent=2)
+    print(index_path)
+
     if args.summary_md:
         with open(args.summary_md, "a", encoding="utf-8") as fh:
-            fh.write(browser_scan_mod.format_summary(payload) + "\n")
-    print(path)
-    print(f"[observe] {len(payload['signals'])} signal(s), "
-          f"{len(payload['draftTests'])} draft test(s) — all PLANNED, none verified.")
-    print("[observe] Import in the Sizzle tool: prospect -> Evidence -> Import agent observations.")
-    return 0
+            for payload in payloads:
+                fh.write(browser_scan_mod.format_summary(payload) + "\n")
+            for entry in skipped + failures:
+                fh.write(f"\n> Skipped **{entry.get('company') or entry.get('url')}** — "
+                         f"{entry.get('reason') or entry.get('error')}\n")
+
+    print(f"[observe] {len(payloads)} site(s) observed, {len(skipped)} skipped, "
+          f"{len(failures)} failed. Everything is PLANNED — nothing is verified.")
+    return 0 if payloads or not runnable else 1
 
 
 def audit_cmd(argv=None) -> int:

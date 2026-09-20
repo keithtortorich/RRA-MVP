@@ -528,9 +528,10 @@ button{cursor:pointer;-webkit-appearance:none}
         </div>
         <div class="card">
           <div class="head">Agent Observations<small id="tpAgentStatus"></small></div>
-          <p class="note">Load the JSON from <code>revenue-observe</code>, the observation-only browser agent. It fills in signals and pre-fills draft tests for the checks a browser can see without contacting the business. Everything imports as PLANNED — phone, SMS, form, and booking checks are still yours to run and confirm.</p>
+          <p class="note">Runs published by the observation agent are pulled in automatically when you open a prospect — no download, no file picker. Everything arrives as PLANNED: phone, SMS, form, and booking checks are still yours to run and confirm.</p>
           <div class="row">
-            <button class="btn outline" id="btnImportObservations" type="button">Import agent observations</button>
+            <button class="btn outline" id="btnSyncObservations" type="button">Check for new runs</button>
+            <button class="btn ghost" id="btnImportObservations" type="button">Import from file</button>
             <input type="file" id="observationsFile" accept="application/json" class="hidden">
           </div>
           <div id="tpAgentSummary"></div>
@@ -2157,6 +2158,15 @@ function renderTruthPassSection(p){
   renderTestCatalog(p);
   renderTestLog(p);
   renderSignalList(p);
+  /* Sync once per prospect+website per session. Keying on the website too means
+     correcting a prospect's URL re-checks for published runs instead of being
+     stuck with the first lookup. "Check for new runs" forces it any time. */
+  if(!renderTruthPassSection._synced)renderTruthPassSection._synced={};
+  var syncKey=p.id+"|"+(p.website||"");
+  if(!renderTruthPassSection._synced[syncKey]){
+    renderTruthPassSection._synced[syncKey]=true;
+    syncAgentObservations(p,{quiet:false});
+  }
 }
 document.getElementById("btnCompleteTruthPass").addEventListener("click",function(){
   var p=prospectById(currentProspectId);if(!p)return;
@@ -2176,6 +2186,13 @@ function importAgentObservations(p,payload){
     return {ok:false,reason:"That file isn't an observation payload from revenue-observe."};
   }
   var ev=ensureExternalVerification(p);
+  /* Idempotency: an auto-synced file is re-read every time the prospect opens,
+     so a run already applied must not stack a second set of drafts. */
+  ev.importedRunIds=Array.isArray(ev.importedRunIds)?ev.importedRunIds:[];
+  var runId=typeof payload.runId==="string"?payload.runId:null;
+  if(runId&&ev.importedRunIds.indexOf(runId)>=0){
+    return {ok:true,alreadyImported:true,signalsAdded:0,signalsUpdated:0,draftsAdded:0,skipped:0,contactUsed:0};
+  }
   var signalsAdded=0,signalsUpdated=0,draftsAdded=0,skipped=0;
 
   (Array.isArray(payload.signals)?payload.signals:[]).forEach(function(s){
@@ -2224,15 +2241,82 @@ function importAgentObservations(p,payload){
     draftsAdded++;
   });
 
+  if(runId)ev.importedRunIds.push(runId);
   ensureExternalVerification(p);
   reevaluateTruthPass(p);
   return {ok:true,signalsAdded:signalsAdded,signalsUpdated:signalsUpdated,
     draftsAdded:draftsAdded,skipped:skipped,
     contactUsed:(payload.contactChannelsUsed||[]).length};
 }
+
+/* ---------- auto-sync: pull published agent runs without a download or a file picker ---------- */
+function syncAgentObservations(p,opts){
+  opts=opts||{};
+  if(!p||!p.website)return;
+  /* Match on bare hostname: no scheme, no www, no port, no path — the published
+     index stores the hostname alone, and the two sides have to agree. */
+  var host=String(p.website).replace(/^https?:\/\//,"").split("/")[0].split(":")[0]
+             .replace(/^www\./,"").toLowerCase();
+  if(!host)return;
+  var statusEl=document.getElementById("tpAgentStatus");
+  fetch("observations/index.json",{cache:"no-store"}).then(function(r){
+    if(!r.ok)throw new Error("no index");
+    return r.json();
+  }).then(function(index){
+    if(!index||!index.rraObservationsIndex)throw new Error("not an index");
+    var run=(index.runs||[]).filter(function(x){
+      return String(x.host||"").toLowerCase().replace(/^www\./,"")===host;
+    }).sort(function(a,b){return new Date(b.generatedAt)-new Date(a.generatedAt);})[0];
+    if(!run){
+      var skipped=(index.skipped||[]).filter(function(s){
+        return (s.company||"").toLowerCase()===String(p.company||"").toLowerCase();
+      })[0];
+      if(statusEl)statusEl.innerHTML=skipped?'<span class="badge pending">SKIPPED BY AGENT</span>':"";
+      if(skipped){
+        document.getElementById("tpAgentSummary").innerHTML=
+          '<div class="warnflag"><span>&#9888;</span><span><b>'+esc(skipped.company)+
+          " was skipped by the agent.</b> "+esc(skipped.reason||skipped.error||"")+"</span></div>";
+      }
+      return;
+    }
+    var ev=ensureExternalVerification(p);
+    if((ev.importedRunIds||[]).indexOf(run.runId)>=0){
+      if(statusEl)statusEl.innerHTML='<span class="badge known">SYNCED '+esc(fmtDate(run.generatedAt))+"</span>";
+      return;
+    }
+    return fetch("observations/"+run.file,{cache:"no-store"}).then(function(r){
+      if(!r.ok)throw new Error("run file missing");
+      return r.json();
+    }).then(function(payload){
+      var r=importAgentObservations(p,payload);
+      if(!r.ok)return;
+      saveState();
+      if(currentProspectId===p.id)renderTruthPassSection(p);
+      renderSlots();
+      if(statusEl)statusEl.innerHTML='<span class="badge known">SYNCED '+esc(fmtDate(run.generatedAt))+"</span>";
+      var warn=r.contactUsed?'<div class="warnflag"><span>&#9888;</span><span>This payload reports contact channels were used. The observation agent should never contact a business — check what produced this file.</span></div>':"";
+      document.getElementById("tpAgentSummary").innerHTML=warn+
+        '<div class="readyflag"><span>&#10003;</span><span>Auto-synced the agent run from '+esc(fmtDate(run.generatedAt))+
+        ": "+(r.signalsAdded+r.signalsUpdated)+" signal(s), "+r.draftsAdded+
+        " draft test(s), all PLANNED. Confirm each one yourself before it counts toward Truth Pass.</span></div>";
+      if(!opts.quiet&&r.draftsAdded)toast("Synced "+r.draftsAdded+" draft test(s) from the agent");
+    });
+  }).catch(function(){
+    /* No published runs reachable (opened as a local file, or Pages not enabled).
+       The manual import button stays available — this is an enhancement, not a dependency. */
+    if(statusEl&&!statusEl.innerHTML)statusEl.innerHTML="";
+  });
+}
 document.getElementById("btnImportObservations").addEventListener("click",function(){
   if(!currentProspectId){toast("Save the prospect first");return;}
   document.getElementById("observationsFile").click();
+});
+document.getElementById("btnSyncObservations").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);
+  if(!p){toast("Save the prospect first");return;}
+  if(!p.website){toast("Add the prospect's website first — runs are matched by domain");return;}
+  toast("Checking for published runs…");
+  syncAgentObservations(p,{quiet:false});
 });
 document.getElementById("observationsFile").addEventListener("change",function(e){
   var file=e.target.files[0];

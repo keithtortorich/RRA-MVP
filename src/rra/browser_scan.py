@@ -18,6 +18,7 @@ from __future__ import annotations
 import json
 import re
 import time
+import uuid
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
@@ -356,13 +357,20 @@ def build_draft_tests(pages: List[PageFacts], published_phone: str = "") -> List
     return drafts
 
 
-def build_observations(pages: List[PageFacts], url: str,
-                       published_phone: str = "") -> Dict[str, Any]:
-    """Assemble the import payload consumed by the Sizzle tool."""
+def build_observations(pages: List[PageFacts], url: str, published_phone: str = "",
+                       company: str = "") -> Dict[str, Any]:
+    """Assemble the import payload consumed by the Sizzle tool.
+
+    runId lets the tool import the same published file repeatedly without
+    stacking duplicate drafts — it skips runs it has already applied.
+    """
     return {
         "rraObservations": 1,
+        "runId": uuid.uuid4().hex,
         "generatedAt": now_iso(),
         "target": url,
+        "company": company,
+        "host": (urlparse(url).hostname or "").lower().lstrip("www."),
         "agent": "observation-only browser agent",
         "contactChannelsUsed": [],  # always empty: this agent never contacts the business
         "pagesObserved": [p.final_url or p.url for p in pages if not p.error],
@@ -370,6 +378,85 @@ def build_observations(pages: List[PageFacts], url: str,
         "signals": classify_signals(pages),
         "draftTests": build_draft_tests(pages, published_phone),
     }
+
+
+def load_targets(path: str) -> tuple:
+    """Read the target list. Returns (runnable, skipped).
+
+    A target without a url is skipped and reported — never guessed at. The
+    Reed Heating entry is exactly this case: several unrelated Texas HVAC
+    companies share the name, so pipeline.md warns against assuming a domain.
+    """
+    with open(path, "r", encoding="utf-8") as fh:
+        data = json.load(fh)
+    runnable, skipped = [], []
+    for entry in data.get("targets", []):
+        if not isinstance(entry, dict):
+            continue
+        url = entry.get("url")
+        if not url or not str(url).strip():
+            skipped.append({"company": entry.get("company", "(unnamed)"),
+                            "reason": entry.get("note", "No URL on file.")})
+            continue
+        runnable.append({
+            "company": entry.get("company", ""),
+            "url": str(url).strip(),
+            "phone": str(entry.get("phone") or "").strip(),
+        })
+    return runnable, skipped
+
+
+def build_index(payloads: List[Dict[str, Any]], skipped: List[Dict[str, Any]]) -> Dict[str, Any]:
+    """Index the published observation files so the tool can find them by host."""
+    return {
+        "rraObservationsIndex": 1,
+        "generatedAt": now_iso(),
+        "runs": [{
+            "runId": p.get("runId"),
+            "company": p.get("company", ""),
+            "host": p.get("host", ""),
+            "target": p.get("target", ""),
+            "generatedAt": p.get("generatedAt"),
+            "file": p.get("file") or f"{slug_for(p.get('target', ''))}.json",
+            "signalCount": len([s for s in p.get("signals", [])
+                                if s.get("status") in ("PRESENT", "ABSENT")]),
+            "draftCount": len(p.get("draftTests", [])),
+        } for p in payloads],
+        "skipped": skipped,
+    }
+
+
+def slug_for(url: str) -> str:
+    """Filename stem for a target.
+
+    Includes port and path, not just the hostname: two targets sharing a host
+    would otherwise write to the same file, and the second would silently
+    overwrite the first — publishing one prospect's findings under another
+    prospect's name.
+    """
+    parsed = urlparse(url)
+    parts = [(parsed.hostname or "target").lower()]
+    if parsed.port:
+        parts.append(str(parsed.port))
+    path = (parsed.path or "").strip("/")
+    if path:
+        parts.append(path)
+    return re.sub(r"[^a-z0-9]+", "-", "-".join(parts).lower()).strip("-") or "target"
+
+
+def unique_slugs(urls: List[str]) -> Dict[str, str]:
+    """Map each url to a filename stem that is unique within the batch."""
+    used: Dict[str, int] = {}
+    out: Dict[str, str] = {}
+    for url in urls:
+        base = slug_for(url)
+        if base in used:
+            used[base] += 1
+            out[url] = f"{base}-{used[base]}"
+        else:
+            used[base] = 1
+            out[url] = base
+    return out
 
 
 # --------------------------------------------------------------------------
@@ -543,7 +630,8 @@ def _check_conversion_links(facts: PageFacts, links: List[Dict[str, Any]],
 def observe_site(url: str, published_phone: str = "", max_pages: int = MAX_PAGES,
                  screenshot_dir: Optional[str] = None,
                  allow_private_hosts: bool = False,
-                 executable_path: Optional[str] = None) -> Dict[str, Any]:
+                 executable_path: Optional[str] = None,
+                 company: str = "") -> Dict[str, Any]:
     """Render the public site and return signals + PLANNED draft tests.
 
     Contacts nobody. Submits nothing. Books nothing.
@@ -620,7 +708,7 @@ def observe_site(url: str, published_phone: str = "", max_pages: int = MAX_PAGES
             context.close()
             browser.close()
 
-    return build_observations(pages, url, published_phone)
+    return build_observations(pages, url, published_phone, company)
 
 
 def _emergency_clicks(links: List[Dict[str, Any]], body_lower: str) -> Optional[int]:
@@ -702,10 +790,10 @@ def format_summary(payload: Dict[str, Any]) -> str:
     return "\n".join(lines)
 
 
-def write_observations(payload: Dict[str, Any], output_dir: str, url: str) -> str:
+def write_observations(payload: Dict[str, Any], output_dir: str, url: str,
+                       stem: Optional[str] = None) -> str:
     out = Path(output_dir)
     out.mkdir(parents=True, exist_ok=True)
-    slug = re.sub(r"[^a-z0-9]+", "-", urlparse(url).hostname or "target").strip("-")
-    path = out / f"{slug}-observations.json"
+    path = out / f"{stem or slug_for(url)}.json"
     path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
     return str(path)

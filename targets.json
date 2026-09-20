@@ -1,0 +1,31 @@
+{
+  "_comment": "Prospects the observation agent runs against. Edit this list; the observe workflow reads it. A target with a null url is skipped and reported, never guessed at.",
+  "targets": [
+    {
+      "company": "Exodus Mechanical",
+      "url": "https://www.exodusmechanical.com",
+      "phone": "469-500-7977"
+    },
+    {
+      "company": "Ample Services",
+      "url": "https://www.amplehouston.com",
+      "phone": "832-794-4878"
+    },
+    {
+      "company": "Bill Anderson Air",
+      "url": "https://www.billandersonair.com",
+      "phone": "281-769-9999"
+    },
+    {
+      "company": "Castle Air Conditioning & Heating",
+      "url": "https://castleacandheating.com",
+      "phone": "713-667-7606"
+    },
+    {
+      "company": "Reed Heating and Air",
+      "url": null,
+      "phone": "469-831-9842",
+      "note": "Website not confirmed. Several unrelated Texas HVAC companies use 'Reed' in their domain — confirm the real site by phone or Google Maps before adding it here. Do not guess."
+    }
+  ]
+}
