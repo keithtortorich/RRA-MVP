@@ -80,7 +80,35 @@ revenue-observe https://example-hvac.com --phone "832-555-1234" --screenshots sh
 ```
 
 Import the resulting JSON in the Sizzle tool: prospect → Evidence → **Import
-agent observations**.
+agent observations** — or let the tool pull runs on its own, which needs Pages
+(below).
+
+### Serving the tool (one-time setup)
+
+Auto-sync only works when the tool is served over HTTP: a page opened as a local
+file cannot fetch `observations/index.json`. Enable GitHub Pages once, at
+Settings → Pages:
+
+- **Source:** Deploy from a branch
+- **Branch:** `main`, folder `/docs`
+
+The site is then at `https://<owner>.github.io/RRA-MVP/`, and every push to
+`docs/` — including the observe workflow's commits — republishes it.
+
+This was tried as an Actions workflow with `actions/configure-pages`
+(`enablement: true`) so no setting needed touching. It does not work: the
+default `GITHUB_TOKEN` may deploy to an existing Pages site but is not
+permitted to create one, and the run fails with *"Create Pages site failed:
+Resource not accessible by integration."* Creating the site needs the settings
+UI or a PAT with admin scope. Branch source is also the better fit regardless —
+`docs/` is static and committed, so there is no build step worth a workflow run
+on every observation commit.
+
+Pages is public. That includes `docs/observations/`, which names prospects and
+describes their sites. The tool page carries `noindex` so it stays out of search
+results, but that is de-indexing, not access control, and the JSON files cannot
+carry a meta tag at all. If the research needs to stay private, leave Pages off
+and use **Import from file**.
 
 What it covers: click-to-call correctness, emergency-contact friction,
 conversion link integrity, hours consistency, service-area conversion paths,
