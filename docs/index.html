@@ -527,6 +527,15 @@ button{cursor:pointer;-webkit-appearance:none}
           <div class="note" id="tpSuggestText">—</div>
         </div>
         <div class="card">
+          <div class="head">Agent Observations<small id="tpAgentStatus"></small></div>
+          <p class="note">Load the JSON from <code>revenue-observe</code>, the observation-only browser agent. It fills in signals and pre-fills draft tests for the checks a browser can see without contacting the business. Everything imports as PLANNED — phone, SMS, form, and booking checks are still yours to run and confirm.</p>
+          <div class="row">
+            <button class="btn outline" id="btnImportObservations" type="button">Import agent observations</button>
+            <input type="file" id="observationsFile" accept="application/json" class="hidden">
+          </div>
+          <div id="tpAgentSummary"></div>
+        </div>
+        <div class="card">
           <div class="head">External Verification — Truth Pass<small id="tpStatusBadge"></small></div>
           <p class="note">Public claims are signals, not evidence. A scoped no-leak conclusion requires at least three determinate high-value tests across two channel families, plus phone/digital requirements when applicable.</p>
           <div class="stats" id="tpProgressStats"></div>
@@ -2159,6 +2168,93 @@ document.getElementById("btnCompleteTruthPass").addEventListener("click",functio
 document.getElementById("tpNotes").addEventListener("change",function(){
   var p=prospectById(currentProspectId);if(!p)return;
   ensureExternalVerification(p).truthPass.notes=this.value.trim();saveState();
+});
+
+/* ---------- agent observation import: merges signals + PLANNED drafts, never evidence ---------- */
+function importAgentObservations(p,payload){
+  if(!payload||typeof payload!=="object"||!payload.rraObservations){
+    return {ok:false,reason:"That file isn't an observation payload from revenue-observe."};
+  }
+  var ev=ensureExternalVerification(p);
+  var signalsAdded=0,signalsUpdated=0,draftsAdded=0,skipped=0;
+
+  (Array.isArray(payload.signals)?payload.signals:[]).forEach(function(s){
+    if(!s||typeof s!=="object")return;
+    if(!SIGNAL_TYPES.some(function(t){return t.id===s.signalType;})){skipped++;return;}
+    if(SIGNAL_STATUSES.indexOf(s.status)<0){skipped++;return;}
+    var note=(typeof s.notes==="string"?s.notes:"");
+    var existing=ev.signals.filter(function(x){return x.signalType===s.signalType;})[0];
+    if(existing){
+      existing.status=s.status;
+      existing.notes=note;
+      existing.sourceUrl=typeof s.sourceUrl==="string"?s.sourceUrl:existing.sourceUrl;
+      existing.updatedAt=nowISO();
+      signalsUpdated++;
+    }else{
+      ev.signals.push({id:uid(),signalType:s.signalType,status:s.status,
+        sourceUrl:typeof s.sourceUrl==="string"?s.sourceUrl:"",notes:note,
+        observedAt:s.observedAt||nowISO(),createdAt:nowISO(),updatedAt:nowISO()});
+      signalsAdded++;
+    }
+  });
+
+  (Array.isArray(payload.draftTests)?payload.draftTests:[]).forEach(function(d){
+    if(!d||typeof d!=="object")return;
+    var check=checkMeta(d.checkId);
+    if(!check){skipped++;return;}
+    /* An imported record never arrives determinate, whatever the file claims. The agent
+       observes; the operator confirms. Same rule the dossier parser follows. */
+    var observation=typeof d.agentObservation==="string"?d.agentObservation:"";
+    ev.tests.push({
+      id:uid(),checkId:check.id,relatedCheckIds:[],
+      status:"PLANNED",
+      channel:check.channels.indexOf(d.channel)>=0?d.channel:check.channels[0],
+      channelFamily:check.channelFamily,
+      publicClaim:typeof d.publicClaim==="string"?d.publicClaim:"",
+      sourceUrl:typeof d.sourceUrl==="string"?d.sourceUrl:"",
+      testMethod:check.procedure,
+      expectedResult:check.expected,
+      observedResult:"", /* stays empty: an agent observation is not an operator observation */
+      testStartedAt:null,responseReceivedAt:null,responseMinutes:null,
+      operatorTimezone:"",device:"headless Chromium (375px mobile)",
+      evidenceReference:typeof d.evidenceReference==="string"?d.evidenceReference:"",
+      notes:("Agent observation — confirm before marking determinate: "+observation).trim(),
+      evidenceId:null,createdAt:nowISO(),updatedAt:nowISO()
+    });
+    draftsAdded++;
+  });
+
+  ensureExternalVerification(p);
+  reevaluateTruthPass(p);
+  return {ok:true,signalsAdded:signalsAdded,signalsUpdated:signalsUpdated,
+    draftsAdded:draftsAdded,skipped:skipped,
+    contactUsed:(payload.contactChannelsUsed||[]).length};
+}
+document.getElementById("btnImportObservations").addEventListener("click",function(){
+  if(!currentProspectId){toast("Save the prospect first");return;}
+  document.getElementById("observationsFile").click();
+});
+document.getElementById("observationsFile").addEventListener("change",function(e){
+  var file=e.target.files[0];
+  e.target.value="";
+  if(!file)return;
+  var p=prospectById(currentProspectId);if(!p)return;
+  var reader=new FileReader();
+  reader.onload=function(){
+    var payload=null;
+    try{payload=JSON.parse(reader.result);}catch(err){payload=null;}
+    if(!payload){toast("That file isn't valid JSON");return;}
+    var r=importAgentObservations(p,payload);
+    if(!r.ok){toast(r.reason);return;}
+    saveState();renderTruthPassSection(p);renderSlots();
+    var warn=r.contactUsed?'<div class="warnflag"><span>&#9888;</span><span>This payload reports contact channels were used. The observation agent should never contact a business — check what produced this file.</span></div>':"";
+    document.getElementById("tpAgentSummary").innerHTML=warn+
+      '<div class="readyflag"><span>&#10003;</span><span>Imported '+(r.signalsAdded+r.signalsUpdated)+" signal(s) and "+r.draftsAdded+
+      " draft test(s), all PLANNED. Confirm each one yourself before it counts toward Truth Pass."+
+      (r.skipped?" "+r.skipped+" unrecognized record(s) ignored.":"")+"</span></div>";
+    toast("Imported "+r.draftsAdded+" draft test(s)");
+  };
+  reader.readAsText(file);
 });
 
 function renderTestCatalog(p){

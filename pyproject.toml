@@ -9,9 +9,11 @@ requires-python=">=3.10"
 
 [project.optional-dependencies]
 dev=["pytest>=8"]
+browser=["playwright>=1.40"]
 
 [project.scripts]
 revenue-scan="rra.cli:scan_cmd"
+revenue-observe="rra.cli:observe_cmd"
 revenue-audit="rra.cli:audit_cmd"
 revenue-propose="rra.cli:propose_cmd"
 

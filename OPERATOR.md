@@ -52,6 +52,37 @@ revenue-audit "ACME HVAC" https://example-hvac.com
 revenue-propose "ACME HVAC" path/to/opportunities.json
 ```
 
+### Observation agent (optional)
+
+`revenue-observe` renders a prospect's public pages in a headless browser and
+writes signals plus pre-filled **draft** tests for the checks a browser can see
+on its own. Install the extra first:
+
+```bash
+pip install -e ".[browser]"
+python -m playwright install chromium
+revenue-observe https://example-hvac.com --phone "832-555-1234" --screenshots shots/
+```
+
+Import the resulting JSON in the Sizzle tool: prospect → Evidence → **Import
+agent observations**.
+
+What it covers: click-to-call correctness, emergency-contact friction,
+conversion link integrity, hours consistency, service-area conversion paths,
+form friction, and most investigation signals.
+
+What it will not do, by design: it never submits a form, books an appointment,
+calls, or sends a text. Those checks — EXT-001 through EXT-007 and EXT-015,
+which carry most of the Minimum Truth Pass weight — stay manual. Everything it
+produces imports as `PLANNED` and needs your confirmation before it counts
+toward a Truth Pass, because an evidence-backed sales claim should be one a
+person can defend on the call.
+
+Review-count, review-recency, review-response and search-visibility signals are
+left `NOT_REVIEWED` rather than guessed; they need Google Business Profile data
+the agent does not collect. A conversion link the agent could not reach is
+reported as unverified, never as broken.
+
 For a stronger audit, replace benchmark assumptions with observed metrics:
 
 ```bash
@@ -72,7 +103,7 @@ Example `metrics.json`:
 
 1. Run `revenue-scan`.
 2. Review evidence and identify assumptions.
-3. Manually verify Google reviews, after-hours call handling, mobile site conversion, booking access, and 24/7 claims.
+3. Manually verify Google reviews, after-hours call handling, mobile site conversion, booking access, and 24/7 claims. Optionally run `revenue-observe` first to pre-fill the site-observation half — the call, text, form, and booking checks are still yours.
 4. Record observed metrics in `metrics.json`.
 5. Run `revenue-audit` again with the metrics file.
 6. Run `revenue-propose` on the resulting opportunities JSON.
