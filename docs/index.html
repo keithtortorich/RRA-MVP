@@ -826,6 +826,12 @@ var CHECK_CATALOG=[
   {id:"EXT-014",name:"Form friction",leakId:"HVAC-LEAK-002",channelFamily:"WEBSITE",channels:["WEB_FORM"],highValue:false,satisfiesPhone:false,satisfiesDigital:true,responseObservation:false,procedure:"Time and count the steps required to complete the public form on mobile.",expected:"Form is short and low-friction on mobile.",failureCondition:"Form is long, broken on mobile, or requires excessive fields."},
   {id:"EXT-015",name:"Submission confirmation",leakId:"HVAC-LEAK-002",channelFamily:"FORM",channels:["WEB_FORM"],highValue:false,satisfiesPhone:false,satisfiesDigital:true,responseObservation:true,procedure:"Submit the form and observe what confirmation is shown/sent.",expected:"A clear on-screen or emailed confirmation is provided.",failureCondition:"No confirmation is shown or sent after submission."}
 ];
+/* Section 15: leak-library metadata. Derived from CHECK_CATALOG rather than hand-listed,
+   so the mapping can never drift out of sync with the checks themselves. */
+LEAK_LIBRARY.forEach(function(leak){
+  leak.externalCheckIds=CHECK_CATALOG.filter(function(c){return c.leakId===leak.id;})
+                                     .map(function(c){return c.id;});
+});
 function checkMeta(id){for(var i=0;i<CHECK_CATALOG.length;i++){if(CHECK_CATALOG[i].id===id)return CHECK_CATALOG[i];}return null;}
 function canonicalFamilyFor(checkId){var c=checkMeta(checkId);return c?c.channelFamily:null;}
 var HIGH_VALUE_CHECK_IDS=CHECK_CATALOG.filter(function(c){return c.highValue;}).map(function(c){return c.id;});
@@ -880,6 +886,7 @@ function ensureExternalVerification(p){
     return s;
   });
   /* sanitize tests: drop non-object garbage, normalize fields, never invent determinate status */
+  var warnings=[];
   ev.tests=ev.tests.filter(function(t){return t&&typeof t==="object";}).map(function(t){
     if(!t.id)t.id=uid();
     if(TEST_STATUSES.indexOf(t.status)<0)t.status="PLANNED";
@@ -897,8 +904,12 @@ function ensureExternalVerification(p){
     if(t.evidenceId&&typeof t.evidenceId!=="string")t.evidenceId=null;
     if(!t.createdAt)t.createdAt=nowISO();
     if(!t.updatedAt)t.updatedAt=t.createdAt;
+    if(t._familyInvalid)warnings.push((t.checkId||"(no check)")+": unknown primary check — ineligible for Truth Pass until corrected.");
+    else if(t._familyNormalized)warnings.push(t.checkId+": stored channel family conflicted with the canonical mapping and was normalized — review.");
     return t;
   });
+  /* Rebuilt from scratch on every pass: these are derived, and appending would grow forever. */
+  ev.warnings=warnings;
   return ev;
 }
 function testObservedAt(t){return t.responseReceivedAt||t.testStartedAt||null;}
@@ -1645,7 +1656,7 @@ function renderSlots(){
     if(p.state==="CONVERSATION")stateBadge='<span class="badge known">'+esc(p.state)+"</span>";
     if(p.outcome==="WON")stateBadge='<span class="badge won">WON</span>';
     if(p.outcome==="LOST")stateBadge='<span class="badge lost">LOST</span>';
-    var leakHtml=top?('<div class="leak"><b>'+esc(top.issue||"Top leak")+"</b><br>"+fmtMoney(top.impact)+"/mo &middot; "+fmtMoney(top.impact*12)+"/yr &middot; "+qualityBadge(top.quality)+(top.quality!=="KNOWN"?' <span class="note">confirm before quoting</span>':"")+"</div>"):'<div class="leak note">No evidence yet — run a scan and add findings.</div>';
+    var leakHtml=top?('<div class="leak"><b>'+esc(top.issue||"Top leak")+"</b><br>"+fmtMoney(top.impact)+"/mo &middot; "+fmtMoney(top.impact*12)+"/yr &middot; "+qualityBadge(evidenceQuality(top).financial)+(evidenceQuality(top).financial!=="KNOWN"?' <span class="note">estimated — confirm before quoting</span>':"")+"</div>"):'<div class="leak note">No evidence yet — run a scan and add findings.</div>';
     var act=prospectActionCard(p);
     var nextHtml="";
     if(act){
@@ -2120,12 +2131,15 @@ function renderTruthPassSection(p){
     ["Verified failures",tests.filter(function(t){return t.status==="VERIFIED_FAILURE";}).length],
     ["Verified passes",tests.filter(function(t){return t.status==="VERIFIED_PASS";}).length],
     ["Inconclusive",tests.filter(function(t){return t.status==="INCONCLUSIVE";}).length],
+    ["Cancelled",ensureExternalVerification(p).tests.filter(function(t){return t.status==="CANCELLED";}).length],
     ["Promoted",promoted],
     ["Qualifying tests",computed.qualifyingCount+"/3"],
     ["Channel families",computed.channelFamilies.length+"/2"]
   ];
   document.getElementById("tpProgressStats").innerHTML=stats.map(function(s){return '<div class="stat"><strong>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";}).join("");
-  document.getElementById("tpMissingList").innerHTML=computed.missing.length?('<div class="warnflag"><span>&#9888;</span><span>'+computed.missing.map(esc).join("<br>")+"</span></div>"):(ev.truthPass.status==="COMPLETE"?'<div class="readyflag"><span>&#10003;</span><span>Minimum Truth Pass requirements satisfied as of last completion.</span></div>':'<div class="readyflag"><span>&#10003;</span><span>All current requirements satisfied — ready to complete.</span></div>');
+  var warnHtml=(ev.warnings||[]).length?('<div class="warnflag"><span>&#9888;</span><span><b>Data review needed.</b><br>'+
+    ev.warnings.map(esc).join("<br>")+"</span></div>"):"";
+  document.getElementById("tpMissingList").innerHTML=warnHtml+computed.missing.length?('<div class="warnflag"><span>&#9888;</span><span>'+computed.missing.map(esc).join("<br>")+"</span></div>"):(ev.truthPass.status==="COMPLETE"?'<div class="readyflag"><span>&#10003;</span><span>Minimum Truth Pass requirements satisfied as of last completion.</span></div>':'<div class="readyflag"><span>&#10003;</span><span>All current requirements satisfied — ready to complete.</span></div>');
 
   var naEntries=ev.truthPass.notApplicable||[];
   var naPhone=naEntries.filter(function(n){return n.requirement==="PHONE";})[0];
@@ -2478,6 +2492,25 @@ document.getElementById("btnSaveTest").addEventListener("click",function(){
   }
   var t=editingTestId?ev.tests.filter(function(x){return x.id===editingTestId;})[0]:null;
   var isNew=!t;
+  /* Section 5: one observation may support several checks, but it must not become several
+     test records. Warn on a likely duplicate and require a documented reason to proceed. */
+  if(isNew){
+    var sameDay=(startedLocal||"").slice(0,10);
+    var dup=ev.tests.filter(function(x){
+      if(x.status==="CANCELLED"||x.checkId!==checkId)return false;
+      var xDay=(testObservedAt(x)||"").slice(0,10);
+      return (x.sourceUrl||"")===document.getElementById("teSourceUrl").value.trim()&&
+             (!sameDay||!xDay||xDay===sameDay);
+    })[0];
+    if(dup&&!notes){
+      document.getElementById("teWarnings").innerHTML='<div class="warnflag"><span>&#9888;</span><span>'+
+        '<b>Possible duplicate.</b> A '+esc(dup.status)+" test already exists for "+esc(checkId)+
+        " on this source. One observation should be one record — attach "+esc(checkId)+
+        " as a related check on the existing test, or write a note saying why this is a distinct "+
+        "observation (different date, channel, or procedure), then save again.</span></div>";
+      return;
+    }
+  }
   if(!t){t={id:uid(),createdAt:nowISO(),evidenceId:null};ev.tests.push(t);}
   var priorDeterminate=isDeterminateTest(t);
   t.checkId=checkId;
@@ -2638,7 +2671,7 @@ function buildPitch(p,type){
   var leak=top.issue||"a revenue leak";
   var ev=top.source||"observed directly";
   var impact=top.impact?fmtMoney(top.impact)+"/month":"a meaningful monthly amount";
-  var hedge=top.quality==="KNOWN"?"":"roughly ";
+  var hedge=evidenceQuality(top).financial==="KNOWN"?"":"roughly ";
   var pitches={
     email:"Subject: "+biz+" — one revenue leak I found\n\n"+owner+",\n\nI found one issue worth showing you: "+leak+".\n\nEvidence: "+ev+".\n\nUsing the assumptions in my breakdown, the opportunity is "+hedge+impact+". If you give me your actual numbers, I'll replace the estimates and recalculate it.\n\nMy first recommendation isn't a marketing package — it's one fix for the biggest leak I can validate. The fixed-fee option is $997.\n\nWorth 10 minutes to walk through the evidence?\n\n[YOUR NAME]",
     call:owner+", I run RRA. I looked at "+biz+" and found one leak worth verifying with you: "+leak+". The evidence I have is "+ev+". I'm not calling to sell marketing — I size revenue leaks and fix the biggest one first. My estimate is "+hedge+impact+", but I'd rather use your real numbers. Got two minutes for how you handle this today?",
@@ -2658,8 +2691,8 @@ function renderOutreachPanel(p){
     if(!(rProg.allDone&&vProg.allDone)){
       msgs.push('<div class="warnflag"><span>&#9888;</span><span><b>Verification checklist incomplete ('+(rProg.done+vProg.done)+'/'+(rProg.total+vProg.total)+').</b> This script names a dollar figure before the basics are confirmed — consider the Free scan invite instead, or finish verifying first.</span></div>');
     }
-    if(top&&top.quality!=="KNOWN"){
-      msgs.push('<div class="warnflag"><span>&#9888;</span><span><b>Dollar figure is '+esc(top.quality)+', not owner-confirmed.</b> This script hedges the number as an estimate — get real numbers before you promise a total.</span></div>');
+    if(top&&evidenceQuality(top).financial!=="KNOWN"){
+      msgs.push('<div class="warnflag"><span>&#9888;</span><span><b>Dollar figure is '+esc(evidenceQuality(top).financial)+', not owner-confirmed.</b> This script hedges the number as an estimate — get real numbers before you promise a total.</span></div>');
     }
   }
   warn.innerHTML=msgs.join("");
@@ -2728,8 +2761,18 @@ function buildPacketText(p){
   lines.push("FINDINGS");
   ev.forEach(function(e,i){
     lines.push((i+1)+". "+e.issue);
-    lines.push("   Source: "+(e.source||"observed directly")+" ("+new Date(e.ts).toLocaleDateString()+") — "+e.quality);
-    lines.push("   Estimated impact: "+fmtMoney(e.impact)+"/mo ("+fmtMoney(e.impact*12)+"/yr)");
+    var eq=evidenceQuality(e);
+    lines.push("   Source: "+(e.source||"observed directly")+" ("+new Date(e.ts).toLocaleDateString()+")");
+    lines.push("   Operational evidence: "+eq.observation+"  |  Financial opportunity: "+eq.financial);
+    if(e.impact>0){
+      lines.push("   "+(eq.financial==="KNOWN"?"Recovery opportunity: ":"Estimated recovery opportunity: ")+
+                 fmtMoney(e.impact)+"/mo ("+fmtMoney(e.impact*12)+"/yr)");
+      if(!(e.financialProvenance&&e.financialProvenance.trim())){
+        lines.push("   Pending confirmation of your call volume and booking economics.");
+      }
+    }else{
+      lines.push("   Not yet quantified.");
+    }
     lines.push("");
   });
   var rProg=researchProgress(p),vProg=verifyProgress(p);
@@ -2755,9 +2798,10 @@ function renderPacket(p){
     body='<p class="note">No findings recorded yet. Add evidence on the Evidence tab first.</p>';
   }else{
     body=ev.map(function(e){
-      return '<div class="pkitem"><div class="pkhead"><span>'+esc(e.issue)+'</span>'+qualityBadge(e.quality)+"</div>"+
+      return '<div class="pkitem"><div class="pkhead"><span>'+esc(e.issue)+"</span></div>"+dualQualityBadges(e)+
         '<div class="pksub">Source: '+esc(e.source||"observed directly")+" &middot; "+esc(new Date(e.ts).toLocaleDateString())+"</div>"+
-        '<div class="pknote">'+fmtMoney(e.impact)+"/mo &middot; "+fmtMoney(e.impact*12)+"/yr</div></div>";
+        '<div class="pknote">'+(e.impact>0?((evidenceQuality(e).financial==="KNOWN"?"Recovery opportunity: ":"Estimated recovery opportunity: ")+
+          fmtMoney(e.impact)+"/mo &middot; "+fmtMoney(e.impact*12)+"/yr"):"Not yet quantified")+"</div></div>";
     }).join("");
   }
   prev.innerHTML='<div class="pkhead" style="margin-bottom:4px">'+esc(p.company)+'<span class="pksub">'+esc(new Date().toLocaleDateString())+"</span></div>"+banner+body;
@@ -2799,7 +2843,7 @@ function renderHandoff(p){
   var leak=top?leakById(top.leakId):null;
   document.getElementById("handoffLeak").innerHTML=top?(
     '<div class="field"><label>Leak</label><div>'+esc(top.issue)+"</div></div>"+
-    '<div class="field"><label>Impact</label><div>'+fmtMoney(top.impact)+"/mo &middot; "+fmtMoney(top.impact*12)+"/yr &middot; "+qualityBadge(top.quality)+"</div></div>"+
+    '<div class="field"><label>Impact</label><div>'+fmtMoney(top.impact)+"/mo &middot; "+fmtMoney(top.impact*12)+"/yr</div>"+dualQualityBadges(top)+"</div>"+
     '<div class="field"><label>First implementation step</label><div>'+esc(leak?leak.action:"Implement the fix for the validated leak")+"</div></div>"+
     '<div class="field"><label>Deal</label><div>'+esc((p.wonDetails&&p.wonDetails.tier)||"good")+" &middot; "+fmtMoney((p.wonDetails&&p.wonDetails.amount)||0)+"</div></div>"
   ):'<p class="note">No evidence on file for this deal.</p>';
@@ -3078,7 +3122,9 @@ function renderCallBody(){
     '<div style="color:var(--rra-muted);font-size:13px">'+esc(p.city||"")+(p.phone?" &middot; "+esc(p.phone):"")+"</div>"+
     '<div class="callsection"><h4>Top Revenue Leak</h4><div class="calltext">'+(top?esc(top.issue):"No validated evidence yet")+"</div></div>"+
     (top&&top.source?'<div class="callsection"><h4>Evidence</h4><div class="calltext">'+esc(top.source)+"</div></div>":"")+
-    (top?'<div class="callsection"><h4>Financial Impact</h4><div class="callimpact">'+fmtMoney(top.impact)+'/mo</div><div class="note" style="margin-top:4px">'+fmtMoney(top.impact*12)+" / yr &middot; "+qualityBadge(top.quality)+"</div></div>":"")+
+    (top?'<div class="callsection"><h4>'+(evidenceQuality(top).financial==="KNOWN"?"Recovery Opportunity":"Estimated Recovery Opportunity")+
+      '</h4><div class="callimpact">'+fmtMoney(top.impact)+'/mo</div><div class="note" style="margin-top:4px">'+fmtMoney(top.impact*12)+" / yr</div>"+
+      dualQualityBadges(top)+'<div class="note">Modeled opportunity — not recovered revenue.</div></div>':"")+
     '<div class="callsection"><h4>Call Opener</h4><div class="calltext">'+esc(opener)+"</div></div>"+
     '<div class="callsection"><h4>Discovery Questions</h4>'+DISCOVERY_QUESTIONS.map(function(q){return '<div class="callq">'+esc(q)+"</div>";}).join("")+"</div>"+
     '<div class="callsection"><h4>Objection Responses</h4>'+OBJECTIONS.map(function(o){return '<details class="callobj"><summary>&ldquo;'+esc(o[0])+'&rdquo;</summary><p>'+esc(o[1])+"</p></details>";}).join("")+"</div>"+
