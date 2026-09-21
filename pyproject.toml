@@ -16,6 +16,7 @@ leak-detector-scan="leak_detector.cli:scan_cmd"
 leak-detector-observe="leak_detector.cli:observe_cmd"
 leak-detector-audit="leak_detector.cli:audit_cmd"
 leak-detector-propose="leak_detector.cli:propose_cmd"
+leak-detector-patterns="leak_detector.cli:patterns_cmd"
 
 [tool.setuptools]
 package-dir={""="src"}

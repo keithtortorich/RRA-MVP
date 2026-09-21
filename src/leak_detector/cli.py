@@ -9,6 +9,7 @@ import sys
 
 from leak_detector import audit as audit_mod
 from leak_detector import browser_scan as browser_scan_mod
+from leak_detector import patterns as patterns_mod
 from leak_detector import propose as propose_mod
 from leak_detector import scan as scan_mod
 
@@ -144,6 +145,46 @@ def propose_cmd(argv=None) -> int:
         output_dir=args.out,
     )
     print(result["client_path"])
+    return 0
+
+
+def patterns_cmd(argv=None) -> int:
+    parser = argparse.ArgumentParser(
+        prog="leak-detector-patterns",
+        description="Aggregate published observation files into a cross-company pattern "
+                    "read: prevalence per signal, co-occurrence lift, a per-company leak "
+                    "score, and a worst-first ranking. Summarizes what leak-detector-observe "
+                    "already recorded — detects nothing new.")
+    parser.add_argument("--dir", default="docs/observations",
+                        help="Directory of published observation files (default: "
+                             "docs/observations)")
+    parser.add_argument("--out", default="reports/patterns",
+                        help="Directory to write patterns.json (default: reports/patterns)")
+    parser.add_argument("--min-companies", type=int, default=2,
+                        help="Minimum companies sharing a signal pair before it's reported "
+                             "in co-occurrence (default: 2)")
+    parser.add_argument("--summary-md", default=None,
+                        help="Append a Markdown summary here (e.g. $GITHUB_STEP_SUMMARY)")
+    args = parser.parse_args(argv)
+
+    companies = patterns_mod.load_observations(args.dir)
+    if not companies:
+        print(f"[patterns] no observation files found in {args.dir}")
+        return 1
+
+    report = patterns_mod.build_patterns_report(companies, min_companies=args.min_companies)
+    path = patterns_mod.write_patterns(report, args.out)
+    print(path)
+
+    if args.summary_md:
+        with open(args.summary_md, "a", encoding="utf-8") as fh:
+            fh.write(patterns_mod.format_summary(report) + "\n")
+
+    for warning in report["warnings"]:
+        print(f"[patterns] {warning}")
+    print(f"[patterns] {report['companyCount']} companies, "
+          f"{len(report['prevalence'])} signal type(s) observed, "
+          f"{len(report['cooccurrence'])} co-occurring pair(s).")
     return 0
 
 
