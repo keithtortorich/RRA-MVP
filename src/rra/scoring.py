@@ -81,7 +81,7 @@ def _sizing(leak_id: str, client: Dict[str,float]):
     return round(float(monthly),2), roi
 
 def _confidence(roi):
-    mult={Label.KNOWN.value:1.0,Label.ESTIMATED.value:.9,Label.ASSUMED.value:.8,Label.UNKNOWN.value:.7}
+    mult={Label.KNOWN.value:1.0,Label.ESTIMATED.value:.9,Label.BENCHMARK.value:.8,Label.ASSUMED.value:.8,Label.UNKNOWN.value:.7}
     vals=[mult.get(str(v.get("label")),.85) for v in roi.values() if isinstance(v,dict) and "label" in v]
     return min(vals) if vals else 1.0
 
@@ -112,7 +112,11 @@ def score_evidence(business_id: str, evidence: List[Dict[str,Any]], client_metri
         monthly,roi=_sizing(candidate.leak_id,client_metrics)
         if monthly<=0: continue
         leak=get_leak(candidate.leak_id); ev_ids=_dedupe([eid for s in candidate.matched_signals for eid in signal_to_evidence.get(s,[]) if eid])
-        opp={"id":"","business_id":business_id,"evidence_ids":ev_ids,"leak_id":candidate.leak_id,"category":candidate.category,"finding":candidate.name,"estimated_monthly_opportunity":monthly,"confidence":round(max(0,min(1,candidate.confidence*_confidence(roi))),3),"effort":leak.default_effort,"time_to_value_days":leak.default_time_to_value_days,"requires_operational_fix":leak.requires_operational_fix,"playbook_id":leak.playbook_id,"roi_assumptions":roi,"recommendation":{"action":leak.recommended_action}}
+        labels={str(v.get("label")) for v in roi.values() if isinstance(v,dict) and v.get("label")}
+        financial_classification=(Label.KNOWN.value if labels=={Label.KNOWN.value}
+                                  else Label.BENCHMARK.value if Label.BENCHMARK.value in labels
+                                  else Label.ESTIMATED.value)
+        opp={"id":"","business_id":business_id,"evidence_ids":ev_ids,"leak_id":candidate.leak_id,"category":candidate.category,"finding":candidate.name,"estimated_monthly_opportunity":monthly,"financial_classification":financial_classification,"modeled_not_recovered":True,"confidence":round(max(0,min(1,candidate.confidence*_confidence(roi))),3),"effort":leak.default_effort,"time_to_value_days":leak.default_time_to_value_days,"requires_operational_fix":leak.requires_operational_fix,"playbook_id":leak.playbook_id,"roi_assumptions":roi,"recommendation":{"action":leak.recommended_action}}
         opps.append(apply_effort_to_opportunity(opp))
     ranked=calculate_scores_for_opportunities(opps)
     for i,o in enumerate(ranked,1): o["id"]=f"OPP-{i:04d}"

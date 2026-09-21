@@ -10,7 +10,7 @@
      impression worth risking. Note this is de-indexing, not access control:
      Pages is public, and anyone with the URL can still read it. -->
 <meta name="robots" content="noindex, nofollow">
-<title>RRA Diagnostic Terminal — Revenue Recovery Agency</title>
+<title>Sizzle — NETBUILD.PRO Revenue Recovery Agency</title>
 <!-- Placeholder favicon. Replace with the approved RRA Seal asset when available. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0E14'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='11' font-weight='600' fill='%23C5A059' text-anchor='middle'%3ERRA%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -18,7 +18,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   RRA BRAND TOKENS — RRA Diagnostic Terminal
+   NETBUILD.PRO BRAND TOKENS — Sizzle operator cockpit
    Approved RRA visual system. Single source of truth for color/type.
    Internal rra-prefixed properties are retained for compatibility.
    ============================================================ */
@@ -273,9 +273,9 @@ button{cursor:pointer;-webkit-appearance:none}
          <img src="rra-seal.svg" alt="" class="mark-img"> before .nb —
          no other header markup needs to change. -->
     <div class="lockup">
-      <div class="mark"><span class="nb">RRA</span></div>
+      <div class="mark"><span class="nb">NETBUILD.PRO</span></div>
       <span class="full">Revenue Recovery Agency</span>
-      <span class="product">RRA Diagnostic Terminal</span>
+      <span class="product">Sizzle</span>
       <div class="meta">
         <span>Residential HVAC</span>
         <span id="campaignMetaBadge">Campaign 01</span>
@@ -343,6 +343,11 @@ button{cursor:pointer;-webkit-appearance:none}
         <button class="btn outline block" id="btnAddBench">Add to bench</button>
       </div>
       <div id="benchList"></div>
+      <div class="card" style="margin-top:14px">
+        <div class="head">Archived Records<small id="archivedCount"></small></div>
+        <p class="note">Closed records keep their evidence, activities, Sprint, proof, and economics. Restore only when an active slot is open.</p>
+        <div id="archivedList"></div>
+      </div>
     </section>
 
     <!-- OBJECTIONS -->
@@ -531,7 +536,7 @@ button{cursor:pointer;-webkit-appearance:none}
           <button class="btn accentbtn block" id="btnLogCall">Save call log</button>
         </div>
         <button class="btn primary block" id="btnSaveProspect">Save prospect</button>
-        <button class="btn danger block" id="btnDeleteProspect">Delete / reset this slot</button>
+        <button class="btn danger block" id="btnDeleteProspect">Archive and free this slot</button>
       </div>
 
       <div class="subpanel" id="s-evidence">
@@ -727,13 +732,18 @@ button{cursor:pointer;-webkit-appearance:none}
             <div class="head">Sprint Delivery &amp; Measurement</div>
             <p class="note">Actual results are independent of modeled opportunity. Enter only verified outcomes.</p>
             <div class="field"><label>Payment status</label><select id="sdPaymentStatus"><option value="UNKNOWN">UNKNOWN</option><option value="UNPAID">UNPAID</option><option value="PAID">PAID</option></select></div>
+            <div class="field"><label>Intervention implemented</label><textarea id="sdIntervention" rows="2" placeholder="Exactly what changed for this one leak"></textarea></div>
             <div class="field"><label>Fix deployed</label><div class="row"><input type="checkbox" id="sdFixDeployed" style="width:20px;height:20px;flex:0"><input id="sdFixDeployedDate" type="date" style="flex:1"></div></div>
             <div class="g2"><div class="field"><label>Measurement start</label><input id="sdMeasureStart" type="date"></div><div class="field"><label>Measurement end (30 days)</label><input id="sdMeasureEnd" type="date"></div></div>
             <div class="g2"><div class="field"><label>Recovered leads</label><input id="sdRecoveredLeads" type="number" min="0" value="0"></div><div class="field"><label>Booked jobs</label><input id="sdBookedJobs" type="number" min="0" value="0"></div></div>
             <div class="g2"><div class="field"><label>Completed jobs</label><input id="sdCompletedJobs" type="number" min="0" value="0"></div><div class="field"><label>Booked revenue $</label><input id="sdBookedRevenue" type="number" min="0" value="0"></div></div>
             <div class="field"><label>Documented recovered revenue $<br><span class="note">Only actual, verified customer revenue.</span></label><input id="sdDocumentedRevenue" type="number" min="0" value="0"></div>
+            <div class="field"><label>Qualifying transaction evidence</label><textarea id="sdRevenueEvidence" rows="2" placeholder="Invoice/job IDs or a concise verification note"></textarea></div>
+            <div class="field"><label><span class="row"><input type="checkbox" id="sdRevenueVerified" style="width:20px;height:20px;flex:0"> Recovered revenue verified from qualifying completed transactions</span></label></div>
             <div class="g2"><div class="field"><label>Direct delivery cost $</label><input id="sdDeliveryCost" type="number" min="0" value="0"></div><div class="field"><label>Delivery hours</label><input id="sdDeliveryHours" type="number" min="0" step="0.25" value="0"></div></div>
             <div class="field"><label>Measurement notes</label><textarea id="sdNotes" rows="2"></textarea></div>
+            <div class="field"><label><span class="row"><input type="checkbox" id="sdProofComplete" style="width:20px;height:20px;flex:0"> Proof record finalized</span></label></div>
+            <div class="field"><label>Next-leak review</label><textarea id="sdNextLeakReview" rows="2" placeholder="Begin only after proof is complete"></textarea></div>
             <div class="diagresult"><div class="diagrow"><span class="diaglabel">Profit / Sprint</span><strong id="sdProfit" class="diagfigure">$0</strong></div></div>
             <button class="btn outline block copybtn" id="btnCopyProof">Copy proof record</button>
           </div>
@@ -774,7 +784,7 @@ button{cursor:pointer;-webkit-appearance:none}
           <option value="best">Best — $7,500/mo</option>
         </select>
       </div>
-      <div class="field"><label>Amount collected so far $</label><input id="wonAmount" type="number" min="0" value="997"></div>
+      <div class="field"><label>Contract price $</label><input id="wonAmount" type="number" min="0" value="997"></div>
       <button class="btn primary block" id="btnConfirmWon">Confirm win</button>
     </div>
   </div>
@@ -1082,7 +1092,7 @@ function todayISO(){return new Date().toISOString().slice(0,10);}
 function nowISO(){return new Date().toISOString();}
 function fmtMoney(n){n=Math.round(Number(n)||0);return "$"+n.toLocaleString();}
 function fmtDate(d){if(!d)return "";var dt=(d instanceof Date)?d:new Date(d);if(isNaN(dt))return "";return dt.toLocaleDateString(undefined,{month:"short",day:"numeric"});}
-function addDays(dateStr,days){var d=new Date(dateStr+"T00:00:00");d.setDate(d.getDate()+days);return d;}
+function addDays(dateStr,days){var d=new Date(dateStr+"T00:00:00Z");d.setUTCDate(d.getUTCDate()+days);return d;}
 function daysBetween(a,b){return Math.round((b-a)/86400000);}
 function esc(s){var d=document.createElement("div");d.textContent=s==null?"":String(s);return d.innerHTML;}
 
@@ -1171,7 +1181,7 @@ function applyDossierToFields(parsed,fieldMap){
 }
 
 function defaultState(){
-  return {version:2,prospects:[],bench:[],activities:[],generalNotes:[],settings:{},campaign:{id:1,targetTotal:25}};
+  return {version:4,prospects:[],bench:[],archived:[],processedIds:[],activities:[],generalNotes:[],settings:{},campaign:{id:1,targetTotal:25}};
 }
 
 var STATE=null;
@@ -1250,9 +1260,17 @@ function loadState(){
   return fresh;
 }
 
-/* Idempotent v3 migration: add externalVerification defaults, back-fill evidence quality split, never re-run effects twice. */
+/* Idempotent migration: preserve old localStorage while adding integrity and archive fields. */
 function migrateExternalVerificationV3(state){
-  (state.prospects||[]).forEach(function(p){
+  if(!Array.isArray(state.prospects))state.prospects=[];
+  if(!Array.isArray(state.bench))state.bench=[];
+  if(!Array.isArray(state.archived))state.archived=[];
+  if(!Array.isArray(state.processedIds))state.processedIds=[];
+  if(!Array.isArray(state.activities))state.activities=[];
+  if(!Array.isArray(state.generalNotes))state.generalNotes=[];
+  if(!state.settings||typeof state.settings!=="object")state.settings={};
+  if(!state.campaign||typeof state.campaign!=="object")state.campaign={id:1,targetTotal:25};
+  state.prospects.concat(state.archived).forEach(function(p){
     ensureExternalVerification(p);
     (p.evidence||[]).forEach(function(e){
       if(!e)return;
@@ -1266,8 +1284,10 @@ function migrateExternalVerificationV3(state){
       if(e.financialProvenance===undefined)e.financialProvenance="";
       if(e.relatedCheckIds===undefined)e.relatedCheckIds=[];
     });
+    if(p.outcome==="WON")sprintRecord(p);
+    if(p.id&&state.processedIds.indexOf(p.id)<0)state.processedIds.push(p.id);
   });
-  if((state.version||2)<3)state.version=3;
+  state.version=4;
   return state;
 }
 
@@ -1282,6 +1302,9 @@ function saveState(){
 
 /* ---------- derived helpers ---------- */
 function prospectById(id){for(var i=0;i<STATE.prospects.length;i++){if(STATE.prospects[i].id===id)return STATE.prospects[i];}return null;}
+function allProspectRecords(){return (STATE.prospects||[]).concat(STATE.archived||[]);}
+function prospectRecordById(id){var records=allProspectRecords();for(var i=0;i<records.length;i++){if(records[i].id===id)return records[i];}return null;}
+function markProcessed(id){if(!id)return;STATE.processedIds=STATE.processedIds||[];if(STATE.processedIds.indexOf(id)<0)STATE.processedIds.push(id);}
 function evidenceSorted(p){return (p.evidence||[]).slice().sort(function(a,b){return (b.impact||0)-(a.impact||0);});}
 function topEvidence(p){
   if(p.topLeakId){var pinned=(p.evidence||[]).filter(function(e){return e.id===p.topLeakId;})[0];if(pinned)return pinned;}
@@ -1329,7 +1352,14 @@ function offerReady(p){
   return !!top&&top.quality==="KNOWN";
 }
 function prospectStage(p){
-  if(p.outcome==="WON")return handoffProgress(p).allDone?"MEASURE":"ONBOARD";
+  if(p.outcome==="WON"){
+    var w=sprintRecord(p);
+    if(w.paymentStatus!=="PAID")return "SELL";
+    if(!(p.handoff&&p.handoff.baseline&&p.handoff.baseline.trim()))return "BASELINE";
+    if(!w.fixDeployed)return "FIX";
+    if(!w.measurementEnd||!w.proofComplete)return w.measurementEnd?"PROVE":"MEASURE";
+    return "NEXT LEAK";
+  }
   if(p.outcome==="LOST")return "LOST";
   if(p.outcome==="NURTURE")return "FOLLOW UP";
   var fu=followupInfo(p);
@@ -1369,40 +1399,49 @@ function sprintRecord(p){
   if(w.deliveryHours===undefined)w.deliveryHours=0; if(w.recoveredLeads===undefined)w.recoveredLeads=0;
   if(w.bookedJobs===undefined)w.bookedJobs=0; if(w.completedJobs===undefined)w.completedJobs=0;
   if(w.bookedRevenue===undefined)w.bookedRevenue=0; if(w.documentedRecoveredRevenue===undefined)w.documentedRecoveredRevenue=0;
-  if(w.measurementNotes===undefined)w.measurementNotes=""; return w;
+  if(w.intervention===undefined)w.intervention=""; if(w.revenueEvidence===undefined)w.revenueEvidence="";
+  if(w.revenueVerified===undefined)w.revenueVerified=false; if(w.proofComplete===undefined)w.proofComplete=false;
+  if(w.nextLeakReview===undefined)w.nextLeakReview=""; return w;
 }
-function sprintProfit(w){return (Number(w.amount)||0)-(Number(w.directDeliveryCost)||0);}
+function sprintProfit(w){return 997-(Number(w.directDeliveryCost)||0);}
 function isPaidSprint(p){return p.outcome==="WON"&&p.wonDetails&&p.wonDetails.tier==="good"&&p.wonDetails.paymentStatus==="PAID";}
+function qualifyingDocumentedRevenue(w){
+  return w.revenueVerified&&Number(w.completedJobs)>0&&String(w.revenueEvidence||"").trim()?Math.max(0,Number(w.documentedRecoveredRevenue)||0):0;
+}
 function buildProofRecord(p){
   var w=sprintRecord(p),top=topEvidence(p),leak=top?leakById(top.leakId):null,lines=[];
   lines.push("RRA REVENUE RECOVERY — PROOF RECORD",p.company+(p.city?" ("+p.city+")":""),"");
   lines.push("Leak: "+(top?top.issue:"—")+(leak?" ["+leak.name+"]":""));
   lines.push("Evidence classification: "+(top?top.quality:"—"));
   lines.push("Baseline: "+((p.handoff&&p.handoff.baseline)||"—"));
+  lines.push("Intervention: "+(w.intervention||"—"));
   lines.push("Fix deployed: "+(w.fixDeployed?("Yes — "+(w.fixDeployedDate?fmtDate(w.fixDeployedDate):"date not recorded")):"Not yet recorded"));
   lines.push("Measurement period: "+(w.measurementStart?fmtDate(w.measurementStart):"—")+" to "+(w.measurementEnd?fmtDate(w.measurementEnd):"—"),"","RESULTS");
   lines.push("Recovered leads: "+w.recoveredLeads,"Booked jobs: "+w.bookedJobs,"Completed jobs: "+w.completedJobs);
-  lines.push("Booked revenue: "+fmtMoney(w.bookedRevenue),"Documented recovered revenue: "+fmtMoney(w.documentedRecoveredRevenue),"","SPRINT ECONOMICS");
+  var verifiedRevenue=qualifyingDocumentedRevenue(w);
+  lines.push("Booked revenue: "+fmtMoney(w.bookedRevenue),"Documented recovered revenue: "+fmtMoney(verifiedRevenue)+(verifiedRevenue?" (verified)":" (not verified)"),"","SPRINT ECONOMICS");
   lines.push("Payment status: "+w.paymentStatus,"Sprint price: "+fmtMoney(w.amount),"Direct delivery cost: "+fmtMoney(w.directDeliveryCost),"Profit/Sprint: "+fmtMoney(sprintProfit(w)),"Delivery hours: "+w.deliveryHours);
   var customerInvestment=Number(w.amount)||0;
-  if(Number(w.documentedRecoveredRevenue)>0&&customerInvestment>0){
-    var roi=((Number(w.documentedRecoveredRevenue)-customerInvestment)/customerInvestment)*100;
+  if(verifiedRevenue>0&&customerInvestment>0){
+    var roi=((verifiedRevenue-customerInvestment)/customerInvestment)*100;
     lines.push("Customer ROI: "+Math.round(roi)+"% (documented recovered revenue vs. Sprint price)");
   }
+  lines.push("Proof complete: "+(w.proofComplete?"Yes":"No"));
+  if(w.nextLeakReview)lines.push("Next-leak review: "+w.nextLeakReview);
   if(w.measurementNotes)lines.push("\nNotes: "+w.measurementNotes); return lines.join("\n");
 }
 function campaignStats(){
   var c=STATE.campaign||{id:1,targetTotal:25},targetTotal=c.targetTotal||25;
-  var raw=(STATE.bench||[]).length+STATE.prospects.length,processed=Math.min(raw,targetTotal);
-  return {campaignId:c.id||1,targetTotal:targetTotal,processed:processed,remaining:Math.max(0,targetTotal-raw),batch:Math.min(5,Math.max(1,Math.ceil(processed/MAX_SLOTS)||1)),active:STATE.prospects.length};
+  var processed=Math.min((STATE.processedIds||[]).filter(function(id,i,a){return id&&a.indexOf(id)===i;}).length,targetTotal);
+  return {campaignId:c.id||1,targetTotal:targetTotal,processed:processed,remaining:Math.max(0,targetTotal-processed),batch:Math.min(5,Math.max(1,Math.ceil(Math.max(processed,1)/MAX_SLOTS))),active:STATE.prospects.length};
 }
 function preSeedMetrics(){
-  var paid=STATE.prospects.filter(isPaidSprint),spend=STATE.settings&&STATE.settings.acquisitionSpend;
+  var records=allProspectRecords(),paid=records.filter(isPaidSprint),spend=STATE.settings&&STATE.settings.acquisitionSpend;
   var cac=(spend!=null&&spend!==""&&paid.length)?Number(spend)/paid.length:null;
   var profits=paid.map(function(p){return sprintProfit(sprintRecord(p));});
   return {paidSprints:paid.length,cac:cac,avgProfit:profits.length?profits.reduce(function(a,b){return a+b;},0)/profits.length:null,
-    deliveryHours:STATE.prospects.filter(function(p){return p.outcome==="WON";}).reduce(function(n,p){return n+(Number(sprintRecord(p).deliveryHours)||0);},0),
-    documentedRevenue:STATE.prospects.filter(function(p){return p.outcome==="WON";}).reduce(function(n,p){return n+(Number(sprintRecord(p).documentedRecoveredRevenue)||0);},0)};
+    deliveryHours:records.filter(function(p){return p.outcome==="WON";}).reduce(function(n,p){return n+(Number(sprintRecord(p).deliveryHours)||0);},0),
+    documentedRevenue:records.filter(function(p){return p.outcome==="WON";}).reduce(function(n,p){return n+qualifyingDocumentedRevenue(sprintRecord(p));},0)};
 }
 
 function followupInfo(p){
@@ -1463,6 +1502,14 @@ function truthPassNextAction(p){
 
 function prospectAction(p){
   if(p.outcome==="WON"){
+    var w=sprintRecord(p);
+    if(w.paymentStatus!=="PAID")return {text:"SELL: Confirm $997 Sprint payment — "+p.company,urgency:0,kind:"payment"};
+    if(!(p.handoff&&p.handoff.baseline&&p.handoff.baseline.trim()))return {text:"BASELINE: Capture leak-specific starting numbers — "+p.company,urgency:1,kind:"handoff"};
+    if(!String(w.intervention||"").trim())return {text:"FIX: Record the intervention — "+p.company,urgency:1,kind:"handoff"};
+    if(!w.fixDeployed)return {text:"FIX: Deploy the agreed intervention — "+p.company,urgency:1,kind:"handoff"};
+    if(!w.measurementEnd)return {text:"MEASURE: Set the 30-day measurement window — "+p.company,urgency:2,kind:"handoff"};
+    if(!w.proofComplete)return {text:"PROVE: Finalize measured proof — "+p.company,urgency:2,kind:"handoff"};
+    if(!String(w.nextLeakReview||"").trim())return {text:"NEXT LEAK: Record the next-leak review — "+p.company,urgency:3,kind:"handoff"};
     var hNext=nextHandoffItem(p);
     if(hNext)return {text:"ONBOARD: "+hNext.label+" — "+p.company,urgency:1,kind:"handoff"};
     return null;
@@ -1502,6 +1549,8 @@ function prospectAction(p){
 
 function prospectActionCard(p){
   if(p.outcome==="WON"){
+    var action=prospectAction(p);
+    if(action)return {text:action.text.replace(" — "+p.company,""),due:null,status:""};
     var hNextC=nextHandoffItem(p);
     if(hNextC)return {text:"ONBOARD: "+hNextC.label,due:null,status:""};
     return null;
@@ -1618,14 +1667,15 @@ function renderHome(){
     });
   }
 
-  var scans=STATE.prospects.filter(function(p){return p.state!=="TARGET"||(p.evidence||[]).length;}).length;
-  var opps=STATE.prospects.reduce(function(s,p){return s+(p.evidence||[]).length;},0);
-  var sent=STATE.prospects.filter(function(p){return !!p.sentDate;}).length;
+  var records=allProspectRecords();
+  var scans=records.filter(function(p){return p.state!=="TARGET"||(p.evidence||[]).length;}).length;
+  var opps=records.reduce(function(s,p){return s+(p.evidence||[]).length;},0);
+  var sent=records.filter(function(p){return !!p.sentDate;}).length;
   var replies=STATE.activities.filter(function(a){return a.type==="reply";}).length;
-  var convos=STATE.prospects.filter(function(p){return p.state==="CONVERSATION"||p.outcome==="WON";}).length;
+  var convos=records.filter(function(p){return p.state==="CONVERSATION"||p.outcome==="WON";}).length;
   var proposals=STATE.activities.filter(function(a){return a.type==="proposal";}).length;
-  var wins=STATE.prospects.filter(function(p){return p.outcome==="WON";}).length;
-  var collected=STATE.prospects.reduce(function(s,p){return s+((p.wonDetails&&p.wonDetails.amount)||0);},0);
+  var wins=records.filter(function(p){return p.outcome==="WON";}).length;
+  var collected=records.filter(isPaidSprint).length*997;
 
   var stats=[
     ["Prospects",STATE.prospects.length+"/"+MAX_SLOTS],
@@ -1717,6 +1767,35 @@ function renderBench(){
     });
   });
 }
+function renderArchived(){
+  var archived=STATE.archived||[],list=document.getElementById("archivedList");
+  document.getElementById("archivedCount").textContent=archived.length+" retained";
+  if(!archived.length){list.innerHTML='<p class="note">No archived records.</p>';return;}
+  var slotsFull=STATE.prospects.length>=MAX_SLOTS;
+  list.innerHTML=archived.slice().reverse().map(function(p){
+    var w=p.outcome==="WON"?sprintRecord(p):null;
+    return '<div class="queueitem"><span><b>'+esc(p.company)+'</b> &middot; '+esc(p.outcome||p.state||"CLOSED")+
+      (w?' &middot; '+esc(w.paymentStatus):"")+'<br><span class="note">Archived '+esc(fmtDate(p.archivedAt)||"")+'</span></span>'+
+      '<button class="pill" data-restore="'+esc(p.id)+'"'+(slotsFull?' disabled':'')+'>'+(slotsFull?'Slots full':'Restore')+'</button></div>';
+  }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll("[data-restore]"),function(el){
+    el.addEventListener("click",function(){restoreArchived(el.getAttribute("data-restore"));});
+  });
+}
+function archiveProspect(id){
+  var p=prospectById(id);if(!p)return false;
+  p.archivedAt=nowISO();p.archivedFromState=p.state;
+  STATE.archived=STATE.archived||[];STATE.archived.push(p);
+  STATE.prospects=STATE.prospects.filter(function(x){return x.id!==id;});
+  markProcessed(id);return true;
+}
+function restoreArchived(id){
+  if(STATE.prospects.length>=MAX_SLOTS){toast("Five slots are full — free one first");return;}
+  var p=(STATE.archived||[]).find(function(x){return x.id===id;});if(!p)return;
+  delete p.archivedAt;delete p.archivedFromState;
+  STATE.archived=STATE.archived.filter(function(x){return x.id!==id;});
+  STATE.prospects.push(p);saveState();renderAll();toast(p.company+" restored");
+}
 document.getElementById("btnAddBench").addEventListener("click",function(){
   var company=document.getElementById("bfCompany").value.trim();
   if(!company){toast("Company name required");return;}
@@ -1754,6 +1833,7 @@ function promoteBench(id){
     p.evidence.push(ev);p.topLeakId=ev.id;
   }
   STATE.prospects.push(p);
+  markProcessed(p.id);
   STATE.bench=STATE.bench.filter(function(x){return x.id!==id;});
   saveState();renderAll();toast(b.company+" promoted to active slot");
 }
@@ -1908,6 +1988,7 @@ document.getElementById("btnSaveProspect").addEventListener("click",function(){
     if(STATE.prospects.length>=MAX_SLOTS){toast("Five slots are full — free one first");return;}
     p={id:uid(),dateAdded:nowISO(),lastContact:"",sentDate:null,followupsSent:0,outcome:null,wonDetails:null,notes:[],calc:{mode:"missed"},evidence:[],topLeakId:null};
     STATE.prospects.push(p);
+    markProcessed(p.id);
     currentProspectId=p.id;
   }
   p.company=company;
@@ -1937,9 +2018,9 @@ document.getElementById("btnSaveProspect").addEventListener("click",function(){
 
 document.getElementById("btnDeleteProspect").addEventListener("click",function(){
   if(!currentProspectId)return;
-  if(!confirm("Remove this prospect and free the slot? This cannot be undone."))return;
-  STATE.prospects=STATE.prospects.filter(function(p){return p.id!==currentProspectId;});
-  saveState();closeProspectSheet();renderAll();toast("Prospect removed");
+  if(!confirm("Archive this prospect and free the active slot? Its complete history will be retained."))return;
+  archiveProspect(currentProspectId);
+  saveState();closeProspectSheet();renderAll();toast("Prospect archived");
 });
 
 /* ---------- sub-tabs ---------- */
@@ -2857,6 +2938,7 @@ function renderHandoff(p){
   document.getElementById("handoffStatus").textContent=prog.allDone?"Handoff complete":(prog.done+"/"+prog.total+" done");
   document.getElementById("handoffCount").textContent=prog.done+"/"+prog.total;
   document.getElementById("hfBaseline").value=p.handoff.baseline||"";
+  document.getElementById("hfBaseline").disabled=sprintRecord(p).paymentStatus!=="PAID";
   var list=document.getElementById("handoffList");
   list.innerHTML=HANDOFF_ITEMS.map(function(it){
     var rec=p.handoff.items[it.id]||{};
@@ -2891,21 +2973,32 @@ document.getElementById("hfBaseline").addEventListener("change",function(){
   saveState();
 });
 
-var SD_FIELDS=[["sdFixDeployedDate","fixDeployedDate"],["sdMeasureStart","measurementStart"],["sdMeasureEnd","measurementEnd"],["sdRecoveredLeads","recoveredLeads"],["sdBookedJobs","bookedJobs"],["sdCompletedJobs","completedJobs"],["sdBookedRevenue","bookedRevenue"],["sdDocumentedRevenue","documentedRecoveredRevenue"],["sdDeliveryCost","directDeliveryCost"],["sdDeliveryHours","deliveryHours"],["sdNotes","measurementNotes"]];
+var SD_FIELDS=[["sdIntervention","intervention"],["sdFixDeployedDate","fixDeployedDate"],["sdMeasureStart","measurementStart"],["sdMeasureEnd","measurementEnd"],["sdRecoveredLeads","recoveredLeads"],["sdBookedJobs","bookedJobs"],["sdCompletedJobs","completedJobs"],["sdBookedRevenue","bookedRevenue"],["sdDocumentedRevenue","documentedRecoveredRevenue"],["sdRevenueEvidence","revenueEvidence"],["sdDeliveryCost","directDeliveryCost"],["sdDeliveryHours","deliveryHours"],["sdNotes","measurementNotes"],["sdNextLeakReview","nextLeakReview"]];
 function renderSprintDelivery(p){
   if(!p||p.outcome!=="WON")return; var w=sprintRecord(p);
   document.getElementById("sdPaymentStatus").value=w.paymentStatus;
   document.getElementById("sdFixDeployed").checked=!!w.fixDeployed;
+  document.getElementById("sdRevenueVerified").checked=!!w.revenueVerified;
+  document.getElementById("sdProofComplete").checked=!!w.proofComplete;
   SD_FIELDS.forEach(function(x){document.getElementById(x[0]).value=w[x[1]]==null?"":w[x[1]];});
   document.getElementById("sdProfit").textContent=fmtMoney(sprintProfit(w));
+  var paid=w.paymentStatus==="PAID";
+  ["sdIntervention","sdFixDeployed","sdFixDeployedDate","sdMeasureStart","sdMeasureEnd","sdRecoveredLeads","sdBookedJobs","sdCompletedJobs","sdBookedRevenue","sdDocumentedRevenue","sdRevenueEvidence","sdRevenueVerified","sdDeliveryCost","sdDeliveryHours","sdNotes","sdProofComplete","btnCopyProof"].forEach(function(id){document.getElementById(id).disabled=!paid;});
+  document.getElementById("sdNextLeakReview").disabled=!paid||!w.proofComplete;
 }
-document.getElementById("sdPaymentStatus").addEventListener("change",function(){var p=prospectById(currentProspectId);if(!p)return;sprintRecord(p).paymentStatus=this.value;saveState();renderSprintDelivery(p);});
+document.getElementById("sdPaymentStatus").addEventListener("change",function(){var p=prospectById(currentProspectId);if(!p)return;sprintRecord(p).paymentStatus=this.value;saveState();renderHandoff(p);renderSprintDelivery(p);renderAll();});
 document.getElementById("sdFixDeployed").addEventListener("change",function(){
-  var p=prospectById(currentProspectId);if(!p)return;var w=sprintRecord(p);w.fixDeployed=this.checked;
+  var p=prospectById(currentProspectId);if(!p)return;var w=sprintRecord(p);if(w.paymentStatus!=="PAID"){this.checked=false;toast("Mark the Sprint PAID before delivery");return;}w.fixDeployed=this.checked;
   if(w.fixDeployed&&!w.fixDeployedDate){w.fixDeployedDate=todayISO();w.measurementStart=w.measurementStart||todayISO();w.measurementEnd=w.measurementEnd||addDays(todayISO(),30).toISOString().slice(0,10);}
   saveState();renderSprintDelivery(p);
 });
 SD_FIELDS.forEach(function(x){document.getElementById(x[0]).addEventListener("change",function(){var p=prospectById(currentProspectId);if(!p)return;var el=this;sprintRecord(p)[x[1]]=el.type==="number"?(+el.value||0):el.value;saveState();renderSprintDelivery(p);});});
+document.getElementById("sdRevenueVerified").addEventListener("change",function(){
+  var p=prospectById(currentProspectId);if(!p)return;var w=sprintRecord(p);
+  if(this.checked&&(!(Number(w.completedJobs)>0)||!String(w.revenueEvidence||"").trim())){this.checked=false;toast("Add a completed job and qualifying transaction evidence first");return;}
+  w.revenueVerified=this.checked;saveState();renderSprintDelivery(p);renderPreSeedScoreboard();
+});
+document.getElementById("sdProofComplete").addEventListener("change",function(){var p=prospectById(currentProspectId);if(!p)return;var w=sprintRecord(p);w.proofComplete=this.checked;saveState();renderSprintDelivery(p);renderAll();});
 document.getElementById("btnCopyProof").addEventListener("click",function(){var p=prospectById(currentProspectId);if(p)copyText(buildProofRecord(p));});
 
 /* ---------- prospect notes ---------- */
@@ -2944,7 +3037,9 @@ document.getElementById("wonTier").addEventListener("change",function(){
 document.getElementById("btnConfirmWon").addEventListener("click",function(){
   var p=prospectById(currentProspectId);if(!p)return;
   p.state="WON";p.outcome="WON";
-  p.wonDetails={tier:document.getElementById("wonTier").value,amount:+document.getElementById("wonAmount").value||0,date:nowISO()};
+  var top=topEvidence(p);
+  p.wonDetails={tier:document.getElementById("wonTier").value,amount:+document.getElementById("wonAmount").value||0,date:nowISO(),paymentStatus:"UNKNOWN",
+    snapshot:{prospect:{id:p.id,company:p.company,city:p.city,website:p.website,contact:p.contact,phone:p.phone,email:p.email},topLeakId:p.topLeakId,topLeak:top?JSON.parse(JSON.stringify(top)):null,evidence:JSON.parse(JSON.stringify(p.evidence||[])),notes:JSON.parse(JSON.stringify(p.notes||[])),modeledOpportunity:top?(Number(top.impact)||0):0}};
   logActivity(p.id,"won","");
   saveState();
   document.getElementById("wonOverlay").classList.add("hidden");
@@ -3000,13 +3095,13 @@ function renderActivity(){
     '<div class="stat"><strong>'+STATE.activities.filter(function(a){return a.type==="won";}).length+'</strong><span>Wins logged</span></div>';
   var log=document.getElementById("activityLog");
   log.innerHTML=acts.length?acts.slice(0,100).map(function(a){
-    var name=a.prospectId?((prospectById(a.prospectId)||{}).company||a.prospectName||"(removed prospect)"):(a.prospectName||"(general)");
+    var name=a.prospectId?((prospectRecordById(a.prospectId)||{}).company||a.prospectName||"(removed prospect)"):(a.prospectName||"(general)");
     return '<div class="queueitem"><span><b>'+esc(name)+"</b> &middot; "+esc(a.type)+(a.note?" &middot; "+esc(a.note):"")+'</span><span class="note">'+esc(new Date(a.ts).toLocaleDateString())+"</span></div>";
   }).join(""):'<p class="note">No activity yet.</p>';
 }
 document.getElementById("btnExportCsv").addEventListener("click",function(){
   var rows=[["Prospect","Type","Timestamp","Note"]].concat(STATE.activities.map(function(a){
-    var name=a.prospectId?((prospectById(a.prospectId)||{}).company||a.prospectName||""):(a.prospectName||"");
+    var name=a.prospectId?((prospectRecordById(a.prospectId)||{}).company||a.prospectName||""):(a.prospectName||"");
     return [name,a.type,a.ts,a.note||""];
   }));
   var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
@@ -3036,14 +3131,14 @@ function renderPreSeedScoreboard(){
 document.getElementById("acqSpendInput").addEventListener("change",function(){STATE.settings=STATE.settings||{};STATE.settings.acquisitionSpend=this.value===""?null:(+this.value||0);saveState();renderPreSeedScoreboard();});
 function renderLaunch(){
   renderCampaignBadges(); renderPreSeedScoreboard();
-  var total=STATE.prospects.length;
-  var contacted=STATE.prospects.filter(function(p){return !!p.sentDate;}).length;
+  var records=allProspectRecords(),total=records.length;
+  var contacted=records.filter(function(p){return !!p.sentDate;}).length;
   var replies=STATE.activities.filter(function(a){return a.type==="reply";}).length;
   var convos=STATE.activities.filter(function(a){return a.type==="conversation";}).length;
   var proposals=STATE.activities.filter(function(a){return a.type==="proposal";}).length;
-  var wins=STATE.prospects.filter(function(p){return p.outcome==="WON";}).length;
-  var lost=STATE.prospects.filter(function(p){return p.outcome==="LOST";}).length;
-  var collected=STATE.prospects.reduce(function(s,p){return s+((p.wonDetails&&p.wonDetails.amount)||0);},0);
+  var wins=records.filter(function(p){return p.outcome==="WON";}).length;
+  var lost=records.filter(function(p){return p.outcome==="LOST";}).length;
+  var collected=records.filter(isPaidSprint).length*997;
   var scoreStats=[
     ["Prospects",total+"/"+MAX_SLOTS],["Contacted",contacted+"/"+MAX_SLOTS],["Replies",replies],
     ["Conversations",convos],["Proposals",proposals],["Wins",wins],["Lost",lost],["Collected",fmtMoney(collected)]
@@ -3081,7 +3176,7 @@ document.getElementById("importFile").addEventListener("change",function(e){
     var parsed=safeParse(reader.result);
     if(!parsed){toast("That file doesn't look like a valid data export");return;}
     if(!confirm("Import will overwrite all current data on this device. Continue?"))return;
-    STATE=parsed;corrupted=false;saveState();renderAll();toast("Data imported");
+    STATE=migrateExternalVerificationV3(parsed);corrupted=false;saveState();renderAll();toast("Data imported");
   };
   reader.readAsText(file);
   e.target.value="";
@@ -3142,6 +3237,7 @@ function renderAll(){
   renderHome();
   renderSlots();
   renderBench();
+  renderArchived();
   renderObjections();
   renderActivity();
   renderGenNotes();
@@ -3150,12 +3246,20 @@ function renderAll(){
 
 /* ---------- boot ---------- */
 STATE=loadState();
-if(!STATE.settings)STATE.settings={};
-if(!STATE.bench)STATE.bench=[];
-if(!STATE.campaign)STATE.campaign={id:1,targetTotal:25};
 migrateExternalVerificationV3(STATE);
 saveState();
 renderAll();
+
+/* Deterministic, non-networked test surface for business-rule regression tests. */
+window.__SIZZLE_TEST__={
+  getState:function(){return JSON.parse(JSON.stringify(STATE));},
+  setState:function(state){STATE=migrateExternalVerificationV3(JSON.parse(JSON.stringify(state)));saveState();renderAll();return this.getState();},
+  defaultState:defaultState,migrateState:migrateExternalVerificationV3,campaignStats:campaignStats,
+  preSeedMetrics:preSeedMetrics,sprintRecord:sprintRecord,sprintProfit:sprintProfit,
+  isPaidSprint:isPaidSprint,qualifyingDocumentedRevenue:qualifyingDocumentedRevenue,
+  buildProofRecord:buildProofRecord,prospectStage:prospectStage,archiveProspect:archiveProspect,
+  restoreArchived:restoreArchived,addDays:addDays
+};
 
 })();
 </script>

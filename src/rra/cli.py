@@ -116,6 +116,8 @@ def audit_cmd(argv=None) -> int:
     parser.add_argument("--out", default=None)
     parser.add_argument("--metrics", default=None,
                         help="Path to JSON file with client-supplied metrics")
+    parser.add_argument("--workers", default=None,
+                        help="Optional comma-separated full-fidelity workers")
     args = parser.parse_args(argv)
 
     metrics = None
@@ -123,8 +125,10 @@ def audit_cmd(argv=None) -> int:
         with open(args.metrics, "r", encoding="utf-8") as fh:
             metrics = json.load(fh)
 
+    workers = args.workers.split(",") if args.workers else None
     result = audit_mod.audit(args.client_name, args.url,
-                              output_dir=args.out, client_metrics=metrics)
+                              output_dir=args.out, client_metrics=metrics,
+                              workers=workers)
     print(result["report_path"])
     print(result["opportunities_path"])
     return 0

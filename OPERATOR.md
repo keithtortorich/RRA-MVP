@@ -1,4 +1,4 @@
-# RRA MVP Operator Guide
+# NETBUILD.PRO Sizzle Operator Guide
 
 ## Purpose
 
@@ -16,7 +16,7 @@ Optional full-fidelity worker mode can use:
   - `ai-reputation-claude`
   - `ai-sales-team-claude`
 
-`rra_mvp/runner.py` also defines a fifth worker slot, `proposal`
+`src/rra/runner.py` also defines a fifth worker slot, `proposal`
 (`RRA_PROPOSAL_REPO` / `ai-proposal-claude`), but nothing in the current
 `revenue-scan` / `revenue-audit` / `revenue-propose` commands calls it —
 `revenue-propose` builds the proposal directly from the opportunities JSON,
@@ -176,4 +176,14 @@ Before using a real prospect, confirm:
 - The Good tier matches the top-ranked leak.
 - Client output contains no forbidden internal keys.
 
-If the worker invocation in `rra_mvp/runner.py` does not match the installed Claude CLI, fix and retest it before prospecting.
+If the worker invocation in `src/rra/runner.py` does not match the installed Claude CLI, fix and retest it before prospecting.
+
+## Sprint integrity
+
+- Mark payment explicitly. Delivery controls remain gated until the $997 Sprint is `PAID`.
+- Capture the leak-specific baseline before deployment and record the exact intervention.
+- Keep recovered leads, booked jobs, completed jobs, booked revenue, and documented recovered revenue separate.
+- Documented recovered revenue counts only after a completed transaction is linked to evidence and explicitly verified.
+- Profit / Sprint is `$997 - direct delivery cost`; founder hours are tracked separately.
+- Archive closed prospects to free a slot. Archives retain evidence, activities, Sprint data, proof, and economics and may be restored when a slot is open.
+- Bench inventory is not counted as a processed Campaign target.

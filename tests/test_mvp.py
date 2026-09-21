@@ -39,7 +39,25 @@ def test_unknown_worker_fails():
 
 def test_audit_writes_artifacts_with_mock_workers(monkeypatch,tmp_path):
     fake={"marketing":runner.WorkerResult("marketing","ok",stdout="missed call rate high"),"geo":runner.WorkerResult("geo","ok",stdout=""),"reputation":runner.WorkerResult("reputation","ok",stdout=""),"sales":runner.WorkerResult("sales","ok",stdout="")}
-    monkeypatch.setattr(audit_mod,"run_workers_parallel",lambda workers,url:fake); out=audit_mod.audit("ACME HVAC","https://example.com",output_dir=str(tmp_path)); report=Path(out["report_path"]); opps=Path(out["opportunities_path"]); assert report.exists() and opps.exists(); payload=json.loads(opps.read_text()); assert payload["ctx"]["name"]=="ACME HVAC"; assert payload["opportunities"]
+    monkeypatch.setattr(audit_mod,"run_workers_parallel",lambda workers,url:fake); out=audit_mod.audit("ACME HVAC","https://example.com",output_dir=str(tmp_path),workers=["marketing","geo","reputation","sales"]); report=Path(out["report_path"]); opps=Path(out["opportunities_path"]); assert report.exists() and opps.exists(); payload=json.loads(opps.read_text()); assert payload["ctx"]["name"]=="ACME HVAC"; assert payload["opportunities"]
+
+def test_automated_findings_are_signals_not_verified_evidence(monkeypatch,tmp_path):
+    monkeypatch.setattr(audit_mod,"scan_public_url",lambda url:"- no_click_to_call")
+    out=audit_mod.audit("ACME HVAC","https://example.com",output_dir=str(tmp_path))
+    payload=json.loads(Path(out["opportunities_path"]).read_text())
+    assert payload["opportunities"][0]["modeled_not_recovered"] is True
+    assert payload["opportunities"][0]["financial_classification"]=="BENCHMARK"
+
+def test_audit_workers_are_opt_in(monkeypatch,tmp_path):
+    monkeypatch.setattr(audit_mod,"run_workers_parallel",lambda workers,url:pytest.fail("workers must be opt-in"))
+    monkeypatch.setattr(audit_mod,"scan_public_url",lambda url:"- no_click_to_call")
+    audit_mod.audit("ACME HVAC","https://example.com",output_dir=str(tmp_path))
+
+def test_browser_signals_are_labeled_automated_signal():
+    from rra.browser_scan import PageFacts, build_observations
+    payload=build_observations([PageFacts(url="https://example.com",final_url="https://example.com")],"https://example.com")
+    assert payload["classification"]=="AUTOMATED_SIGNAL"
+    assert all(s["requiresOperatorVerification"] for s in payload["signals"])
 
 def test_propose_writes_internal_and_client_artifacts(tmp_path):
     result=score_evidence("biz",evidence()); payload={"ctx":{"business_id":"biz","name":"ACME HVAC"},"opportunities":result.opportunities}; src=tmp_path/"opps.json"; src.write_text(json.dumps(payload),encoding="utf-8"); out=propose_mod.propose("ACME HVAC",str(src),output_dir=str(tmp_path)); assert Path(out["operator_path"]).exists(); assert Path(out["client_path"]).exists(); assert "$997" in Path(out["client_path"]).read_text(encoding="utf-8")

@@ -3,7 +3,7 @@ from __future__ import annotations
 import hashlib, json, os
 from datetime import date, datetime, timezone
 from pathlib import Path
-from typing import Dict, Optional
+from typing import Dict, List, Optional
 from rra.runner import run_workers_parallel
 from rra.scan import SCAN_WORKERS
 from rra.scoring import extract_signals_from_markdown, score_evidence
@@ -13,12 +13,12 @@ DEFAULT_OUTPUT_DIR="reports/audits"
 _SIGNAL_TO_CATEGORY={"no_click_to_call":"lead_capture","missed_call_rate_high":"lead_capture","no_after_hours_capture":"lead_capture","no_sms_textback":"lead_capture","no_cta_above_fold":"conversion_friction","form_too_long":"conversion_friction","no_online_booking":"conversion_friction","mobile_booking_broken":"conversion_friction","slow_form_response":"follow_up","slow_quote_followup":"follow_up","no_review_responses":"reputation_trust","low_review_count":"reputation_trust","negative_reviews_unanswered":"reputation_trust","no_review_request_flow":"reputation_trust","low_local_pack_presence":"local_visibility","no_gmb_optimization":"local_visibility","poor_ai_visibility":"ai_search_visibility","no_schema_markup":"technical_seo","weak_service_pages":"conversion_friction","no_maintenance_conversion":"conversion_friction","no_referral_system":"follow_up"}
 
 def _ev(business_id, source, sig, confidence):
-    return {"id":f"EVD-{source}-{sig}","business_id":business_id,"category":_SIGNAL_TO_CATEGORY.get(sig,"unknown"),"observation":f"{source} detected {sig}","signal":sig,"worker_source":source,"confidence":confidence,"observed_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z")}
+    return {"id":f"EVD-{source}-{sig}","business_id":business_id,"category":_SIGNAL_TO_CATEGORY.get(sig,"unknown"),"observation":f"{source} detected {sig}","signal":sig,"worker_source":source,"evidence_type":"AUTOMATED_SIGNAL","requires_operator_verification":True,"confidence":confidence,"observed_at":datetime.now(timezone.utc).isoformat().replace("+00:00","Z")}
 
-def audit(client_name:str,url:str,output_dir:Optional[str]=None,client_metrics:Optional[Dict[str,float]]=None)->Dict[str,str]:
+def audit(client_name:str,url:str,output_dir:Optional[str]=None,client_metrics:Optional[Dict[str,float]]=None,workers:Optional[List[str]]=None)->Dict[str,str]:
     if not str(client_name).strip(): raise ValueError("client_name is required")
     output_dir=output_dir or DEFAULT_OUTPUT_DIR; os.makedirs(output_dir,exist_ok=True)
-    worker_results={}; business_id=_business_id(client_name,url); evidence=[]
+    worker_results=run_workers_parallel(workers,url) if workers else {}; business_id=_business_id(client_name,url); evidence=[]
     for worker,result in worker_results.items():
         if result.status!="ok": continue
         evidence += [_ev(business_id,worker,sig,.85) for sig in extract_signals_from_markdown(result.stdout)]

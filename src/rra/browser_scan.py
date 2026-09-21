@@ -132,9 +132,9 @@ def robots_checker(base_url: str, allow_private_hosts: bool = False):
         if status == 200:
             parser.parse(body.decode("utf-8", errors="replace").splitlines())
         else:
-            parser.allow_all = True
+            return lambda _url: True
     except Exception:
-        parser.allow_all = True
+        return lambda _url: True
 
     def allowed(url: str) -> bool:
         try:
@@ -186,6 +186,8 @@ def classify_signals(pages: List[PageFacts]) -> List[Dict[str, Any]]:
         signals.append({
             "signalType": signal_type,
             "status": "PRESENT" if present else "ABSENT",
+            "evidenceType": "AUTOMATED_SIGNAL",
+            "requiresOperatorVerification": True,
             "sourceUrl": source or home.final_url or home.url,
             "notes": note,
             "observedAt": now_iso(),
@@ -243,6 +245,8 @@ def classify_signals(pages: List[PageFacts]) -> List[Dict[str, Any]]:
         signals.append({
             "signalType": unknown,
             "status": "NOT_REVIEWED",
+            "evidenceType": "AUTOMATED_SIGNAL",
+            "requiresOperatorVerification": True,
             "sourceUrl": "",
             "notes": "Requires Google Business Profile / search data — not collected by the "
                      "observation agent. Review manually.",
@@ -372,6 +376,8 @@ def build_observations(pages: List[PageFacts], url: str, published_phone: str = 
         "company": company,
         "host": (urlparse(url).hostname or "").lower().lstrip("www."),
         "agent": "observation-only browser agent",
+        "classification": "AUTOMATED_SIGNAL",
+        "requiresOperatorVerification": True,
         "contactChannelsUsed": [],  # always empty: this agent never contacts the business
         "pagesObserved": [p.final_url or p.url for p in pages if not p.error],
         "errors": [{"url": p.url, "error": p.error} for p in pages if p.error],
@@ -637,7 +643,7 @@ def observe_site(url: str, published_phone: str = "", max_pages: int = MAX_PAGES
     Contacts nobody. Submits nothing. Books nothing.
     """
     try:
-        from playwright.sync_api import sync_playwright
+        from playwright.sync_api import sync_playwright  # type: ignore[import-not-found]
     except ImportError as exc:  # pragma: no cover - exercised only without the extra
         raise RuntimeError(
             "The observation agent needs the browser extra: pip install -e \".[browser]\""
