@@ -69,6 +69,34 @@ def test_load_observations_dedupes_stale_file_for_same_host(tmp_path):
     assert companies[0].absent == ["NO_ONLINE_BOOKING"]
 
 
+def test_load_observations_keeps_distinct_paths_on_same_host(tmp_path):
+    # Two different location/franchise pages on the same domain are
+    # distinct targets (browser_scan.slug_for() keeps them distinct too) —
+    # deduping by host alone would wrongly collapse them into one company.
+    payload_a = {
+        "leakDetectorObservations": 1,
+        "company": "Echo HVAC — North",
+        "host": "echo.com",
+        "target": "https://echo.com/locations/north",
+        "generatedAt": "2026-01-01T00:00:00+00:00",
+        "signals": [{"signalType": "NO_ONLINE_BOOKING", "status": "PRESENT"}],
+    }
+    payload_b = {
+        "leakDetectorObservations": 1,
+        "company": "Echo HVAC — South",
+        "host": "echo.com",
+        "target": "https://echo.com/locations/south",
+        "generatedAt": "2026-01-01T00:00:00+00:00",
+        "signals": [{"signalType": "NO_ONLINE_BOOKING", "status": "ABSENT"}],
+    }
+    (tmp_path / "echo-com-north.json").write_text(json.dumps(payload_a), encoding="utf-8")
+    (tmp_path / "echo-com-south.json").write_text(json.dumps(payload_b), encoding="utf-8")
+
+    companies = patterns_mod.load_observations(str(tmp_path))
+    assert len(companies) == 2
+    assert {c.company for c in companies} == {"Echo HVAC — North", "Echo HVAC — South"}
+
+
 def test_prevalence_excludes_not_reviewed_from_denominator(tmp_path):
     _seed(tmp_path)
     companies = patterns_mod.load_observations(str(tmp_path))
@@ -102,8 +130,34 @@ def test_company_scores_rank_worst_first(tmp_path):
     rows = patterns_mod.compute_company_scores(companies)
     assert rows[0]["company"] == "Bravo HVAC"
     assert rows[0]["score"] == 1.0
+    assert rows[0]["unscored"] is False
     assert rows[-1]["company"] == "Charlie HVAC"
     assert rows[-1]["score"] == 0.0
+    assert rows[-1]["unscored"] is False
+
+
+def test_company_with_zero_reviewed_signals_is_unscored_not_zero(tmp_path):
+    # Every page failed to render, so classify_signals() had nothing to
+    # classify — this must not look identical to a company that passed
+    # every check (score 0.0).
+    _write_observation(tmp_path, "foxtrot.json", "Foxtrot HVAC", "foxtrot.com", {
+        "NO_ONLINE_BOOKING": "NOT_REVIEWED",
+    })
+    _write_observation(tmp_path, "golf.json", "Golf HVAC", "golf.com", {
+        "NO_ONLINE_BOOKING": "ABSENT",
+    })
+
+    companies = patterns_mod.load_observations(str(tmp_path))
+    rows = {r["company"]: r for r in patterns_mod.compute_company_scores(companies)}
+
+    assert rows["Foxtrot HVAC"]["unscored"] is True
+    assert rows["Foxtrot HVAC"]["score"] is None
+    assert rows["Golf HVAC"]["unscored"] is False
+    assert rows["Golf HVAC"]["score"] == 0.0
+
+    ranked = patterns_mod.compute_company_scores(companies)
+    # A real 0.0 (checks passed) must sort before an unscored row (unknown).
+    assert ranked[-1]["company"] == "Foxtrot HVAC"
 
 
 def test_report_warns_on_small_sample(tmp_path):

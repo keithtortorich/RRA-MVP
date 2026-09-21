@@ -48,7 +48,11 @@ concurrency:
 jobs:
   observe:
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    # targets.json now carries ~95 sites; at up to 12 pages/site with request
+    # delays, robots/link checks, and browser overhead, a full serial batch
+    # can run well past 30 minutes. 180 gives real headroom without needing
+    # to shard the batch across parallel jobs yet.
+    timeout-minutes: 180
     steps:
       - uses: actions/checkout@v4
 
@@ -68,7 +72,10 @@ jobs:
         env:
           TARGET_URL: ${{ inputs.url }}
           TARGET_PHONE: ${{ inputs.phone }}
-          MAX_PAGES: ${{ inputs.pages || '12' }}
+          # The weekly scheduled run has no dispatch input and covers the
+          # whole ~95-site batch, so it defaults to fewer pages/site than a
+          # manual single-target dispatch (which still defaults to 12).
+          MAX_PAGES: ${{ inputs.pages || (github.event_name == 'schedule' && '6' || '12') }}
         run: |
           set -euo pipefail
           # --allow-private-hosts is deliberately never passed: the agent
@@ -90,7 +97,10 @@ jobs:
           fi
 
       - name: Publish observations
-        if: ${{ inputs.publish != false }}
+        # always() so a job that hits timeout-minutes (or a mid-batch
+        # failure) still commits whatever leak-detector-observe already
+        # wrote to disk per-target, instead of losing a partial run.
+        if: ${{ always() && inputs.publish != false }}
         run: |
           set -euo pipefail
           if [ -z "$(git status --porcelain docs/observations)" ]; then

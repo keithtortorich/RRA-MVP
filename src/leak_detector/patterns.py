@@ -20,6 +20,7 @@ from datetime import datetime, timezone
 from itertools import combinations
 from pathlib import Path
 from typing import Any, Dict, List
+from urllib.parse import urlparse
 
 
 def now_iso() -> str:
@@ -42,10 +43,13 @@ def load_observations(observations_dir: str) -> List[CompanyObservation]:
 
     Skips index.json and anything without a `signals` key rather than
     guessing what it is. A target whose URL changed (e.g. www -> bare
-    domain) leaves its old slug-named file behind rather than replacing it,
-    so files are deduplicated by host, keeping the one with the latest
-    `generatedAt` — otherwise the same company would be counted twice and
-    skew prevalence, scores, and co-occurrence.
+    domain, same host and path) leaves its old slug-named file behind rather
+    than replacing it, so files are deduplicated by (host, path) — keeping
+    the one with the latest `generatedAt` — rather than counting the same
+    company twice. Deduplicating by host alone would be wrong: browser_scan's
+    slug_for() deliberately keeps distinct paths on one host as separate
+    targets (e.g. two different franchise/location pages on the same
+    domain), and those must stay distinct here too.
     """
     latest_by_key: Dict[str, tuple] = {}
     for path in sorted(Path(observations_dir).glob("*.json")):
@@ -57,7 +61,9 @@ def load_observations(observations_dir: str) -> List[CompanyObservation]:
             continue
         if "signals" not in payload:
             continue
-        key = payload.get("host") or payload.get("company") or path.stem
+        host = payload.get("host") or ""
+        path_part = urlparse(payload.get("target") or "").path.rstrip("/")
+        key = f"{host}{path_part}" if host else (payload.get("company") or path.stem)
         generated_at = str(payload.get("generatedAt", ""))
         existing = latest_by_key.get(key)
         if existing is None or generated_at >= existing[0]:
@@ -152,11 +158,18 @@ def compute_company_scores(companies: List[CompanyObservation]) -> List[Dict[str
     against a different signal vocabulary (verticals/hvac/leak_library.py)
     than the observation agent emits, so every reviewed signal here counts
     equally rather than pretending a weight that doesn't exist yet.
+
+    A company with zero reviewed signals (every page failed to render, so
+    classify_signals() had nothing to classify) gets `score: None` and
+    `unscored: True` rather than a 0.0 — a real error is not the same as a
+    company that cleared every check, and worst-first must not put them in
+    the same place.
     """
     rows = []
     for c in companies:
         reviewed = len(c.present) + len(c.absent)
-        score = round(len(c.present) / reviewed, 3) if reviewed else 0.0
+        unscored = reviewed == 0
+        score = None if unscored else round(len(c.present) / reviewed, 3)
         rows.append({
             "company": c.company,
             "host": c.host,
@@ -165,9 +178,11 @@ def compute_company_scores(companies: List[CompanyObservation]) -> List[Dict[str
             "reviewedCount": reviewed,
             "notReviewedCount": len(c.not_reviewed),
             "score": score,
+            "unscored": unscored,
             "presentSignals": sorted(c.present),
         })
-    rows.sort(key=lambda r: (-r["score"], -r["presentCount"], r["company"]))
+    # Unscored companies sort after every scored one, regardless of score.
+    rows.sort(key=lambda r: (r["unscored"], -(r["score"] or 0), -r["presentCount"], r["company"]))
     return rows
 
 
@@ -204,7 +219,8 @@ def format_summary(report: Dict[str, Any]) -> str:
     lines.append("| Company | Score | Present / Reviewed | Not reviewed |")
     lines.append("|---|---|---|---|")
     for row in report.get("companyScores", []):
-        lines.append(f"| {row['company']} | {row['score']:.0%} "
+        score_cell = "unscored (0 reviewed)" if row["unscored"] else f"{row['score']:.0%}"
+        lines.append(f"| {row['company']} | {score_cell} "
                       f"| {row['presentCount']}/{row['reviewedCount']} "
                       f"| {row['notReviewedCount']} |")
     lines.append("")
