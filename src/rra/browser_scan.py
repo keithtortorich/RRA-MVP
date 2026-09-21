@@ -54,7 +54,10 @@ SOCIAL_HOSTS = ("facebook.com", "instagram.com", "twitter.com", "x.com", "linked
                 "yelp.com", "nextdoor.com", "youtube.com", "tiktok.com", "pinterest.com")
 # A scheduling subdomain is a booking destination; a host that merely contains a
 # booking word is not.
-BOOKING_SUBDOMAINS = frozenset({"book", "booking", "schedule", "scheduling", "appointments"})
+BOOKING_SUBDOMAINS = frozenset({
+    "book", "booking", "bookings", "schedule", "schedules", "scheduling",
+    "scheduler", "appointment", "appointments",
+})
 # Third-party scheduler domains. A booking flow hosted at acme.bookingkoala.com
 # carries no booking word in its path and no booking word in its leftmost label,
 # so it is only recognisable by the provider's own domain.

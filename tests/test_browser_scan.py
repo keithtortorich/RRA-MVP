@@ -171,6 +171,10 @@ def test_real_booking_destinations_still_detected():
                  "https://example-hvac.com/book-now",
                  "https://example-hvac.com/request?type=appointment",
                  "https://booking.example-hvac.com/",
+                 "https://bookings.example-hvac.com/",
+                 "https://bookings.gettimely.com/acme",
+                 "https://appointment.example-hvac.com/",
+                 "https://scheduler.example-hvac.com/",
                  "https://schedule.example-hvac.com/x"):
         assert bs.is_booking_link(href), href
 
