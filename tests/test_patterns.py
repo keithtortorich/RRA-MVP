@@ -97,6 +97,34 @@ def test_load_observations_keeps_distinct_paths_on_same_host(tmp_path):
     assert {c.company for c in companies} == {"Echo HVAC — North", "Echo HVAC — South"}
 
 
+def test_load_observations_keeps_distinct_ports_on_same_host(tmp_path):
+    # A site reachable on a non-default port is a distinct target from the
+    # same path on the default port (slug_for() includes the port too).
+    payload_default = {
+        "leakDetectorObservations": 1,
+        "company": "Foxglove HVAC",
+        "host": "foxglove.com",
+        "target": "https://foxglove.com/office",
+        "generatedAt": "2026-01-01T00:00:00+00:00",
+        "signals": [{"signalType": "NO_ONLINE_BOOKING", "status": "PRESENT"}],
+    }
+    payload_alt_port = {
+        "leakDetectorObservations": 1,
+        "company": "Foxglove HVAC (staging)",
+        "host": "foxglove.com",
+        "target": "https://foxglove.com:8443/office",
+        "generatedAt": "2026-01-01T00:00:00+00:00",
+        "signals": [{"signalType": "NO_ONLINE_BOOKING", "status": "ABSENT"}],
+    }
+    (tmp_path / "foxglove-com-office.json").write_text(
+        json.dumps(payload_default), encoding="utf-8")
+    (tmp_path / "foxglove-com-8443-office.json").write_text(
+        json.dumps(payload_alt_port), encoding="utf-8")
+
+    companies = patterns_mod.load_observations(str(tmp_path))
+    assert len(companies) == 2
+
+
 def test_prevalence_excludes_not_reviewed_from_denominator(tmp_path):
     _seed(tmp_path)
     companies = patterns_mod.load_observations(str(tmp_path))

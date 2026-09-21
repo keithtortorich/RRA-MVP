@@ -43,13 +43,14 @@ def load_observations(observations_dir: str) -> List[CompanyObservation]:
 
     Skips index.json and anything without a `signals` key rather than
     guessing what it is. A target whose URL changed (e.g. www -> bare
-    domain, same host and path) leaves its old slug-named file behind rather
-    than replacing it, so files are deduplicated by (host, path) — keeping
-    the one with the latest `generatedAt` — rather than counting the same
-    company twice. Deduplicating by host alone would be wrong: browser_scan's
-    slug_for() deliberately keeps distinct paths on one host as separate
-    targets (e.g. two different franchise/location pages on the same
-    domain), and those must stay distinct here too.
+    domain, same host/port/path) leaves its old slug-named file behind
+    rather than replacing it, so files are deduplicated by (host, port,
+    path) — keeping the one with the latest `generatedAt` — rather than
+    counting the same company twice. Deduplicating by host alone would be
+    wrong: browser_scan's slug_for() deliberately keeps distinct
+    ports/paths on one host as separate targets (e.g. two different
+    franchise/location pages, or a site on a non-default port), and those
+    must stay distinct here too.
     """
     latest_by_key: Dict[str, tuple] = {}
     for path in sorted(Path(observations_dir).glob("*.json")):
@@ -62,8 +63,10 @@ def load_observations(observations_dir: str) -> List[CompanyObservation]:
         if "signals" not in payload:
             continue
         host = payload.get("host") or ""
-        path_part = urlparse(payload.get("target") or "").path.rstrip("/")
-        key = f"{host}{path_part}" if host else (payload.get("company") or path.stem)
+        parsed_target = urlparse(payload.get("target") or "")
+        port_part = f":{parsed_target.port}" if parsed_target.port else ""
+        path_part = parsed_target.path.rstrip("/")
+        key = f"{host}{port_part}{path_part}" if host else (payload.get("company") or path.stem)
         generated_at = str(payload.get("generatedAt", ""))
         existing = latest_by_key.get(key)
         if existing is None or generated_at >= existing[0]:
