@@ -175,6 +175,24 @@ def test_real_booking_destinations_still_detected():
         assert bs.is_booking_link(href), href
 
 
+def test_fragment_booking_destinations_detected():
+    """An in-page anchor or hash route is still a booking destination."""
+    for href in ("https://example-hvac.com/#book",
+                 "https://example-hvac.com/#/schedule",
+                 "https://example-hvac.com/contact#appointment"):
+        assert bs.is_booking_link(href), href
+
+
+def test_branded_scheduler_hosts_detected():
+    """A third-party scheduler carries no booking word in its path and none in
+    its leftmost label; only the provider domain identifies it."""
+    for href in ("https://acme.bookingkoala.com/",
+                 "https://acmehvac.housecallpro.com/",
+                 "https://calendly.com/acme-hvac/30min",
+                 "https://acme.servicetitan.com/"):
+        assert bs.is_booking_link(href), href
+
+
 def test_booking_word_in_host_alone_is_not_a_booking_path():
     assert not bs.is_booking_link("https://bookkeeping-for-hvac.com/about")
     assert not bs.is_booking_link("https://notabookstore.com/")

@@ -55,6 +55,16 @@ SOCIAL_HOSTS = ("facebook.com", "instagram.com", "twitter.com", "x.com", "linked
 # A scheduling subdomain is a booking destination; a host that merely contains a
 # booking word is not.
 BOOKING_SUBDOMAINS = frozenset({"book", "booking", "schedule", "scheduling", "appointments"})
+# Third-party scheduler domains. A booking flow hosted at acme.bookingkoala.com
+# carries no booking word in its path and no booking word in its leftmost label,
+# so it is only recognisable by the provider's own domain.
+BOOKING_HOST_SUFFIXES = (
+    "housecallpro.com", "servicetitan.com", "getjobber.com", "jobber.com",
+    "calendly.com", "acuityscheduling.com", "setmore.com", "servicefusion.com",
+    "bookingkoala.com", "schedulicity.com", "booksy.com", "simplybook.me",
+    "youcanbook.me", "appointlet.com", "squarespacescheduling.com",
+    "mindbodyonline.com", "vagaro.com", "fieldedge.com", "scheduleengine.com",
+)
 # Broader set used only to recognise conversion CTAs worth link-checking.
 BOOKING_LINK_WORDS = ("book", "schedule", "appointment", "request service")
 FINANCING_WORDS = ("financing", "finance", "payment plan", "wells fargo", "synchrony",
@@ -173,10 +183,13 @@ def _digits(value: str) -> str:
 def is_booking_link(href: str) -> bool:
     """True when a URL names an actual booking destination.
 
-    Matches on the path, not the whole URL. "facebook.com" contains "book", so
-    testing the raw href counted every prospect's Facebook link as an online
-    booking path — which wrongly cleared the NO_ONLINE_BOOKING signal on two of
-    the first four real prospects scanned.
+    Matches on the host and the path, not the whole URL. "facebook.com" contains
+    "book", so testing the raw href counted every prospect's Facebook link as an
+    online booking path — which wrongly cleared the NO_ONLINE_BOOKING signal on
+    two of the first four real prospects scanned.
+
+    The fragment counts as part of the destination: plenty of sites open booking
+    through an in-page anchor or a hash route (#book, #/schedule).
     """
     try:
         parsed = urlparse(href or "")
@@ -185,7 +198,10 @@ def is_booking_link(href: str) -> bool:
     host = (parsed.hostname or "").lower()
     if any(host == s or host.endswith("." + s) for s in SOCIAL_HOSTS):
         return False
-    if any(w in f"{parsed.path} {parsed.query}".lower() for w in BOOKING_PATH_WORDS):
+    if any(host == s or host.endswith("." + s) for s in BOOKING_HOST_SUFFIXES):
+        return True
+    target = f"{parsed.path} {parsed.query} {parsed.fragment}".lower()
+    if any(w in target for w in BOOKING_PATH_WORDS):
         return True
     return host.split(".")[0] in BOOKING_SUBDOMAINS
 
