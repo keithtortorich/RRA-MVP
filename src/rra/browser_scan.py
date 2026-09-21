@@ -49,6 +49,12 @@ BOOKING_MARKERS = (
 )
 # Path fragments that name an actual booking destination (used for booking detection).
 BOOKING_PATH_WORDS = ("book", "schedule", "appointment")
+# Hosts that are never a booking destination, however their name reads.
+SOCIAL_HOSTS = ("facebook.com", "instagram.com", "twitter.com", "x.com", "linkedin.com",
+                "yelp.com", "nextdoor.com", "youtube.com", "tiktok.com", "pinterest.com")
+# A scheduling subdomain is a booking destination; a host that merely contains a
+# booking word is not.
+BOOKING_SUBDOMAINS = frozenset({"book", "booking", "schedule", "scheduling", "appointments"})
 # Broader set used only to recognise conversion CTAs worth link-checking.
 BOOKING_LINK_WORDS = ("book", "schedule", "appointment", "request service")
 FINANCING_WORDS = ("financing", "finance", "payment plan", "wells fargo", "synchrony",
@@ -162,6 +168,26 @@ def same_site(candidate: str, base: str) -> bool:
 
 def _digits(value: str) -> str:
     return re.sub(r"\D", "", value or "")
+
+
+def is_booking_link(href: str) -> bool:
+    """True when a URL names an actual booking destination.
+
+    Matches on the path, not the whole URL. "facebook.com" contains "book", so
+    testing the raw href counted every prospect's Facebook link as an online
+    booking path — which wrongly cleared the NO_ONLINE_BOOKING signal on two of
+    the first four real prospects scanned.
+    """
+    try:
+        parsed = urlparse(href or "")
+    except ValueError:
+        return False
+    host = (parsed.hostname or "").lower()
+    if any(host == s or host.endswith("." + s) for s in SOCIAL_HOSTS):
+        return False
+    if any(w in f"{parsed.path} {parsed.query}".lower() for w in BOOKING_PATH_WORDS):
+        return True
+    return host.split(".")[0] in BOOKING_SUBDOMAINS
 
 
 def classify_signals(pages: List[PageFacts]) -> List[Dict[str, Any]]:
@@ -567,10 +593,7 @@ def _extract_facts(raw: Dict[str, Any], url: str, load_ms: int) -> PageFacts:
     # path that names one. Link *text* alone is too weak: "Request Service" is usually a
     # contact CTA, and treating it as a booking path would wrongly clear the signal.
     facts.booking_links = [f"widget:{m}" for m in BOOKING_MARKERS if m in html]
-    facts.booking_links += [
-        l["href"] for l in links
-        if any(w in (l["href"] or "").lower() for w in BOOKING_PATH_WORDS)
-    ]
+    facts.booking_links += [l["href"] for l in links if is_booking_link(l["href"])]
     facts.service_area_links = [
         l["href"] for l in links
         if re.search(r"/(service-area|areas?-we-serve|locations?|cities)/", (l["href"] or "").lower())

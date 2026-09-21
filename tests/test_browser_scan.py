@@ -154,6 +154,42 @@ def test_booking_needs_a_real_destination_not_just_cta_text():
     assert real.booking_links
 
 
+def test_social_links_are_not_booking_paths():
+    """Regression: "facebook.com" contains "book". Matching the raw href marked
+    every prospect's Facebook link as an online booking path, wrongly clearing
+    NO_ONLINE_BOOKING on two of the first four real prospects scanned."""
+    for href in ("https://www.facebook.com/exodusmechanical/",
+                 "https://facebook.com/AmpleServices/",
+                 "https://www.instagram.com/somebookshop/",
+                 "https://www.yelp.com/biz/some-hvac"):
+        assert not bs.is_booking_link(href), href
+
+
+def test_real_booking_destinations_still_detected():
+    for href in ("https://castleacandheating.com/ac-and-heating-repair-appointment/",
+                 "https://example-hvac.com/schedule/",
+                 "https://example-hvac.com/book-now",
+                 "https://example-hvac.com/request?type=appointment",
+                 "https://booking.example-hvac.com/",
+                 "https://schedule.example-hvac.com/x"):
+        assert bs.is_booking_link(href), href
+
+
+def test_booking_word_in_host_alone_is_not_a_booking_path():
+    assert not bs.is_booking_link("https://bookkeeping-for-hvac.com/about")
+    assert not bs.is_booking_link("https://notabookstore.com/")
+
+
+def test_facebook_link_does_not_clear_the_booking_signal():
+    facts = bs._extract_facts(
+        {"links": [{"href": "https://www.facebook.com/exodusmechanical/", "text": "Facebook"}],
+         "bodyLower": "", "htmlLower": "<html></html>"},
+        "https://www.exodusmechanical.com/", 500)
+    assert facts.booking_links == []
+    signals = {s["signalType"]: s for s in bs.classify_signals([_home(booking_links=[])])}
+    assert signals["NO_ONLINE_BOOKING"]["status"] == "PRESENT"
+
+
 def test_booking_widget_marker_counts_as_a_booking_path():
     facts = bs._extract_facts(
         {"links": [], "bodyLower": "", "htmlLower": "<script src='housecallpro.js'>"},
