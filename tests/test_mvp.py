@@ -1,13 +1,13 @@
 import json
 from pathlib import Path
 import pytest
-from rra.core.guardrails import validate_proposal
-from rra.verticals.hvac.leak_library import match_signals
-from rra import audit as audit_mod
-from rra import propose as propose_mod
-from rra import runner
-from rra.scoring import score_evidence
-from rra.fallback_scan import scan_public_url
+from leak_detector.core.guardrails import validate_proposal
+from leak_detector.verticals.hvac.leak_library import match_signals
+from leak_detector import audit as audit_mod
+from leak_detector import propose as propose_mod
+from leak_detector import runner
+from leak_detector.scoring import score_evidence
+from leak_detector.fallback_scan import scan_public_url
 
 def evidence(signal="missed_call_rate_high",confidence=0.9): return [{"id":"EVD-1","signal":signal,"confidence":confidence,"observation":signal}]
 
@@ -65,7 +65,7 @@ def test_fallback_scan_blocks_ssrf_targets(url):
         scan_public_url(url, timeout=2)
 
 def test_fallback_scan_redirect_to_private_ip_is_blocked(monkeypatch):
-    import rra.fallback_scan as fs
+    import leak_detector.fallback_scan as fs
     real_fetch_once = fs._fetch_once
 
     def fake_fetch_once(url, timeout):

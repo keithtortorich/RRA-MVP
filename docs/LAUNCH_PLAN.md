@@ -31,10 +31,10 @@ export RRA_SALES_REPO=$(pwd)/../ai-sales-team-claude
 
 # Install + smoke
 pip install -e .
-revenue-scan https://example-hvac.com
+leak-detector-scan https://example-hvac.com
 ```
 
-If claude run audit --url ... isn't the correct invocation for your worker repos, fix rra_mvp/runner.py now. Two hours of debugging against a fake target saves two weeks of confusion against real ones.
+If claude run audit --url ... isn't the correct invocation for your worker repos, fix src/leak_detector/runner.py now. Two hours of debugging against a fake target saves two weeks of confusion against real ones.
 
 Write a one-page operator README (OPERATOR.md) covering the three commands, the env vars, and where the outputs land. Future-you will thank past-you.
 
@@ -65,7 +65,7 @@ Step 6 to decide what Batch 2 changes, if anything.
 
 ## Step 3 — Run the audit, then do 20 minutes of manual work (this week)
 
-Run revenue-audit on each of the 5.
+Run leak-detector-audit on each of the 5.
 
 Then — and this is the part most operators skip — open the output and do a real-world pass on the top opportunity. The audit gives you benchmark-driven dollar figures. Benchmarks are fine for a first pass, but sending an owner a proposal where 5 of 7 assumptions are labeled ASSUMED and ESTIMATED looks like a guess. It is a guess. Owners smell it.
 
@@ -89,13 +89,13 @@ Then rebuild the metrics file with the real numbers you just observed:
 
 Re-run the audit with --metrics metrics.json. The top opportunity is now built from KNOWN data, not benchmarks. That proposal is credible.
 
-This is the actual work. The pipeline produces a skeleton. You fill in the truth. That 20 minutes is what separates RRA from every AI-audit tool that's ever been ignored by an HVAC owner.
+This is the actual work. The pipeline produces a skeleton. You fill in the truth. That 20 minutes is what separates Leak Detector from every AI-audit tool that's ever been ignored by an HVAC owner.
 
 ---
 
 ## Step 4 — Send 5 proposals (this week)
 
-Run revenue-propose on each of the 5 opportunities JSON files.
+Run leak-detector-propose on each of the 5 opportunities JSON files.
 
 The client-facing file is what you send. Not the internal one. It has no IDs, no confidence floats, no schema keys. Just the headline, the three tiers, and one next step.
 
@@ -141,7 +141,7 @@ Either way — you will know something you do not know today. Write the read in 
 
 ## What You Do Not Do
 
-· Do not touch rra/orchestrator/, rra/stages/, or the playbook boilerplate. That's v2 blueprint. It stays cold until delivery pain forces it hot.
+· Do not touch leak_detector/orchestrator/, leak_detector/stages/, or the playbook boilerplate. That's v2 blueprint. It stays cold until delivery pain forces it hot.
 · Do not add a dashboard, a CRM integration, a second vertical, or a billing system.
 · Do not rewrite the worker adapters to use a different LLM.
 · Do not refactor for elegance. The code is done. The math is testable. That is enough.
@@ -151,7 +151,7 @@ Either way — you will know something you do not know today. Write the read in 
 
 ## The Only Question That Matters Right Now
 
-Can RRA reliably identify a credible, evidence-backed revenue opportunity that a business owner would pay us to fix?
+Can Leak Detector reliably identify a credible, evidence-backed revenue opportunity that a business owner would pay us to fix?
 
 You cannot answer that by writing more code. You answer it by sending 5 proposals, watching what comes back, and reading the answer in the replies.
 

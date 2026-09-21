@@ -1,5 +1,5 @@
 """
-RRA v1 — HVAC Industry Benchmarks (Conservative)
+Leak Detector v1 — HVAC Industry Benchmarks (Conservative)
 Used only when the client cannot supply the metric.
 """
 

@@ -1,13 +1,13 @@
-"""RRA MVP audit: public scan -> evidence -> ranked opportunities -> artifacts."""
+"""Leak Detector MVP audit: public scan -> evidence -> ranked opportunities -> artifacts."""
 from __future__ import annotations
 import hashlib, json, os
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Dict, Optional
-from rra.runner import run_workers_parallel
-from rra.scan import SCAN_WORKERS
-from rra.scoring import extract_signals_from_markdown, score_evidence
-from rra.fallback_scan import scan_public_url
+from leak_detector.runner import run_workers_parallel
+from leak_detector.scan import SCAN_WORKERS
+from leak_detector.scoring import extract_signals_from_markdown, score_evidence
+from leak_detector.fallback_scan import scan_public_url
 
 DEFAULT_OUTPUT_DIR="reports/audits"
 _SIGNAL_TO_CATEGORY={"no_click_to_call":"lead_capture","missed_call_rate_high":"lead_capture","no_after_hours_capture":"lead_capture","no_sms_textback":"lead_capture","no_cta_above_fold":"conversion_friction","form_too_long":"conversion_friction","no_online_booking":"conversion_friction","mobile_booking_broken":"conversion_friction","slow_form_response":"follow_up","slow_quote_followup":"follow_up","no_review_responses":"reputation_trust","low_review_count":"reputation_trust","negative_reviews_unanswered":"reputation_trust","no_review_request_flow":"reputation_trust","low_local_pack_presence":"local_visibility","no_gmb_optimization":"local_visibility","poor_ai_visibility":"ai_search_visibility","no_schema_markup":"technical_seo","weak_service_pages":"conversion_friction","no_maintenance_conversion":"conversion_friction","no_referral_system":"follow_up"}

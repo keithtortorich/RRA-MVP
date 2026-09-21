@@ -1,7 +1,7 @@
-# RRA First-Client Measurement Protocol
+# Leak Detector First-Client Measurement Protocol
 
 Status: launch-stage protocol, not software. Nothing here requires building
-v2. It is the smallest manual discipline that lets RRA say "we recovered
+v2. It is the smallest manual discipline that lets Leak Detector say "we recovered
 $X, documented" instead of "we estimate we recovered $X."
 
 ## Why this exists
@@ -9,14 +9,14 @@ $X, documented" instead of "we estimate we recovered $X."
 The audit and calculator size an *opportunity* before the fix. That number
 is explicitly KNOWN / ESTIMATED / BENCHMARK and is never sent to a client as
 a promise (see `docs/SALES_PLAYBOOK.md` and the guardrails in
-`rra/core/guardrails.py`). This protocol is the other half: after the fix is
-installed, RRA measures what actually happened and turns that into a
+`src/leak_detector/core/guardrails.py`). This protocol is the other half: after the fix is
+installed, Leak Detector measures what actually happened and turns that into a
 documented result. Estimation gets the meeting. Measurement is what makes
-the second sale easier than the first, and it is what eventually lets RRA's
+the second sale easier than the first, and it is what eventually lets Leak Detector's
 own recovery data replace industry benchmarks.
 
 Three documented recoveries become the first case studies. Every measured
-engagement is one data point toward RRA no longer needing to guess.
+engagement is one data point toward Leak Detector no longer needing to guess.
 
 ## Scope for the first five (and the next batches)
 
@@ -47,7 +47,7 @@ For a missed-call / lead-capture fix (the primary launch wedge):
 | Completed jobs | | | |
 | Revenue from those jobs | | | |
 
-Adapt the row set to whichever leak from `rra/verticals/hvac/leak_library.py`
+Adapt the row set to whichever leak from `src/leak_detector/verticals/hvac/leak_library.py`
 is actually being fixed (booking friction, follow-up, reputation, etc.) —
 the shape stays the same: the metrics that feed that leak's sizing formula,
 captured before the fix.
@@ -80,7 +80,7 @@ Write it as an observation, not a claim of causation:
 > those jobs. Known confounds: [seasonality / lead volume change / none
 > observed]."
 
-Never write "RRA increased revenue by $R." Write what was counted and what
+Never write "Leak Detector increased revenue by $R." Write what was counted and what
 might have contaminated it. The confound line is not optional — leaving it
 off is how a documented number quietly turns into an unfalsifiable claim.
 
@@ -89,7 +89,7 @@ off is how a documented number quietly turns into an unfalsifiable claim.
 - A case study, once the owner agrees to be named or referenced.
 - One row in the validation scoreboard (`docs/VALIDATION_SCOREBOARD.md`).
 - Eventually, a data point that lets a future opportunity estimate for a
-  similar HVAC shop cite RRA's own observed recovery rate instead of an
+  similar HVAC shop cite Leak Detector's own observed recovery rate instead of an
   industry benchmark. That swap doesn't happen after one measurement — it
   happens somewhere around 50 measured engagements. This protocol is how
   those 50 get collected without building anything.

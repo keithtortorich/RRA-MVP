@@ -1,4 +1,4 @@
-"""RRA MVP — CLI entry points."""
+"""Leak Detector — CLI entry points."""
 
 from __future__ import annotations
 
@@ -7,14 +7,14 @@ import json
 import os
 import sys
 
-from rra import audit as audit_mod
-from rra import browser_scan as browser_scan_mod
-from rra import propose as propose_mod
-from rra import scan as scan_mod
+from leak_detector import audit as audit_mod
+from leak_detector import browser_scan as browser_scan_mod
+from leak_detector import propose as propose_mod
+from leak_detector import scan as scan_mod
 
 
 def scan_cmd(argv=None) -> int:
-    parser = argparse.ArgumentParser(prog="revenue-scan")
+    parser = argparse.ArgumentParser(prog="leak-detector-scan")
     parser.add_argument("url")
     parser.add_argument("--out", default=None)
     parser.add_argument("--workers", default=None)
@@ -27,7 +27,7 @@ def scan_cmd(argv=None) -> int:
 
 def observe_cmd(argv=None) -> int:
     parser = argparse.ArgumentParser(
-        prog="revenue-observe",
+        prog="leak-detector-observe",
         description="Observation-only browser agent. Renders a prospect's public pages and "
                     "records signals plus PLANNED draft tests. It never submits a form, "
                     "books an appointment, calls, or texts — those checks stay manual.")
@@ -110,7 +110,7 @@ def observe_cmd(argv=None) -> int:
 
 
 def audit_cmd(argv=None) -> int:
-    parser = argparse.ArgumentParser(prog="revenue-audit")
+    parser = argparse.ArgumentParser(prog="leak-detector-audit")
     parser.add_argument("client_name")
     parser.add_argument("url")
     parser.add_argument("--out", default=None)
@@ -131,10 +131,10 @@ def audit_cmd(argv=None) -> int:
 
 
 def propose_cmd(argv=None) -> int:
-    parser = argparse.ArgumentParser(prog="revenue-propose")
+    parser = argparse.ArgumentParser(prog="leak-detector-propose")
     parser.add_argument("client_name")
     parser.add_argument("opportunities_path",
-                        help="Path to opportunities JSON from revenue-audit")
+                        help="Path to opportunities JSON from leak-detector-audit")
     parser.add_argument("--out", default=None)
     args = parser.parse_args(argv)
 

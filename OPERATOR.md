@@ -1,4 +1,4 @@
-# RRA MVP Operator Guide
+# Leak Detector MVP Operator Guide
 
 ## Purpose
 
@@ -16,17 +16,17 @@ Optional full-fidelity worker mode can use:
   - `ai-reputation-claude`
   - `ai-sales-team-claude`
 
-`rra_mvp/runner.py` also defines a fifth worker slot, `proposal`
+`src/leak_detector/runner.py` also defines a fifth worker slot, `proposal`
 (`RRA_PROPOSAL_REPO` / `ai-proposal-claude`), but nothing in the current
-`revenue-scan` / `revenue-audit` / `revenue-propose` commands calls it —
-`revenue-propose` builds the proposal directly from the opportunities JSON,
+`leak-detector-scan` / `leak-detector-audit` / `leak-detector-propose` commands calls it —
+`leak-detector-propose` builds the proposal directly from the opportunities JSON,
 no worker subprocess involved. You do not need this fifth repo to run the
 live path; it's unused configuration, not a missing prerequisite. If a
 worker actually calls it in the future, add it here as a real prerequisite.
 
 ## Optional worker configuration
 
-From the RRA repository root:
+From the Leak Detector repository root:
 
 ```bash
 export RRA_MARKETING_REPO="$(pwd)/../ai-marketing-claude"
@@ -43,20 +43,20 @@ pip install -e .
 
 ## Commands
 
-`revenue-audit` and `revenue-propose` both require the client name as the
+`leak-detector-audit` and `leak-detector-propose` both require the client name as the
 first argument, before the URL or file path:
 
 ```bash
-revenue-scan https://example-hvac.com
-revenue-audit "ACME HVAC" https://example-hvac.com
-revenue-propose "ACME HVAC" path/to/opportunities.json
+leak-detector-scan https://example-hvac.com
+leak-detector-audit "ACME HVAC" https://example-hvac.com
+leak-detector-propose "ACME HVAC" path/to/opportunities.json
 ```
 
 ### Observation agent (optional)
 
 > **Scope decision — read before changing or removing this.**
 > The Sizzle External Leak Verification plan states "do not create a scanner"
-> and rules out a crawler or monitoring. `revenue-observe` and the weekly
+> and rules out a crawler or monitoring. `leak-detector-observe` and the weekly
 > `observe` workflow are a scanner and scheduled monitoring, and they are an
 > **authorised exception to that constraint**, decided by the repository owner
 > after the agent was built. Do not delete them as a plan violation.
@@ -69,14 +69,14 @@ revenue-propose "ACME HVAC" path/to/opportunities.json
 > plan's other guardrails (§13, and "the application records tests; operators
 > execute them") are unaffected by this exception.
 
-`revenue-observe` renders a prospect's public pages in a headless browser and
+`leak-detector-observe` renders a prospect's public pages in a headless browser and
 writes signals plus pre-filled **draft** tests for the checks a browser can see
 on its own. Install the extra first:
 
 ```bash
 pip install -e ".[browser]"
 python -m playwright install chromium
-revenue-observe https://example-hvac.com --phone "832-555-1234" --screenshots shots/
+leak-detector-observe https://example-hvac.com --phone "832-555-1234" --screenshots shots/
 ```
 
 Import the resulting JSON in the Sizzle tool: prospect → Evidence → **Import
@@ -129,7 +129,7 @@ reported as unverified, never as broken.
 For a stronger audit, replace benchmark assumptions with observed metrics:
 
 ```bash
-revenue-audit "ACME HVAC" https://example-hvac.com --metrics metrics.json
+leak-detector-audit "ACME HVAC" https://example-hvac.com --metrics metrics.json
 ```
 
 Example `metrics.json`:
@@ -144,12 +144,12 @@ Example `metrics.json`:
 
 ## Operating sequence
 
-1. Run `revenue-scan`.
+1. Run `leak-detector-scan`.
 2. Review evidence and identify assumptions.
-3. Manually verify Google reviews, after-hours call handling, mobile site conversion, booking access, and 24/7 claims. Optionally run `revenue-observe` first to pre-fill the site-observation half — the call, text, form, and booking checks are still yours.
+3. Manually verify Google reviews, after-hours call handling, mobile site conversion, booking access, and 24/7 claims. Optionally run `leak-detector-observe` first to pre-fill the site-observation half — the call, text, form, and booking checks are still yours.
 4. Record observed metrics in `metrics.json`.
-5. Run `revenue-audit` again with the metrics file.
-6. Run `revenue-propose` on the resulting opportunities JSON.
+5. Run `leak-detector-audit` again with the metrics file.
+6. Run `leak-detector-propose` on the resulting opportunities JSON.
 7. Send only the client-facing proposal.
 8. Record outreach and follow-up in `pipeline.md`.
 
@@ -176,4 +176,4 @@ Before using a real prospect, confirm:
 - The Good tier matches the top-ranked leak.
 - Client output contains no forbidden internal keys.
 
-If the worker invocation in `rra_mvp/runner.py` does not match the installed Claude CLI, fix and retest it before prospecting.
+If the worker invocation in `src/leak_detector/runner.py` does not match the installed Claude CLI, fix and retest it before prospecting.

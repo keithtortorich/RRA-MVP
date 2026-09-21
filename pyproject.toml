@@ -3,7 +3,7 @@ requires=["setuptools>=68"]
 build-backend="setuptools.build_meta"
 
 [project]
-name="rra-mvp"
+name="leak-detector-mvp"
 version="0.1.0"
 requires-python=">=3.10"
 
@@ -12,10 +12,10 @@ dev=["pytest>=8"]
 browser=["playwright>=1.40"]
 
 [project.scripts]
-revenue-scan="rra.cli:scan_cmd"
-revenue-observe="rra.cli:observe_cmd"
-revenue-audit="rra.cli:audit_cmd"
-revenue-propose="rra.cli:propose_cmd"
+leak-detector-scan="leak_detector.cli:scan_cmd"
+leak-detector-observe="leak_detector.cli:observe_cmd"
+leak-detector-audit="leak_detector.cli:audit_cmd"
+leak-detector-propose="leak_detector.cli:propose_cmd"
 
 [tool.setuptools]
 package-dir={""="src"}

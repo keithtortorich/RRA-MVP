@@ -1,11 +1,11 @@
-name: observe
+name: leak-detector-observe
 
 # Runs the observation agent over every target in targets.json, publishes the
 # results into docs/observations/, and commits them. The Sizzle tool pulls
 # them automatically on open — no download, no file picker.
 #
 # It never calls, texts, submits a form, or books an appointment. EXT-001..007
-# and EXT-015 stay manual by design. See src/rra/browser_scan.py.
+# and EXT-015 stay manual by design. See src/leak_detector/browser_scan.py.
 #
 # The verification plan rules out a scanner and scheduled monitoring. This
 # workflow is both, and is an authorised exception — see the scope decision in
@@ -42,7 +42,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: observe
+  group: leak-detector-observe
   cancel-in-progress: false
 
 jobs:
@@ -74,14 +74,14 @@ jobs:
           # --allow-private-hosts is deliberately never passed: the agent
           # refuses loopback, private, link-local and cloud-metadata targets.
           if [ -n "$TARGET_URL" ]; then
-            revenue-observe "$TARGET_URL" \
+            leak-detector-observe "$TARGET_URL" \
               --phone "$TARGET_PHONE" \
               --pages "$MAX_PAGES" \
               --out docs/observations \
               --screenshots docs/observations/screenshots \
               --summary-md "$GITHUB_STEP_SUMMARY"
           else
-            revenue-observe \
+            leak-detector-observe \
               --targets targets.json \
               --pages "$MAX_PAGES" \
               --out docs/observations \

@@ -26,9 +26,9 @@ from typing import Any, Dict, List, Optional
 from urllib import robotparser
 from urllib.parse import urljoin, urlparse
 
-from rra.fallback_scan import _fetch_once, _resolve_safe_ip
+from leak_detector.fallback_scan import _fetch_once, _resolve_safe_ip
 
-USER_AGENT = "RRA-MVP/1.0 public-audit (observation-only; contact via the site owner)"
+USER_AGENT = "LeakDetector-MVP/1.0 public-audit (observation-only; contact via the site owner)"
 MAX_PAGES = 12
 REQUEST_DELAY_SECONDS = 1.0
 MOBILE_VIEWPORT = {"width": 375, "height": 812}

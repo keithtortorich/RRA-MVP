@@ -1,10 +1,10 @@
 """
-RRA MVP — Proposal Stage
+Leak Detector MVP — Proposal Stage
 Opportunities JSON → Good / Better / Best proposal.
 
 Every proposal is:
   1. Guardrail-checked (raises ValueError if non-compliant)
-  2. Client-facing-filtered via rra.core.client_facing.client_facing_summary
+  2. Client-facing-filtered via leak_detector.core.client_facing.client_facing_summary
   3. Wedge-first (Good tier == #1 opportunity, matched by leak_id)
   4. Rendered as two files: internal (operator) and external (client)
 """
@@ -17,8 +17,8 @@ from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any, Dict, List, Optional
 
-from rra.core.client_facing import client_facing_summary
-from rra.core.guardrails import (
+from leak_detector.core.client_facing import client_facing_summary
+from leak_detector.core.guardrails import (
     build_decision_checklist, render_decision_checklist, validate_proposal,
 )
 

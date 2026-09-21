@@ -1,5 +1,5 @@
 """
-RRA v1 — Revenue Priority Score
+Leak Detector v1 — Revenue Priority Score
 Revenue Priority Score = Impact × Confidence × Effort Factor × Time-to-Value Factor
 Normalized to 0–100 relative to the highest raw score in the batch.
 """

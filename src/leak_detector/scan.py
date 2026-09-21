@@ -6,7 +6,7 @@ from datetime import date
 from pathlib import Path
 from typing import List, Optional
 
-from rra.runner import run_workers_parallel
+from leak_detector.runner import run_workers_parallel
 
 
 SCAN_WORKERS = ["marketing", "geo", "reputation", "sales"]
@@ -24,7 +24,7 @@ def scan(url: str, output_dir: Optional[str] = None,
         results = run_workers_parallel(workers, url)
     else:
         from types import SimpleNamespace
-        from rra.fallback_scan import scan_public_url
+        from leak_detector.fallback_scan import scan_public_url
         try:
             body = scan_public_url(url)
             results = {"fallback": SimpleNamespace(status="ok", stdout=body, stderr="")}

@@ -10,7 +10,7 @@ import pathlib
 
 import pytest
 
-from rra import browser_scan as bs
+from leak_detector import browser_scan as bs
 
 
 def _home(**kwargs) -> bs.PageFacts:
