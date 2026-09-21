@@ -25,7 +25,377 @@
       "company": "Reed Heating and Air",
       "url": null,
       "phone": "469-831-9842",
-      "note": "Website not confirmed. Several unrelated Texas HVAC companies use 'Reed' in their domain — confirm the real site by phone or Google Maps before adding it here. Do not guess."
+      "note": "Website not confirmed. Several unrelated Texas HVAC companies use 'Reed' in their domain \u2014 confirm the real site by phone or Google Maps before adding it here. Do not guess."
+    },
+    {
+      "company": "BVS Home Experts",
+      "url": "https://gobvs.com"
+    },
+    {
+      "company": "Majestic AC",
+      "url": "https://www.majestic-ac.com"
+    },
+    {
+      "company": "Air Depot Cooling & Heating",
+      "url": "https://airdepot.com"
+    },
+    {
+      "company": "All Star A/C",
+      "url": "https://allstarairtexas.com"
+    },
+    {
+      "company": "True Fix A/C & Heating",
+      "url": "https://www.truefixairconditioning.com"
+    },
+    {
+      "company": "AMS A/C & Heating",
+      "url": "https://amskaty.com"
+    },
+    {
+      "company": "Lone Star Heat and AC",
+      "url": "https://lonestarhvaccompany.com"
+    },
+    {
+      "company": "4C A/C & Heating",
+      "url": "https://4cacandheating.com"
+    },
+    {
+      "company": "Clear the Air Cooling & Heating",
+      "url": "https://cleartheairac.com"
+    },
+    {
+      "company": "Sugar Land AC and Heating",
+      "url": "https://sugarlandacandheating.com"
+    },
+    {
+      "company": "Jackson Air & Heat",
+      "url": "https://jacksonairandheatinc.com"
+    },
+    {
+      "company": "Custom Comfort Air",
+      "url": "https://customcomfortair.com"
+    },
+    {
+      "company": "Air Specialist",
+      "url": "https://www.airspecialist.com"
+    },
+    {
+      "company": "Sun Air Conditioning & Heating",
+      "url": "https://sunairconditioning.com"
+    },
+    {
+      "company": "Air Innovations LLC",
+      "url": "https://www.airinnovationsllc.com"
+    },
+    {
+      "company": "68 Degrees HVAC",
+      "url": "https://68degreeshvac.com"
+    },
+    {
+      "company": "Mr. Cool AC & Heating",
+      "url": "https://mrcoolair.com"
+    },
+    {
+      "company": "Blue Label Services",
+      "url": "https://bluelabeltoday.com"
+    },
+    {
+      "company": "Texas Star HVACR",
+      "url": "https://texasstarhvacr.com"
+    },
+    {
+      "company": "Bradbury Brothers",
+      "url": "https://bradburybrothers.com",
+      "phone": "281-297-8903"
+    },
+    {
+      "company": "Easco Air Conditioning and Heating",
+      "url": "https://www.eascoair.com"
+    },
+    {
+      "company": "Hal Watson Air Conditioning",
+      "url": "https://www.halwatsonac.com"
+    },
+    {
+      "company": "McWilliams Heating Cooling and Plumbing",
+      "url": "https://www.mcwilliamsandson.com"
+    },
+    {
+      "company": "P&M Air Conditioning and Heating",
+      "url": "https://pmhvac.com"
+    },
+    {
+      "company": "SouthTex A/C & Heat",
+      "url": "http://www.southtexacandheat.com"
+    },
+    {
+      "company": "Master Air Inc",
+      "url": "https://www.masterair.com"
+    },
+    {
+      "company": "SWAT A/C & Heat",
+      "url": "https://swattx.com"
+    },
+    {
+      "company": "Bruce Mechanical AC & Heating",
+      "url": "https://brucemechanicalhvac.com"
+    },
+    {
+      "company": "Fresh Tech AC",
+      "url": "http://www.freshactech.com"
+    },
+    {
+      "company": "Air of Houston Services",
+      "url": "https://www.airofhouston.com"
+    },
+    {
+      "company": "Mission Air Conditioning & Plumbing",
+      "url": "https://www.missionac.com"
+    },
+    {
+      "company": "Certified Comfort AC & Heating",
+      "url": "https://certifiedcomfortacheating.com"
+    },
+    {
+      "company": "Expert Air Cooling & Heating",
+      "url": "https://expertairco.com"
+    },
+    {
+      "company": "Cool Comfort Solutions",
+      "url": "https://www.coolcomfortsolutions.com"
+    },
+    {
+      "company": "D & D Climate Control",
+      "url": "https://www.ddclimatecontrol.com"
+    },
+    {
+      "company": "Ainsworth & Co.",
+      "url": "https://www.ainsworthac.com",
+      "phone": "281-837-8454"
+    },
+    {
+      "company": "Goode Air Conditioning & Heating",
+      "url": "https://www.goodeair.com"
+    },
+    {
+      "company": "Crew Heating & Cooling",
+      "url": "https://www.crewairconditioning.com"
+    },
+    {
+      "company": "The Original Kingwood Air Conditioning & Heating",
+      "url": "https://kingwoodac.com"
+    },
+    {
+      "company": "Kingwood Air Solutions",
+      "url": "https://www.kingwoodairsolutions.com"
+    },
+    {
+      "company": "Mabry's AC & Heating",
+      "url": "https://mabryac.com",
+      "phone": "281-331-5248"
+    },
+    {
+      "company": "ABC Air of Texas",
+      "url": "https://www.abcairoftexas.com"
+    },
+    {
+      "company": "Albin Air Conditioning & Heating",
+      "url": "https://www.albinair.com"
+    },
+    {
+      "company": "Better Than Best A/C and Heating",
+      "url": "https://www.betterthanbestac.com"
+    },
+    {
+      "company": "Complete Air Services",
+      "url": "https://www.completeairhouston.com"
+    },
+    {
+      "company": "Airfix LLC",
+      "url": "https://airfixllc.com"
+    },
+    {
+      "company": "Air Monkey",
+      "url": "https://airmonkeyac.com"
+    },
+    {
+      "company": "Mr. Chill Heating & Air",
+      "url": "https://www.mrchillac.com"
+    },
+    {
+      "company": "Tom's Quality Comfort Air & Heat",
+      "url": "https://www.tomsqualitycomfort.com"
+    },
+    {
+      "company": "ASR Mechanical",
+      "url": "https://www.asrmechanical.com"
+    },
+    {
+      "company": "Absolute Value AC LLC",
+      "url": "https://www.absolutevalueacllctx.com"
+    },
+    {
+      "company": "LMH Services",
+      "url": "https://www.lmhservicestx.com"
+    },
+    {
+      "company": "Texcellent A/C Service",
+      "url": "https://texcellentacservice.com"
+    },
+    {
+      "company": "Vance Air & Heat",
+      "url": "https://vanceairandheat.com",
+      "phone": "713-702-4721"
+    },
+    {
+      "company": "Richmond's Air",
+      "url": "https://www.richmondsair.com"
+    },
+    {
+      "company": "Rich Air Conditioning & Heating",
+      "url": "https://richairconditioning.com"
+    },
+    {
+      "company": "American Comfort Experts",
+      "url": "https://www.americancomfortexperts.com"
+    },
+    {
+      "company": "Maner Heating & Cooling",
+      "url": "https://manerac.com"
+    },
+    {
+      "company": "TCS AC & Heating",
+      "url": "https://www.tcsacandheat.com"
+    },
+    {
+      "company": "Weiss AC & Plumbing",
+      "url": "https://weissacandheat.com"
+    },
+    {
+      "company": "Reliable Air and Heat",
+      "url": "https://www.reliableairandheat.net"
+    },
+    {
+      "company": "Gaitz HVACR",
+      "url": "https://gaitzhvacr.com"
+    },
+    {
+      "company": "TAB Mechanical Services",
+      "url": "https://www.tabmechanical.com"
+    },
+    {
+      "company": "Fresh Air Cooling and Heating",
+      "url": "https://www.freshairinc.com"
+    },
+    {
+      "company": "Temper Mechanical",
+      "url": "https://tempermechanical.com"
+    },
+    {
+      "company": "Stoffer's Air Conditioning & Heating",
+      "url": "https://coolingtexas.com"
+    },
+    {
+      "company": "Alvin Air Conditioning & Heating",
+      "url": "http://www.m.alvinhvac.com"
+    },
+    {
+      "company": "Bellaire Air Conditioning",
+      "url": "https://bellaireair.com",
+      "phone": "713-772-1217"
+    },
+    {
+      "company": "ASAP AIR Air Conditioning and Heating",
+      "url": "https://www.asapairhoustonac.com"
+    },
+    {
+      "company": "Spring Branch AC",
+      "url": "https://www.springbranchac.com"
+    },
+    {
+      "company": "All Brands Air Conditioning",
+      "url": "https://www.allbrandsair.com"
+    },
+    {
+      "company": "Heights A/C & Heating",
+      "url": "https://www.heightsacandheating.com"
+    },
+    {
+      "company": "Autumn Mechanical",
+      "url": "https://autumnmechanical.com"
+    },
+    {
+      "company": "Air-Care Southeast",
+      "url": "https://www.aircaresoutheast.com",
+      "phone": "713-946-4302"
+    },
+    {
+      "company": "Aardvark AC & Heating",
+      "url": "https://www.aardvarkcares.com"
+    },
+    {
+      "company": "Airchampion Air Conditioning",
+      "url": "https://www.airchampion.com"
+    },
+    {
+      "company": "Air City AC and Heating",
+      "url": "https://aircityacandheating.com"
+    },
+    {
+      "company": "JAVCO Air Conditioning & Heating",
+      "url": "https://javcoac.com"
+    },
+    {
+      "company": "Westair Air Conditioning and Heating",
+      "url": "https://www.westairac.com"
+    },
+    {
+      "company": "75 Degree AC",
+      "url": "https://75degreeac.com"
+    },
+    {
+      "company": "LoneStar Heating and Cooling",
+      "url": "https://lonestarheatingandcooling.com"
+    },
+    {
+      "company": "Big Texas Comfort",
+      "url": "https://www.bigtexascomfort.com"
+    },
+    {
+      "company": "Brown Air Conditioning & Heating",
+      "url": "https://brownairandheat.com"
+    },
+    {
+      "company": "TwinStar Air Conditioning & Heating",
+      "url": "https://twinstarac.com"
+    },
+    {
+      "company": "Guy's Air Conditioning & Heating",
+      "url": "https://www.guysac.com"
+    },
+    {
+      "company": "ACS Absolute Comfort",
+      "url": "https://acscomfort.com"
+    },
+    {
+      "company": "Key Air Solutions",
+      "url": "https://keyairsolutions.com"
+    },
+    {
+      "company": "The Lee Thompson Co.",
+      "url": "https://leethompsonac.com"
+    },
+    {
+      "company": "Houk Air Conditioning",
+      "url": "https://houkac.com"
+    },
+    {
+      "company": "Northwind AC",
+      "url": "https://www.northwindac.com"
+    },
+    {
+      "company": "KAC Express",
+      "url": "https://kacexpress.com"
     }
   ]
 }
