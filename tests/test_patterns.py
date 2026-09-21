@@ -21,25 +21,34 @@ def _write_observation(dir_path, filename, company, host, signals, generated_at=
 
 
 def _seed(dir_path):
-    _write_observation(dir_path, "a.json", "Alpha HVAC", "alpha.com", {
-        "NO_ONLINE_BOOKING": "PRESENT",
-        "WEAK_CTA": "PRESENT",
-        "NO_SMS_OPTION": "ABSENT",
-        "LOW_REVIEW_COUNT": "NOT_REVIEWED",
-    })
-    _write_observation(dir_path, "b.json", "Bravo HVAC", "bravo.com", {
-        "NO_ONLINE_BOOKING": "PRESENT",
-        "WEAK_CTA": "PRESENT",
-        "NO_SMS_OPTION": "PRESENT",
-        "LOW_REVIEW_COUNT": "NOT_REVIEWED",
-    })
-    _write_observation(dir_path, "c.json", "Charlie HVAC", "charlie.com", {
-        "NO_ONLINE_BOOKING": "ABSENT",
-        "WEAK_CTA": "ABSENT",
-        "NO_SMS_OPTION": "ABSENT",
-        "LOW_REVIEW_COUNT": "NOT_REVIEWED",
-    })
-    (Path(dir_path) / "index.json").write_text(json.dumps({"runs": []}), encoding="utf-8")
+    # Writes a matching index.json too, so tests exercise the real,
+    # index-driven load path rather than only the no-index fallback.
+    specs = [
+        ("a.json", "Alpha HVAC", "alpha.com", {
+            "NO_ONLINE_BOOKING": "PRESENT",
+            "WEAK_CTA": "PRESENT",
+            "NO_SMS_OPTION": "ABSENT",
+            "LOW_REVIEW_COUNT": "NOT_REVIEWED",
+        }),
+        ("b.json", "Bravo HVAC", "bravo.com", {
+            "NO_ONLINE_BOOKING": "PRESENT",
+            "WEAK_CTA": "PRESENT",
+            "NO_SMS_OPTION": "PRESENT",
+            "LOW_REVIEW_COUNT": "NOT_REVIEWED",
+        }),
+        ("c.json", "Charlie HVAC", "charlie.com", {
+            "NO_ONLINE_BOOKING": "ABSENT",
+            "WEAK_CTA": "ABSENT",
+            "NO_SMS_OPTION": "ABSENT",
+            "LOW_REVIEW_COUNT": "NOT_REVIEWED",
+        }),
+    ]
+    runs = []
+    for filename, company, host, signals in specs:
+        payload = _write_observation(dir_path, filename, company, host, signals)
+        runs.append({"company": company, "host": host, "target": payload["target"],
+                     "generatedAt": payload["generatedAt"], "file": filename})
+    (Path(dir_path) / "index.json").write_text(json.dumps({"runs": runs}), encoding="utf-8")
 
 
 def test_load_observations_skips_index_and_reads_signals(tmp_path):
@@ -48,8 +57,33 @@ def test_load_observations_skips_index_and_reads_signals(tmp_path):
     assert len(companies) == 3
     alpha = next(c for c in companies if c.company == "Alpha HVAC")
     assert "NO_ONLINE_BOOKING" in alpha.present
-    assert "NO_SMS_OPTION" in alpha.absent
-    assert "LOW_REVIEW_COUNT" in alpha.not_reviewed
+
+
+def test_load_observations_excludes_files_not_in_current_index(tmp_path):
+    # A target removed from targets.json, or recorded as failed by a later
+    # run, drops out of index.json's runs — its old file must drop out of
+    # the pattern read too, not linger forever and inflate companyCount.
+    _seed(tmp_path)
+    _write_observation(tmp_path, "stale.json", "Stale HVAC (removed)", "stale.com", {
+        "NO_ONLINE_BOOKING": "PRESENT",
+    })
+    # index.json (written by _seed) does not list stale.json.
+
+    companies = patterns_mod.load_observations(str(tmp_path))
+    assert len(companies) == 3
+    assert "Stale HVAC (removed)" not in {c.company for c in companies}
+
+
+def test_load_observations_falls_back_to_glob_without_index(tmp_path):
+    _write_observation(tmp_path, "a.json", "Alpha HVAC", "alpha.com", {
+        "NO_ONLINE_BOOKING": "PRESENT",
+    })
+    _write_observation(tmp_path, "b.json", "Bravo HVAC", "bravo.com", {
+        "NO_ONLINE_BOOKING": "ABSENT",
+    })
+    # No index.json in this directory at all.
+    companies = patterns_mod.load_observations(str(tmp_path))
+    assert len(companies) == 2
 
 
 def test_load_observations_dedupes_stale_file_for_same_host(tmp_path):

@@ -93,6 +93,7 @@ def observe_cmd(argv=None) -> int:
     index = browser_scan_mod.build_index(payloads, skipped + failures)
     index_path = os.path.join(args.out, "index.json")
     os.makedirs(args.out, exist_ok=True)
+    index = browser_scan_mod.merge_index(index, index_path)
     with open(index_path, "w", encoding="utf-8") as fh:
         json.dump(index, fh, indent=2)
     print(index_path)

@@ -20,7 +20,8 @@ from datetime import datetime, timezone
 from itertools import combinations
 from pathlib import Path
 from typing import Any, Dict, List
-from urllib.parse import urlparse
+
+from leak_detector.browser_scan import observation_key
 
 
 def now_iso() -> str:
@@ -39,23 +40,45 @@ class CompanyObservation:
 
 
 def load_observations(observations_dir: str) -> List[CompanyObservation]:
-    """Load every published per-company observation file in a directory.
+    """Load the currently-active published observation files in a directory.
 
-    Skips index.json and anything without a `signals` key rather than
-    guessing what it is. A target whose URL changed (e.g. www -> bare
-    domain, same host/port/path) leaves its old slug-named file behind
-    rather than replacing it, so files are deduplicated by (host, port,
-    path) — keeping the one with the latest `generatedAt` — rather than
-    counting the same company twice. Deduplicating by host alone would be
-    wrong: browser_scan's slug_for() deliberately keeps distinct
-    ports/paths on one host as separate targets (e.g. two different
-    franchise/location pages, or a site on a non-default port), and those
-    must stay distinct here too.
+    Prefers index.json's `runs` list as the active file set: a target that
+    was removed from targets.json, or that a later run records as failed,
+    drops out of the index and must drop out of the pattern read too —
+    otherwise its old file (which still exists on disk) would keep
+    inflating companyCount and feeding stale signals into every aggregate
+    forever. Falls back to a full directory glob only when no index.json
+    exists (e.g. a directory of hand-assembled observation files).
+
+    Either way, files are deduplicated by observation_key() (host, port,
+    path — the same identity browser_scan.slug_for() uses for filenames),
+    keeping the one with the latest `generatedAt`, since a target whose URL
+    changed (e.g. www -> bare domain) can still leave an old slug-named
+    file behind without index.json listing it twice.
     """
+    index_path = Path(observations_dir) / "index.json"
+    index = None
+    if index_path.exists():
+        try:
+            index = json.loads(index_path.read_text(encoding="utf-8"))
+        except (json.JSONDecodeError, OSError):
+            index = None
+
+    if index and isinstance(index.get("runs"), list):
+        candidate_paths = []
+        for run in index["runs"]:
+            file_name = run.get("file")
+            if not file_name:
+                continue
+            candidate_path = Path(observations_dir) / file_name
+            if candidate_path.exists():
+                candidate_paths.append(candidate_path)
+    else:
+        candidate_paths = [p for p in sorted(Path(observations_dir).glob("*.json"))
+                            if p.name != "index.json"]
+
     latest_by_key: Dict[str, tuple] = {}
-    for path in sorted(Path(observations_dir).glob("*.json")):
-        if path.name == "index.json":
-            continue
+    for path in candidate_paths:
         try:
             payload = json.loads(path.read_text(encoding="utf-8"))
         except (json.JSONDecodeError, OSError):
@@ -63,10 +86,8 @@ def load_observations(observations_dir: str) -> List[CompanyObservation]:
         if "signals" not in payload:
             continue
         host = payload.get("host") or ""
-        parsed_target = urlparse(payload.get("target") or "")
-        port_part = f":{parsed_target.port}" if parsed_target.port else ""
-        path_part = parsed_target.path.rstrip("/")
-        key = f"{host}{port_part}{path_part}" if host else (payload.get("company") or path.stem)
+        key = observation_key(host, payload.get("target") or "") if host else (
+            payload.get("company") or path.stem)
         generated_at = str(payload.get("generatedAt", ""))
         existing = latest_by_key.get(key)
         if existing is None or generated_at >= existing[0]:
@@ -123,7 +144,10 @@ def compute_cooccurrence(companies: List[CompanyObservation],
 
     Lift is p(both) / (p(a) * p(b)) over companies where both signals were
     reviewed. A pair where fewer than `min_companies` share both signals is
-    left out — lift on a single data point is noise, not a pattern.
+    left out — lift on a single data point is noise, not a pattern. A pair
+    whose lift doesn't exceed 1 is left out too: this section claims signals
+    that travel together more than chance, and reporting an independent or
+    negatively-associated pair here would misrepresent it as one.
     """
     if min_companies < 1:
         raise ValueError(f"min_companies must be >= 1, got {min_companies}")
@@ -141,7 +165,12 @@ def compute_cooccurrence(companies: List[CompanyObservation],
         p_a = len([c for c in reviewed_both if a in c.present]) / len(reviewed_both)
         p_b = len([c for c in reviewed_both if b in c.present]) / len(reviewed_both)
         p_ab = len(both) / len(reviewed_both)
-        lift = round(p_ab / (p_a * p_b), 3) if p_a and p_b else 0.0
+        if not (p_a and p_b):
+            continue
+        raw_lift = p_ab / (p_a * p_b)
+        if raw_lift <= 1:
+            continue
+        lift = round(raw_lift, 3)
         rows.append({
             "signalA": a,
             "signalB": b,

@@ -82,6 +82,13 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def strip_www(host: str) -> str:
+    """Remove a literal "www." prefix — never `.lstrip("www.")`, which strips
+    any leading combination of the characters w/w/w/. and mangles a host
+    like "weissacandheat.com" into "eissacandheat.com"."""
+    return host[4:] if host.startswith("www.") else host
+
+
 @dataclass
 class PageFacts:
     """Raw, un-interpreted observations from one rendered page."""
@@ -171,7 +178,7 @@ def same_site(candidate: str, base: str) -> bool:
         return False
     if not c or not b:
         return False
-    c, b = c.lower().lstrip("www."), b.lower().lstrip("www.")
+    c, b = strip_www(c.lower()), strip_www(b.lower())
     return c == b
 
 
@@ -415,7 +422,7 @@ def build_observations(pages: List[PageFacts], url: str, published_phone: str = 
         "generatedAt": now_iso(),
         "target": url,
         "company": company,
-        "host": (urlparse(url).hostname or "").lower().lstrip("www."),
+        "host": strip_www((urlparse(url).hostname or "").lower()),
         "agent": "observation-only browser agent",
         "contactChannelsUsed": [],  # always empty: this agent never contacts the business
         "pagesObserved": [p.final_url or p.url for p in pages if not p.error],
@@ -469,6 +476,60 @@ def build_index(payloads: List[Dict[str, Any]], skipped: List[Dict[str, Any]]) -
         } for p in payloads],
         "skipped": skipped,
     }
+
+
+def merge_index(new_index: Dict[str, Any], existing_index_path: str) -> Dict[str, Any]:
+    """Merge a freshly built index with whatever index.json already exists.
+
+    Lets leak-detector-observe be invoked repeatedly over different target
+    subsets — e.g. a workflow processing targets.json in checkpointed
+    batches — and still end up with one index covering every run seen so
+    far, instead of each invocation overwriting the last one's entries.
+    Runs are deduped by observation_key(), keeping whichever is newer; a
+    company that has a run is dropped from "skipped" even if an older
+    invocation recorded it there.
+    """
+    try:
+        with open(existing_index_path, "r", encoding="utf-8") as fh:
+            existing = json.load(fh)
+    except (OSError, json.JSONDecodeError):
+        return new_index
+
+    runs_by_key: Dict[str, Dict[str, Any]] = {}
+    for run in (existing.get("runs") or []) + (new_index.get("runs") or []):
+        key = observation_key(run.get("host") or "", run.get("target") or "")
+        current = runs_by_key.get(key)
+        if current is None or str(run.get("generatedAt") or "") >= str(current.get("generatedAt") or ""):
+            runs_by_key[key] = run
+    runs = sorted(runs_by_key.values(), key=lambda r: r.get("company") or "")
+
+    run_companies = {r.get("company") for r in runs if r.get("company")}
+    skipped_by_company: Dict[str, Dict[str, Any]] = {}
+    for entry in (existing.get("skipped") or []) + (new_index.get("skipped") or []):
+        skipped_by_company[entry.get("company", "")] = entry
+    skipped = [entry for company, entry in skipped_by_company.items()
+               if company not in run_companies]
+
+    merged = dict(new_index)
+    merged["runs"] = runs
+    merged["skipped"] = skipped
+    return merged
+
+
+def observation_key(host: str, target_url: str) -> str:
+    """Canonical identity for one target observation: (host, port, path).
+
+    This is the single source of truth for "same target vs. different
+    target" — used to dedupe an accumulated index.json across repeated
+    leak-detector-observe runs, and by patterns.py to dedupe the observation
+    files it loads. Mirrors slug_for()'s own uniqueness basis (host, port,
+    path) so the two never drift apart the way an independent
+    reimplementation did before.
+    """
+    parsed = urlparse(target_url or "")
+    port_part = f":{parsed.port}" if parsed.port else ""
+    path_part = parsed.path.rstrip("/")
+    return f"{host}{port_part}{path_part}" if host else (target_url or "")
 
 
 def slug_for(url: str) -> str:
