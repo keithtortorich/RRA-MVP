@@ -1,16 +1,19 @@
 import json
 from pathlib import Path
 
+import pytest
+
 from leak_detector import patterns as patterns_mod
 from leak_detector.cli import patterns_cmd
 
 
-def _write_observation(dir_path, filename, company, host, signals):
+def _write_observation(dir_path, filename, company, host, signals, generated_at=""):
     payload = {
         "leakDetectorObservations": 1,
         "company": company,
         "host": host,
         "target": f"https://{host}",
+        "generatedAt": generated_at,
         "signals": [{"signalType": t, "status": s} for t, s in signals.items()],
     }
     (Path(dir_path) / filename).write_text(json.dumps(payload), encoding="utf-8")
@@ -47,6 +50,23 @@ def test_load_observations_skips_index_and_reads_signals(tmp_path):
     assert "NO_ONLINE_BOOKING" in alpha.present
     assert "NO_SMS_OPTION" in alpha.absent
     assert "LOW_REVIEW_COUNT" in alpha.not_reviewed
+
+
+def test_load_observations_dedupes_stale_file_for_same_host(tmp_path):
+    # Simulates a target whose URL changed (www -> bare domain): the old
+    # slug-named file is left behind by leak-detector-observe rather than
+    # replaced, so both files share the same normalized host.
+    _write_observation(tmp_path, "www-delta-com.json", "Delta HVAC", "delta.com", {
+        "NO_ONLINE_BOOKING": "PRESENT",
+    }, generated_at="2026-01-01T00:00:00+00:00")
+    _write_observation(tmp_path, "delta-com.json", "Delta HVAC", "delta.com", {
+        "NO_ONLINE_BOOKING": "ABSENT",
+    }, generated_at="2026-02-01T00:00:00+00:00")
+
+    companies = patterns_mod.load_observations(str(tmp_path))
+    assert len(companies) == 1
+    assert companies[0].present == []
+    assert companies[0].absent == ["NO_ONLINE_BOOKING"]
 
 
 def test_prevalence_excludes_not_reviewed_from_denominator(tmp_path):
@@ -128,3 +148,26 @@ def test_patterns_cmd_reports_failure_on_empty_dir(tmp_path):
     empty_dir.mkdir()
     rc = patterns_cmd(["--dir", str(empty_dir), "--out", str(tmp_path / "out")])
     assert rc == 1
+
+
+def test_compute_cooccurrence_rejects_nonpositive_min_companies(tmp_path):
+    _seed(tmp_path)
+    companies = patterns_mod.load_observations(str(tmp_path))
+    with pytest.raises(ValueError):
+        patterns_mod.compute_cooccurrence(companies, min_companies=0)
+    with pytest.raises(ValueError):
+        patterns_mod.compute_cooccurrence(companies, min_companies=-1)
+
+
+def test_patterns_cmd_rejects_nonpositive_min_companies(tmp_path, capsys):
+    obs_dir = tmp_path / "observations"
+    obs_dir.mkdir()
+    _seed(obs_dir)
+
+    try:
+        patterns_cmd(["--dir", str(obs_dir), "--out", str(tmp_path / "out"),
+                      "--min-companies", "0"])
+        assert False, "expected SystemExit from argparse.error"
+    except SystemExit as exc:
+        assert exc.code == 2
+    assert "must be >= 1" in capsys.readouterr().err

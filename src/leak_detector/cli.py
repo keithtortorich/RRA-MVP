@@ -166,6 +166,8 @@ def patterns_cmd(argv=None) -> int:
     parser.add_argument("--summary-md", default=None,
                         help="Append a Markdown summary here (e.g. $GITHUB_STEP_SUMMARY)")
     args = parser.parse_args(argv)
+    if args.min_companies < 1:
+        parser.error("--min-companies must be >= 1")
 
     companies = patterns_mod.load_observations(args.dir)
     if not companies:

@@ -41,9 +41,13 @@ def load_observations(observations_dir: str) -> List[CompanyObservation]:
     """Load every published per-company observation file in a directory.
 
     Skips index.json and anything without a `signals` key rather than
-    guessing what it is.
+    guessing what it is. A target whose URL changed (e.g. www -> bare
+    domain) leaves its old slug-named file behind rather than replacing it,
+    so files are deduplicated by host, keeping the one with the latest
+    `generatedAt` — otherwise the same company would be counted twice and
+    skew prevalence, scores, and co-occurrence.
     """
-    out: List[CompanyObservation] = []
+    latest_by_key: Dict[str, tuple] = {}
     for path in sorted(Path(observations_dir).glob("*.json")):
         if path.name == "index.json":
             continue
@@ -53,6 +57,14 @@ def load_observations(observations_dir: str) -> List[CompanyObservation]:
             continue
         if "signals" not in payload:
             continue
+        key = payload.get("host") or payload.get("company") or path.stem
+        generated_at = str(payload.get("generatedAt", ""))
+        existing = latest_by_key.get(key)
+        if existing is None or generated_at >= existing[0]:
+            latest_by_key[key] = (generated_at, payload, path)
+
+    out: List[CompanyObservation] = []
+    for generated_at, payload, path in latest_by_key.values():
         present, absent, not_reviewed = [], [], []
         for sig in payload.get("signals", []):
             sig_type = sig.get("signalType")
@@ -74,6 +86,7 @@ def load_observations(observations_dir: str) -> List[CompanyObservation]:
             absent=absent,
             not_reviewed=not_reviewed,
         ))
+    out.sort(key=lambda c: c.company)
     return out
 
 
@@ -103,6 +116,8 @@ def compute_cooccurrence(companies: List[CompanyObservation],
     reviewed. A pair where fewer than `min_companies` share both signals is
     left out — lift on a single data point is noise, not a pattern.
     """
+    if min_companies < 1:
+        raise ValueError(f"min_companies must be >= 1, got {min_companies}")
     signal_types = sorted({s for c in companies for s in (c.present + c.absent)})
     rows = []
     for a, b in combinations(signal_types, 2):
