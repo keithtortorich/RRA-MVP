@@ -1,43 +1,43 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-20T23:22:23.809429+00:00",
+  "generatedAt": "2026-09-21T19:13:08.996323+00:00",
   "runs": [
     {
-      "runId": "689aadac84f640c8bfdb93a2f001d9a9",
+      "runId": "33ab2bb4d433415cad4b269617ed06a2",
       "company": "Exodus Mechanical",
       "host": "exodusmechanical.com",
       "target": "https://www.exodusmechanical.com",
-      "generatedAt": "2026-09-20T23:21:40.345374+00:00",
+      "generatedAt": "2026-09-21T19:12:29.954789+00:00",
       "file": "www-exodusmechanical-com.json",
       "signalCount": 9,
       "draftCount": 6
     },
     {
-      "runId": "5149d94fd02e405394b40eb71ddfd8b7",
+      "runId": "1dfa7ad842244c43b5b3408329f2633c",
       "company": "Ample Services",
       "host": "amplehouston.com",
       "target": "https://www.amplehouston.com",
-      "generatedAt": "2026-09-20T23:21:53.718185+00:00",
+      "generatedAt": "2026-09-21T19:12:44.098530+00:00",
       "file": "www-amplehouston-com.json",
       "signalCount": 9,
       "draftCount": 5
     },
     {
-      "runId": "9a2664908968465cbd19708a199c0d07",
+      "runId": "21801827ac0c4784bdc051b0204c4e67",
       "company": "Bill Anderson Air",
       "host": "billandersonair.com",
       "target": "https://www.billandersonair.com",
-      "generatedAt": "2026-09-20T23:22:00.355840+00:00",
+      "generatedAt": "2026-09-21T19:12:48.640702+00:00",
       "file": "www-billandersonair-com.json",
       "signalCount": 8,
       "draftCount": 5
     },
     {
-      "runId": "cce9618a4ffb4bc3aef08e1658e08ce1",
+      "runId": "de5a20f38c0f4951beb2a49e84e0a807",
       "company": "Castle Air Conditioning & Heating",
       "host": "castleacandheating.com",
       "target": "https://castleacandheating.com",
-      "generatedAt": "2026-09-20T23:22:23.808850+00:00",
+      "generatedAt": "2026-09-21T19:13:08.995685+00:00",
       "file": "castleacandheating-com.json",
       "signalCount": 9,
       "draftCount": 4
