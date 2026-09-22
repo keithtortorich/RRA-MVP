@@ -1,0 +1,176 @@
+{
+  "rraObservations": 1,
+  "runId": "1abdea78946e4664b9b300a45780230d",
+  "generatedAt": "2026-09-22T19:54:02.273364+00:00",
+  "target": "https://www.goodeair.com",
+  "company": "Goode Air Conditioning & Heating",
+  "host": "goodeair.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://goodeair.com/",
+    "https://goodeair.com/service-area/air-conditioning-heating-atascocita-tx",
+    "https://goodeair.com/service-area/air-conditioning-heating-huffman-tx",
+    "https://goodeair.com/service-area/air-conditioning-heating-kingwood-tx",
+    "https://goodeair.com/services",
+    "https://goodeair.com/services/air-conditioning",
+    "https://goodeair.com/services/ac-repair",
+    "https://goodeair.com/services/ac-installation",
+    "https://goodeair.com/services/heating",
+    "https://goodeair.com/services/furnace-repair",
+    "https://goodeair.com/services/furnace-installation",
+    "https://goodeair.com/services/hvac-maintenance"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "ABSENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "Chat widget detected: podium.com.",
+      "observedAt": "2026-09-22T19:54:02.273408+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "Booking path found: https://goodeair.com/schedule-appointment, https://goodeair.com/schedule-appointment",
+      "observedAt": "2026-09-22T19:54:02.273416+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "PRESENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "No financing or payment-plan option visible.",
+      "observedAt": "2026-09-22T19:54:02.273422+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "PRESENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "Homepage rendered in 4938ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:54:02.273426+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:54:02.273437+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:54:02.273442+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:54:02.273444+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "Above-fold CTA(s): Schedule",
+      "observedAt": "2026-09-22T19:54:02.273448+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://goodeair.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T19:54:02.273454+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:54:02.273456+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:54:02.273458+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:54:02.273460+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:54:02.273462+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "24/7 Residential Heating and Air Conditioning Services in Humble, TX",
+      "sourceUrl": "https://goodeair.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+12815008603) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-goodeair-com/home.png",
+      "observedAt": "2026-09-22T19:54:02.273469+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24/7 Residential Heating and Air Conditioning Services in Humble, TX",
+      "sourceUrl": "https://goodeair.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-goodeair-com/home.png",
+      "observedAt": "2026-09-22T19:54:02.273473+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24/7 Residential Heating and Air Conditioning Services in Humble, TX",
+      "sourceUrl": "https://goodeair.com/",
+      "expectedResult": "",
+      "agentObservation": "5 conversion link(s) resolved successfully, none returned an error. 1 link(s) could not be checked and are NOT counted as broken \u2014 verify those by hand.",
+      "evidenceReference": "docs/observations/screenshots/www-goodeair-com/home.png",
+      "observedAt": "2026-09-22T19:54:02.273483+00:00"
+    },
+    {
+      "checkId": "EXT-013",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24/7 Residential Heating and Air Conditioning Services in Humble, TX",
+      "sourceUrl": "https://goodeair.com/",
+      "expectedResult": "",
+      "agentObservation": "6 service-area page(s) found, each with a conversion element.",
+      "evidenceReference": "docs/observations/screenshots/www-goodeair-com/home.png",
+      "observedAt": "2026-09-22T19:54:02.273490+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "24/7 Residential Heating and Air Conditioning Services in Humble, TX",
+      "sourceUrl": "https://goodeair.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 8 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-goodeair-com/home.png",
+      "observedAt": "2026-09-22T19:54:02.273501+00:00"
+    }
+  ],
+  "file": "www-goodeair-com.json"
+}

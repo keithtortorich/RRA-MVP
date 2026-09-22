@@ -1,0 +1,170 @@
+{
+  "rraObservations": 1,
+  "runId": "c3bb7d557e614d20ac925deca484bdd4",
+  "generatedAt": "2026-09-22T19:55:55.948510+00:00",
+  "target": "https://mabryac.com",
+  "company": "Mabry's AC & Heating",
+  "host": "mabryac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://mabryac.com/",
+    "https://mabryac.com/contact",
+    "https://mabryac.com/services/ac-repair",
+    "https://mabryac.com/services/heating-repair",
+    "https://mabryac.com/services/ac-installation",
+    "https://mabryac.com/services/ac-maintenance"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:55:55.948544+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:55:55.948550+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:55:55.948556+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "Homepage rendered in 1202ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:55:55.948559+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:55:55.948570+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:55:55.948575+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:55:55.948577+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T19:55:55.948579+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://mabryac.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T19:55:55.948584+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:55:55.948586+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:55:55.948593+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:55:55.948595+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:55:55.948597+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Call for Urgent or Emergency Service:",
+      "sourceUrl": "https://mabryac.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:281-331-5248) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/mabryac-com/home.png",
+      "observedAt": "2026-09-22T19:55:55.948615+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Call for Urgent or Emergency Service:",
+      "sourceUrl": "https://mabryac.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/mabryac-com/home.png",
+      "observedAt": "2026-09-22T19:55:55.948619+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Call for Urgent or Emergency Service:",
+      "sourceUrl": "https://mabryac.com/",
+      "expectedResult": "",
+      "agentObservation": "7 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/mabryac-com/home.png",
+      "observedAt": "2026-09-22T19:55:55.948626+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Call for Urgent or Emergency Service:",
+      "sourceUrl": "https://mabryac.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"07:00\",\"closes\":\"19:00\"}', '{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Saturday\"],\"opens\":\"07:00\",\"closes\":\"13:00\"}']. Visible hours: ['Mon\u2013Fri 7am\u20137pm \u00b7 Sat 7am\u20131pm \u00b7 On-call after hours \u2014 flat-rate pricing, no after-hours fees', 'Proudly serving Alvin, Friendswood, Pearland, Manvel, Clear Lake, League City, Deer Park, Missouri City, and communities throughout the Greater Houston area. Licensed residential HVAC \u2014 TACLB12058E.', 'Serving Friendswood, TX 77546', 'We serve Alvin, Friendswood, Pearland, Clear Lake, League City, Deer Park, Pasadena, Sienna, Angleton, Manvel, Rosharon, and the surrounding greater Houston area. Our office and shop is located at 2110 S Gordon St in Alvin (281-331-5248), and we have a dedicated service area covering Friendswood and the eastern territory (281-482-8400).', 'Mon-Fri: 7am-7pm | Sat: 7am-1pm', 'Serving Friendswood, TX 77546', 'Mon-Fri: 7am-7pm | Sat: 7am-1pm']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/mabryac-com/home.png",
+      "observedAt": "2026-09-22T19:55:55.948640+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Call for Urgent or Emergency Service:",
+      "sourceUrl": "https://mabryac.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 5 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/mabryac-com/home.png",
+      "observedAt": "2026-09-22T19:55:55.948650+00:00"
+    }
+  ],
+  "file": "mabryac-com.json"
+}

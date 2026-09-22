@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T19:52:13.857089+00:00",
+  "generatedAt": "2026-09-22T19:57:25.927230+00:00",
   "runs": [
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
@@ -23,6 +23,16 @@
       "draftCount": 3
     },
     {
+      "runId": "d29b74d5b8c8439193d38fe5490c238a",
+      "company": "ABC Air of Texas",
+      "host": "abcairoftexas.com",
+      "target": "https://www.abcairoftexas.com",
+      "generatedAt": "2026-09-22T19:56:28.367655+00:00",
+      "file": "www-abcairoftexas-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "b87723d1af724ff18f113122de97716d",
       "company": "AMS A/C & Heating",
       "host": "amskaty.com",
@@ -31,6 +41,16 @@
       "file": "amskaty-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "b0a30fdd05e044c7b75057793d7c13f3",
+      "company": "Ainsworth & Co.",
+      "host": "ainsworthac.com",
+      "target": "https://www.ainsworthac.com",
+      "generatedAt": "2026-09-22T19:52:46.881163+00:00",
+      "file": "www-ainsworthac-com.json",
+      "signalCount": 9,
+      "draftCount": 6
     },
     {
       "runId": "6f1a52f4af814412b6211fdd3e34509a",
@@ -73,6 +93,16 @@
       "draftCount": 6
     },
     {
+      "runId": "ae68e666a22f49589116c7bc8e3ced2b",
+      "company": "Albin Air Conditioning & Heating",
+      "host": "albinair.com",
+      "target": "https://www.albinair.com",
+      "generatedAt": "2026-09-22T19:56:35.482633+00:00",
+      "file": "www-albinair-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "c9491cb297944d86bfe1f969e438165a",
       "company": "All Star A/C",
       "host": "allstarairtexas.com",
@@ -99,6 +129,16 @@
       "target": "https://gobvs.com",
       "generatedAt": "2026-09-22T19:36:54.029484+00:00",
       "file": "gobvs-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "aab23533c8d8495fb0e9b9cbf00b2675",
+      "company": "Better Than Best A/C and Heating",
+      "host": "betterthanbestac.com",
+      "target": "https://www.betterthanbestac.com",
+      "generatedAt": "2026-09-22T19:57:04.271841+00:00",
+      "file": "www-betterthanbestac-com.json",
       "signalCount": 9,
       "draftCount": 5
     },
@@ -173,6 +213,16 @@
       "draftCount": 3
     },
     {
+      "runId": "04b9acc6eb9942a6ba60f519b3973927",
+      "company": "Complete Air Services",
+      "host": "completeairhouston.com",
+      "target": "https://www.completeairhouston.com",
+      "generatedAt": "2026-09-22T19:57:25.926625+00:00",
+      "file": "www-completeairhouston-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "65f60dcbd5d14cf2b409030710f35969",
       "company": "Cool Comfort Solutions",
       "host": "coolcomfortsolutions.com",
@@ -181,6 +231,16 @@
       "file": "www-coolcomfortsolutions-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "e8ce4746b2d24991827cc9c2ceabbe98",
+      "company": "Crew Heating & Cooling",
+      "host": "crewairconditioning.com",
+      "target": "https://www.crewairconditioning.com",
+      "generatedAt": "2026-09-22T19:54:39.295362+00:00",
+      "file": "www-crewairconditioning-com.json",
+      "signalCount": 9,
+      "draftCount": 4
     },
     {
       "runId": "7d1c0ae6178b43e4823f46aa817684b1",
@@ -243,6 +303,16 @@
       "draftCount": 5
     },
     {
+      "runId": "1abdea78946e4664b9b300a45780230d",
+      "company": "Goode Air Conditioning & Heating",
+      "host": "goodeair.com",
+      "target": "https://www.goodeair.com",
+      "generatedAt": "2026-09-22T19:54:02.273364+00:00",
+      "file": "www-goodeair-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "3ae4f902e6be412fbacf599f7d3e5bb9",
       "company": "Hal Watson Air Conditioning",
       "host": "halwatsonac.com",
@@ -263,12 +333,32 @@
       "draftCount": 5
     },
     {
+      "runId": "ad5409e8fb7b457ca50e2419d43e40be",
+      "company": "Kingwood Air Solutions",
+      "host": "kingwoodairsolutions.com",
+      "target": "https://www.kingwoodairsolutions.com",
+      "generatedAt": "2026-09-22T19:55:41.241171+00:00",
+      "file": "www-kingwoodairsolutions-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
       "runId": "3021c6de2151472d8aa779a42febfef6",
       "company": "Lone Star Heat and AC",
       "host": "lonestarhvaccompany.com",
       "target": "https://lonestarhvaccompany.com",
       "generatedAt": "2026-09-22T19:39:30.206135+00:00",
       "file": "lonestarhvaccompany-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "c3bb7d557e614d20ac925deca484bdd4",
+      "company": "Mabry's AC & Heating",
+      "host": "mabryac.com",
+      "target": "https://mabryac.com",
+      "generatedAt": "2026-09-22T19:55:55.948510+00:00",
+      "file": "mabryac-com.json",
       "signalCount": 9,
       "draftCount": 5
     },
@@ -381,6 +471,16 @@
       "file": "texasstarhvacr-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "77d5a3a5f67b48b387471278555fc4a5",
+      "company": "The Original Kingwood Air Conditioning & Heating",
+      "host": "kingwoodac.com",
+      "target": "https://kingwoodac.com",
+      "generatedAt": "2026-09-22T19:55:03.070728+00:00",
+      "file": "kingwoodac-com.json",
+      "signalCount": 9,
+      "draftCount": 6
     },
     {
       "runId": "cd8333a70ad54757af88e9ce0dc1fcdd",

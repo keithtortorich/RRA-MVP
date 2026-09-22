@@ -1,0 +1,163 @@
+{
+  "rraObservations": 1,
+  "runId": "e8ce4746b2d24991827cc9c2ceabbe98",
+  "generatedAt": "2026-09-22T19:54:39.295362+00:00",
+  "target": "https://www.crewairconditioning.com",
+  "company": "Crew Heating & Cooling",
+  "host": "crewairconditioning.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.crewairconditioning.com/",
+    "https://www.crewairconditioning.com/ac-repair-humble-tx/",
+    "https://www.crewairconditioning.com/ac-compressor-repair-humble-tx/",
+    "https://www.crewairconditioning.com/ac-installation-humble-tx/",
+    "https://www.crewairconditioning.com/ac-maintenance-humble-tx/",
+    "https://www.crewairconditioning.com/ac-tune-up-humble-tx/",
+    "https://www.crewairconditioning.com/ac-capacitor-replacement-humble-tx/",
+    "https://www.crewairconditioning.com/ac-furnace-air-filter-replacement-humble-tx/",
+    "https://www.crewairconditioning.com/ac-repair-in-kingwood-tx/",
+    "https://www.crewairconditioning.com/ac-repair-in-atascocita-tx/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:54:39.295402+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:54:39.295409+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "No financing or payment-plan option visible.",
+      "observedAt": "2026-09-22T19:54:39.295413+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "Homepage rendered in 1118ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:54:39.295417+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "SMS contact option found.",
+      "observedAt": "2026-09-22T19:54:39.295422+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:54:39.295426+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:54:39.295429+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "Above-fold CTA(s): Call 832-345-9932; Book Now; Book Now",
+      "observedAt": "2026-09-22T19:54:39.295432+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "notes": "2 of 9 inner pages under 250 words.",
+      "observedAt": "2026-09-22T19:54:39.295439+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:54:39.295442+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:54:39.295444+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:54:39.295446+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:54:39.295448+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:832-345-9932) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-crewairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:54:39.295454+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-crewairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:54:39.295458+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "6 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-crewairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:54:39.295466+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "",
+      "sourceUrl": "https://www.crewairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 6 field(s), 3 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-crewairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:54:39.295476+00:00"
+    }
+  ],
+  "file": "www-crewairconditioning-com.json"
+}

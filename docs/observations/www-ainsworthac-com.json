@@ -1,0 +1,185 @@
+{
+  "rraObservations": 1,
+  "runId": "b0a30fdd05e044c7b75057793d7c13f3",
+  "generatedAt": "2026-09-22T19:52:46.881163+00:00",
+  "target": "https://www.ainsworthac.com",
+  "company": "Ainsworth & Co.",
+  "host": "ainsworthac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.ainsworthac.com/",
+    "https://www.ainsworthac.com/service-area/",
+    "https://www.ainsworthac.com/ac-repair-baytown-tx/",
+    "https://www.ainsworthac.com/ac-repair-services-baytown-tx/",
+    "https://www.ainsworthac.com/ac-installation-baytown-tx/",
+    "https://www.ainsworthac.com/ac-replacement-baytown-tx/",
+    "https://www.ainsworthac.com/ac-repair-crosby-tx/",
+    "https://www.ainsworthac.com/ac-installation-crosby-tx/",
+    "https://www.ainsworthac.com/ac-replacement-crosby-tx/",
+    "https://www.ainsworthac.com/ac-repair-highlands-tx/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:52:46.881206+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "Booking path found: https://www.ainsworthac.com/schedule-service/, https://www.ainsworthac.com/schedule-service/",
+      "observedAt": "2026-09-22T19:52:46.881216+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:52:46.881221+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "Homepage rendered in 1252ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:52:46.881225+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:52:46.881236+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:52:46.881240+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:52:46.881242+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "Above-fold CTA(s): Facebook-f; SCHEDULE SERVICE; REQUEST QUOTE",
+      "observedAt": "2026-09-22T19:52:46.881245+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T19:52:46.881251+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:52:46.881254+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:52:46.881257+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:52:46.881259+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:52:46.881261+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Call for 24/7 Emergency Service",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link resolves to tel:(281)%20837-8454, which does not match the published number 281-837-8454. Confirm by tapping it on a phone.",
+      "evidenceReference": "docs/observations/screenshots/www-ainsworthac-com/home.png",
+      "observedAt": "2026-09-22T19:52:46.881307+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Call for 24/7 Emergency Service",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-ainsworthac-com/home.png",
+      "observedAt": "2026-09-22T19:52:46.881316+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Call for 24/7 Emergency Service",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "expectedResult": "",
+      "agentObservation": "8 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-ainsworthac-com/home.png",
+      "observedAt": "2026-09-22T19:52:46.881327+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Call for 24/7 Emergency Service",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: none. Visible hours: ['Upgrading your home\u2019s comfort shouldn\u2019t be stressful. Ainsworth & Co. Air Conditioning \u2013 Heating offers flexible financing options and manufacturer warranties to protect your investment\u2013including no interest and no payments for 12 months, plus low\u2011credit and no\u2011credit programs for qualifying customers. Whether you\u2019re replacing outdated equipment or planning for efficiency, we make it easier to find your ideal solution.', 'Office Hours: 8:00 AM \u2013 5:00 PM: Monday \u2013 Friday']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-ainsworthac-com/home.png",
+      "observedAt": "2026-09-22T19:52:46.881342+00:00"
+    },
+    {
+      "checkId": "EXT-013",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Call for 24/7 Emergency Service",
+      "sourceUrl": "https://www.ainsworthac.com/",
+      "expectedResult": "",
+      "agentObservation": "4 service-area page(s) found, each with a conversion element.",
+      "evidenceReference": "docs/observations/screenshots/www-ainsworthac-com/home.png",
+      "observedAt": "2026-09-22T19:52:46.881348+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Call for 24/7 Emergency Service",
+      "sourceUrl": "https://www.ainsworthac.com/service-area/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 1 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-ainsworthac-com/home.png",
+      "observedAt": "2026-09-22T19:52:46.881359+00:00"
+    }
+  ],
+  "file": "www-ainsworthac-com.json"
+}
