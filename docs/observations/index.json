@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T19:43:39.839661+00:00",
+  "generatedAt": "2026-09-22T19:48:03.964171+00:00",
   "runs": [
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
@@ -11,6 +11,16 @@
       "file": "4cacandheating-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "cac8465228e04c2a9fa50803a00bff45",
+      "company": "68 Degrees HVAC",
+      "host": "68degreeshvac.com",
+      "target": "https://68degreeshvac.com",
+      "generatedAt": "2026-09-22T19:44:26.403548+00:00",
+      "file": "68degreeshvac-com.json",
+      "signalCount": 9,
+      "draftCount": 3
     },
     {
       "runId": "b87723d1af724ff18f113122de97716d",
@@ -93,6 +103,26 @@
       "draftCount": 5
     },
     {
+      "runId": "d0407f531ab54b9b870d5fa0d38b79cd",
+      "company": "Blue Label Services",
+      "host": "bluelabeltoday.com",
+      "target": "https://bluelabeltoday.com",
+      "generatedAt": "2026-09-22T19:44:54.408747+00:00",
+      "file": "bluelabeltoday-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "679eb8d54a6e44b490bcbd1278897191",
+      "company": "Bradbury Brothers",
+      "host": "bradburybrothers.com",
+      "target": "https://bradburybrothers.com",
+      "generatedAt": "2026-09-22T19:45:33.341976+00:00",
+      "file": "bradburybrothers-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
       "runId": "7b3c99e3a4994e138e2274814bd4940f",
       "company": "Castle Air Conditioning & Heating",
       "host": "castleacandheating.com",
@@ -123,6 +153,16 @@
       "draftCount": 6
     },
     {
+      "runId": "a63f52d884784b33953b30095cbf59c7",
+      "company": "Easco Air Conditioning and Heating",
+      "host": "eascoair.com",
+      "target": "https://www.eascoair.com",
+      "generatedAt": "2026-09-22T19:46:01.950563+00:00",
+      "file": "www-eascoair-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "af206e3ab9f8415fa9751c3cbefe3d7a",
       "company": "Exodus Mechanical",
       "host": "exodusmechanical.com",
@@ -131,6 +171,16 @@
       "file": "www-exodusmechanical-com.json",
       "signalCount": 9,
       "draftCount": 6
+    },
+    {
+      "runId": "3ae4f902e6be412fbacf599f7d3e5bb9",
+      "company": "Hal Watson Air Conditioning",
+      "host": "halwatsonac.com",
+      "target": "https://www.halwatsonac.com",
+      "generatedAt": "2026-09-22T19:46:37.550850+00:00",
+      "file": "www-halwatsonac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     },
     {
       "runId": "27a35d6031cd402b82d771376138bd0c",
@@ -163,6 +213,46 @@
       "draftCount": 5
     },
     {
+      "runId": "43d66abe7c10407e8efa6a80ed3bba51",
+      "company": "McWilliams Heating Cooling and Plumbing",
+      "host": "mcwilliamsandson.com",
+      "target": "https://www.mcwilliamsandson.com",
+      "generatedAt": "2026-09-22T19:47:17.395589+00:00",
+      "file": "www-mcwilliamsandson-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "68ca50f209ff420283a2487ac080ce0c",
+      "company": "Mr. Cool AC & Heating",
+      "host": "mrcoolair.com",
+      "target": "https://mrcoolair.com",
+      "generatedAt": "2026-09-22T19:44:29.213651+00:00",
+      "file": "mrcoolair-com.json",
+      "signalCount": 8,
+      "draftCount": 2
+    },
+    {
+      "runId": "698367dd88ae4052a94de267a551259a",
+      "company": "P&M Air Conditioning and Heating",
+      "host": "pmhvac.com",
+      "target": "https://pmhvac.com",
+      "generatedAt": "2026-09-22T19:47:52.164532+00:00",
+      "file": "pmhvac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "4c97bf56d9ba49bf91ef5607a2b965b2",
+      "company": "SouthTex A/C & Heat",
+      "host": "southtexacandheat.com",
+      "target": "http://www.southtexacandheat.com",
+      "generatedAt": "2026-09-22T19:48:03.963658+00:00",
+      "file": "www-southtexacandheat-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "6017be0442794e39bdfe12002d91e877",
       "company": "Sugar Land AC and Heating",
       "host": "sugarlandacandheating.com",
@@ -179,6 +269,16 @@
       "target": "https://sunairconditioning.com",
       "generatedAt": "2026-09-22T19:43:21.189833+00:00",
       "file": "sunairconditioning-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "339de1323ecc45d3be34b059895e10a5",
+      "company": "Texas Star HVACR",
+      "host": "texasstarhvacr.com",
+      "target": "https://texasstarhvacr.com",
+      "generatedAt": "2026-09-22T19:45:09.414912+00:00",
+      "file": "texasstarhvacr-com.json",
       "signalCount": 9,
       "draftCount": 5
     },

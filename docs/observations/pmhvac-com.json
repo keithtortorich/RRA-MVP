@@ -1,0 +1,176 @@
+{
+  "rraObservations": 1,
+  "runId": "698367dd88ae4052a94de267a551259a",
+  "generatedAt": "2026-09-22T19:47:52.164532+00:00",
+  "target": "https://pmhvac.com",
+  "company": "P&M Air Conditioning and Heating",
+  "host": "pmhvac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://pmhvac.com/",
+    "https://pmhvac.com/heating-services/",
+    "https://pmhvac.com/hvac-services/heating-repair/",
+    "https://pmhvac.com/hvac-services/heating-replacements/",
+    "https://pmhvac.com/heating-maintenance/",
+    "https://pmhvac.com/about-us/service-areas/",
+    "https://pmhvac.com/ac-services-bellaire-tx/",
+    "https://pmhvac.com/ac-services-friendswood-tx/",
+    "https://pmhvac.com/ac-services-houston-tx/",
+    "https://pmhvac.com/heating-services-in-houston-tx/",
+    "https://pmhvac.com/ac-services-pearland-tx/",
+    "https://pmhvac.com/heating-services-in-pearland-tx/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "ABSENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "Chat widget detected: birdeye.",
+      "observedAt": "2026-09-22T19:47:52.164597+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "Booking path found: https://pmhvac.com/wp-content/uploads/2021/04/PM-_-eBook-_-August-2020.pdf, https://pmhvac.com/schedule-ac-services/",
+      "observedAt": "2026-09-22T19:47:52.164605+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:47:52.164609+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "Homepage rendered in 1397ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:47:52.164613+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:47:52.164625+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:47:52.164628+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "PRESENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "No tappable phone number above the fold at 375px.",
+      "observedAt": "2026-09-22T19:47:52.164631+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T19:47:52.164633+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://pmhvac.com/",
+      "notes": "1 of 11 inner pages under 250 words.",
+      "observedAt": "2026-09-22T19:47:52.164640+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:47:52.164643+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:47:52.164645+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:47:52.164647+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:47:52.164649+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Call or Text Anytime",
+      "sourceUrl": "https://pmhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+17135886249) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/pmhvac-com/home.png",
+      "observedAt": "2026-09-22T19:47:52.164655+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Call or Text Anytime",
+      "sourceUrl": "https://pmhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/pmhvac-com/home.png",
+      "observedAt": "2026-09-22T19:47:52.164658+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Call or Text Anytime",
+      "sourceUrl": "https://pmhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "4 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/pmhvac-com/home.png",
+      "observedAt": "2026-09-22T19:47:52.164667+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Call or Text Anytime",
+      "sourceUrl": "https://pmhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: none. Visible hours: ['Family owned and operated since 1947, we design systems for every budget level and performance expectation. All of our products and services are provided by a courteous and knowledgeable staff committed to complete customer satisfaction. We offer complete HVAC services from diagnosing, fixing, replacing, and maintaining your system for optimal performance. Our commitment is to earn our customers\u2019 satisfaction is unwavering and has been since 1947. Se habla espa\u00f1ol', 'Had water, condensate dripping from ceiling. P&M cleared drain pipes & added chlorine tablets. Found condenser 50% plugged and secondary pan with rusted ohole, which allows leak. David did fast & clean job. Thanks Dell K', 'We were pleased with the knowledge and service Rudy provided in repairing our AC unit. Monica was also very helpful in getting someone to come ASAP the day we called. She also advised us over the phone there was a $125 diagnostic fee which was not credited when we had them proceed with the repair. We have found the credit of this fee to be the norm in other experiences and appears to still be the norm from my online research. We didn\u2019t think to ask at the time nor was that made clear. Their website does NOT mention the diagnostics fee but does state \u201cfree  estimates\u201d??  This disconnect could easily be corrected with an update to their website that states \u201cnon refundable $125 diagnostic fee\u201d. They may also want to explain what \u201cfree estimates\u201d actually means. The invoice emailed at our request after the work was done and paid for detailed the $125 diagnostic fee but no detail on the specifics of the part or the cost or what the labor cost was. Due to all these issues, and as a matter of principle, it\u2019s unlikely we\u2019d choose P & M again.', 'ROBERT  WITH  P&M A/C WAS EXCELLENT  AND VERY PROFESSIONAL  HE TOOK CARE OF MY A/C  STOPPED UP OVERFLOW PIPE !  I HAVE USED THE SAME A/C CO. FOR 30 YEARS  BUT HE RETIRED  AND  RECOMMENDED  P&M TO ME AS HE KNOWS  MIKE THE OWNER! I TRUSTED  HIS CHOICE! IT WAS A GOOD  ONE! I WILL RECOMMENDED  THEM TO MY FRIENDS  AND FAMILY!']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/pmhvac-com/home.png",
+      "observedAt": "2026-09-22T19:47:52.164687+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Call or Text Anytime",
+      "sourceUrl": "https://pmhvac.com/hvac-services/heating-repair/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 7 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/pmhvac-com/home.png",
+      "observedAt": "2026-09-22T19:47:52.164699+00:00"
+    }
+  ],
+  "file": "pmhvac-com.json"
+}

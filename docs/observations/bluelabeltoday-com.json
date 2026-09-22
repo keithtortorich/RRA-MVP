@@ -1,0 +1,174 @@
+{
+  "rraObservations": 1,
+  "runId": "d0407f531ab54b9b870d5fa0d38b79cd",
+  "generatedAt": "2026-09-22T19:44:54.408747+00:00",
+  "target": "https://bluelabeltoday.com",
+  "company": "Blue Label Services",
+  "host": "bluelabeltoday.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://bluelabeltoday.com/",
+    "https://bluelabeltoday.com/service-area/",
+    "https://bluelabeltoday.com/service-area/hvac-cypress-tx/",
+    "https://bluelabeltoday.com/service-area/hvac-katy-tx/",
+    "https://bluelabeltoday.com/cooling/ac-installation/",
+    "https://bluelabeltoday.com/cooling/ac-maintenance/",
+    "https://bluelabeltoday.com/heating/",
+    "https://bluelabeltoday.com/heating/repair/",
+    "https://bluelabeltoday.com/heating/maintenance/",
+    "https://bluelabeltoday.com/heating/installation/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:44:54.408790+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "Booking path found: widget:housecallpro",
+      "observedAt": "2026-09-22T19:44:54.408799+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:44:54.408804+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "Homepage rendered in 1075ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:44:54.408808+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "ABSENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "SMS contact option found.",
+      "observedAt": "2026-09-22T19:44:54.408812+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:44:54.408815+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "PRESENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "No tappable phone number above the fold at 375px.",
+      "observedAt": "2026-09-22T19:44:54.408818+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "Above-fold CTA(s): Book Online; Emergency HVAC Repair",
+      "observedAt": "2026-09-22T19:44:54.408822+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T19:44:54.408828+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:44:54.408831+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:44:54.408833+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:44:54.408835+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:44:54.408837+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Emergency HVAC Repair",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:832-429-2209) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/bluelabeltoday-com/home.png",
+      "observedAt": "2026-09-22T19:44:54.408843+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency HVAC Repair",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/bluelabeltoday-com/home.png",
+      "observedAt": "2026-09-22T19:44:54.408848+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency HVAC Repair",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "expectedResult": "",
+      "agentObservation": "5 conversion link(s) resolved successfully, none returned an error. 1 link(s) could not be checked and are NOT counted as broken \u2014 verify those by hand.",
+      "evidenceReference": "docs/observations/screenshots/bluelabeltoday-com/home.png",
+      "observedAt": "2026-09-22T19:44:54.408858+00:00"
+    },
+    {
+      "checkId": "EXT-013",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency HVAC Repair",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "expectedResult": "",
+      "agentObservation": "24 service-area page(s) found, each with a conversion element.",
+      "evidenceReference": "docs/observations/screenshots/bluelabeltoday-com/home.png",
+      "observedAt": "2026-09-22T19:44:54.408867+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Emergency HVAC Repair",
+      "sourceUrl": "https://bluelabeltoday.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 6 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/bluelabeltoday-com/home.png",
+      "observedAt": "2026-09-22T19:44:54.408877+00:00"
+    }
+  ],
+  "file": "bluelabeltoday-com.json"
+}

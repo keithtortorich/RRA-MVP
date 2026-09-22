@@ -1,0 +1,153 @@
+{
+  "rraObservations": 1,
+  "runId": "cac8465228e04c2a9fa50803a00bff45",
+  "generatedAt": "2026-09-22T19:44:26.403548+00:00",
+  "target": "https://68degreeshvac.com",
+  "company": "68 Degrees HVAC",
+  "host": "68degreeshvac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://68degreeshvac.com/",
+    "https://68degreeshvac.com/contact/",
+    "https://68degreeshvac.com/services/hvac-system-installation/",
+    "https://68degreeshvac.com/services/commercial-hvac-preventative-maintenance/",
+    "https://68degreeshvac.com/services/commercial-hvac-repair/",
+    "https://68degreeshvac.com/services/commercial-indoor-air-quality/",
+    "https://68degreeshvac.com/services/commercial-air-balancing/",
+    "https://68degreeshvac.com/services/commercial-air-ventilation-systems/",
+    "https://68degreeshvac.com/services/ac-service-repair/",
+    "https://68degreeshvac.com/services/air-conditioner-installation/",
+    "https://68degreeshvac.com/services/heating-service-repair/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:44:26.403592+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:44:26.403601+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:44:26.403607+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "Homepage rendered in 1045ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:44:26.403611+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:44:26.403622+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:44:26.403626+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "PRESENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "No tappable phone number above the fold at 375px.",
+      "observedAt": "2026-09-22T19:44:26.403628+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "Above-fold CTA(s): SCHEDULE",
+      "observedAt": "2026-09-22T19:44:26.403632+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "notes": "1 of 10 inner pages under 250 words.",
+      "observedAt": "2026-09-22T19:44:26.403640+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:44:26.403643+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:44:26.403646+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:44:26.403648+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:44:26.403650+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "expectedResult": "",
+      "agentObservation": "No tel: link found on the homepage at 375px \u2014 nothing to tap on mobile.",
+      "evidenceReference": "docs/observations/screenshots/68degreeshvac-com/home.png",
+      "observedAt": "2026-09-22T19:44:26.403657+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "expectedResult": "",
+      "agentObservation": "No emergency or after-hours contact path found from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/68degreeshvac-com/home.png",
+      "observedAt": "2026-09-22T19:44:26.403661+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://68degreeshvac.com/",
+      "expectedResult": "",
+      "agentObservation": "3 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/68degreeshvac-com/home.png",
+      "observedAt": "2026-09-22T19:44:26.403670+00:00"
+    }
+  ],
+  "file": "68degreeshvac-com.json"
+}
