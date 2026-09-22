@@ -1,0 +1,185 @@
+{
+  "rraObservations": 1,
+  "runId": "1c84087f42de4d979a1bf4e458f86720",
+  "generatedAt": "2026-09-22T20:11:22.230657+00:00",
+  "target": "https://www.bigtexascomfort.com",
+  "company": "Big Texas Comfort",
+  "host": "bigtexascomfort.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.bigtexascomfort.com/",
+    "https://www.bigtexascomfort.com/about/service-area/",
+    "https://www.bigtexascomfort.com/heating-air-conditioning-products/",
+    "https://www.bigtexascomfort.com/products/heating/",
+    "https://www.bigtexascomfort.com/heating-air-conditioning-services/",
+    "https://www.bigtexascomfort.com/ac-repair-houston-tx/",
+    "https://www.bigtexascomfort.com/ac-installation-houston-tx/",
+    "https://www.bigtexascomfort.com/services/extended-warranties/",
+    "https://www.bigtexascomfort.com/services/service-agreements/",
+    "https://www.bigtexascomfort.com/about/contact-us/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:11:22.230700+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T20:11:22.230707+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:11:22.230713+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "Homepage rendered in 1576ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:11:22.230716+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:11:22.230726+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:11:22.230730+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:11:22.230732+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "Above-fold CTA(s): Request Maintenance",
+      "observedAt": "2026-09-22T20:11:22.230736+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "notes": "5 of 9 inner pages under 250 words.",
+      "observedAt": "2026-09-22T20:11:22.230742+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:11:22.230745+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:11:22.230747+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:11:22.230749+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:11:22.230751+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Emergency Service",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:8328885166) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-bigtexascomfort-com/home.png",
+      "observedAt": "2026-09-22T20:11:22.230758+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency Service",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-bigtexascomfort-com/home.png",
+      "observedAt": "2026-09-22T20:11:22.230762+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency Service",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "8 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-bigtexascomfort-com/home.png",
+      "observedAt": "2026-09-22T20:11:22.230770+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Emergency Service",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['Mo 07:00-21:00 Tu 07:00-21:00 We 07:00-21:00 Th 07:00-21:00 Fr 07:00-21:00 Sa 07:00-21:00 Su 07:00-17:00', 'Mo,Tu,We,Th,Fr,Sa 07:00-21:00']. Visible hours: ['NEED R22 REFRIGERANT?', 'MON - SAT: 7:00 AM - 9:00 PM', 'MON - SAT: 7:00 AM - 9:00 PM']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-bigtexascomfort-com/home.png",
+      "observedAt": "2026-09-22T20:11:22.230779+00:00"
+    },
+    {
+      "checkId": "EXT-013",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency Service",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "3 service-area page(s) found, each with a conversion element.",
+      "evidenceReference": "docs/observations/screenshots/www-bigtexascomfort-com/home.png",
+      "observedAt": "2026-09-22T20:11:22.230787+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Emergency Service",
+      "sourceUrl": "https://www.bigtexascomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 7 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-bigtexascomfort-com/home.png",
+      "observedAt": "2026-09-22T20:11:22.230796+00:00"
+    }
+  ],
+  "file": "www-bigtexascomfort-com.json"
+}

@@ -1,0 +1,165 @@
+{
+  "rraObservations": 1,
+  "runId": "67050f9d14b74607b4a74abb19ecf5cb",
+  "generatedAt": "2026-09-22T20:08:48.551924+00:00",
+  "target": "https://aircityacandheating.com",
+  "company": "Air City AC and Heating",
+  "host": "aircityacandheating.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://aircityacandheating.com/",
+    "https://aircityacandheating.com/heating/",
+    "https://aircityacandheating.com/service-areas/",
+    "https://aircityacandheating.com/ac-repair-houston-tx/",
+    "https://aircityacandheating.com/ac-repair-cypress-tx/",
+    "https://aircityacandheating.com/ac-repair-katy-tx/",
+    "https://aircityacandheating.com/ac-repair-jersey-village-tx/",
+    "https://aircityacandheating.com/ac-repair-spring-tx/",
+    "https://aircityacandheating.com/ac-repair-energy-corridor/",
+    "https://aircityacandheating.com/ac-repair-memorial-houston-tx/",
+    "https://aircityacandheating.com/ac-repair-cinco-ranch-katy-tx/",
+    "https://aircityacandheating.com/ac-repair-sugarland-tx/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:08:48.551969+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "Booking path found: https://customer.dispatch.me/booking?account_id=37&org_id=1650638, https://aircityacandheating.com/schedule-service/",
+      "observedAt": "2026-09-22T20:08:48.551981+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:08:48.551986+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "Homepage rendered in 3791ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:08:48.551990+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:08:48.552002+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:08:48.552006+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:08:48.552008+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "Above-fold CTA(s): Call Now: 713-804-7005; Schedule Services Online",
+      "observedAt": "2026-09-22T20:08:48.552012+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T20:08:48.552018+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:08:48.552021+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:08:48.552023+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:08:48.552025+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:08:48.552027+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Houston\u2019s Trusted 24/7 Air Conditioning & Heating Experts Serving All Surrounding Areas",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:713-804-7005) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/aircityacandheating-com/home.png",
+      "observedAt": "2026-09-22T20:08:48.552034+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Houston\u2019s Trusted 24/7 Air Conditioning & Heating Experts Serving All Surrounding Areas",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/aircityacandheating-com/home.png",
+      "observedAt": "2026-09-22T20:08:48.552037+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Houston\u2019s Trusted 24/7 Air Conditioning & Heating Experts Serving All Surrounding Areas",
+      "sourceUrl": "https://aircityacandheating.com/",
+      "expectedResult": "",
+      "agentObservation": "7 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/aircityacandheating-com/home.png",
+      "observedAt": "2026-09-22T20:08:48.552046+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Houston\u2019s Trusted 24/7 Air Conditioning & Heating Experts Serving All Surrounding Areas",
+      "sourceUrl": "https://aircityacandheating.com/heating/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 6 field(s), 3 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/aircityacandheating-com/home.png",
+      "observedAt": "2026-09-22T20:08:48.552060+00:00"
+    }
+  ],
+  "file": "aircityacandheating-com.json"
+}

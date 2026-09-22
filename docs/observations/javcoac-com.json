@@ -1,0 +1,20 @@
+{
+  "rraObservations": 1,
+  "runId": "c0b81d45c0eb45ba9c06613c5058a1c4",
+  "generatedAt": "2026-09-22T20:08:50.530395+00:00",
+  "target": "https://javcoac.com",
+  "company": "JAVCO Air Conditioning & Heating",
+  "host": "javcoac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [],
+  "errors": [
+    {
+      "url": "https://javcoac.com",
+      "error": "Page.goto: net::ERR_HTTP2_PROTOCOL_ERROR at https://javcoac.com/\nCall log:\n  - navigating to \"https://javcoac.com/\", waiting until \"domcontentloaded\"\n"
+    }
+  ],
+  "signals": [],
+  "draftTests": [],
+  "file": "javcoac-com.json"
+}

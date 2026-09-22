@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T20:07:43.407967+00:00",
+  "generatedAt": "2026-09-22T20:13:07.911588+00:00",
   "runs": [
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
@@ -21,6 +21,16 @@
       "file": "68degreeshvac-com.json",
       "signalCount": 9,
       "draftCount": 3
+    },
+    {
+      "runId": "96a3cd6a2d24473fac462cac846b824f",
+      "company": "75 Degree AC",
+      "host": "75degreeac.com",
+      "target": "https://75degreeac.com",
+      "generatedAt": "2026-09-22T20:09:58.919714+00:00",
+      "file": "75degreeac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     },
     {
       "runId": "d29b74d5b8c8439193d38fe5490c238a",
@@ -83,6 +93,16 @@
       "draftCount": 6
     },
     {
+      "runId": "67050f9d14b74607b4a74abb19ecf5cb",
+      "company": "Air City AC and Heating",
+      "host": "aircityacandheating.com",
+      "target": "https://aircityacandheating.com",
+      "generatedAt": "2026-09-22T20:08:48.551924+00:00",
+      "file": "aircityacandheating-com.json",
+      "signalCount": 9,
+      "draftCount": 4
+    },
+    {
       "runId": "6f1a52f4af814412b6211fdd3e34509a",
       "company": "Air Depot Cooling & Heating",
       "host": "airdepot.com",
@@ -141,6 +161,16 @@
       "file": "www-aircaresoutheast-com.json",
       "signalCount": 8,
       "draftCount": 2
+    },
+    {
+      "runId": "eab7660c429947c08c155c2efe615f5d",
+      "company": "Airchampion Air Conditioning",
+      "host": "airchampion.com",
+      "target": "https://www.airchampion.com",
+      "generatedAt": "2026-09-22T20:07:59.330575+00:00",
+      "file": "www-airchampion-com.json",
+      "signalCount": 9,
+      "draftCount": 3
     },
     {
       "runId": "083689cf346e49a589a3f7fb3d83ab0c",
@@ -253,6 +283,16 @@
       "draftCount": 5
     },
     {
+      "runId": "1c84087f42de4d979a1bf4e458f86720",
+      "company": "Big Texas Comfort",
+      "host": "bigtexascomfort.com",
+      "target": "https://www.bigtexascomfort.com",
+      "generatedAt": "2026-09-22T20:11:22.230657+00:00",
+      "file": "www-bigtexascomfort-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
       "runId": "4ceed959549f455a9502460eea81acf0",
       "company": "Bill Anderson Air",
       "host": "billandersonair.com",
@@ -281,6 +321,16 @@
       "file": "bradburybrothers-com.json",
       "signalCount": 9,
       "draftCount": 6
+    },
+    {
+      "runId": "ad5e506e73f14fb2b5e667d1d00faa4d",
+      "company": "Brown Air Conditioning & Heating",
+      "host": "brownairandheat.com",
+      "target": "https://brownairandheat.com",
+      "generatedAt": "2026-09-22T20:11:56.278106+00:00",
+      "file": "brownairandheat-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     },
     {
       "runId": "57912b9490144ee0baf09fbc2e2b977e",
@@ -443,6 +493,16 @@
       "draftCount": 5
     },
     {
+      "runId": "41630289eff64083a3d1b97a69b725a1",
+      "company": "Guy's Air Conditioning & Heating",
+      "host": "guysac.com",
+      "target": "https://www.guysac.com",
+      "generatedAt": "2026-09-22T20:13:07.910979+00:00",
+      "file": "www-guysac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "3ae4f902e6be412fbacf599f7d3e5bb9",
       "company": "Hal Watson Air Conditioning",
       "host": "halwatsonac.com",
@@ -461,6 +521,16 @@
       "file": "www-heightsacandheating-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "c0b81d45c0eb45ba9c06613c5058a1c4",
+      "company": "JAVCO Air Conditioning & Heating",
+      "host": "javcoac.com",
+      "target": "https://javcoac.com",
+      "generatedAt": "2026-09-22T20:08:50.530395+00:00",
+      "file": "javcoac-com.json",
+      "signalCount": 0,
+      "draftCount": 0
     },
     {
       "runId": "27a35d6031cd402b82d771376138bd0c",
@@ -499,6 +569,16 @@
       "target": "https://lonestarhvaccompany.com",
       "generatedAt": "2026-09-22T19:39:30.206135+00:00",
       "file": "lonestarhvaccompany-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "4bf81b77bbe940e49950c9fc8df6b428",
+      "company": "LoneStar Heating and Cooling",
+      "host": "lonestarheatingandcooling.com",
+      "target": "https://lonestarheatingandcooling.com",
+      "generatedAt": "2026-09-22T20:10:49.083777+00:00",
+      "file": "lonestarheatingandcooling-com.json",
       "signalCount": 9,
       "draftCount": 5
     },
@@ -763,6 +843,16 @@
       "draftCount": 5
     },
     {
+      "runId": "010b85c9a251404593e18b567ffa2caf",
+      "company": "TwinStar Air Conditioning & Heating",
+      "host": "twinstarac.com",
+      "target": "https://twinstarac.com",
+      "generatedAt": "2026-09-22T20:12:26.540771+00:00",
+      "file": "twinstarac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "f9171c4a6ac7409c87545463d1d0eeb1",
       "company": "Vance Air & Heat",
       "host": "vanceairandheat.com",
@@ -781,6 +871,16 @@
       "file": "weissacandheat-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "385119be8a5346d8a8e8c94864ff6c00",
+      "company": "Westair Air Conditioning and Heating",
+      "host": "westairac.com",
+      "target": "https://www.westairac.com",
+      "generatedAt": "2026-09-22T20:09:26.639617+00:00",
+      "file": "www-westairac-com.json",
+      "signalCount": 9,
+      "draftCount": 4
     }
   ],
   "skipped": [

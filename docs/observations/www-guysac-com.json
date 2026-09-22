@@ -1,0 +1,176 @@
+{
+  "rraObservations": 1,
+  "runId": "41630289eff64083a3d1b97a69b725a1",
+  "generatedAt": "2026-09-22T20:13:07.910979+00:00",
+  "target": "https://www.guysac.com",
+  "company": "Guy's Air Conditioning & Heating",
+  "host": "guysac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.guysac.com/",
+    "https://www.guysac.com/about/service-areas/",
+    "https://www.guysac.com/about/heating-faqs/",
+    "https://www.guysac.com/services/",
+    "https://www.guysac.com/services/cooling/",
+    "https://www.guysac.com/services/heating/",
+    "https://www.guysac.com/heating-installation/",
+    "https://www.guysac.com/heating-maintenance/",
+    "https://www.guysac.com/heating-repair/",
+    "https://www.guysac.com/services/commercial/",
+    "https://www.guysac.com/services/indoor-air-quality/",
+    "https://www.guysac.com/services/filters/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:13:07.911021+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "Booking path found: https://www.guysac.com/about/hvac-ebooks/, https://www.guysac.com/about/hvac-ebooks/",
+      "observedAt": "2026-09-22T20:13:07.911029+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:13:07.911033+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "Homepage rendered in 1083ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:13:07.911037+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:13:07.911054+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:13:07.911058+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:13:07.911060+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "Above-fold CTA(s): HVAC eBooks",
+      "observedAt": "2026-09-22T20:13:07.911063+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.guysac.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T20:13:07.911069+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:13:07.911071+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:13:07.911074+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:13:07.911076+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:13:07.911077+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "24 Hour Emergency HVAC Service New Caney, TX",
+      "sourceUrl": "https://www.guysac.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+1-281-306-9875) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-guysac-com/home.png",
+      "observedAt": "2026-09-22T20:13:07.911083+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24 Hour Emergency HVAC Service New Caney, TX",
+      "sourceUrl": "https://www.guysac.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-guysac-com/home.png",
+      "observedAt": "2026-09-22T20:13:07.911087+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24 Hour Emergency HVAC Service New Caney, TX",
+      "sourceUrl": "https://www.guysac.com/",
+      "expectedResult": "",
+      "agentObservation": "5 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-guysac-com/home.png",
+      "observedAt": "2026-09-22T20:13:07.911095+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "24 Hour Emergency HVAC Service New Caney, TX",
+      "sourceUrl": "https://www.guysac.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: none. Visible hours: ['0% APR for 60 Months*', 'Contact our installation specialists and we\u2019ll help you find the best unit for your home\u2019s size and temperature requirements. You can even start saving money right away by purchasing a newer, more energy efficient unit from Guy\u2019s Air Conditioning and Heating! With our 24/7 emergency AC repair services, we are standing by to take your call and take care of all your indoor comfort needs.', '8:00AM \u2013 5:00PM (Mon-Fri)']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-guysac-com/home.png",
+      "observedAt": "2026-09-22T20:13:07.911106+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "24 Hour Emergency HVAC Service New Caney, TX",
+      "sourceUrl": "https://www.guysac.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 10 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-guysac-com/home.png",
+      "observedAt": "2026-09-22T20:13:07.911116+00:00"
+    }
+  ],
+  "file": "www-guysac-com.json"
+}
