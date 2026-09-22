@@ -1,0 +1,171 @@
+{
+  "rraObservations": 1,
+  "runId": "65f60dcbd5d14cf2b409030710f35969",
+  "generatedAt": "2026-09-22T19:52:00.371853+00:00",
+  "target": "https://www.coolcomfortsolutions.com",
+  "company": "Cool Comfort Solutions",
+  "host": "coolcomfortsolutions.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.coolcomfortsolutions.com/",
+    "https://www.coolcomfortsolutions.com/ac-repair",
+    "https://www.coolcomfortsolutions.com/ac-replacement",
+    "https://www.coolcomfortsolutions.com/ac-maintenance",
+    "https://www.coolcomfortsolutions.com/contact",
+    "https://www.coolcomfortsolutions.com/heating-service",
+    "https://www.coolcomfortsolutions.com/ac-service"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:52:00.371891+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "Booking path found: https://www.coolcomfortsolutions.com/schedule, https://www.coolcomfortsolutions.com/schedule",
+      "observedAt": "2026-09-22T19:52:00.371899+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:52:00.371903+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "Homepage rendered in 2290ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:52:00.371907+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:52:00.371915+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:52:00.371918+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:52:00.371921+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "Above-fold CTA(s): SCHEDULE SERVICE; SCHEDULE SERVICE",
+      "observedAt": "2026-09-22T19:52:00.371924+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "notes": "1 of 6 inner pages under 250 words.",
+      "observedAt": "2026-09-22T19:52:00.371930+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:52:00.371932+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:52:00.371934+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:52:00.371936+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:52:00.371938+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "EMERGENCY SERVICE AVAILABLE",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:8327792665) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-coolcomfortsolutions-com/home.png",
+      "observedAt": "2026-09-22T19:52:00.371944+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "EMERGENCY SERVICE AVAILABLE",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-coolcomfortsolutions-com/home.png",
+      "observedAt": "2026-09-22T19:52:00.371948+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "EMERGENCY SERVICE AVAILABLE",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "6 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-coolcomfortsolutions-com/home.png",
+      "observedAt": "2026-09-22T19:52:00.371956+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "EMERGENCY SERVICE AVAILABLE",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['Mo 08:00-20:00', 'Tu 08:00-20:00', 'We 08:00-20:00', 'Th 08:00-20:00', 'Fr 08:00-20:00', 'Sa 08:00-20:00']. Visible hours: ['Mont Belvieu\u2019s #1 cooling contractor.', \"In our 12 years of working on furnaces, ACs, and heat pumps, we've come to understand the quirks of almost every HVAC brand. This allows us to quickly diagnose your problem without having to schedule return visit after return visit. If there's ever a situation where our services do not meet your standards, we stand by our work with a comprehensive satisfaction guarantee. Call (832) 779-2665 to schedule service with Baytown\u2019s go-to HVAC Company.\"]. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-coolcomfortsolutions-com/home.png",
+      "observedAt": "2026-09-22T19:52:00.371972+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "EMERGENCY SERVICE AVAILABLE",
+      "sourceUrl": "https://www.coolcomfortsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 7 field(s), 4 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-coolcomfortsolutions-com/home.png",
+      "observedAt": "2026-09-22T19:52:00.371981+00:00"
+    }
+  ],
+  "file": "www-coolcomfortsolutions-com.json"
+}

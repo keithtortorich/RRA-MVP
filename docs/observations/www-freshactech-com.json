@@ -1,0 +1,158 @@
+{
+  "rraObservations": 1,
+  "runId": "11fe5fb1611a40e2aa6e24eb0fb5bb5c",
+  "generatedAt": "2026-09-22T19:49:29.952025+00:00",
+  "target": "http://www.freshactech.com",
+  "company": "Fresh Tech AC",
+  "host": "freshactech.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "http://www.freshactech.com/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.freshactech.com/",
+      "notes": "Chat widget detected: podium.com.",
+      "observedAt": "2026-09-22T19:49:29.952064+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.freshactech.com/",
+      "notes": "Booking path found: widget:housecallpro, https://book.housecallpro.com/book/Fresh-AC-Tech-LLC/e555c82b563f4383861f609aee94ffd3",
+      "observedAt": "2026-09-22T19:49:29.952071+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.freshactech.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:49:29.952076+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.freshactech.com/",
+      "notes": "Homepage rendered in 1271ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:49:29.952079+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "http://www.freshactech.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:49:29.952084+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.freshactech.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:49:29.952088+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.freshactech.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:49:29.952091+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.freshactech.com/",
+      "notes": "Above-fold CTA(s): SCHEDULE SERVICE; CALL NOW (713) 550-6755; Request Service \u2192",
+      "observedAt": "2026-09-22T19:49:29.952094+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:49:29.952097+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:49:29.952100+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:49:29.952102+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:49:29.952103+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Often Same\u2011Day \u00b7 call early",
+      "sourceUrl": "http://www.freshactech.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+17135506755) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-freshactech-com/home.png",
+      "observedAt": "2026-09-22T19:49:29.952110+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Often Same\u2011Day \u00b7 call early",
+      "sourceUrl": "http://www.freshactech.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-freshactech-com/home.png",
+      "observedAt": "2026-09-22T19:49:29.952113+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Often Same\u2011Day \u00b7 call early",
+      "sourceUrl": "http://www.freshactech.com/",
+      "expectedResult": "",
+      "agentObservation": "5 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-freshactech-com/home.png",
+      "observedAt": "2026-09-22T19:49:29.952119+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Often Same\u2011Day \u00b7 call early",
+      "sourceUrl": "http://www.freshactech.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: none. Visible hours: ['Same-day common \u00b7 call before 12pm', 'Equivalent to $18.75/month when broken down annually. Paid in full at signup.', 'Reward issued after your friend\u2019s first paid service is completed. One reward per referred household. Questions? Call (713) 550-6755.']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-freshactech-com/home.png",
+      "observedAt": "2026-09-22T19:49:29.952134+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Often Same\u2011Day \u00b7 call early",
+      "sourceUrl": "http://www.freshactech.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 7 field(s), 4 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-freshactech-com/home.png",
+      "observedAt": "2026-09-22T19:49:29.952144+00:00"
+    }
+  ],
+  "file": "www-freshactech-com.json"
+}

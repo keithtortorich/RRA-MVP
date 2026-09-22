@@ -1,0 +1,186 @@
+{
+  "rraObservations": 1,
+  "runId": "7cb1b9dbb14745be84f48d0d0b6e82aa",
+  "generatedAt": "2026-09-22T19:48:40.195576+00:00",
+  "target": "https://www.masterair.com",
+  "company": "Master Air Inc",
+  "host": "masterair.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.masterair.com/",
+    "https://www.masterair.com/about/service-area/",
+    "https://www.masterair.com/heating-air-conditioning-products/",
+    "https://www.masterair.com/products/heating/",
+    "https://www.masterair.com/heating-air-conditioning-services/",
+    "https://www.masterair.com/services/new-installation/",
+    "https://www.masterair.com/services/upgrade-replacement/",
+    "https://www.masterair.com/services/indoor-air-quality-specialists/",
+    "https://www.masterair.com/services/service-agreements/",
+    "https://www.masterair.com/services/extended-warranties/",
+    "https://www.masterair.com/services/commercial-hvac/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "Chat widget detected: podium.com.",
+      "observedAt": "2026-09-22T19:48:40.195622+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:48:40.195631+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:48:40.195636+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "Homepage rendered in 1534ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:48:40.195640+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:48:40.195651+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:48:40.195656+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:48:40.195659+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T19:48:40.195661+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.masterair.com/",
+      "notes": "3 of 10 inner pages under 250 words.",
+      "observedAt": "2026-09-22T19:48:40.195669+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:48:40.195672+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:48:40.195674+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:48:40.195676+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:48:40.195678+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.masterair.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:2814853231) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-masterair-com/home.png",
+      "observedAt": "2026-09-22T19:48:40.195686+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.masterair.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-masterair-com/home.png",
+      "observedAt": "2026-09-22T19:48:40.195690+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.masterair.com/",
+      "expectedResult": "",
+      "agentObservation": "6 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-masterair-com/home.png",
+      "observedAt": "2026-09-22T19:48:40.195700+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "",
+      "sourceUrl": "https://www.masterair.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['Mo,Tu,We,Th,Fr 08:00-17:00']. Visible hours: ['Mon - Fri: 8:00 AM - 5:00 PM']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-masterair-com/home.png",
+      "observedAt": "2026-09-22T19:48:40.195710+00:00"
+    },
+    {
+      "checkId": "EXT-013",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.masterair.com/",
+      "expectedResult": "",
+      "agentObservation": "3 service-area page(s) found, each with a conversion element.",
+      "evidenceReference": "docs/observations/screenshots/www-masterair-com/home.png",
+      "observedAt": "2026-09-22T19:48:40.195716+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "",
+      "sourceUrl": "https://www.masterair.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 7 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-masterair-com/home.png",
+      "observedAt": "2026-09-22T19:48:40.195725+00:00"
+    }
+  ],
+  "file": "www-masterair-com.json"
+}

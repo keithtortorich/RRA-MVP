@@ -1,0 +1,20 @@
+{
+  "rraObservations": 1,
+  "runId": "cb62021187c8472c8d628b52cdb064a4",
+  "generatedAt": "2026-09-22T19:48:42.389777+00:00",
+  "target": "https://swattx.com",
+  "company": "SWAT A/C & Heat",
+  "host": "swattx.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [],
+  "errors": [
+    {
+      "url": "https://swattx.com",
+      "error": "Page.goto: net::ERR_CONNECTION_CLOSED at https://swattx.com/\nCall log:\n  - navigating to \"https://swattx.com/\", waiting until \"domcontentloaded\"\n"
+    }
+  ],
+  "signals": [],
+  "draftTests": [],
+  "file": "swattx-com.json"
+}

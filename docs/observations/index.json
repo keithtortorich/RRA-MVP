@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T19:48:03.964171+00:00",
+  "generatedAt": "2026-09-22T19:52:13.857089+00:00",
   "runs": [
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
@@ -59,6 +59,16 @@
       "target": "https://www.airspecialist.com",
       "generatedAt": "2026-09-22T19:42:36.650116+00:00",
       "file": "www-airspecialist-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
+      "runId": "3654b452f02640a0a84b457ba8c949b7",
+      "company": "Air of Houston Services",
+      "host": "airofhouston.com",
+      "target": "https://www.airofhouston.com",
+      "generatedAt": "2026-09-22T19:50:02.200524+00:00",
+      "file": "www-airofhouston-com.json",
       "signalCount": 9,
       "draftCount": 6
     },
@@ -123,6 +133,16 @@
       "draftCount": 6
     },
     {
+      "runId": "57912b9490144ee0baf09fbc2e2b977e",
+      "company": "Bruce Mechanical AC & Heating",
+      "host": "brucemechanicalhvac.com",
+      "target": "https://brucemechanicalhvac.com",
+      "generatedAt": "2026-09-22T19:49:24.136788+00:00",
+      "file": "brucemechanicalhvac-com.json",
+      "signalCount": 9,
+      "draftCount": 4
+    },
+    {
       "runId": "7b3c99e3a4994e138e2274814bd4940f",
       "company": "Castle Air Conditioning & Heating",
       "host": "castleacandheating.com",
@@ -131,6 +151,16 @@
       "file": "castleacandheating-com.json",
       "signalCount": 9,
       "draftCount": 4
+    },
+    {
+      "runId": "017c1c939f1d42e5a55656352e4f90ca",
+      "company": "Certified Comfort AC & Heating",
+      "host": "certifiedcomfortacheating.com",
+      "target": "https://certifiedcomfortacheating.com",
+      "generatedAt": "2026-09-22T19:50:45.372951+00:00",
+      "file": "certifiedcomfortacheating-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     },
     {
       "runId": "8ae7302f1757487eaf3d675fb97075dc",
@@ -143,6 +173,16 @@
       "draftCount": 3
     },
     {
+      "runId": "65f60dcbd5d14cf2b409030710f35969",
+      "company": "Cool Comfort Solutions",
+      "host": "coolcomfortsolutions.com",
+      "target": "https://www.coolcomfortsolutions.com",
+      "generatedAt": "2026-09-22T19:52:00.371853+00:00",
+      "file": "www-coolcomfortsolutions-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "7d1c0ae6178b43e4823f46aa817684b1",
       "company": "Custom Comfort Air",
       "host": "customcomfortair.com",
@@ -151,6 +191,16 @@
       "file": "customcomfortair-com.json",
       "signalCount": 9,
       "draftCount": 6
+    },
+    {
+      "runId": "b20b8177abd94521b7e16fe78890619b",
+      "company": "D & D Climate Control",
+      "host": "ddclimatecontrol.com",
+      "target": "https://www.ddclimatecontrol.com",
+      "generatedAt": "2026-09-22T19:52:13.856576+00:00",
+      "file": "www-ddclimatecontrol-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     },
     {
       "runId": "a63f52d884784b33953b30095cbf59c7",
@@ -171,6 +221,26 @@
       "file": "www-exodusmechanical-com.json",
       "signalCount": 9,
       "draftCount": 6
+    },
+    {
+      "runId": "4c04bd0d5486461e99f9b3b311729a89",
+      "company": "Expert Air Cooling & Heating",
+      "host": "expertairco.com",
+      "target": "https://expertairco.com",
+      "generatedAt": "2026-09-22T19:51:17.316546+00:00",
+      "file": "expertairco-com.json",
+      "signalCount": 9,
+      "draftCount": 4
+    },
+    {
+      "runId": "11fe5fb1611a40e2aa6e24eb0fb5bb5c",
+      "company": "Fresh Tech AC",
+      "host": "freshactech.com",
+      "target": "http://www.freshactech.com",
+      "generatedAt": "2026-09-22T19:49:29.952025+00:00",
+      "file": "www-freshactech-com.json",
+      "signalCount": 8,
+      "draftCount": 5
     },
     {
       "runId": "3ae4f902e6be412fbacf599f7d3e5bb9",
@@ -213,6 +283,16 @@
       "draftCount": 5
     },
     {
+      "runId": "7cb1b9dbb14745be84f48d0d0b6e82aa",
+      "company": "Master Air Inc",
+      "host": "masterair.com",
+      "target": "https://www.masterair.com",
+      "generatedAt": "2026-09-22T19:48:40.195576+00:00",
+      "file": "www-masterair-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
       "runId": "43d66abe7c10407e8efa6a80ed3bba51",
       "company": "McWilliams Heating Cooling and Plumbing",
       "host": "mcwilliamsandson.com",
@@ -221,6 +301,16 @@
       "file": "www-mcwilliamsandson-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "9962572a241e4ff7a987273044010f44",
+      "company": "Mission Air Conditioning & Plumbing",
+      "host": "missionac.com",
+      "target": "https://www.missionac.com",
+      "generatedAt": "2026-09-22T19:50:33.675544+00:00",
+      "file": "www-missionac-com.json",
+      "signalCount": 9,
+      "draftCount": 6
     },
     {
       "runId": "68ca50f209ff420283a2487ac080ce0c",
@@ -241,6 +331,16 @@
       "file": "pmhvac-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "cb62021187c8472c8d628b52cdb064a4",
+      "company": "SWAT A/C & Heat",
+      "host": "swattx.com",
+      "target": "https://swattx.com",
+      "generatedAt": "2026-09-22T19:48:42.389777+00:00",
+      "file": "swattx-com.json",
+      "signalCount": 0,
+      "draftCount": 0
     },
     {
       "runId": "4c97bf56d9ba49bf91ef5607a2b965b2",

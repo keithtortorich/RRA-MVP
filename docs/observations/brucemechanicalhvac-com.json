@@ -1,0 +1,165 @@
+{
+  "rraObservations": 1,
+  "runId": "57912b9490144ee0baf09fbc2e2b977e",
+  "generatedAt": "2026-09-22T19:49:24.136788+00:00",
+  "target": "https://brucemechanicalhvac.com",
+  "company": "Bruce Mechanical AC & Heating",
+  "host": "brucemechanicalhvac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://brucemechanicalhvac.com/",
+    "https://brucemechanicalhvac.com/services/air-conditioning/repair",
+    "https://brucemechanicalhvac.com/services/air-conditioning/installation",
+    "https://brucemechanicalhvac.com/services/heating-repair",
+    "https://brucemechanicalhvac.com/services/heating/installation",
+    "https://brucemechanicalhvac.com/heating-maintenance",
+    "https://brucemechanicalhvac.com/heating-services",
+    "https://brucemechanicalhvac.com/services/indoor-air-quality",
+    "https://brucemechanicalhvac.com/services/commercial-hvac",
+    "https://brucemechanicalhvac.com/services/new-residential-construction",
+    "https://brucemechanicalhvac.com/service-areas",
+    "https://brucemechanicalhvac.com/heating-services-cypress-tx"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:49:24.136835+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:49:24.136843+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:49:24.136849+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "Homepage rendered in 1231ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:49:24.136853+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:49:24.136865+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:49:24.136869+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:49:24.136872+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T19:49:24.136875+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "notes": "1 of 11 inner pages under 250 words.",
+      "observedAt": "2026-09-22T19:49:24.136882+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:49:24.136885+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:49:24.136887+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:49:24.136889+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:49:24.136891+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "24/7 Emergency Services",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+18325538251) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/brucemechanicalhvac-com/home.png",
+      "observedAt": "2026-09-22T19:49:24.136898+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24/7 Emergency Services",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/brucemechanicalhvac-com/home.png",
+      "observedAt": "2026-09-22T19:49:24.136902+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24/7 Emergency Services",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "5 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/brucemechanicalhvac-com/home.png",
+      "observedAt": "2026-09-22T19:49:24.136909+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "24/7 Emergency Services",
+      "sourceUrl": "https://brucemechanicalhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 11 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/brucemechanicalhvac-com/home.png",
+      "observedAt": "2026-09-22T19:49:24.136922+00:00"
+    }
+  ],
+  "file": "brucemechanicalhvac-com.json"
+}
