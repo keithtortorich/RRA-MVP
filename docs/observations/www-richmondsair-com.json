@@ -1,0 +1,20 @@
+{
+  "rraObservations": 1,
+  "runId": "e33931f402584b4394e84911b692b88f",
+  "generatedAt": "2026-09-22T20:00:15.751680+00:00",
+  "target": "https://www.richmondsair.com",
+  "company": "Richmond's Air",
+  "host": "richmondsair.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [],
+  "errors": [
+    {
+      "url": "https://www.richmondsair.com",
+      "error": "disallowed by robots.txt"
+    }
+  ],
+  "signals": [],
+  "draftTests": [],
+  "file": "www-richmondsair-com.json"
+}

@@ -1,0 +1,170 @@
+{
+  "rraObservations": 1,
+  "runId": "b2f1ff070c734719b05fdd6aeb143dae",
+  "generatedAt": "2026-09-22T19:58:37.239050+00:00",
+  "target": "https://www.tomsqualitycomfort.com",
+  "company": "Tom's Quality Comfort Air & Heat",
+  "host": "tomsqualitycomfort.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.tomsqualitycomfort.com/",
+    "https://www.tomsqualitycomfort.com/ac-installation",
+    "https://www.tomsqualitycomfort.com/ac-maintenance-service",
+    "https://www.tomsqualitycomfort.com/ac-repairs-replacement",
+    "https://www.tomsqualitycomfort.com/heating-services",
+    "https://www.tomsqualitycomfort.com/contact"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:58:37.239095+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:58:37.239102+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "No financing or payment-plan option visible.",
+      "observedAt": "2026-09-22T19:58:37.239107+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "Homepage rendered in 1880ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:58:37.239111+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "SMS contact option found.",
+      "observedAt": "2026-09-22T19:58:37.239117+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:58:37.239120+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:58:37.239123+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T19:58:37.239125+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T19:58:37.239130+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:58:37.239133+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:58:37.239135+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:58:37.239138+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:58:37.239140+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Same Day Services Available",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:(281) 612-1016) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-tomsqualitycomfort-com/home.png",
+      "observedAt": "2026-09-22T19:58:37.239147+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Same Day Services Available",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-tomsqualitycomfort-com/home.png",
+      "observedAt": "2026-09-22T19:58:37.239150+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Same Day Services Available",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "8 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-tomsqualitycomfort-com/home.png",
+      "observedAt": "2026-09-22T19:58:37.239159+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Same Day Services Available",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"08:00\",\"closes\":\"17:00\"}', '{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Saturday\",\"Sunday\"],\"opens\":\"08:00\",\"closes\":\"16:00\"}']. Visible hours: none. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-tomsqualitycomfort-com/home.png",
+      "observedAt": "2026-09-22T19:58:37.239169+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Same Day Services Available",
+      "sourceUrl": "https://www.tomsqualitycomfort.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 4 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-tomsqualitycomfort-com/home.png",
+      "observedAt": "2026-09-22T19:58:37.239179+00:00"
+    }
+  ],
+  "file": "www-tomsqualitycomfort-com.json"
+}

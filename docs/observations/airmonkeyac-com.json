@@ -1,0 +1,182 @@
+{
+  "rraObservations": 1,
+  "runId": "b29a9a73b3be46cab1b316c262bf353b",
+  "generatedAt": "2026-09-22T19:57:53.159418+00:00",
+  "target": "https://airmonkeyac.com",
+  "company": "Air Monkey",
+  "host": "airmonkeyac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://airmonkeyac.com/",
+    "https://airmonkeyac.com/areas-we-serve/",
+    "https://airmonkeyac.com/ac-services-tomball-tx/",
+    "https://airmonkeyac.com/ac-installation-replacement-tomball-tx/",
+    "https://airmonkeyac.com/ac-repair-tomball-tx/",
+    "https://airmonkeyac.com/heating-services-tomball-tx/",
+    "https://airmonkeyac.com/contact/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:57:53.159459+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:57:53.159467+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:57:53.159473+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "Homepage rendered in 1438ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:57:53.159477+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "ABSENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "SMS contact option found.",
+      "observedAt": "2026-09-22T19:57:53.159481+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:57:53.159484+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:57:53.159487+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "Above-fold CTA(s): REQUEST SERVICE CALL; REQUEST A SERVICE CALL",
+      "observedAt": "2026-09-22T19:57:53.159491+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T19:57:53.159496+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:57:53.159499+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:57:53.159501+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:57:53.159503+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:57:53.159505+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:281-758-8200) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/airmonkeyac-com/home.png",
+      "observedAt": "2026-09-22T19:57:53.159512+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/airmonkeyac-com/home.png",
+      "observedAt": "2026-09-22T19:57:53.159516+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "expectedResult": "",
+      "agentObservation": "5 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/airmonkeyac-com/home.png",
+      "observedAt": "2026-09-22T19:57:53.159524+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['Mon-Fr 8:00-17:00 Sat 8:00-12:00']. Visible hours: ['If you\u2019re looking for the best AC Company in Tomball, TX, and the surrounding area, give the team at Air Monkey a call now at 281-758-8200.', 'The team at Air Monkey Air Conditioning & Heating is standing by to return comfort to your home.\\xa0 Complete the form below or give us a call directly at 281-758-8200 to speak with one of our HVAC specialists.', 'Made emergency call with broken AC in 100\u00ba weather. A tech arrived within an hour. Clean, friendly. Had all parts on hand. Diagnosed and fixed the issue within 20 mins.', 'Air Monkey saved the day today!! They were so kind to squeeze us in during the HOTTEST week of the year! Came super FAST. Our technician Colby texted me when he arrived which didn\u2019t disturb our crazy barking dogs - an extra unexpected bonus! He was able to diagnose and fix the problem and be back at my front door in just 20 minutes!!! Amazing service - highly recommend.', '2 months ago', 'We are happy with the service that Cole has given us . We have him check system every 6 months ,we also purchased system from Air Monkey,. Very nice people to deal with THANKS!', '2 months ago', '2 months ago']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/airmonkeyac-com/home.png",
+      "observedAt": "2026-09-22T19:57:53.159550+00:00"
+    },
+    {
+      "checkId": "EXT-013",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "expectedResult": "",
+      "agentObservation": "4 service-area page(s) found, each with a conversion element.",
+      "evidenceReference": "docs/observations/screenshots/airmonkeyac-com/home.png",
+      "observedAt": "2026-09-22T19:57:53.159557+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "",
+      "sourceUrl": "https://airmonkeyac.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 9 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/airmonkeyac-com/home.png",
+      "observedAt": "2026-09-22T19:57:53.159567+00:00"
+    }
+  ],
+  "file": "airmonkeyac-com.json"
+}

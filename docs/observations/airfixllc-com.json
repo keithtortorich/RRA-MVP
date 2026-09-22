@@ -1,0 +1,125 @@
+{
+  "rraObservations": 1,
+  "runId": "083689cf346e49a589a3f7fb3d83ab0c",
+  "generatedAt": "2026-09-22T19:57:32.499566+00:00",
+  "target": "https://airfixllc.com",
+  "company": "Airfix LLC",
+  "host": "airfixllc.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:57:32.499603+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:57:32.499610+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "PRESENT",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "notes": "No financing or payment-plan option visible.",
+      "observedAt": "2026-09-22T19:57:32.499614+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "notes": "Homepage rendered in 801ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:57:32.499618+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:57:32.499624+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "PRESENT",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "notes": "No pricing guidance found on public pages.",
+      "observedAt": "2026-09-22T19:57:32.499627+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "PRESENT",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "notes": "No tappable phone number above the fold at 375px.",
+      "observedAt": "2026-09-22T19:57:32.499629+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T19:57:32.499632+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:57:32.499635+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:57:32.499637+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:57:32.499639+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:57:32.499641+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "expectedResult": "",
+      "agentObservation": "No tel: link found on the homepage at 375px \u2014 nothing to tap on mobile.",
+      "evidenceReference": "docs/observations/screenshots/airfixllc-com/home.png",
+      "observedAt": "2026-09-22T19:57:32.499647+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://airfixllc.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107050.703",
+      "expectedResult": "",
+      "agentObservation": "No emergency or after-hours contact path found from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/airfixllc-com/home.png",
+      "observedAt": "2026-09-22T19:57:32.499650+00:00"
+    }
+  ],
+  "file": "airfixllc-com.json"
+}

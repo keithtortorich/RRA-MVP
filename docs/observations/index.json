@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T19:57:25.927230+00:00",
+  "generatedAt": "2026-09-22T20:00:15.751945+00:00",
   "runs": [
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
@@ -43,6 +43,26 @@
       "draftCount": 5
     },
     {
+      "runId": "4813ab391686433aa19c1521d715a47a",
+      "company": "ASR Mechanical",
+      "host": "asrmechanical.com",
+      "target": "https://www.asrmechanical.com",
+      "generatedAt": "2026-09-22T19:58:48.445892+00:00",
+      "file": "www-asrmechanical-com.json",
+      "signalCount": 9,
+      "draftCount": 4
+    },
+    {
+      "runId": "5b210e3478034c35a54289e9fe76c93a",
+      "company": "Absolute Value AC LLC",
+      "host": "absolutevalueacllctx.com",
+      "target": "https://www.absolutevalueacllctx.com",
+      "generatedAt": "2026-09-22T19:59:02.862259+00:00",
+      "file": "www-absolutevalueacllctx-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "b0a30fdd05e044c7b75057793d7c13f3",
       "company": "Ainsworth & Co.",
       "host": "ainsworthac.com",
@@ -73,6 +93,16 @@
       "draftCount": 3
     },
     {
+      "runId": "b29a9a73b3be46cab1b316c262bf353b",
+      "company": "Air Monkey",
+      "host": "airmonkeyac.com",
+      "target": "https://airmonkeyac.com",
+      "generatedAt": "2026-09-22T19:57:53.159418+00:00",
+      "file": "airmonkeyac-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
       "runId": "84f31b408a1a4495b6223ea0efa02858",
       "company": "Air Specialist",
       "host": "airspecialist.com",
@@ -91,6 +121,16 @@
       "file": "www-airofhouston-com.json",
       "signalCount": 9,
       "draftCount": 6
+    },
+    {
+      "runId": "083689cf346e49a589a3f7fb3d83ab0c",
+      "company": "Airfix LLC",
+      "host": "airfixllc.com",
+      "target": "https://airfixllc.com",
+      "generatedAt": "2026-09-22T19:57:32.499566+00:00",
+      "file": "airfixllc-com.json",
+      "signalCount": 8,
+      "draftCount": 2
     },
     {
       "runId": "ae68e666a22f49589116c7bc8e3ced2b",
@@ -343,6 +383,16 @@
       "draftCount": 6
     },
     {
+      "runId": "ae8b46e97c01428ca077923944580129",
+      "company": "LMH Services",
+      "host": "lmhservicestx.com",
+      "target": "https://www.lmhservicestx.com",
+      "generatedAt": "2026-09-22T19:59:17.691901+00:00",
+      "file": "www-lmhservicestx-com.json",
+      "signalCount": 9,
+      "draftCount": 4
+    },
+    {
       "runId": "3021c6de2151472d8aa779a42febfef6",
       "company": "Lone Star Heat and AC",
       "host": "lonestarhvaccompany.com",
@@ -403,6 +453,16 @@
       "draftCount": 6
     },
     {
+      "runId": "25a5f032cc674eda8cb91c8ca93e34c1",
+      "company": "Mr. Chill Heating & Air",
+      "host": "mrchillac.com",
+      "target": "https://www.mrchillac.com",
+      "generatedAt": "2026-09-22T19:58:15.791593+00:00",
+      "file": "www-mrchillac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "68ca50f209ff420283a2487ac080ce0c",
       "company": "Mr. Cool AC & Heating",
       "host": "mrcoolair.com",
@@ -421,6 +481,16 @@
       "file": "pmhvac-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "e33931f402584b4394e84911b692b88f",
+      "company": "Richmond's Air",
+      "host": "richmondsair.com",
+      "target": "https://www.richmondsair.com",
+      "generatedAt": "2026-09-22T20:00:15.751680+00:00",
+      "file": "www-richmondsair-com.json",
+      "signalCount": 0,
+      "draftCount": 0
     },
     {
       "runId": "cb62021187c8472c8d628b52cdb064a4",
@@ -473,6 +543,16 @@
       "draftCount": 5
     },
     {
+      "runId": "53710f27fcd84d0c980b364d7fd68212",
+      "company": "Texcellent A/C Service",
+      "host": "texcellentacservice.com",
+      "target": "https://texcellentacservice.com",
+      "generatedAt": "2026-09-22T19:59:49.604038+00:00",
+      "file": "texcellentacservice-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "77d5a3a5f67b48b387471278555fc4a5",
       "company": "The Original Kingwood Air Conditioning & Heating",
       "host": "kingwoodac.com",
@@ -483,12 +563,32 @@
       "draftCount": 6
     },
     {
+      "runId": "b2f1ff070c734719b05fdd6aeb143dae",
+      "company": "Tom's Quality Comfort Air & Heat",
+      "host": "tomsqualitycomfort.com",
+      "target": "https://www.tomsqualitycomfort.com",
+      "generatedAt": "2026-09-22T19:58:37.239050+00:00",
+      "file": "www-tomsqualitycomfort-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "cd8333a70ad54757af88e9ce0dc1fcdd",
       "company": "True Fix A/C & Heating",
       "host": "truefixairconditioning.com",
       "target": "https://www.truefixairconditioning.com",
       "generatedAt": "2026-09-22T19:38:51.637542+00:00",
       "file": "www-truefixairconditioning-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "f9171c4a6ac7409c87545463d1d0eeb1",
+      "company": "Vance Air & Heat",
+      "host": "vanceairandheat.com",
+      "target": "https://vanceairandheat.com",
+      "generatedAt": "2026-09-22T20:00:14.535985+00:00",
+      "file": "vanceairandheat-com.json",
       "signalCount": 9,
       "draftCount": 5
     }
