@@ -1,0 +1,154 @@
+{
+  "rraObservations": 1,
+  "runId": "0456bfc37d69456faa2d0ef0e8661331",
+  "generatedAt": "2026-09-22T20:03:18.925364+00:00",
+  "target": "https://www.reliableairandheat.net",
+  "company": "Reliable Air and Heat",
+  "host": "reliableairandheat.net",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.reliableairandheat.net/",
+    "https://www.reliableairandheat.net/services/",
+    "https://www.reliableairandheat.net/service-areas/",
+    "https://www.reliableairandheat.net/service-areas/conroe/",
+    "https://www.reliableairandheat.net/service-areas/magnolia/",
+    "https://www.reliableairandheat.net/service-areas/montgomery/",
+    "https://www.reliableairandheat.net/service-areas/new-waverly/",
+    "https://www.reliableairandheat.net/service-areas/oakridge/",
+    "https://www.reliableairandheat.net/service-areas/shenandoah-hvac-services/",
+    "https://www.reliableairandheat.net/service-areas/the-woodlands/",
+    "https://www.reliableairandheat.net/service-areas/spring/",
+    "https://www.reliableairandheat.net/service-areas/willis/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:03:18.925405+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "Booking path found: widget:housecallpro, https://book.housecallpro.com/book/Reliable-Air-and-Heat/341cfbe1835a46b88288df05027745f3?v2=true&attr=2892",
+      "observedAt": "2026-09-22T20:03:18.925414+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:03:18.925418+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "Homepage rendered in 833ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:03:18.925421+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:03:18.925438+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:03:18.925442+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:03:18.925444+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "Above-fold CTA(s): BOOK NOW; Facebook-f",
+      "observedAt": "2026-09-22T20:03:18.925447+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "notes": "1 of 11 inner pages under 250 words.",
+      "observedAt": "2026-09-22T20:03:18.925454+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:18.925457+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:18.925459+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:18.925461+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:18.925463+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+19368908991) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-reliableairandheat-net/home.png",
+      "observedAt": "2026-09-22T20:03:18.925469+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "expectedResult": "",
+      "agentObservation": "No emergency or after-hours contact path found from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-reliableairandheat-net/home.png",
+      "observedAt": "2026-09-22T20:03:18.925472+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.reliableairandheat.net/",
+      "expectedResult": "",
+      "agentObservation": "5 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-reliableairandheat-net/home.png",
+      "observedAt": "2026-09-22T20:03:18.925480+00:00"
+    }
+  ],
+  "file": "www-reliableairandheat-net.json"
+}

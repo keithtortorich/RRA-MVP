@@ -1,0 +1,155 @@
+{
+  "rraObservations": 1,
+  "runId": "5dcecd2e40da42159702138c9f42b4bb",
+  "generatedAt": "2026-09-22T20:03:39.403307+00:00",
+  "target": "https://www.tabmechanical.com",
+  "company": "TAB Mechanical Services",
+  "host": "tabmechanical.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.tabmechanical.com/",
+    "https://www.tabmechanical.com/heating-system-maintenance-plan"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:03:39.403345+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T20:03:39.403351+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "No financing or payment-plan option visible.",
+      "observedAt": "2026-09-22T20:03:39.403355+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "Homepage rendered in 1074ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:03:39.403359+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:03:39.403364+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:03:39.403369+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:03:39.403372+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T20:03:39.403375+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T20:03:39.403378+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:39.403380+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:39.403382+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:39.403384+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:39.403386+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Priority Emergency Support",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:832-452-2581) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-tabmechanical-com/home.png",
+      "observedAt": "2026-09-22T20:03:39.403392+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Priority Emergency Support",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-tabmechanical-com/home.png",
+      "observedAt": "2026-09-22T20:03:39.403396+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Priority Emergency Support",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "4 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-tabmechanical-com/home.png",
+      "observedAt": "2026-09-22T20:03:39.403402+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Priority Emergency Support",
+      "sourceUrl": "https://www.tabmechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: none. Visible hours: ['Mon-Fri: 8 AM - 5 PM']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-tabmechanical-com/home.png",
+      "observedAt": "2026-09-22T20:03:39.403408+00:00"
+    }
+  ],
+  "file": "www-tabmechanical-com.json"
+}

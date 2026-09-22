@@ -1,0 +1,176 @@
+{
+  "rraObservations": 1,
+  "runId": "edc3c73a9e8045e78a60d44cd1600eb2",
+  "generatedAt": "2026-09-22T20:02:07.834001+00:00",
+  "target": "https://www.tcsacandheat.com",
+  "company": "TCS AC & Heating",
+  "host": "tcsacandheat.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.tcsacandheat.com/",
+    "https://www.tcsacandheat.com/services",
+    "https://www.tcsacandheat.com/services/air-conditioning",
+    "https://www.tcsacandheat.com/services/air-conditioning/ac-repair",
+    "https://www.tcsacandheat.com/services/air-conditioning/ac-installation",
+    "https://www.tcsacandheat.com/services/heating",
+    "https://www.tcsacandheat.com/services/heating/furnace-repair",
+    "https://www.tcsacandheat.com/services/heating/furnace-installation",
+    "https://www.tcsacandheat.com/services/heat-pumps",
+    "https://www.tcsacandheat.com/services/maintenance",
+    "https://www.tcsacandheat.com/services/indoor-air-quality",
+    "https://www.tcsacandheat.com/services/commercial-hvac"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:02:07.834044+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "Booking path found: https://www.tcsacandheat.com/schedule-appointment, https://www.tcsacandheat.com/schedule-appointment",
+      "observedAt": "2026-09-22T20:02:07.834054+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:02:07.834059+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "Homepage rendered in 1145ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:02:07.834063+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:02:07.834074+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:02:07.834078+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:02:07.834080+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "Above-fold CTA(s): SCHEDULE",
+      "observedAt": "2026-09-22T20:02:07.834083+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T20:02:07.834089+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:02:07.834092+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:02:07.834094+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:02:07.834096+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:02:07.834098+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "24-hour emergency repairs",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+17135450450) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-tcsacandheat-com/home.png",
+      "observedAt": "2026-09-22T20:02:07.834104+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24-hour emergency repairs",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-tcsacandheat-com/home.png",
+      "observedAt": "2026-09-22T20:02:07.834107+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24-hour emergency repairs",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "expectedResult": "",
+      "agentObservation": "4 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-tcsacandheat-com/home.png",
+      "observedAt": "2026-09-22T20:02:07.834115+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "24-hour emergency repairs",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: none. Visible hours: ['Are you looking for a reliable, experienced heating, ventilation, and air conditioning contractor for your Montgomery County, Texas, home or business? TCS A/C and Heat is a full-service HVAC company, providing service since 1991.', 'At TCS A/C and Heat, we strive for 100% customer satisfaction and guarantee our work. Our A+ rating with the Better Business Bureau shows our dedication to customer satisfaction. Our NATE-certified technicians work on all brands of heating equipment. Whether you need a new heating installation, HVAC maintenance, or emergency repairs, we are nearby.', 'When your old unit fails, we specialize in system installations of premium air conditioning units. As a leading air conditioning service provider, we ensure your new air conditioner is sized perfectly for your home. Our hvac contractors handle the heavy lifting, replacing outdated hvac equipment with a high-performance working system that offers a 100% satisfaction guarantee.']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-tcsacandheat-com/home.png",
+      "observedAt": "2026-09-22T20:02:07.834127+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "24-hour emergency repairs",
+      "sourceUrl": "https://www.tcsacandheat.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 7 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-tcsacandheat-com/home.png",
+      "observedAt": "2026-09-22T20:02:07.834138+00:00"
+    }
+  ],
+  "file": "www-tcsacandheat-com.json"
+}

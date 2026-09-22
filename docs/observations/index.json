@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T20:00:15.751945+00:00",
+  "generatedAt": "2026-09-22T20:04:44.267232+00:00",
   "runs": [
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
@@ -151,6 +151,16 @@
       "file": "allstarairtexas-com.json",
       "signalCount": 9,
       "draftCount": 6
+    },
+    {
+      "runId": "808c761ab5a942bd97c5b9dd6c4bd777",
+      "company": "American Comfort Experts",
+      "host": "americancomfortexperts.com",
+      "target": "https://www.americancomfortexperts.com",
+      "generatedAt": "2026-09-22T20:01:03.837479+00:00",
+      "file": "www-americancomfortexperts-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     },
     {
       "runId": "dfa8663521e5433d8e36a0936b18fafc",
@@ -333,6 +343,16 @@
       "draftCount": 4
     },
     {
+      "runId": "b02805cd5e3f421ea603d05182d47268",
+      "company": "Fresh Air Cooling and Heating",
+      "host": "freshairinc.com",
+      "target": "https://www.freshairinc.com",
+      "generatedAt": "2026-09-22T20:04:03.311636+00:00",
+      "file": "www-freshairinc-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "11fe5fb1611a40e2aa6e24eb0fb5bb5c",
       "company": "Fresh Tech AC",
       "host": "freshactech.com",
@@ -341,6 +361,16 @@
       "file": "www-freshactech-com.json",
       "signalCount": 8,
       "draftCount": 5
+    },
+    {
+      "runId": "38c3f2d3f64a4d0e806a3785ce966581",
+      "company": "Gaitz HVACR",
+      "host": "gaitzhvacr.com",
+      "target": "https://gaitzhvacr.com",
+      "generatedAt": "2026-09-22T20:03:31.506017+00:00",
+      "file": "gaitzhvacr-com.json",
+      "signalCount": 9,
+      "draftCount": 4
     },
     {
       "runId": "1abdea78946e4664b9b300a45780230d",
@@ -423,6 +453,16 @@
       "draftCount": 5
     },
     {
+      "runId": "e04ae55b4c2341ad8f21d155721f94fc",
+      "company": "Maner Heating & Cooling",
+      "host": "manerac.com",
+      "target": "https://manerac.com",
+      "generatedAt": "2026-09-22T20:01:38.080099+00:00",
+      "file": "manerac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "7cb1b9dbb14745be84f48d0d0b6e82aa",
       "company": "Master Air Inc",
       "host": "masterair.com",
@@ -483,6 +523,26 @@
       "draftCount": 5
     },
     {
+      "runId": "0456bfc37d69456faa2d0ef0e8661331",
+      "company": "Reliable Air and Heat",
+      "host": "reliableairandheat.net",
+      "target": "https://www.reliableairandheat.net",
+      "generatedAt": "2026-09-22T20:03:18.925364+00:00",
+      "file": "www-reliableairandheat-net.json",
+      "signalCount": 9,
+      "draftCount": 3
+    },
+    {
+      "runId": "f682aa21880443759ef95de9b4f87867",
+      "company": "Rich Air Conditioning & Heating",
+      "host": "richairconditioning.com",
+      "target": "https://richairconditioning.com",
+      "generatedAt": "2026-09-22T20:00:32.399755+00:00",
+      "file": "richairconditioning-com.json",
+      "signalCount": 9,
+      "draftCount": 4
+    },
+    {
       "runId": "e33931f402584b4394e84911b692b88f",
       "company": "Richmond's Air",
       "host": "richmondsair.com",
@@ -529,6 +589,36 @@
       "target": "https://sunairconditioning.com",
       "generatedAt": "2026-09-22T19:43:21.189833+00:00",
       "file": "sunairconditioning-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "5dcecd2e40da42159702138c9f42b4bb",
+      "company": "TAB Mechanical Services",
+      "host": "tabmechanical.com",
+      "target": "https://www.tabmechanical.com",
+      "generatedAt": "2026-09-22T20:03:39.403307+00:00",
+      "file": "www-tabmechanical-com.json",
+      "signalCount": 9,
+      "draftCount": 4
+    },
+    {
+      "runId": "edc3c73a9e8045e78a60d44cd1600eb2",
+      "company": "TCS AC & Heating",
+      "host": "tcsacandheat.com",
+      "target": "https://www.tcsacandheat.com",
+      "generatedAt": "2026-09-22T20:02:07.834001+00:00",
+      "file": "www-tcsacandheat-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "c9c8495e35824770a272c3ef3960997a",
+      "company": "Temper Mechanical",
+      "host": "tempermechanical.com",
+      "target": "https://tempermechanical.com",
+      "generatedAt": "2026-09-22T20:04:44.266578+00:00",
+      "file": "tempermechanical-com.json",
       "signalCount": 9,
       "draftCount": 5
     },
@@ -589,6 +679,16 @@
       "target": "https://vanceairandheat.com",
       "generatedAt": "2026-09-22T20:00:14.535985+00:00",
       "file": "vanceairandheat-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "ed6c5b34f61d482b8cbaaf70d6208fad",
+      "company": "Weiss AC & Plumbing",
+      "host": "weissacandheat.com",
+      "target": "https://weissacandheat.com",
+      "generatedAt": "2026-09-22T20:02:36.964155+00:00",
+      "file": "weissacandheat-com.json",
       "signalCount": 9,
       "draftCount": 5
     }

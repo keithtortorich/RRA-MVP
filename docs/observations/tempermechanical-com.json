@@ -1,0 +1,171 @@
+{
+  "rraObservations": 1,
+  "runId": "c9c8495e35824770a272c3ef3960997a",
+  "generatedAt": "2026-09-22T20:04:44.266578+00:00",
+  "target": "https://tempermechanical.com",
+  "company": "Temper Mechanical",
+  "host": "tempermechanical.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://tempermechanical.com/",
+    "https://tempermechanical.com/services/",
+    "https://tempermechanical.com/ac-repair-in-richmond-tx/",
+    "https://tempermechanical.com/ac-installation-richmond-tx-air-conditioner-installers/",
+    "https://tempermechanical.com/heating-repair-richmond-tx/",
+    "https://tempermechanical.com/service-areas/",
+    "https://tempermechanical.com/contact/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:04:44.266618+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T20:04:44.266626+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:04:44.266631+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "Homepage rendered in 3634ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:04:44.266635+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:04:44.266643+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:04:44.266647+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:04:44.266650+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "Above-fold CTA(s): CALL NOW",
+      "observedAt": "2026-09-22T20:04:44.266653+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://tempermechanical.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T20:04:44.266658+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:04:44.266661+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:04:44.266663+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:04:44.266665+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:04:44.266667+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "24/7 Emergency AC & Heating Repair",
+      "sourceUrl": "https://tempermechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+13464858142) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/tempermechanical-com/home.png",
+      "observedAt": "2026-09-22T20:04:44.266673+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24/7 Emergency AC & Heating Repair",
+      "sourceUrl": "https://tempermechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/tempermechanical-com/home.png",
+      "observedAt": "2026-09-22T20:04:44.266676+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "24/7 Emergency AC & Heating Repair",
+      "sourceUrl": "https://tempermechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "8 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/tempermechanical-com/home.png",
+      "observedAt": "2026-09-22T20:04:44.266684+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "24/7 Emergency AC & Heating Repair",
+      "sourceUrl": "https://tempermechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"08:00\",\"closes\":\"18:00\"}', '{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Saturday\"],\"opens\":\"08:00\",\"closes\":\"16:00\"}']. Visible hours: ['Call (346) 485-8142 for fast, same-day service. We understand that comfort cannot wait, which is why we prioritize quick response times and quality workmanship on every job. Our team consists of NATE-certified HVAC technicians who bring years of experience and professional training to your home or business. We also offer flexible HVAC financing options and seasonal specials to make comfort more affordable for everyone in Richmond, Texas.', 'Available 24/7 for burst pipes, slab leaks, and active flooding. We use advanced technology to locate hidden leaks and prevent costly water damage to your Richmond home.', 'We handle all types of air conditioning repairs, from refrigerant leaks and compressor failures to thermostat issues and electrical problems. Our technicians arrive with fully stocked trucks, which means we can often complete repairs on the first visit. When you call (346) 485-8142, you reach a real person who can schedule same-day AC repair Richmond TX service when you need it most.', 'Emergency AC repair situations can be stressful, especially during heat waves when indoor temperatures become unsafe. That is why we offer 24-hour AC repair Richmond TX services for urgent situations. Our emergency response team understands that a broken air conditioner is more than an inconvenience. It can affect your health, your sleep, and your ability to work from home comfortably.', 'Sometimes repair is not the best option. If your air conditioner is more than 10 to 15 years old, requires frequent repairs, or no longer keeps your home comfortable, replacement might be the smarter investment. Our AC installation services in Richmond TX help you choose the right system for your home size, budget, and comfort goals.', 'Upgrading to a new air conditioner does not have to strain your finances. We offer HVAC financing Richmond TX options that let you spread the cost over manageable monthly payments. Whether you need a standard 3-ton unit for a typical home or a larger system for a bigger property, we can recommend the best AC replacement Richmond TX solution for your needs.', 'Maintenance also improves energy efficiency. A well-maintained system uses less electricity to cool your home, which means lower utility bills every month. Many homeowners in the Houston area do not realize that dirty coils and clogged filters can increase energy consumption by 15% or more.', \"Based right off FM 762, Temper Mechanical is perfectly positioned to serve Richmond homeowners in under an hour. From emergency AC repairs in Pecan Grove and Harvest Green to water heater installations near Morton Street, we know the specific cooling and plumbing demands of Fort Bend County. We aren't just a Houston company \u2014 we are your Richmond neighbors.\"]. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/tempermechanical-com/home.png",
+      "observedAt": "2026-09-22T20:04:44.266709+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "24/7 Emergency AC & Heating Repair",
+      "sourceUrl": "https://tempermechanical.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 8 field(s), 5 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/tempermechanical-com/home.png",
+      "observedAt": "2026-09-22T20:04:44.266720+00:00"
+    }
+  ],
+  "file": "tempermechanical-com.json"
+}

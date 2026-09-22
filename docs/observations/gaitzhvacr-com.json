@@ -1,0 +1,157 @@
+{
+  "rraObservations": 1,
+  "runId": "38c3f2d3f64a4d0e806a3785ce966581",
+  "generatedAt": "2026-09-22T20:03:31.506017+00:00",
+  "target": "https://gaitzhvacr.com",
+  "company": "Gaitz HVACR",
+  "host": "gaitzhvacr.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://gaitzhvacr.com/",
+    "https://gaitzhvacr.com/heating/",
+    "https://gaitzhvacr.com/service-areas/",
+    "https://gaitzhvacr.com/contact/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:03:31.506052+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T20:03:31.506057+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:03:31.506063+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "Homepage rendered in 880ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:03:31.506067+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:03:31.506073+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:03:31.506077+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:03:31.506079+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "Above-fold CTA(s): GIVE US A CALL",
+      "observedAt": "2026-09-22T20:03:31.506082+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T20:03:31.506086+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:31.506089+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:31.506091+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:31.506093+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:03:31.506095+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:8328648818) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/gaitzhvacr-com/home.png",
+      "observedAt": "2026-09-22T20:03:31.506101+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/gaitzhvacr-com/home.png",
+      "observedAt": "2026-09-22T20:03:31.506104+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://gaitzhvacr.com/",
+      "expectedResult": "",
+      "agentObservation": "4 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/gaitzhvacr-com/home.png",
+      "observedAt": "2026-09-22T20:03:31.506110+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "",
+      "sourceUrl": "https://gaitzhvacr.com/contact/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 5 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/gaitzhvacr-com/home.png",
+      "observedAt": "2026-09-22T20:03:31.506120+00:00"
+    }
+  ],
+  "file": "gaitzhvacr-com.json"
+}

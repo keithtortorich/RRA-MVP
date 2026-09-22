@@ -1,0 +1,156 @@
+{
+  "rraObservations": 1,
+  "runId": "f682aa21880443759ef95de9b4f87867",
+  "generatedAt": "2026-09-22T20:00:32.399755+00:00",
+  "target": "https://richairconditioning.com",
+  "company": "Rich Air Conditioning & Heating",
+  "host": "richairconditioning.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://richairconditioning.com/",
+    "https://richairconditioning.com/services/",
+    "https://richairconditioning.com/contact-us/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:00:32.399797+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "Booking path found: https://richairconditioning.com/appointments-2/",
+      "observedAt": "2026-09-22T20:00:32.399807+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:00:32.399812+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "PRESENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "Homepage rendered in 4129ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:00:32.399816+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:00:32.399823+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "PRESENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "No pricing guidance found on public pages.",
+      "observedAt": "2026-09-22T20:00:32.399826+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "PRESENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "No tappable phone number above the fold at 375px.",
+      "observedAt": "2026-09-22T20:00:32.399828+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T20:00:32.399831+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://richairconditioning.com/",
+      "notes": "2 of 2 inner pages under 250 words.",
+      "observedAt": "2026-09-22T20:00:32.399836+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:00:32.399838+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:00:32.399841+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:00:32.399843+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:00:32.399845+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Emergency HVAC Repairs",
+      "sourceUrl": "https://richairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:8326419739) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/richairconditioning-com/home.png",
+      "observedAt": "2026-09-22T20:00:32.399852+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency HVAC Repairs",
+      "sourceUrl": "https://richairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/richairconditioning-com/home.png",
+      "observedAt": "2026-09-22T20:00:32.399856+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency HVAC Repairs",
+      "sourceUrl": "https://richairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "6 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/richairconditioning-com/home.png",
+      "observedAt": "2026-09-22T20:00:32.399864+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Emergency HVAC Repairs",
+      "sourceUrl": "https://richairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: none. Visible hours: ['Since 2009, Rich Air Conditioning & Heating has provided reliable air conditioning repair, heating services, HVAC installation, maintenance, and commercial HVAC solutions for homeowners and businesses throughout Houston, Richmond, Katy, Sugar Land, Missouri City, Rosenberg, Fulshear, and surrounding communities.', 'When the Texas heat strikes, you need an HVAC company you can trust to keep your home or business comfortable year-round. Rich Air Conditioning has proudly provided professional air conditioning, heating, and commercial HVAC services throughout Houston, Richmond, Katy, Sugar Land, Missouri City, Rosenberg, Fulshear, and surrounding communities since 2009.', 'Mon-Sun 6:00am-8:00pm']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/richairconditioning-com/home.png",
+      "observedAt": "2026-09-22T20:00:32.399878+00:00"
+    }
+  ],
+  "file": "richairconditioning-com.json"
+}
