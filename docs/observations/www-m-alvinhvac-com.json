@@ -1,0 +1,155 @@
+{
+  "rraObservations": 1,
+  "runId": "ce197992e30c47c4aa9c28458e301c92",
+  "generatedAt": "2026-09-22T20:04:56.406635+00:00",
+  "target": "http://www.m.alvinhvac.com",
+  "company": "Alvin Air Conditioning & Heating",
+  "host": "m.alvinhvac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "http://www.m.alvinhvac.com/",
+    "http://www.m.alvinhvac.com/Contact"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:04:56.406670+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T20:04:56.406676+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:04:56.406682+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "Homepage rendered in 1446ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:04:56.406686+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:04:56.406691+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:04:56.406695+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "PRESENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "No tappable phone number above the fold at 375px.",
+      "observedAt": "2026-09-22T20:04:56.406698+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "Above-fold CTA(s): Contact",
+      "observedAt": "2026-09-22T20:04:56.406702+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "notes": "1 of 1 inner pages under 250 words.",
+      "observedAt": "2026-09-22T20:04:56.406707+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:04:56.406710+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:04:56.406712+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:04:56.406714+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:04:56.406716+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "No tel: link found on the homepage at 375px \u2014 nothing to tap on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-m-alvinhvac-com/home.png",
+      "observedAt": "2026-09-22T20:04:56.406722+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "No emergency or after-hours contact path found from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-m-alvinhvac-com/home.png",
+      "observedAt": "2026-09-22T20:04:56.406725+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "1 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-m-alvinhvac-com/home.png",
+      "observedAt": "2026-09-22T20:04:56.406731+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "",
+      "sourceUrl": "http://www.m.alvinhvac.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 4 field(s), 4 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-m-alvinhvac-com/home.png",
+      "observedAt": "2026-09-22T20:04:56.406741+00:00"
+    }
+  ],
+  "file": "www-m-alvinhvac-com.json"
+}

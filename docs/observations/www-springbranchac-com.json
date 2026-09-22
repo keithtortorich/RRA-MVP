@@ -1,0 +1,171 @@
+{
+  "rraObservations": 1,
+  "runId": "6b6c9e159c7b43c5b1c56f8936da7715",
+  "generatedAt": "2026-09-22T20:06:39.920233+00:00",
+  "target": "https://www.springbranchac.com",
+  "company": "Spring Branch AC",
+  "host": "springbranchac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.springbranchac.com/",
+    "https://www.springbranchac.com/services/",
+    "https://www.springbranchac.com/heating-air-conditioning-products/",
+    "https://www.springbranchac.com/about/contact-us/",
+    "https://www.springbranchac.com/ac-installation/",
+    "https://www.springbranchac.com/ac-repair/",
+    "https://www.springbranchac.com/ac-maintenance/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:06:39.920273+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "Booking path found: widget:servicetitan",
+      "observedAt": "2026-09-22T20:06:39.920313+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T20:06:39.920321+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "Homepage rendered in 963ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:06:39.920325+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:06:39.920334+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T20:06:39.920338+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T20:06:39.920341+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "Above-fold CTA(s): CALL 713-937-6739; CALL NOW",
+      "observedAt": "2026-09-22T20:06:39.920344+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "notes": "3 of 6 inner pages under 250 words.",
+      "observedAt": "2026-09-22T20:06:39.920351+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:06:39.920353+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:06:39.920355+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:06:39.920357+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:06:39.920359+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "That commitment is backed by phones answered 24/7 and no upcharges for nights or weekends.",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:7139376739) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-springbranchac-com/home.png",
+      "observedAt": "2026-09-22T20:06:39.920365+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "That commitment is backed by phones answered 24/7 and no upcharges for nights or weekends.",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-springbranchac-com/home.png",
+      "observedAt": "2026-09-22T20:06:39.920369+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "That commitment is backed by phones answered 24/7 and no upcharges for nights or weekends.",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "expectedResult": "",
+      "agentObservation": "3 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-springbranchac-com/home.png",
+      "observedAt": "2026-09-22T20:06:39.920376+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "That commitment is backed by phones answered 24/7 and no upcharges for nights or weekends.",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\",\"Sunday\"],\"opens\":\"00:00\",\"closes\":\"23:59\"}']. Visible hours: none. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-springbranchac-com/home.png",
+      "observedAt": "2026-09-22T20:06:39.920382+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "That commitment is backed by phones answered 24/7 and no upcharges for nights or weekends.",
+      "sourceUrl": "https://www.springbranchac.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 2 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-springbranchac-com/home.png",
+      "observedAt": "2026-09-22T20:06:39.920393+00:00"
+    }
+  ],
+  "file": "www-springbranchac-com.json"
+}

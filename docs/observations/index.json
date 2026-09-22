@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T20:04:44.267232+00:00",
+  "generatedAt": "2026-09-22T20:07:43.407967+00:00",
   "runs": [
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
@@ -39,6 +39,16 @@
       "target": "https://amskaty.com",
       "generatedAt": "2026-09-22T19:39:14.293142+00:00",
       "file": "amskaty-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "b6d9de2723b34405b65c79bf8fd70b41",
+      "company": "ASAP AIR Air Conditioning and Heating",
+      "host": "asapairhoustonac.com",
+      "target": "https://www.asapairhoustonac.com",
+      "generatedAt": "2026-09-22T20:06:22.943617+00:00",
+      "file": "www-asapairhoustonac-com.json",
       "signalCount": 9,
       "draftCount": 5
     },
@@ -123,6 +133,16 @@
       "draftCount": 6
     },
     {
+      "runId": "8d9162f45a634093a18671ee2d796edd",
+      "company": "Air-Care Southeast",
+      "host": "aircaresoutheast.com",
+      "target": "https://www.aircaresoutheast.com",
+      "generatedAt": "2026-09-22T20:07:42.192563+00:00",
+      "file": "www-aircaresoutheast-com.json",
+      "signalCount": 8,
+      "draftCount": 2
+    },
+    {
       "runId": "083689cf346e49a589a3f7fb3d83ab0c",
       "company": "Airfix LLC",
       "host": "airfixllc.com",
@@ -143,6 +163,16 @@
       "draftCount": 5
     },
     {
+      "runId": "321c51b3152045ebb085b5c3c6ca76ff",
+      "company": "All Brands Air Conditioning",
+      "host": "allbrandsair.com",
+      "target": "https://www.allbrandsair.com",
+      "generatedAt": "2026-09-22T20:07:03.313314+00:00",
+      "file": "www-allbrandsair-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
       "runId": "c9491cb297944d86bfe1f969e438165a",
       "company": "All Star A/C",
       "host": "allstarairtexas.com",
@@ -151,6 +181,16 @@
       "file": "allstarairtexas-com.json",
       "signalCount": 9,
       "draftCount": 6
+    },
+    {
+      "runId": "ce197992e30c47c4aa9c28458e301c92",
+      "company": "Alvin Air Conditioning & Heating",
+      "host": "m.alvinhvac.com",
+      "target": "http://www.m.alvinhvac.com",
+      "generatedAt": "2026-09-22T20:04:56.406635+00:00",
+      "file": "www-m-alvinhvac-com.json",
+      "signalCount": 9,
+      "draftCount": 4
     },
     {
       "runId": "808c761ab5a942bd97c5b9dd6c4bd777",
@@ -173,12 +213,32 @@
       "draftCount": 5
     },
     {
+      "runId": "afd845672c62400381050b4900b5cfbc",
+      "company": "Autumn Mechanical",
+      "host": "autumnmechanical.com",
+      "target": "https://autumnmechanical.com",
+      "generatedAt": "2026-09-22T20:07:39.753674+00:00",
+      "file": "autumnmechanical-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "08bc22c30b244477b80ddccfb5bf3d45",
       "company": "BVS Home Experts",
       "host": "gobvs.com",
       "target": "https://gobvs.com",
       "generatedAt": "2026-09-22T19:36:54.029484+00:00",
       "file": "gobvs-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "975a9a59536d4b33848f6b3cbb68733f",
+      "company": "Bellaire Air Conditioning",
+      "host": "bellaireair.com",
+      "target": "https://bellaireair.com",
+      "generatedAt": "2026-09-22T20:05:50.464634+00:00",
+      "file": "bellaireair-com.json",
       "signalCount": 9,
       "draftCount": 5
     },
@@ -393,6 +453,16 @@
       "draftCount": 5
     },
     {
+      "runId": "1b5e91fef90f4dc1abe91017ddba3ace",
+      "company": "Heights A/C & Heating",
+      "host": "heightsacandheating.com",
+      "target": "https://www.heightsacandheating.com",
+      "generatedAt": "2026-09-22T20:07:12.712269+00:00",
+      "file": "www-heightsacandheating-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "27a35d6031cd402b82d771376138bd0c",
       "company": "Jackson Air & Heat",
       "host": "jacksonairandheatinc.com",
@@ -573,6 +643,26 @@
       "draftCount": 5
     },
     {
+      "runId": "6b6c9e159c7b43c5b1c56f8936da7715",
+      "company": "Spring Branch AC",
+      "host": "springbranchac.com",
+      "target": "https://www.springbranchac.com",
+      "generatedAt": "2026-09-22T20:06:39.920233+00:00",
+      "file": "www-springbranchac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "89ad3d255da6411c9ff8b9271ba32fb6",
+      "company": "Stoffer's Air Conditioning & Heating",
+      "host": "coolingtexas.com",
+      "target": "https://coolingtexas.com",
+      "generatedAt": "2026-09-22T20:04:49.880430+00:00",
+      "file": "coolingtexas-com.json",
+      "signalCount": 8,
+      "draftCount": 2
+    },
+    {
       "runId": "6017be0442794e39bdfe12002d91e877",
       "company": "Sugar Land AC and Heating",
       "host": "sugarlandacandheating.com",
@@ -697,6 +787,11 @@
     {
       "company": "Reed Heating and Air",
       "reason": "Website not confirmed. Several unrelated Texas HVAC companies use 'Reed' in their domain \u2014 confirm the real site by phone or Google Maps before adding it here. Do not guess."
+    },
+    {
+      "company": "Aardvark AC & Heating",
+      "url": "https://www.aardvarkcares.com",
+      "error": "could not resolve host: www.aardvarkcares.com"
     }
   ]
 }

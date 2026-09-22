@@ -1,0 +1,125 @@
+{
+  "rraObservations": 1,
+  "runId": "8d9162f45a634093a18671ee2d796edd",
+  "generatedAt": "2026-09-22T20:07:42.192563+00:00",
+  "target": "https://www.aircaresoutheast.com",
+  "company": "Air-Care Southeast",
+  "host": "aircaresoutheast.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T20:07:42.192598+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T20:07:42.192603+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "notes": "No financing or payment-plan option visible.",
+      "observedAt": "2026-09-22T20:07:42.192607+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "notes": "Homepage rendered in 672ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T20:07:42.192610+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T20:07:42.192615+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "notes": "No pricing guidance found on public pages.",
+      "observedAt": "2026-09-22T20:07:42.192618+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "notes": "No tappable phone number above the fold at 375px.",
+      "observedAt": "2026-09-22T20:07:42.192620+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T20:07:42.192622+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:07:42.192625+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:07:42.192627+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:07:42.192629+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T20:07:42.192631+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "expectedResult": "",
+      "agentObservation": "No tel: link found on the homepage at 375px \u2014 nothing to tap on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-aircaresoutheast-com/home.png",
+      "observedAt": "2026-09-22T20:07:42.192637+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://www.aircaresoutheast.com/.well-known/sgcaptcha/?r=%2F&y=ipc:20.189.186.1:1790107660.402",
+      "expectedResult": "",
+      "agentObservation": "No emergency or after-hours contact path found from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-aircaresoutheast-com/home.png",
+      "observedAt": "2026-09-22T20:07:42.192640+00:00"
+    }
+  ],
+  "file": "www-aircaresoutheast-com.json"
+}
