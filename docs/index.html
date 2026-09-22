@@ -10,41 +10,40 @@
      impression worth risking. Note this is de-indexing, not access control:
      Pages is public, and anyone with the URL can still read it. -->
 <meta name="robots" content="noindex, nofollow">
-<title>RRA Diagnostic Terminal — Revenue Recovery Agency</title>
-<!-- Placeholder favicon. Replace with the approved RRA Seal asset when available. -->
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0E14'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='11' font-weight='600' fill='%23C5A059' text-anchor='middle'%3ERRA%3C/text%3E%3C/svg%3E">
+<title>Leak Detector — Revenue Recovery Agency</title>
+<!-- Placeholder favicon. Replace with the approved Leak Detector Seal asset when available. -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0E14'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='11' font-weight='600' fill='%23C5A059' text-anchor='middle'%3ELD%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=Source+Sans+3:wght@400;500;600;700&family=Source+Code+Pro:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   RRA BRAND TOKENS — RRA Diagnostic Terminal
-   Approved RRA visual system. Single source of truth for color/type.
-   Internal rra-prefixed properties are retained for compatibility.
+   LEAK DETECTOR BRAND TOKENS
+   Approved Leak Detector visual system. Single source of truth for color/type.
    ============================================================ */
 :root{
   /* -- surfaces (Ink) -- */
-  --rra-obsidian:#0B0E14;
-  --rra-slate:#1E222B;
-  --rra-slate2:#262B38;
-  --rra-border:#3A3F4D;
+  --ld-obsidian:#0B0E14;
+  --ld-slate:#1E222B;
+  --ld-slate2:#262B38;
+  --ld-border:#3A3F4D;
   /* -- ink (readouts) -- */
-  --rra-bone:#F4F4F0;
-  --rra-white:#FFFFFF;
-  --rra-muted:#8A909A;
+  --ld-bone:#F4F4F0;
+  --ld-white:#FFFFFF;
+  --ld-muted:#8A909A;
   /* -- accent (primary brand) -- */
-  --rra-brass:#C5A059;
-  --rra-brass-deep:#6E5731;
-  --rra-brass-bg:rgba(197,160,89,.14);
+  --ld-brass:#C5A059;
+  --ld-brass-deep:#6E5731;
+  --ld-brass-bg:rgba(197,160,89,.14);
   /* -- semantic: financial state only, never decorative -- */
-  --rra-green:#05B269;
-  --rra-green-text:#4ADE9A;
-  --rra-green-bg:rgba(5,178,105,.22);
-  --rra-red:#E5484D;
-  --rra-red-text:#FF6B70;
-  --rra-red-bg:rgba(229,72,77,.22);
-  --rra-amber:#F5A623;
-  --rra-amber-bg:rgba(245,166,35,.16);
+  --ld-green:#05B269;
+  --ld-green-text:#4ADE9A;
+  --ld-green-bg:rgba(5,178,105,.22);
+  --ld-red:#E5484D;
+  --ld-red-text:#FF6B70;
+  --ld-red-bg:rgba(229,72,77,.22);
+  --ld-amber:#F5A623;
+  --ld-amber-bg:rgba(245,166,35,.16);
   /* -- type -- */
   --font-display:'Newsreader',Georgia,'Times New Roman',serif;
   --font-heading:'Source Sans 3',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
@@ -56,12 +55,12 @@
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
-body{font-family:var(--font-body);background:var(--rra-obsidian);color:var(--rra-bone);overflow-x:hidden}
-.shell{display:flex;flex-direction:column;height:100dvh;max-width:900px;margin:auto;background:var(--rra-obsidian);position:relative;border-inline:1px solid var(--rra-border)}
+body{font-family:var(--font-body);background:var(--ld-obsidian);color:var(--ld-bone);overflow-x:hidden}
+.shell{display:flex;flex-direction:column;height:100dvh;max-width:900px;margin:auto;background:var(--ld-obsidian);position:relative;border-inline:1px solid var(--ld-border)}
 button,input,select,textarea{font:inherit;color:inherit}
 button{cursor:pointer;-webkit-appearance:none}
 ::-webkit-scrollbar{width:0;height:0}
-::selection{background:var(--rra-brass);color:var(--rra-obsidian)}
+::selection{background:var(--ld-brass);color:var(--ld-obsidian)}
 
 /* financial figures: monospace, tabular, no invented precision */
 .mono,.money,#calcResult,#calcResultAnnual,.stat strong,.evrow .impact,.callimpact,.pcard .leak,.impact-lg{
@@ -71,47 +70,47 @@ button{cursor:pointer;-webkit-appearance:none}
 }
 
 /* -- financial diagnostic result block (calculator output) -- */
-.diagresult{border:1px solid var(--rra-border);border-radius:var(--r);background:var(--rra-obsidian);padding:16px;margin-bottom:12px}
+.diagresult{border:1px solid var(--ld-border);border-radius:var(--r);background:var(--ld-obsidian);padding:16px;margin-bottom:12px}
 .diagrow{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
-.diagrow-sub{margin-top:10px;padding-top:10px;border-top:1px solid var(--rra-border)}
-.diaglabel{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--rra-muted);font-weight:700}
-.diagqual{color:var(--rra-brass);font-family:var(--font-mono);text-transform:uppercase}
-.diagfigure{font-size:28px;font-weight:600;color:var(--rra-red-text)}
+.diagrow-sub{margin-top:10px;padding-top:10px;border-top:1px solid var(--ld-border)}
+.diaglabel{font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:var(--ld-muted);font-weight:700}
+.diagqual{color:var(--ld-brass);font-family:var(--font-mono);text-transform:uppercase}
+.diagfigure{font-size:28px;font-weight:600;color:var(--ld-red-text)}
 .diagfigure-sm{font-size:17px}
 
 /* -- top bar / brand lockup -- */
-.top{background:var(--rra-obsidian);border-bottom:1px solid var(--rra-border);padding:calc(12px + env(safe-area-inset-top)) 16px 12px;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0}
+.top{background:var(--ld-obsidian);border-bottom:1px solid var(--ld-border);padding:calc(12px + env(safe-area-inset-top)) 16px 12px;display:flex;justify-content:space-between;align-items:flex-start;flex-shrink:0}
 .lockup{display:flex;flex-direction:column;gap:2px}
 .lockup .mark{display:flex;align-items:baseline;gap:1px}
 .lockup .mark-img{height:22px;width:auto;display:block}
-.lockup .nb{font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:.08em;color:var(--rra-bone)}
-.lockup .pro{font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--rra-brass)}
-.lockup .full{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--rra-muted);font-weight:600}
-.lockup .product{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--rra-brass);font-weight:700;margin-top:3px;font-family:var(--font-heading)}
+.lockup .nb{font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:.08em;color:var(--ld-bone)}
+.lockup .pro{font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--ld-brass)}
+.lockup .full{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ld-muted);font-weight:600}
+.lockup .product{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ld-brass);font-weight:700;margin-top:3px;font-family:var(--font-heading)}
 .lockup .meta{display:flex;gap:10px;margin-top:5px;flex-wrap:wrap}
-.lockup .meta span{font-family:var(--font-mono);font-size:9px;letter-spacing:.04em;color:var(--rra-muted);border:1px solid var(--rra-border);border-radius:var(--r);padding:2px 6px}
+.lockup .meta span{font-family:var(--font-mono);font-size:9px;letter-spacing:.04em;color:var(--ld-muted);border:1px solid var(--ld-border);border-radius:var(--r);padding:2px 6px}
 .top .right{display:flex;gap:8px;align-items:center}
-.iconbtn{background:transparent;border:1px solid var(--rra-brass);color:var(--rra-brass);border-radius:var(--r);padding:9px 12px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;min-height:40px}
-.iconbtn:active{background:var(--rra-brass-bg)}
+.iconbtn{background:transparent;border:1px solid var(--ld-brass);color:var(--ld-brass);border-radius:var(--r);padding:9px 12px;font-size:10.5px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;min-height:40px}
+.iconbtn:active{background:var(--ld-brass-bg)}
 
 /* -- tabs -- */
-.tabs{display:flex;overflow-x:auto;background:var(--rra-obsidian);border-bottom:1px solid var(--rra-border);flex-shrink:0;-webkit-overflow-scrolling:touch}
-.tab{min-width:64px;flex:1 0 auto;padding:12px 10px;border:0;border-bottom:2px solid transparent;background:none;color:var(--rra-muted);font-family:var(--font-heading);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;min-height:46px}
-.tab.active{color:var(--rra-brass);border-bottom-color:var(--rra-brass)}
+.tabs{display:flex;overflow-x:auto;background:var(--ld-obsidian);border-bottom:1px solid var(--ld-border);flex-shrink:0;-webkit-overflow-scrolling:touch}
+.tab{min-width:64px;flex:1 0 auto;padding:12px 10px;border:0;border-bottom:2px solid transparent;background:none;color:var(--ld-muted);font-family:var(--font-heading);font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;min-height:46px}
+.tab.active{color:var(--ld-brass);border-bottom-color:var(--ld-brass)}
 
-.panels{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--rra-obsidian)}
+.panels{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;background:var(--ld-obsidian)}
 .panel{display:none;padding:14px 14px 90px}
 .panel.active{display:block}
 
 /* -- generic components -- */
-.card{border:1px solid var(--rra-border);border-radius:var(--r-lg);padding:16px;margin-bottom:12px;background:var(--rra-slate)}
-.head{font-family:var(--font-heading);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--rra-bone)}
-.head small{font-weight:600;color:var(--rra-muted);font-size:9.5px;text-transform:uppercase;font-family:var(--font-body);letter-spacing:.02em}
+.card{border:1px solid var(--ld-border);border-radius:var(--r-lg);padding:16px;margin-bottom:12px;background:var(--ld-slate)}
+.head{font-family:var(--font-heading);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--ld-bone)}
+.head small{font-weight:600;color:var(--ld-muted);font-size:9.5px;text-transform:uppercase;font-family:var(--font-body);letter-spacing:.02em}
 .field{margin-bottom:12px}
-.field label{display:block;font-size:10px;font-weight:700;color:var(--rra-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;padding:12px 12px;border:1px solid var(--rra-border);border-radius:var(--r);background:var(--rra-obsidian);color:var(--rra-bone);min-height:44px}
+.field label{display:block;font-size:10px;font-weight:700;color:var(--ld-muted);text-transform:uppercase;letter-spacing:.06em;margin-bottom:6px}
+.field input,.field select,.field textarea{width:100%;padding:12px 12px;border:1px solid var(--ld-border);border-radius:var(--r);background:var(--ld-obsidian);color:var(--ld-bone);min-height:44px}
 .field input::placeholder,.field textarea::placeholder{color:#565c68}
-.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--rra-brass);outline-offset:-1px;border-color:var(--rra-brass)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--ld-brass);outline-offset:-1px;border-color:var(--ld-brass)}
 .field textarea{min-height:70px;resize:vertical}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
@@ -124,144 +123,144 @@ button{cursor:pointer;-webkit-appearance:none}
   #packetPreview .pkhead{color:#111}
   #packetPreview .pksub,#packetPreview .pknote{color:#555}
 }
-.pkitem{border:1px solid var(--rra-border);border-radius:var(--r);padding:10px 12px;margin-bottom:8px}
-.pkhead{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-weight:700;color:var(--rra-bone)}
-.pksub{font-size:11px;color:var(--rra-muted);margin-top:3px}
-.pknote{font-size:12.5px;margin-top:4px;color:var(--rra-bone)}
+.pkitem{border:1px solid var(--ld-border);border-radius:var(--r);padding:10px 12px;margin-bottom:8px}
+.pkhead{display:flex;justify-content:space-between;gap:8px;align-items:baseline;font-weight:700;color:var(--ld-bone)}
+.pksub{font-size:11px;color:var(--ld-muted);margin-top:3px}
+.pknote{font-size:12.5px;margin-top:4px;color:var(--ld-bone)}
 .btn{border:1px solid transparent;border-radius:var(--r);padding:13px 16px;font-weight:700;font-size:12.5px;text-transform:uppercase;letter-spacing:.04em;min-height:46px;font-family:var(--font-heading)}
 .btn.block{width:100%;margin-top:8px}
-.primary{background:var(--rra-bone);color:var(--rra-obsidian)}
-.accentbtn{background:var(--rra-brass);color:var(--rra-obsidian)}
-.outline{background:transparent;color:var(--rra-bone);border-color:var(--rra-border)}
-.danger{background:transparent;color:var(--rra-red-text);border-color:var(--rra-red)}
-.ghost{background:transparent;color:var(--rra-muted);border:1px dashed var(--rra-border)}
+.primary{background:var(--ld-bone);color:var(--ld-obsidian)}
+.accentbtn{background:var(--ld-brass);color:var(--ld-obsidian)}
+.outline{background:transparent;color:var(--ld-bone);border-color:var(--ld-border)}
+.danger{background:transparent;color:var(--ld-red-text);border-color:var(--ld-red)}
+.ghost{background:transparent;color:var(--ld-muted);border:1px dashed var(--ld-border)}
 .row{display:flex;gap:8px;flex-wrap:wrap}
-.pill{border:1px solid var(--rra-border);background:transparent;color:var(--rra-bone);border-radius:var(--r);padding:9px 13px;font-weight:600;font-size:11.5px;min-height:38px}
-.pill.on{background:var(--rra-brass);color:var(--rra-obsidian);border-color:var(--rra-brass)}
+.pill{border:1px solid var(--ld-border);background:transparent;color:var(--ld-bone);border-radius:var(--r);padding:9px 13px;font-weight:600;font-size:11.5px;min-height:38px}
+.pill.on{background:var(--ld-brass);color:var(--ld-obsidian);border-color:var(--ld-brass)}
 .pill:disabled{opacity:.45;cursor:not-allowed}
-.badge{font-family:var(--font-mono);font-size:9.5px;font-weight:600;padding:4px 8px;border-radius:var(--r);background:var(--rra-slate2);border:1px solid var(--rra-border);color:var(--rra-muted);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
-.badge.known{background:var(--rra-brass-bg);color:var(--rra-brass);border-color:var(--rra-brass)}
-.badge.estimated{background:var(--rra-slate2);color:var(--rra-bone);border-color:var(--rra-border)}
-.badge.benchmark{background:var(--rra-slate2);color:var(--rra-muted);border-color:var(--rra-border);border-style:dashed}
-.badge.state{background:var(--rra-slate2);color:var(--rra-bone);border-color:var(--rra-border)}
-.badge.won{background:var(--rra-green-bg);color:var(--rra-green-text);border-color:var(--rra-green)}
-.badge.lost{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
-.badge.overdue{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
-.badge.today{background:var(--rra-amber-bg);color:var(--rra-amber);border-color:var(--rra-amber)}
-.note{font-size:12px;color:var(--rra-muted);line-height:1.55}
+.badge{font-family:var(--font-mono);font-size:9.5px;font-weight:600;padding:4px 8px;border-radius:var(--r);background:var(--ld-slate2);border:1px solid var(--ld-border);color:var(--ld-muted);text-transform:uppercase;letter-spacing:.04em;white-space:nowrap}
+.badge.known{background:var(--ld-brass-bg);color:var(--ld-brass);border-color:var(--ld-brass)}
+.badge.estimated{background:var(--ld-slate2);color:var(--ld-bone);border-color:var(--ld-border)}
+.badge.benchmark{background:var(--ld-slate2);color:var(--ld-muted);border-color:var(--ld-border);border-style:dashed}
+.badge.state{background:var(--ld-slate2);color:var(--ld-bone);border-color:var(--ld-border)}
+.badge.won{background:var(--ld-green-bg);color:var(--ld-green-text);border-color:var(--ld-green)}
+.badge.lost{background:var(--ld-red-bg);color:var(--ld-red-text);border-color:var(--ld-red)}
+.badge.overdue{background:var(--ld-red-bg);color:var(--ld-red-text);border-color:var(--ld-red)}
+.badge.today{background:var(--ld-amber-bg);color:var(--ld-amber);border-color:var(--ld-amber)}
+.note{font-size:12px;color:var(--ld-muted);line-height:1.55}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;margin-bottom:12px}
-.stat{background:var(--rra-slate);border:1px solid var(--rra-border);border-radius:var(--r);padding:11px 5px;text-align:center}
-.stat strong{display:block;font-size:19px;line-height:1.15;color:var(--rra-bone);font-weight:600}
-.stat span{font-size:8px;color:var(--rra-muted);text-transform:uppercase;font-weight:700;letter-spacing:.03em;font-family:var(--font-body)}
+.stat{background:var(--ld-slate);border:1px solid var(--ld-border);border-radius:var(--r);padding:11px 5px;text-align:center}
+.stat strong{display:block;font-size:19px;line-height:1.15;color:var(--ld-bone);font-weight:600}
+.stat span{font-size:8px;color:var(--ld-muted);text-transform:uppercase;font-weight:700;letter-spacing:.03em;font-family:var(--font-body)}
 .hidden{display:none !important}
 .copybtn{font-size:11px;padding:8px 12px;min-height:36px}
 
 /* -- home / next action: dominant, restrained (no glow/gradient) -- */
-.nextaction{background:var(--rra-slate);border:1px solid var(--rra-border);border-left:3px solid var(--rra-brass);border-radius:var(--r-lg);padding:20px;margin-bottom:14px}
-.nextaction small{color:var(--rra-brass);text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:700;font-family:var(--font-heading)}
-.nextaction .txt{font-family:var(--font-display);font-size:19px;font-weight:600;margin:10px 0 14px;line-height:1.35;color:var(--rra-bone)}
-.queue{border:1px solid var(--rra-border);border-radius:var(--r);overflow:hidden}
-.queueitem{padding:11px 13px;border-bottom:1px solid var(--rra-border);font-size:12.5px;display:flex;justify-content:space-between;gap:8px;align-items:center;color:var(--rra-bone)}
+.nextaction{background:var(--ld-slate);border:1px solid var(--ld-border);border-left:3px solid var(--ld-brass);border-radius:var(--r-lg);padding:20px;margin-bottom:14px}
+.nextaction small{color:var(--ld-brass);text-transform:uppercase;letter-spacing:.14em;font-size:10px;font-weight:700;font-family:var(--font-heading)}
+.nextaction .txt{font-family:var(--font-display);font-size:19px;font-weight:600;margin:10px 0 14px;line-height:1.35;color:var(--ld-bone)}
+.queue{border:1px solid var(--ld-border);border-radius:var(--r);overflow:hidden}
+.queueitem{padding:11px 13px;border-bottom:1px solid var(--ld-border);font-size:12.5px;display:flex;justify-content:space-between;gap:8px;align-items:center;color:var(--ld-bone)}
 .queueitem:last-child{border-bottom:0}
 
 /* -- prospect board -- */
 .slotgrid{display:grid;grid-template-columns:1fr;gap:10px}
-.pcard{border:1px solid var(--rra-border);border-radius:var(--r-lg);padding:14px;background:var(--rra-slate);width:100%;text-align:left}
-.pcard.empty{display:flex;align-items:center;justify-content:center;min-height:76px;border-style:dashed;color:var(--rra-muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em;background:transparent;font-family:var(--font-heading)}
+.pcard{border:1px solid var(--ld-border);border-radius:var(--r-lg);padding:14px;background:var(--ld-slate);width:100%;text-align:left}
+.pcard.empty{display:flex;align-items:center;justify-content:center;min-height:76px;border-style:dashed;color:var(--ld-muted);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.04em;background:transparent;font-family:var(--font-heading)}
 .pcard .top2{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
-.pcard .co{font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--rra-bone)}
-.pcard .sub{font-size:11.5px;color:var(--rra-muted);margin-top:2px}
-.pcard .leak{margin-top:9px;font-size:12px;background:var(--rra-obsidian);border:1px solid var(--rra-border);border-radius:var(--r);padding:9px 10px;color:var(--rra-red-text)}
-.pcard .leak b{font-family:var(--font-body);color:var(--rra-bone);font-weight:600;display:block;margin-bottom:3px}
-.pcard .followrow{margin-top:9px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--rra-bone)}
-.pcard .nextrow{margin-top:9px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11.5px;color:var(--rra-bone);border-top:1px solid var(--rra-border);padding-top:9px}
-.pcard .nextrow .nextlabel{color:var(--rra-muted);text-transform:uppercase;font-size:9.5px;letter-spacing:.04em;font-family:var(--font-mono);flex-shrink:0}
-.warnflag{display:flex;align-items:flex-start;gap:7px;margin-top:8px;padding:9px 10px;background:var(--rra-amber-bg);border:1px solid var(--rra-amber);border-radius:var(--r);color:var(--rra-amber);font-size:11.5px;line-height:1.4}
-.warnflag b{color:var(--rra-amber)}
-.readyflag{display:flex;align-items:flex-start;gap:7px;margin-top:8px;padding:9px 10px;background:var(--rra-green-bg);border:1px solid var(--rra-green);border-radius:var(--r);color:var(--rra-green-text);font-size:11.5px;line-height:1.4}
-.verifyitem{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--rra-border)}
+.pcard .co{font-family:var(--font-heading);font-size:15px;font-weight:700;color:var(--ld-bone)}
+.pcard .sub{font-size:11.5px;color:var(--ld-muted);margin-top:2px}
+.pcard .leak{margin-top:9px;font-size:12px;background:var(--ld-obsidian);border:1px solid var(--ld-border);border-radius:var(--r);padding:9px 10px;color:var(--ld-red-text)}
+.pcard .leak b{font-family:var(--font-body);color:var(--ld-bone);font-weight:600;display:block;margin-bottom:3px}
+.pcard .followrow{margin-top:9px;display:flex;justify-content:space-between;align-items:center;font-size:11.5px;color:var(--ld-bone)}
+.pcard .nextrow{margin-top:9px;display:flex;justify-content:space-between;align-items:center;gap:8px;font-size:11.5px;color:var(--ld-bone);border-top:1px solid var(--ld-border);padding-top:9px}
+.pcard .nextrow .nextlabel{color:var(--ld-muted);text-transform:uppercase;font-size:9.5px;letter-spacing:.04em;font-family:var(--font-mono);flex-shrink:0}
+.warnflag{display:flex;align-items:flex-start;gap:7px;margin-top:8px;padding:9px 10px;background:var(--ld-amber-bg);border:1px solid var(--ld-amber);border-radius:var(--r);color:var(--ld-amber);font-size:11.5px;line-height:1.4}
+.warnflag b{color:var(--ld-amber)}
+.readyflag{display:flex;align-items:flex-start;gap:7px;margin-top:8px;padding:9px 10px;background:var(--ld-green-bg);border:1px solid var(--ld-green);border-radius:var(--r);color:var(--ld-green-text);font-size:11.5px;line-height:1.4}
+.verifyitem{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-top:1px solid var(--ld-border)}
 .verifyitem:first-child{border-top:0}
-.verifyitem input[type=checkbox]{width:20px;height:20px;flex-shrink:0;margin-top:2px;accent-color:var(--rra-brass)}
-.verifyitem .vlabel{font-size:12.5px;color:var(--rra-bone);line-height:1.4}
-.verifyitem.done .vlabel{color:var(--rra-muted);text-decoration:line-through}
-.verifyitem .vnote{margin-top:6px;width:100%;padding:8px 10px;border:1px solid var(--rra-border);border-radius:var(--r);background:var(--rra-obsidian);color:var(--rra-bone);font-size:11.5px}
+.verifyitem input[type=checkbox]{width:20px;height:20px;flex-shrink:0;margin-top:2px;accent-color:var(--ld-brass)}
+.verifyitem .vlabel{font-size:12.5px;color:var(--ld-bone);line-height:1.4}
+.verifyitem.done .vlabel{color:var(--ld-muted);text-decoration:line-through}
+.verifyitem .vnote{margin-top:6px;width:100%;padding:8px 10px;border:1px solid var(--ld-border);border-radius:var(--r);background:var(--ld-obsidian);color:var(--ld-bone);font-size:11.5px}
 .verifyitem .vbody{flex:1;min-width:0}
-.tprow{border:1px solid var(--rra-border);border-radius:var(--r);padding:10px;margin-bottom:7px;background:var(--rra-slate)}
+.tprow{border:1px solid var(--ld-border);border-radius:var(--r);padding:10px;margin-bottom:7px;background:var(--ld-slate)}
 .tprow .tptop{display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap}
-.tprow .tpname{font-weight:700;color:var(--rra-bone);font-size:12.5px}
-.tprow .tpmeta{font-size:11px;color:var(--rra-muted);margin-top:3px}
+.tprow .tpname{font-weight:700;color:var(--ld-bone);font-size:12.5px}
+.tprow .tpmeta{font-size:11px;color:var(--ld-muted);margin-top:3px}
 .dualqual{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0}
-.dualqual .dq{font-size:9.5px;color:var(--rra-muted)}
-.na-badge{background:var(--rra-slate2);color:var(--rra-muted);border:1px solid var(--rra-border);border-radius:var(--r);padding:3px 7px;font-size:9.5px;text-transform:uppercase;font-weight:700}
-.badge.fail{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
-.badge.pass{background:var(--rra-green-bg);color:var(--rra-green-text);border-color:var(--rra-green)}
-.badge.pending{background:var(--rra-amber-bg);color:var(--rra-amber);border-color:var(--rra-amber)}
-.badge.reopened{background:var(--rra-red-bg);color:var(--rra-red-text);border-color:var(--rra-red)}
-.badge.agent{background:var(--rra-slate2);color:var(--rra-muted);border-color:var(--rra-border);border-style:dashed}
-.agentobs{margin-top:8px;padding:10px;border:1px solid var(--rra-border);border-left:3px solid var(--rra-brass);border-radius:var(--r);background:var(--rra-obsidian);font-size:12.5px;line-height:1.45;color:var(--rra-bone)}
-.agentobs b{color:var(--rra-brass);text-transform:uppercase;font-size:10px;letter-spacing:.05em;font-family:var(--font-heading)}
-.pill.confirmfail{border-color:var(--rra-red);color:var(--rra-red-text)}
-.pill.confirmfail:active{background:var(--rra-red-bg)}
-.pill.confirmpass{border-color:var(--rra-green);color:var(--rra-green-text)}
-.pill.confirmpass:active{background:var(--rra-green-bg)}
+.dualqual .dq{font-size:9.5px;color:var(--ld-muted)}
+.na-badge{background:var(--ld-slate2);color:var(--ld-muted);border:1px solid var(--ld-border);border-radius:var(--r);padding:3px 7px;font-size:9.5px;text-transform:uppercase;font-weight:700}
+.badge.fail{background:var(--ld-red-bg);color:var(--ld-red-text);border-color:var(--ld-red)}
+.badge.pass{background:var(--ld-green-bg);color:var(--ld-green-text);border-color:var(--ld-green)}
+.badge.pending{background:var(--ld-amber-bg);color:var(--ld-amber);border-color:var(--ld-amber)}
+.badge.reopened{background:var(--ld-red-bg);color:var(--ld-red-text);border-color:var(--ld-red)}
+.badge.agent{background:var(--ld-slate2);color:var(--ld-muted);border-color:var(--ld-border);border-style:dashed}
+.agentobs{margin-top:8px;padding:10px;border:1px solid var(--ld-border);border-left:3px solid var(--ld-brass);border-radius:var(--r);background:var(--ld-obsidian);font-size:12.5px;line-height:1.45;color:var(--ld-bone)}
+.agentobs b{color:var(--ld-brass);text-transform:uppercase;font-size:10px;letter-spacing:.05em;font-family:var(--font-heading)}
+.pill.confirmfail{border-color:var(--ld-red);color:var(--ld-red-text)}
+.pill.confirmfail:active{background:var(--ld-red-bg)}
+.pill.confirmpass{border-color:var(--ld-green);color:var(--ld-green-text)}
+.pill.confirmpass:active{background:var(--ld-green-bg)}
 
 /* -- modal / detail -- */
 .overlay{position:fixed;inset:0;background:rgba(11,14,20,.72);display:flex;align-items:flex-end;justify-content:center;z-index:50}
 .overlay.center{align-items:center;padding:14px}
-.sheet{background:var(--rra-obsidian);width:100%;max-width:900px;max-height:92vh;border-radius:var(--r-lg) var(--r-lg) 0 0;border:1px solid var(--rra-border);border-bottom:0;display:flex;flex-direction:column;overflow:hidden}
-.overlay.center .sheet{border-radius:var(--r-lg);border-bottom:1px solid var(--rra-border);max-height:88vh}
-.sheethead{padding:calc(12px + env(safe-area-inset-top)) 16px 10px;border-bottom:1px solid var(--rra-border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.sheethead .ttl{font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--rra-bone)}
+.sheet{background:var(--ld-obsidian);width:100%;max-width:900px;max-height:92vh;border-radius:var(--r-lg) var(--r-lg) 0 0;border:1px solid var(--ld-border);border-bottom:0;display:flex;flex-direction:column;overflow:hidden}
+.overlay.center .sheet{border-radius:var(--r-lg);border-bottom:1px solid var(--ld-border);max-height:88vh}
+.sheethead{padding:calc(12px + env(safe-area-inset-top)) 16px 10px;border-bottom:1px solid var(--ld-border);display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.sheethead .ttl{font-family:var(--font-heading);font-size:16px;font-weight:700;color:var(--ld-bone)}
 .sheetbody{overflow-y:auto;padding:14px 16px calc(24px + env(safe-area-inset-bottom))}
-.subtabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--rra-border);flex-shrink:0}
-.subtab{padding:12px 12px;border:0;background:none;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--rra-muted);border-bottom:2px solid transparent;white-space:nowrap;min-height:44px;font-family:var(--font-heading)}
-.subtab.active{color:var(--rra-brass);border-bottom-color:var(--rra-brass)}
+.subtabs{display:flex;overflow-x:auto;border-bottom:1px solid var(--ld-border);flex-shrink:0}
+.subtab{padding:12px 12px;border:0;background:none;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--ld-muted);border-bottom:2px solid transparent;white-space:nowrap;min-height:44px;font-family:var(--font-heading)}
+.subtab.active{color:var(--ld-brass);border-bottom-color:var(--ld-brass)}
 .subpanel{display:none}
 .subpanel.active{display:block}
-.closeicon{background:transparent;border:1px solid var(--rra-border);border-radius:var(--r);width:36px;height:36px;font-size:16px;font-weight:700;color:var(--rra-muted)}
+.closeicon{background:transparent;border:1px solid var(--ld-border);border-radius:var(--r);width:36px;height:36px;font-size:16px;font-weight:700;color:var(--ld-muted)}
 
-.evrow{border:1px solid var(--rra-border);border-radius:var(--r);padding:11px;margin-bottom:8px;background:var(--rra-slate)}
+.evrow{border:1px solid var(--ld-border);border-radius:var(--r);padding:11px;margin-bottom:8px;background:var(--ld-slate)}
 .evrow .evtop{display:flex;justify-content:space-between;gap:8px;align-items:center;margin-bottom:6px}
-.evrow .impact{font-weight:600;font-size:15px;color:var(--rra-red-text)}
-.evrow b{color:var(--rra-bone)}
-.toprow{border-color:var(--rra-brass);border-left:3px solid var(--rra-brass)}
+.evrow .impact{font-weight:600;font-size:15px;color:var(--ld-red-text)}
+.evrow b{color:var(--ld-bone)}
+.toprow{border-color:var(--ld-brass);border-left:3px solid var(--ld-brass)}
 
-.pitchbox{white-space:pre-wrap;background:var(--rra-slate);border:1px solid var(--rra-border);color:var(--rra-bone);padding:16px;border-radius:var(--r);line-height:1.6;font-size:13px;font-family:var(--font-mono);margin:10px 0}
+.pitchbox{white-space:pre-wrap;background:var(--ld-slate);border:1px solid var(--ld-border);color:var(--ld-bone);padding:16px;border-radius:var(--r);line-height:1.6;font-size:13px;font-family:var(--font-mono);margin:10px 0}
 .pitchtypes{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:4px}
-.ptype{padding:10px;border:1px solid var(--rra-border);border-radius:var(--r);background:transparent;color:var(--rra-bone);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;min-height:42px;font-family:var(--font-heading)}
-.ptype.active{background:var(--rra-brass);color:var(--rra-obsidian);border-color:var(--rra-brass)}
+.ptype{padding:10px;border:1px solid var(--ld-border);border-radius:var(--r);background:transparent;color:var(--ld-bone);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.02em;min-height:42px;font-family:var(--font-heading)}
+.ptype.active{background:var(--ld-brass);color:var(--ld-obsidian);border-color:var(--ld-brass)}
 
-.obj{border:1px solid var(--rra-border);border-radius:var(--r);margin-bottom:8px;overflow:hidden;background:var(--rra-slate)}
-.obj button.q{width:100%;border:0;background:transparent;color:var(--rra-bone);padding:13px;text-align:left;font-weight:600;min-height:46px;font-size:13px}
-.obj .ans{display:none;padding:13px;border-top:1px solid var(--rra-border);font-size:12.5px;line-height:1.55;color:var(--rra-muted);background:var(--rra-obsidian)}
+.obj{border:1px solid var(--ld-border);border-radius:var(--r);margin-bottom:8px;overflow:hidden;background:var(--ld-slate)}
+.obj button.q{width:100%;border:0;background:transparent;color:var(--ld-bone);padding:13px;text-align:left;font-weight:600;min-height:46px;font-size:13px}
+.obj .ans{display:none;padding:13px;border-top:1px solid var(--ld-border);font-size:12.5px;line-height:1.55;color:var(--ld-muted);background:var(--ld-obsidian)}
 .obj .ans.open{display:block}
-.obj .ans p{color:var(--rra-bone)}
+.obj .ans p{color:var(--ld-bone)}
 
 /* -- call mode: maximum readability, brand-consistent -- */
-.callwrap{position:fixed;inset:0;background:var(--rra-obsidian);z-index:60;display:flex;flex-direction:column;color:var(--rra-bone)}
-.callhead{padding:calc(14px + env(safe-area-inset-top)) 16px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--rra-border)}
+.callwrap{position:fixed;inset:0;background:var(--ld-obsidian);z-index:60;display:flex;flex-direction:column;color:var(--ld-bone)}
+.callhead{padding:calc(14px + env(safe-area-inset-top)) 16px 10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--ld-border)}
 .callbody{flex:1;overflow-y:auto;padding:16px 16px calc(30px + env(safe-area-inset-bottom))}
-.callco{font-family:var(--font-display);font-size:25px;font-weight:600;margin-bottom:2px;color:var(--rra-bone)}
+.callco{font-family:var(--font-display);font-size:25px;font-weight:600;margin-bottom:2px;color:var(--ld-bone)}
 .callsection{margin-top:18px}
-.callsection h4{font-family:var(--font-heading);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--rra-brass);margin-bottom:8px;font-weight:700}
-.callimpact{font-size:32px;font-weight:600;color:var(--rra-red-text)}
-.calltext{background:var(--rra-slate);border:1px solid var(--rra-border);border-radius:var(--r);padding:14px;font-size:14px;line-height:1.6}
-.callq{padding:9px 0;border-bottom:1px solid var(--rra-border);font-size:14px}
+.callsection h4{font-family:var(--font-heading);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--ld-brass);margin-bottom:8px;font-weight:700}
+.callimpact{font-size:32px;font-weight:600;color:var(--ld-red-text)}
+.calltext{background:var(--ld-slate);border:1px solid var(--ld-border);border-radius:var(--r);padding:14px;font-size:14px;line-height:1.6}
+.callq{padding:9px 0;border-bottom:1px solid var(--ld-border);font-size:14px}
 .callq:last-child{border-bottom:0}
-.callobj summary{cursor:pointer;font-weight:600;padding:9px 0;font-size:13.5px;color:var(--rra-bone)}
-.callobj p{font-size:12.5px;color:var(--rra-muted);padding-bottom:9px;line-height:1.5}
+.callobj summary{cursor:pointer;font-weight:600;padding:9px 0;font-size:13.5px;color:var(--ld-bone)}
+.callobj p{font-size:12.5px;color:var(--ld-muted);padding-bottom:9px;line-height:1.5}
 
 /* -- toast -- */
-.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--rra-bone);color:var(--rra-obsidian);padding:11px 18px;border-radius:var(--r);font-size:12.5px;font-weight:700;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast{position:fixed;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:var(--ld-bone);color:var(--ld-obsidian);padding:11px 18px;border-radius:var(--r);font-size:12.5px;font-weight:700;z-index:100;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.show{opacity:1}
 
-.banner{background:var(--rra-red-bg);border:1px solid var(--rra-red);color:var(--rra-red-text);padding:11px 14px;border-radius:var(--r);font-size:12px;font-weight:600;margin-bottom:12px}
-.launchstep{border-left:3px solid var(--rra-brass);padding:10px 12px;margin:9px 0;background:var(--rra-obsidian);border:1px solid var(--rra-border);border-left:3px solid var(--rra-brass);border-radius:0 var(--r) var(--r) 0}
-.launchstep b{color:var(--rra-bone)}
-.known{color:var(--rra-brass);font-weight:700}
-.assumed{color:var(--rra-brass);font-weight:700}
-.badge.benchmark{background:var(--rra-brass-bg);color:var(--rra-brass);border-color:var(--rra-brass)}
-.badge.estimated{background:var(--rra-amber-bg);color:var(--rra-amber);border-color:var(--rra-amber)}
+.banner{background:var(--ld-red-bg);border:1px solid var(--ld-red);color:var(--ld-red-text);padding:11px 14px;border-radius:var(--r);font-size:12px;font-weight:600;margin-bottom:12px}
+.launchstep{border-left:3px solid var(--ld-brass);padding:10px 12px;margin:9px 0;background:var(--ld-obsidian);border:1px solid var(--ld-border);border-left:3px solid var(--ld-brass);border-radius:0 var(--r) var(--r) 0}
+.launchstep b{color:var(--ld-bone)}
+.known{color:var(--ld-brass);font-weight:700}
+.assumed{color:var(--ld-brass);font-weight:700}
+.badge.benchmark{background:var(--ld-brass-bg);color:var(--ld-brass);border-color:var(--ld-brass)}
+.badge.estimated{background:var(--ld-amber-bg);color:var(--ld-amber);border-color:var(--ld-amber)}
 </style>
 </head>
 <body>
@@ -270,12 +269,12 @@ button{cursor:pointer;-webkit-appearance:none}
   <div class="top">
     <!-- Typographic placeholder lockup, not final brand art.
          Swap-in point for the approved Seal: add
-         <img src="rra-seal.svg" alt="" class="mark-img"> before .nb —
+         <img src="leak-detector-seal.svg" alt="" class="mark-img"> before .nb —
          no other header markup needs to change. -->
     <div class="lockup">
-      <div class="mark"><span class="nb">RRA</span></div>
+      <div class="mark"><span class="nb">Leak Detector</span></div>
       <span class="full">Revenue Recovery Agency</span>
-      <span class="product">RRA Diagnostic Terminal</span>
+      <span class="product">Leak Detector</span>
       <div class="meta">
         <span>Residential HVAC</span>
         <span id="campaignMetaBadge">Campaign 01</span>
@@ -313,7 +312,7 @@ button{cursor:pointer;-webkit-appearance:none}
       <div class="card">
         <div class="head">Launch Metrics</div>
         <div class="stats" id="homeStats"></div>
-        <p class="note">This tracks the first-five commercial validation cycle. It shows what happened — it does not decide whether RRA works.</p>
+        <p class="note">This tracks the first-five commercial validation cycle. It shows what happened — it does not decide whether Leak Detector works.</p>
       </div>
     </section>
 
@@ -1229,7 +1228,7 @@ function migrateOldData(state){
   return state;
 }
 
-var DEFAULT_SEED_JSON=`{"version": 2, "prospects": [{"id": "seed-exodus-mechanical", "company": "Exodus Mechanical", "city": "Melissa, TX", "website": "https://www.exodusmechanical.com", "contact": "Brian & Kristi", "phone": "469-500-7977", "email": "", "source": "Public listing research (company site, Yelp/Houzz reviews) — see pipeline.md", "notes": [{"id": "seed-note-exodus-1", "text": "Owners publicly advertise \\"call or text\\" on this number — a direct SMS outreach route. Reported (unverified on-site): never charges for after-hours service, offers emergency service, guaranteed same-day service, Neighborhood Favorite 2021-2023. If accurate, missed-call/after-hours may NOT be the right wedge here — check reviews/booking/follow-up angles first during the manual pass instead of defaulting to the standard playbook.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-exodus-1", "issue": "Owners advertise a direct call/text number — but site/reviews claim no after-hours charge, emergency service, and same-day guarantee, so the missed-call wedge needs verifying, not assuming.", "source": "Company site + Yelp/Houzz reviews (search-indexed, not directly verified on-site)", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the 20-minute manual pass identifies the actual leak.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-exodus-1"}, {"id": "seed-ample-services", "company": "Ample Services", "city": "Fulshear, TX", "website": "https://www.amplehouston.com", "contact": "Robert Coufal", "phone": "832-794-4878", "email": "", "source": "Public listing research (BBB, company site) — see pipeline.md", "notes": [{"id": "seed-note-ample-1", "text": "Owner confirmed via BBB. Site claims 24/7 emergency HVAC service — directly testable with a 7pm call. That's the wedge to verify first.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-ample-1", "issue": "Site claims 24/7 emergency service — test whether a call after hours actually gets a live response.", "source": "Company site (amplehouston.com), search-indexed, not yet verified with a real test call", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the 7pm test call.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-ample-1"}, {"id": "seed-bill-anderson-air", "company": "Bill Anderson Air", "city": "Katy/Fulshear, TX", "website": "https://www.billandersonair.com", "contact": "Bill Anderson", "phone": "281-769-9999", "email": "", "source": "Public listing research (BBB, Yelp, company site) — see pipeline.md", "notes": [{"id": "seed-note-banderson-1", "text": "Family-owned since 1998. Posted hours Mon-Fri 8am-4pm, no weekend/after-hours coverage found in listings — plausible after-hours/weekend capture wedge, worth the 7pm and Saturday test.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-banderson-1", "issue": "Posted business hours are Mon-Fri 8am-4pm only — no after-hours/weekend coverage advertised. Verify what actually happens on a call outside those hours.", "source": "BBB/Yelp business listings (search-indexed, not yet verified with a real test call)", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the manual pass.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-banderson-1"}, {"id": "seed-castle-ac-heating", "company": "Castle Air Conditioning & Heating", "city": "Fulshear, TX", "website": "https://castleacandheating.com", "contact": "Josh Cartwright", "phone": "713-667-7606", "email": "", "source": "Public listing research (company site, LinkedIn, BBB) — see pipeline.md", "notes": [{"id": "seed-note-castle-1", "text": "Owner-operated since 2014, confirmed via company site and LinkedIn. No specific claims found yet to test against — needs the full manual pass, no shortcuts assumed.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [], "topLeakId": null}, {"id": "seed-reed-heating-air", "company": "Reed Heating and Air", "city": "Melissa, TX", "website": "", "contact": "Eric Reed", "phone": "469-831-9842", "email": "", "source": "Public listing research (BBB, LinkedIn) — see pipeline.md", "notes": [{"id": "seed-note-reed-1", "text": "Owner and ~20+ years in business confirmed via BBB and LinkedIn. Website NOT confirmed — multiple unrelated Texas HVAC companies also use \\"Reed\\" in their name/domain. Confirm the real site directly (call or Google Maps) before running revenue-scan/audit against any reed*.com domain.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [], "topLeakId": null}], "activities": [], "generalNotes": [{"id": "seed-gen-note-1", "text": "Batch 1 seeded from public-listing research (BBB, LinkedIn, company sites, aggregator reviews). This research came from an environment whose network egress was allowlisted — it could not load these companies' own sites directly to quote exact on-page text or detect booking/chat/SMS widgets, only search-indexed summaries. Treat every seeded evidence entry as ESTIMATED/reported, not KNOWN, until verified by the Step 3 manual pass (call at 7pm, check the site on a phone, count reviews) and/or an actual revenue-scan/revenue-audit run from a normal internet connection.", "ts": "2026-09-17T00:14:23.000Z"}], "settings": {}, "bench": [{"id": "bench-chillzone", "company": "Chillzone Refrigeration & Air Conditioning", "city": "Fulshear, TX", "contact": "", "phone": "832-599-0677", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Owner not yet identified; website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-aba-one", "company": "Aba One Plumbing", "city": "Fulshear, TX", "contact": "", "phone": "346-509-2900", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Plumbing-primary — confirm they also do residential HVAC before qualifying. Owner not yet identified; website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-kmi", "company": "KMI A/C and Heating", "city": "Celina, TX", "contact": "", "phone": "972-382-1110", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website confirmed to exist but URL and owner not yet identified.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-tl-central", "company": "T L Central Heating & Air", "city": "Celina, TX", "contact": "Tim Looper (BBB-confirmed)", "phone": "972-382-2663", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-blessed-air", "company": "Blessed Air & Refrigeration Service", "city": "Celina, TX", "contact": "Terry Dorris (owner)", "phone": "972-382-2479", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-air-rescue", "company": "Air Rescue Heating & Cooling", "city": "Celina, TX", "contact": "", "phone": "469-294-2616", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Owner not yet identified; website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-dyno", "company": "Dyno Heating & Cooling", "city": "Melissa, TX", "contact": "Marcus Stevenson (BBB-confirmed)", "phone": "972-838-7075", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-arrowhead", "company": "Arrowhead Air Solutions", "city": "Melissa, TX", "contact": "Randy S. Landers (owner/license holder)", "phone": "469-993-8283", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-h2-mechanical", "company": "H2 Mechanical Services", "city": "Melissa, TX", "contact": "Ryan (owner)", "phone": "", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Phone not yet identified — lowest-priority bench entry until found.", "addedAt": "2026-09-18T00:00:00.000Z"}]}`;
+var DEFAULT_SEED_JSON=`{"version": 2, "prospects": [{"id": "seed-exodus-mechanical", "company": "Exodus Mechanical", "city": "Melissa, TX", "website": "https://www.exodusmechanical.com", "contact": "Brian & Kristi", "phone": "469-500-7977", "email": "", "source": "Public listing research (company site, Yelp/Houzz reviews) — see pipeline.md", "notes": [{"id": "seed-note-exodus-1", "text": "Owners publicly advertise \\"call or text\\" on this number — a direct SMS outreach route. Reported (unverified on-site): never charges for after-hours service, offers emergency service, guaranteed same-day service, Neighborhood Favorite 2021-2023. If accurate, missed-call/after-hours may NOT be the right wedge here — check reviews/booking/follow-up angles first during the manual pass instead of defaulting to the standard playbook.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-exodus-1", "issue": "Owners advertise a direct call/text number — but site/reviews claim no after-hours charge, emergency service, and same-day guarantee, so the missed-call wedge needs verifying, not assuming.", "source": "Company site + Yelp/Houzz reviews (search-indexed, not directly verified on-site)", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the 20-minute manual pass identifies the actual leak.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-exodus-1"}, {"id": "seed-ample-services", "company": "Ample Services", "city": "Fulshear, TX", "website": "https://www.amplehouston.com", "contact": "Robert Coufal", "phone": "832-794-4878", "email": "", "source": "Public listing research (BBB, company site) — see pipeline.md", "notes": [{"id": "seed-note-ample-1", "text": "Owner confirmed via BBB. Site claims 24/7 emergency HVAC service — directly testable with a 7pm call. That's the wedge to verify first.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-ample-1", "issue": "Site claims 24/7 emergency service — test whether a call after hours actually gets a live response.", "source": "Company site (amplehouston.com), search-indexed, not yet verified with a real test call", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the 7pm test call.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-ample-1"}, {"id": "seed-bill-anderson-air", "company": "Bill Anderson Air", "city": "Katy/Fulshear, TX", "website": "https://www.billandersonair.com", "contact": "Bill Anderson", "phone": "281-769-9999", "email": "", "source": "Public listing research (BBB, Yelp, company site) — see pipeline.md", "notes": [{"id": "seed-note-banderson-1", "text": "Family-owned since 1998. Posted hours Mon-Fri 8am-4pm, no weekend/after-hours coverage found in listings — plausible after-hours/weekend capture wedge, worth the 7pm and Saturday test.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [{"id": "seed-ev-banderson-1", "issue": "Posted business hours are Mon-Fri 8am-4pm only — no after-hours/weekend coverage advertised. Verify what actually happens on a call outside those hours.", "source": "BBB/Yelp business listings (search-indexed, not yet verified with a real test call)", "leakId": null, "quality": "ESTIMATED", "impact": 0, "priority": 3, "notes": "Not sized yet — run the calculator after the manual pass.", "ts": "2026-09-17T00:14:23.000Z"}], "topLeakId": "seed-ev-banderson-1"}, {"id": "seed-castle-ac-heating", "company": "Castle Air Conditioning & Heating", "city": "Fulshear, TX", "website": "https://castleacandheating.com", "contact": "Josh Cartwright", "phone": "713-667-7606", "email": "", "source": "Public listing research (company site, LinkedIn, BBB) — see pipeline.md", "notes": [{"id": "seed-note-castle-1", "text": "Owner-operated since 2014, confirmed via company site and LinkedIn. No specific claims found yet to test against — needs the full manual pass, no shortcuts assumed.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [], "topLeakId": null}, {"id": "seed-reed-heating-air", "company": "Reed Heating and Air", "city": "Melissa, TX", "website": "", "contact": "Eric Reed", "phone": "469-831-9842", "email": "", "source": "Public listing research (BBB, LinkedIn) — see pipeline.md", "notes": [{"id": "seed-note-reed-1", "text": "Owner and ~20+ years in business confirmed via BBB and LinkedIn. Website NOT confirmed — multiple unrelated Texas HVAC companies also use \\"Reed\\" in their name/domain. Confirm the real site directly (call or Google Maps) before running leak-detector-scan/audit against any reed*.com domain.", "ts": "2026-09-17T00:14:23.000Z"}], "state": "TARGET", "dateAdded": "2026-09-17T00:14:23.000Z", "lastContact": "", "sentDate": null, "followupsSent": 0, "outcome": null, "wonDetails": null, "calc": {"mode": "missed"}, "evidence": [], "topLeakId": null}], "activities": [], "generalNotes": [{"id": "seed-gen-note-1", "text": "Batch 1 seeded from public-listing research (BBB, LinkedIn, company sites, aggregator reviews). This research came from an environment whose network egress was allowlisted — it could not load these companies' own sites directly to quote exact on-page text or detect booking/chat/SMS widgets, only search-indexed summaries. Treat every seeded evidence entry as ESTIMATED/reported, not KNOWN, until verified by the Step 3 manual pass (call at 7pm, check the site on a phone, count reviews) and/or an actual leak-detector-scan/leak-detector-audit run from a normal internet connection.", "ts": "2026-09-17T00:14:23.000Z"}], "settings": {}, "bench": [{"id": "bench-chillzone", "company": "Chillzone Refrigeration & Air Conditioning", "city": "Fulshear, TX", "contact": "", "phone": "832-599-0677", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Owner not yet identified; website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-aba-one", "company": "Aba One Plumbing", "city": "Fulshear, TX", "contact": "", "phone": "346-509-2900", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Plumbing-primary — confirm they also do residential HVAC before qualifying. Owner not yet identified; website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-kmi", "company": "KMI A/C and Heating", "city": "Celina, TX", "contact": "", "phone": "972-382-1110", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website confirmed to exist but URL and owner not yet identified.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-tl-central", "company": "T L Central Heating & Air", "city": "Celina, TX", "contact": "Tim Looper (BBB-confirmed)", "phone": "972-382-2663", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-blessed-air", "company": "Blessed Air & Refrigeration Service", "city": "Celina, TX", "contact": "Terry Dorris (owner)", "phone": "972-382-2479", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-air-rescue", "company": "Air Rescue Heating & Cooling", "city": "Celina, TX", "contact": "", "phone": "469-294-2616", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Owner not yet identified; website not confirmed.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-dyno", "company": "Dyno Heating & Cooling", "city": "Melissa, TX", "contact": "Marcus Stevenson (BBB-confirmed)", "phone": "972-838-7075", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-arrowhead", "company": "Arrowhead Air Solutions", "city": "Melissa, TX", "contact": "Randy S. Landers (owner/license holder)", "phone": "469-993-8283", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Website not found yet.", "addedAt": "2026-09-18T00:00:00.000Z"}, {"id": "bench-h2-mechanical", "company": "H2 Mechanical Services", "city": "Melissa, TX", "contact": "Ryan (owner)", "phone": "", "website": "", "email": "", "source": "Public listing research (BBB/company site) — see pipeline.md", "notes": "Phone not yet identified — lowest-priority bench entry until found.", "addedAt": "2026-09-18T00:00:00.000Z"}]}`;
 
 function loadState(){
   var raw=localStorage.getItem(STORAGE_KEY);
@@ -1375,7 +1374,7 @@ function sprintProfit(w){return (Number(w.amount)||0)-(Number(w.directDeliveryCo
 function isPaidSprint(p){return p.outcome==="WON"&&p.wonDetails&&p.wonDetails.tier==="good"&&p.wonDetails.paymentStatus==="PAID";}
 function buildProofRecord(p){
   var w=sprintRecord(p),top=topEvidence(p),leak=top?leakById(top.leakId):null,lines=[];
-  lines.push("RRA REVENUE RECOVERY — PROOF RECORD",p.company+(p.city?" ("+p.city+")":""),"");
+  lines.push("LEAK DETECTOR — PROOF RECORD",p.company+(p.city?" ("+p.city+")":""),"");
   lines.push("Leak: "+(top?top.issue:"—")+(leak?" ["+leak.name+"]":""));
   lines.push("Evidence classification: "+(top?top.quality:"—"));
   lines.push("Baseline: "+((p.handoff&&p.handoff.baseline)||"—"));
@@ -1639,8 +1638,8 @@ function renderHome(){
   ];
   document.getElementById("homeStats").innerHTML=stats.map(function(s){
     var isWon=s[0]==="Won";
-    return '<div class="stat"><strong'+(isWon&&s[1]?' style="color:var(--rra-green-text)"':"")+'>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";
-  }).join("")+'<div class="stat" style="grid-column:span 4"><strong style="color:var(--rra-green-text)">'+fmtMoney(collected)+'</strong><span>Collected Revenue</span></div>';
+    return '<div class="stat"><strong'+(isWon&&s[1]?' style="color:var(--ld-green-text)"':"")+'>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";
+  }).join("")+'<div class="stat" style="grid-column:span 4"><strong style="color:var(--ld-green-text)">'+fmtMoney(collected)+'</strong><span>Collected Revenue</span></div>';
 
   var banner=document.getElementById("corruptBanner");
   banner.innerHTML=corrupted?'<div class="banner">Local data on this device was corrupted and has been reset (a backup copy was used if one existed). If you have an exported JSON backup, use Launch &rarr; Import data to restore it.</div>':"";
@@ -2214,7 +2213,7 @@ document.getElementById("tpNotes").addEventListener("change",function(){
 /* ---------- agent observation import: merges signals + PLANNED drafts, never evidence ---------- */
 function importAgentObservations(p,payload){
   if(!payload||typeof payload!=="object"||!payload.rraObservations){
-    return {ok:false,reason:"That file isn't an observation payload from revenue-observe."};
+    return {ok:false,reason:"That file isn't an observation payload from leak-detector-observe."};
   }
   var ev=ensureExternalVerification(p);
   /* Idempotency: an auto-synced file is re-read every time the prospect opens,
@@ -2670,7 +2669,7 @@ function buildPitch(p,type){
     var top0=topEvidence(p);
     var leak0=top0&&leakById(top0.leakId);
     var hint=leak0?(" Early signs point toward "+leak0.name.toLowerCase()+", but I want to confirm before I say more."):"";
-    return "Subject: Free revenue-leak scan for "+biz+"\n\n"+owner+",\n\nI run RRA — Revenue Recovery Agency. I do a free scan of how HVAC businesses like "+biz+" handle missed calls, after-hours requests, and online booking — no dollar estimate, no pitch, just a plain-English readout of what I actually find."+hint+"\n\nWant me to run it and send you what I see?\n\n[YOUR NAME]";
+    return "Subject: Free revenue-leak scan for "+biz+"\n\n"+owner+",\n\nI run Leak Detector — Revenue Recovery Agency. I do a free scan of how HVAC businesses like "+biz+" handle missed calls, after-hours requests, and online booking — no dollar estimate, no pitch, just a plain-English readout of what I actually find."+hint+"\n\nWant me to run it and send you what I see?\n\n[YOUR NAME]";
   }
   var top=topEvidence(p);
   if(!top)return null;
@@ -2680,7 +2679,7 @@ function buildPitch(p,type){
   var hedge=evidenceQuality(top).financial==="KNOWN"?"":"roughly ";
   var pitches={
     email:"Subject: "+biz+" — one revenue leak I found\n\n"+owner+",\n\nI found one issue worth showing you: "+leak+".\n\nEvidence: "+ev+".\n\nUsing the assumptions in my breakdown, the opportunity is "+hedge+impact+". If you give me your actual numbers, I'll replace the estimates and recalculate it.\n\nMy first recommendation isn't a marketing package — it's one fix for the biggest leak I can validate. The fixed-fee option is $997.\n\nWorth 10 minutes to walk through the evidence?\n\n[YOUR NAME]",
-    call:owner+", I run RRA. I looked at "+biz+" and found one leak worth verifying with you: "+leak+". The evidence I have is "+ev+". I'm not calling to sell marketing — I size revenue leaks and fix the biggest one first. My estimate is "+hedge+impact+", but I'd rather use your real numbers. Got two minutes for how you handle this today?",
+    call:owner+", I run Leak Detector. I looked at "+biz+" and found one leak worth verifying with you: "+leak+". The evidence I have is "+ev+". I'm not calling to sell marketing — I size revenue leaks and fix the biggest one first. My estimate is "+hedge+impact+", but I'd rather use your real numbers. Got two minutes for how you handle this today?",
     d4:"Subject: Re: "+biz+" revenue leak\n\n"+owner+", following up on the "+leak+" I found at "+biz+". The important part is the evidence: "+ev+". If my assumptions are wrong, send me the real numbers and I'll recalculate it. If the leak is real, the fix is a fixed $997. Worth a quick look?",
     d11:"Subject: Closing the loop on "+biz+"\n\n"+owner+", last follow-up from me on this. I flagged "+leak+" because "+ev+". If it's already handled, I'll close this out. If not, I can show you the evidence and the single-fix $997 option in 10 minutes."
   };
@@ -2739,7 +2738,7 @@ function renderOfferPanel(p){
       "</div>"+
       '<div class="row" style="margin-top:8px">'+dualQualityBadges(top)+"</div>"+offerWarn+"</div>"+
     '<div class="field"><label>Recommended Recovery</label><div>'+esc(action)+"</div></div>"+
-    '<div class="field"><label>Fixed-Fee Implementation</label><div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--rra-brass)">$997 fixed fee</div></div>'+
+    '<div class="field"><label>Fixed-Fee Implementation</label><div style="font-family:var(--font-mono);font-size:22px;font-weight:600;color:var(--ld-brass)">$997 fixed fee</div></div>'+
     '<div class="field"><label>Included</label><ul style="padding-left:18px;font-size:13px;line-height:1.7">'+
       "<li>Deep diagnosis of the top validated leak</li><li>Implementation of the single fix above</li><li>30-day measurement of recovered activity</li></ul></div>"+
     '<div class="field"><label>Not included</label><ul style="padding-left:18px;font-size:13px;line-height:1.7">'+
@@ -3010,7 +3009,7 @@ document.getElementById("btnExportCsv").addEventListener("click",function(){
     return [name,a.type,a.ts,a.note||""];
   }));
   var csv=rows.map(function(r){return r.map(function(v){return '"'+String(v).replace(/"/g,'""')+'"';}).join(",");}).join("\n");
-  downloadFile("rra-sales-activity.csv",csv,"text/csv");
+  downloadFile("leak-detector-sales-activity.csv",csv,"text/csv");
 });
 
 /* ============ NOTES ============ */
@@ -3049,7 +3048,7 @@ function renderLaunch(){
     ["Conversations",convos],["Proposals",proposals],["Wins",wins],["Lost",lost],["Collected",fmtMoney(collected)]
   ];
   document.getElementById("scoreboardStats").innerHTML=scoreStats.map(function(s){
-    var color=(s[0]==="Wins"&&wins)||s[0]==="Collected"?"var(--rra-green)":((s[0]==="Lost"&&lost)?"var(--rra-red-text)":"");
+    var color=(s[0]==="Wins"&&wins)||s[0]==="Collected"?"var(--ld-green)":((s[0]==="Lost"&&lost)?"var(--ld-red-text)":"");
     return '<div class="stat"><strong'+(color?' style="color:'+color+'"':"")+'>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";
   }).join("");
 
@@ -3070,7 +3069,7 @@ function downloadFile(filename,content,mime){
   setTimeout(function(){URL.revokeObjectURL(a.href);},1000);
 }
 document.getElementById("btnExportJson").addEventListener("click",function(){
-  downloadFile("rra-data-"+todayISO()+".json",JSON.stringify(STATE,null,2),"application/json");
+  downloadFile("leak-detector-data-"+todayISO()+".json",JSON.stringify(STATE,null,2),"application/json");
   toast("Exported");
 });
 document.getElementById("btnImportJson").addEventListener("click",function(){document.getElementById("importFile").click();});
@@ -3125,7 +3124,7 @@ function renderCallBody(){
   var opener=buildPitch(p,"call")||"No evidence yet — add at least one finding before calling.";
   body.innerHTML=
     '<div class="callco">'+esc(p.company)+"</div>"+
-    '<div style="color:var(--rra-muted);font-size:13px">'+esc(p.city||"")+(p.phone?" &middot; "+esc(p.phone):"")+"</div>"+
+    '<div style="color:var(--ld-muted);font-size:13px">'+esc(p.city||"")+(p.phone?" &middot; "+esc(p.phone):"")+"</div>"+
     '<div class="callsection"><h4>Top Revenue Leak</h4><div class="calltext">'+(top?esc(top.issue):"No validated evidence yet")+"</div></div>"+
     (top&&top.source?'<div class="callsection"><h4>Evidence</h4><div class="calltext">'+esc(top.source)+"</div></div>":"")+
     (top?'<div class="callsection"><h4>'+(evidenceQuality(top).financial==="KNOWN"?"Recovery Opportunity":"Estimated Recovery Opportunity")+

@@ -1,4 +1,4 @@
-# RRA Validation Scoreboard
+# Leak Detector Validation Scoreboard
 
 Status: launch-stage tracking doc, not software. A spreadsheet works just
 as well — this file is the template and the record of what the numbers
@@ -11,14 +11,14 @@ recovered-revenue and delivery-hours columns get filled in).
 Do not let version numbers or architecture drive what gets built next.
 Let evidence drive it. Three gates, in order:
 
-**Gate 1 — SELL.** Can RRA consistently get an HVAC owner to pay ~$1,000
+**Gate 1 — SELL.** Can Leak Detector consistently get an HVAC owner to pay ~$1,000
 to fix an evidence-backed leak? Until yes: no more platform development.
 
-**Gate 2 — PROVE.** Can RRA deliver that fix profitably and document
+**Gate 2 — PROVE.** Can Leak Detector deliver that fix profitably and document
 recovered revenue within ~30 days, using `docs/MEASUREMENT_PROTOCOL.md`?
 Until yes: no scaling infrastructure.
 
-**Gate 3 — REPEAT.** Can RRA repeat the process across multiple shops
+**Gate 3 — REPEAT.** Can Leak Detector repeat the process across multiple shops
 without reinventing delivery each time? Only then does the
 POST-VALIDATION ARCHITECTURE in `docs/MVP.md` (benchmark promotion,
 associates, work queues, retention engines, a second vertical, portals,
@@ -53,7 +53,7 @@ moving:
 | 3 | Documented revenue recovered | Gate 2 (PROVE) — from the measurement protocol, never the pre-fix estimate |
 | 4 | Gross margin per recovery | Is this profitable to deliver, not just sellable |
 | 5 | Expansion / retention | Did Good lead to Better/Best, or a referral |
-| 6 | Operator hours per client | Gate 3 (REPEAT) — the real long-run number is **documented recovered revenue ÷ RRA delivery hour**. That ratio is what tells you whether RRA is an AI-leveraged business or a sophisticated consulting job wearing a dashboard. |
+| 6 | Operator hours per client | Gate 3 (REPEAT) — the real long-run number is **documented recovered revenue ÷ Leak Detector delivery hour**. That ratio is what tells you whether Leak Detector is an AI-leveraged business or a sophisticated consulting job wearing a dashboard. |
 
 ## Scoreboard
 

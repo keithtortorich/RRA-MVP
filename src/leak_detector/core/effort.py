@@ -1,5 +1,5 @@
 """
-RRA v1 — Effort Estimation Module
+Leak Detector v1 — Effort Estimation Module
 Effort Factor = (6 - Effort) / 5
 """
 

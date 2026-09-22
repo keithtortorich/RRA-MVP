@@ -1,5 +1,5 @@
 """
-RRA v1 — Commercial & Operational Guardrails
+Leak Detector v1 — Commercial & Operational Guardrails
 Enforces §17.1 (payment), §17.2 (delivery gap), §17.3 (access boundary).
 
 Changes from v1.0:
@@ -211,7 +211,7 @@ def build_decision_checklist(proposal: Dict[str, Any]) -> Dict[str, bool]:
 
 
 def render_decision_checklist(flags: Dict[str, bool]) -> str:
-    lines = ["COMMERCIAL DECISION CHECKLIST — RRA v1",
+    lines = ["COMMERCIAL DECISION CHECKLIST — Leak Detector v1",
              "All boxes must be TRUE before proposal is presented.", ""]
     all_ok = True
     for name, ok in flags.items():

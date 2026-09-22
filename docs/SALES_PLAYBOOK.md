@@ -1,16 +1,16 @@
-# RRA Sales Playbook
+# Leak Detector Sales Playbook
 
-Status: launch-stage operating playbook. Adapted from the NetBuild.Pro lead-engine pattern to RRA's existing `docs/LAUNCH_PLAN.md`. This document does not replace the launch plan. It turns it into a repeatable sales pull for the first five HVAC prospects.
+Status: launch-stage operating playbook. Adapted from the NetBuild.Pro lead-engine pattern to Leak Detector's existing `docs/LAUNCH_PLAN.md`. This document does not replace the launch plan. It turns it into a repeatable sales pull for the first five HVAC prospects.
 
 ## Mission
 
-Get five evidence-backed RRA proposals in front of five real residential HVAC owners, have five real conversations, and use the outcomes to decide what changes next.
+Get five evidence-backed Leak Detector proposals in front of five real residential HVAC owners, have five real conversations, and use the outcomes to decide what changes next.
 
 The first launch is validation, not scale. Do not automate volume before the first five proposals teach us whether the wedge and offer sell.
 
 ## Offer
 
-RRA is not sold as marketing, AI, software, or a generic audit. RRA identifies a specific revenue leak, documents the evidence, sizes the opportunity conservatively, and offers a fixed-fee way to fix the biggest leak first.
+Leak Detector is not sold as marketing, AI, software, or a generic audit. Leak Detector identifies a specific revenue leak, documents the evidence, sizes the opportunity conservatively, and offers a fixed-fee way to fix the biggest leak first.
 
 Commercial ladder for launch:
 
@@ -29,7 +29,7 @@ Exactly five prospects for the first cycle.
 
 Target filter:
 
-| Factor | RRA launch criteria |
+| Factor | Leak Detector launch criteria |
 |---|---|
 | Industry | Residential HVAC |
 | Size | 2-15 technicians |
@@ -49,7 +49,7 @@ For the first five, manual Google Maps/search/referral sourcing is sufficient. D
 
 ## 2. Qualification and Priority
 
-RRA does not import NetBuild.Pro's AOKAI score. RRA already has its own revenue-priority scoring after evidence collection.
+Leak Detector does not import NetBuild.Pro's AOKAI score. Leak Detector already has its own revenue-priority scoring after evidence collection.
 
 Before audit, use a simple launch qualification gate:
 
@@ -57,22 +57,22 @@ Before audit, use a simple launch qualification gate:
 2. Has a reachable decision maker or credible route to one.
 3. Has at least one observable public revenue-leak signal.
 4. The signal can be manually verified without private-system access.
-5. RRA can plausibly offer a single operational fix if the evidence survives audit.
+5. Leak Detector can plausibly offer a single operational fix if the evidence survives audit.
 
 If any of 1, 3, or 4 fails, replace the prospect rather than forcing an audit.
 
-After audit, rank by RRA Revenue Priority Score and lead with the top evidence-backed opportunity.
+After audit, rank by Leak Detector Revenue Priority Score and lead with the top evidence-backed opportunity.
 
 ## 3. Evidence Pull
 
 For each prospect:
 
-1. Run `revenue-audit`.
+1. Run `leak-detector-audit`.
 2. Open the internal output.
 3. Spend approximately 20 minutes manually validating the top opportunity.
 4. Convert observations into KNOWN metrics where possible.
 5. Re-run with real metrics.
-6. Run `revenue-propose` only after the evidence is credible.
+6. Run `leak-detector-propose` only after the evidence is credible.
 
 Manual validation checklist:
 
@@ -88,7 +88,7 @@ Never manufacture private operational numbers. Benchmarks and estimates must rem
 
 ## 4. Outreach Sequence
 
-The first cycle is founder/human-led. The sequence borrows NetBuild.Pro's fail-safe follow-up discipline but is shortened to match RRA's launch plan.
+The first cycle is founder/human-led. The sequence borrows NetBuild.Pro's fail-safe follow-up discipline but is shortened to match Leak Detector's launch plan.
 
 | Touch | Day | Channel | Purpose |
 |---|---:|---|---|
@@ -114,7 +114,7 @@ Opening structure:
 
 Example pattern:
 
-`I noticed your site says 24/7 service, but the after-hours call path I tested did not reach a live response. Based on the assumptions in the attached breakdown, that leak could represent roughly $X/month. RRA's first recommendation is one fix, not a marketing package: [fix]. The fixed-fee Good option is $997. Worth 10 minutes to walk through the evidence?`
+`I noticed your site says 24/7 service, but the after-hours call path I tested did not reach a live response. Based on the assumptions in the attached breakdown, that leak could represent roughly $X/month. Leak Detector's first recommendation is one fix, not a marketing package: [fix]. The fixed-fee Good option is $997. Worth 10 minutes to walk through the evidence?`
 
 Use the actual client-facing proposal output. Do not send internal IDs, confidence floats, raw worker output, or hidden assumptions.
 
@@ -142,7 +142,7 @@ Show the inputs. Separate KNOWN, ESTIMATED, and benchmark assumptions. Invite th
 
 ### "Is this marketing?"
 
-No. The launch offer is to identify and fix a measurable revenue leak. Some later fixes may touch marketing, but the proposal leads with the operational leak RRA actually found.
+No. The launch offer is to identify and fix a measurable revenue leak. Some later fixes may touch marketing, but the proposal leads with the operational leak Leak Detector actually found.
 
 ### "Is this AI?"
 
@@ -154,7 +154,7 @@ Send the client-facing proposal or free scan and set a specific follow-up date. 
 
 ### "Too expensive."
 
-Return to the evidence and economics. Do not discount reflexively. If the validated opportunity is too small to justify $997, RRA should not force the sale.
+Return to the evidence and economics. Do not discount reflexively. If the validated opportunity is too small to justify $997, Leak Detector should not force the sale.
 
 ### "Not now."
 
@@ -224,7 +224,7 @@ Assume the targeting/message/evidence failed to earn attention. Change the targe
 - Every SENT prospect must have a next-follow-up date.
 - Follow up on Day 4 and Day 11 unless the prospect opts out or clearly declines.
 - Every revenue claim must trace to evidence plus explicit assumptions.
-- Client-facing material must pass RRA guardrails.
+- Client-facing material must pass Leak Detector guardrails.
 - Never send the internal proposal/audit view.
 - Do not request private system access during prospecting.
 - Do not promise recovered revenue.

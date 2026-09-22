@@ -121,7 +121,7 @@ def _fetch_once(url: str, timeout: float) -> tuple[int, dict, bytes]:
     conn = conn_cls(parsed.hostname, pinned_ip, port, timeout)
     try:
         conn.request('GET', path, headers={
-            'User-Agent': 'RRA-MVP/1.0 public-audit',
+            'User-Agent': 'LeakDetector-MVP/1.0 public-audit',
             'Host': parsed.hostname,
         })
         resp = conn.getresponse()

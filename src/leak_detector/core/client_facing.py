@@ -1,5 +1,5 @@
 """
-RRA v1 — Client-Facing Summary Filter
+Leak Detector v1 — Client-Facing Summary Filter
 Hard boundary between internal data and anything a client sees.
 """
 

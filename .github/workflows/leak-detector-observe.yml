@@ -1,0 +1,146 @@
+name: leak-detector-observe
+
+# Runs the observation agent over every target in targets.json, publishes the
+# results into docs/observations/, and commits them. The Sizzle tool pulls
+# them automatically on open — no download, no file picker.
+#
+# It never calls, texts, submits a form, or books an appointment. EXT-001..007
+# and EXT-015 stay manual by design. See src/leak_detector/browser_scan.py.
+#
+# The verification plan rules out a scanner and scheduled monitoring. This
+# workflow is both, and is an authorised exception — see the scope decision in
+# OPERATOR.md before removing or widening it.
+
+on:
+  workflow_dispatch:
+    inputs:
+      url:
+        description: "Observe a single site instead of targets.json (optional)"
+        required: false
+        type: string
+        default: ""
+      phone:
+        description: "Published phone, only used with a single-site run"
+        required: false
+        type: string
+        default: ""
+      pages:
+        description: "Max pages to render per site"
+        required: false
+        type: string
+        default: "12"
+      publish:
+        description: "Commit results to docs/observations/ for the tool to pull"
+        required: false
+        type: boolean
+        default: true
+  schedule:
+    # Mondays 13:00 UTC — observations stay current without anyone clicking.
+    - cron: "0 13 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: leak-detector-observe
+  cancel-in-progress: false
+
+jobs:
+  observe:
+    runs-on: ubuntu-latest
+    # targets.json now carries ~95 sites; at up to 12 pages/site with request
+    # delays, robots/link checks, and browser overhead, a full serial batch
+    # can run well past 30 minutes. 180 gives real headroom without needing
+    # to shard the batch across parallel jobs yet.
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install package and browser
+        run: |
+          python -m pip install -e ".[browser]"
+          python -m playwright install --with-deps chromium
+
+      - name: Run observation agent and publish each checkpoint
+        # Dispatch inputs are passed through the environment, never interpolated
+        # into the shell — a ${{ }} expansion inside run: would be a script
+        # injection vector for anyone able to trigger this workflow.
+        #
+        # Publishing happens inline, right after each unit of work, rather
+        # than in a separate step at the end: a job that exceeds
+        # timeout-minutes is hard-cancelled and does not run later steps —
+        # if: always() does not help there, only work already committed
+        # before the cutoff survives. So the batch path below commits after
+        # every chunk, bounding data loss on timeout to one chunk instead of
+        # the whole ~95-site run. leak-detector-observe merges index.json
+        # across invocations (browser_scan.merge_index), so each chunk's
+        # run correctly extends the index built by the chunks before it.
+        env:
+          TARGET_URL: ${{ inputs.url }}
+          TARGET_PHONE: ${{ inputs.phone }}
+          # The weekly scheduled run has no dispatch input and covers the
+          # whole ~95-site batch, so it defaults to fewer pages/site than a
+          # manual single-target dispatch (which still defaults to 12).
+          MAX_PAGES: ${{ inputs.pages || (github.event_name == 'schedule' && '6' || '12') }}
+          DO_PUBLISH: ${{ inputs.publish != false }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          publish_if_changed() {
+            if [ -z "$(git status --porcelain docs/observations)" ]; then
+              echo "No observation changes to publish."
+              return 0
+            fi
+            git add docs/observations
+            git commit -m "Publish agent observations ($(date -u +%Y-%m-%d))"
+            # Another run, or an earlier checkpoint in this same run, may
+            # have landed while this chunk was rendering.
+            git pull --rebase origin "${GITHUB_REF_NAME}"
+            git push origin "HEAD:${GITHUB_REF_NAME}"
+          }
+
+          # --allow-private-hosts is deliberately never passed: the agent
+          # refuses loopback, private, link-local and cloud-metadata targets.
+          if [ -n "$TARGET_URL" ]; then
+            leak-detector-observe "$TARGET_URL" \
+              --phone "$TARGET_PHONE" \
+              --pages "$MAX_PAGES" \
+              --out docs/observations \
+              --screenshots docs/observations/screenshots \
+              --summary-md "$GITHUB_STEP_SUMMARY"
+            if [ "$DO_PUBLISH" = "true" ]; then publish_if_changed; fi
+            exit 0
+          fi
+
+          CHUNK_SIZE=10
+          total=$(jq '.targets | length' targets.json)
+          for ((i = 0; i < total; i += CHUNK_SIZE)); do
+            end=$((i + CHUNK_SIZE))
+            if [ "$end" -gt "$total" ]; then end=$total; fi
+            echo "[batch] targets $((i + 1))-$end of $total"
+            jq --argjson start "$i" --argjson size "$CHUNK_SIZE" \
+              '{_comment: ._comment, targets: (.targets[$start:($start + $size)])}' \
+              targets.json > /tmp/chunk.json
+            leak-detector-observe \
+              --targets /tmp/chunk.json \
+              --pages "$MAX_PAGES" \
+              --out docs/observations \
+              --screenshots docs/observations/screenshots \
+              --summary-md "$GITHUB_STEP_SUMMARY"
+            if [ "$DO_PUBLISH" = "true" ]; then publish_if_changed; fi
+          done
+
+      - name: Upload observations artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: observations-${{ github.run_number }}
+          path: docs/observations/
+          if-no-files-found: warn
+          retention-days: 30

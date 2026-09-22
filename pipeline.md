@@ -63,8 +63,8 @@ per the manual pass in `docs/LAUNCH_PLAN.md` Step 3:
 This research was done from an environment whose network egress is
 allowlisted (it could not directly load any of these companies' sites to
 quote exact on-page text or check for booking/chat/SMS widgets — only
-search-engine-indexed summaries were reachable). Run `revenue-scan` /
-`revenue-audit` against each confirmed URL from a normal internet
+search-engine-indexed summaries were reachable). Run `leak-detector-scan` /
+`leak-detector-audit` against each confirmed URL from a normal internet
 connection to get the actual site-signal scan, and do the phone-call and
 on-page checks in Step 3 yourself — that's where ESTIMATED becomes KNOWN.
 
@@ -73,7 +73,7 @@ on-page checks in Step 3 yourself — that's where ESTIMATED becomes KNOWN.
 The columns below are the fuller sales-ready record worth capturing per
 prospect — beyond what fits in the pipeline table above. Leave a field
 blank rather than guessing; blank means "not yet KNOWN," which is itself
-useful information. `RRA score`/`Outreach priority` are your call once the
+useful information. `Leak Detector score`/`Outreach priority` are your call once the
 row is otherwise filled in — this repo doesn't compute them for you.
 
 | Field | Exodus Mechanical | Ample Services | Bill Anderson Air | Castle A/C & Heating | Reed Heating and Air |
@@ -93,7 +93,7 @@ row is otherwise filled in — this repo doesn't compute them for you.
 | Company size (techs) | | | | | |
 | Top observable leak | | | | | |
 | Evidence | | | | | |
-| RRA score | | | | | |
+| Leak Detector score | | | | | |
 | Outreach priority | | | | | |
 
 ## Allowed statuses

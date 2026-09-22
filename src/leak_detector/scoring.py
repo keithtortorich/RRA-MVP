@@ -1,11 +1,11 @@
-"""Deterministic HVAC evidence scoring for the RRA MVP."""
+"""Deterministic HVAC evidence scoring for the Leak Detector MVP."""
 from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from typing import Any, Dict, List, Optional
-from rra.core.effort import apply_effort_to_opportunity
-from rra.core.scoring import calculate_scores_for_opportunities
-from rra.verticals.hvac.benchmarks import Label, resolve_metric
-from rra.verticals.hvac.leak_library import DetectionSignal, LeakCategory, get_leak, match_signals
+from leak_detector.core.effort import apply_effort_to_opportunity
+from leak_detector.core.scoring import calculate_scores_for_opportunities
+from leak_detector.verticals.hvac.benchmarks import Label, resolve_metric
+from leak_detector.verticals.hvac.leak_library import DetectionSignal, LeakCategory, get_leak, match_signals
 
 MIN_EVIDENCE_CONFIDENCE = 0.50
 CATEGORY_TO_DEFAULT_SIGNAL = {
