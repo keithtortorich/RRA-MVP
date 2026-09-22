@@ -1,7 +1,17 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T20:13:07.911588+00:00",
+  "generatedAt": "2026-09-22T23:45:34.843392+00:00",
   "runs": [
+    {
+      "runId": "c49a63f7895441dd84966e3e5a7e9ff3",
+      "company": "",
+      "host": "kacexpress.com",
+      "target": "https://kacexpress.com",
+      "generatedAt": "2026-09-22T23:45:34.842678+00:00",
+      "file": "kacexpress-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
       "company": "4C A/C & Heating",
