@@ -1,7 +1,27 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-22T19:38:51.638069+00:00",
+  "generatedAt": "2026-09-22T19:43:39.839661+00:00",
   "runs": [
+    {
+      "runId": "f2a6356e3cce432a8b403cf4486becd5",
+      "company": "4C A/C & Heating",
+      "host": "4cacandheating.com",
+      "target": "https://4cacandheating.com",
+      "generatedAt": "2026-09-22T19:40:03.584450+00:00",
+      "file": "4cacandheating-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "b87723d1af724ff18f113122de97716d",
+      "company": "AMS A/C & Heating",
+      "host": "amskaty.com",
+      "target": "https://amskaty.com",
+      "generatedAt": "2026-09-22T19:39:14.293142+00:00",
+      "file": "amskaty-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
     {
       "runId": "6f1a52f4af814412b6211fdd3e34509a",
       "company": "Air Depot Cooling & Heating",
@@ -9,6 +29,26 @@
       "target": "https://airdepot.com",
       "generatedAt": "2026-09-22T19:38:04.078712+00:00",
       "file": "airdepot-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
+      "runId": "6f1b2895f328443387ce27169293d423",
+      "company": "Air Innovations LLC",
+      "host": "airinnovationsllc.com",
+      "target": "https://www.airinnovationsllc.com",
+      "generatedAt": "2026-09-22T19:43:39.839114+00:00",
+      "file": "www-airinnovationsllc-com.json",
+      "signalCount": 9,
+      "draftCount": 3
+    },
+    {
+      "runId": "84f31b408a1a4495b6223ea0efa02858",
+      "company": "Air Specialist",
+      "host": "airspecialist.com",
+      "target": "https://www.airspecialist.com",
+      "generatedAt": "2026-09-22T19:42:36.650116+00:00",
+      "file": "www-airspecialist-com.json",
       "signalCount": 9,
       "draftCount": 6
     },
@@ -63,6 +103,26 @@
       "draftCount": 4
     },
     {
+      "runId": "8ae7302f1757487eaf3d675fb97075dc",
+      "company": "Clear the Air Cooling & Heating",
+      "host": "cleartheairac.com",
+      "target": "https://cleartheairac.com",
+      "generatedAt": "2026-09-22T19:40:34.831218+00:00",
+      "file": "cleartheairac-com.json",
+      "signalCount": 9,
+      "draftCount": 3
+    },
+    {
+      "runId": "7d1c0ae6178b43e4823f46aa817684b1",
+      "company": "Custom Comfort Air",
+      "host": "customcomfortair.com",
+      "target": "https://customcomfortair.com",
+      "generatedAt": "2026-09-22T19:41:36.066149+00:00",
+      "file": "customcomfortair-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
       "runId": "af206e3ab9f8415fa9751c3cbefe3d7a",
       "company": "Exodus Mechanical",
       "host": "exodusmechanical.com",
@@ -73,12 +133,52 @@
       "draftCount": 6
     },
     {
+      "runId": "27a35d6031cd402b82d771376138bd0c",
+      "company": "Jackson Air & Heat",
+      "host": "jacksonairandheatinc.com",
+      "target": "https://jacksonairandheatinc.com",
+      "generatedAt": "2026-09-22T19:41:06.743138+00:00",
+      "file": "jacksonairandheatinc-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "3021c6de2151472d8aa779a42febfef6",
+      "company": "Lone Star Heat and AC",
+      "host": "lonestarhvaccompany.com",
+      "target": "https://lonestarhvaccompany.com",
+      "generatedAt": "2026-09-22T19:39:30.206135+00:00",
+      "file": "lonestarhvaccompany-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
       "runId": "a773eeaf8a5f47a28e436b3085a37ddc",
       "company": "Majestic AC",
       "host": "majestic-ac.com",
       "target": "https://www.majestic-ac.com",
       "generatedAt": "2026-09-22T19:37:31.563066+00:00",
       "file": "www-majestic-ac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "6017be0442794e39bdfe12002d91e877",
+      "company": "Sugar Land AC and Heating",
+      "host": "sugarlandacandheating.com",
+      "target": "https://sugarlandacandheating.com",
+      "generatedAt": "2026-09-22T19:40:56.506542+00:00",
+      "file": "sugarlandacandheating-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "efa871a7664f4bd7a8180bbb81ac59f4",
+      "company": "Sun Air Conditioning & Heating",
+      "host": "sunairconditioning.com",
+      "target": "https://sunairconditioning.com",
+      "generatedAt": "2026-09-22T19:43:21.189833+00:00",
+      "file": "sunairconditioning-com.json",
       "signalCount": 9,
       "draftCount": 5
     },

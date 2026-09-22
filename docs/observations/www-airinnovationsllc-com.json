@@ -1,0 +1,149 @@
+{
+  "rraObservations": 1,
+  "runId": "6f1b2895f328443387ce27169293d423",
+  "generatedAt": "2026-09-22T19:43:39.839114+00:00",
+  "target": "https://www.airinnovationsllc.com",
+  "company": "Air Innovations LLC",
+  "host": "airinnovationsllc.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.airinnovationsllc.com/",
+    "https://www.airinnovationsllc.com/services/",
+    "https://www.airinnovationsllc.com/ac-repair/",
+    "https://www.airinnovationsllc.com/ac-installation/",
+    "https://www.airinnovationsllc.com/service-areas/",
+    "https://www.airinnovationsllc.com/accomplishments/",
+    "https://www.airinnovationsllc.com/contact-us/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "Chat widget detected: podium.com.",
+      "observedAt": "2026-09-22T19:43:39.839152+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "Booking path found: https://www.airinnovationsllc.com/schedule-service/, https://www.airinnovationsllc.com/schedule-service",
+      "observedAt": "2026-09-22T19:43:39.839160+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:43:39.839164+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "Homepage rendered in 838ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:43:39.839168+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:43:39.839177+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "No pricing guidance found on public pages.",
+      "observedAt": "2026-09-22T19:43:39.839181+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:43:39.839184+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "Above-fold CTA(s): SCHEDULE ONLINE; Contact Us; SCHEDULE SERVICE",
+      "observedAt": "2026-09-22T19:43:39.839188+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "notes": "1 of 6 inner pages under 250 words.",
+      "observedAt": "2026-09-22T19:43:39.839193+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:43:39.839195+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:43:39.839198+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:43:39.839199+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:43:39.839201+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "We\u2019re Always Here With 24/7 Service",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:2818302412) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-airinnovationsllc-com/home.png",
+      "observedAt": "2026-09-22T19:43:39.839207+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "We\u2019re Always Here With 24/7 Service",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-airinnovationsllc-com/home.png",
+      "observedAt": "2026-09-22T19:43:39.839211+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "We\u2019re Always Here With 24/7 Service",
+      "sourceUrl": "https://www.airinnovationsllc.com/",
+      "expectedResult": "",
+      "agentObservation": "5 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/www-airinnovationsllc-com/home.png",
+      "observedAt": "2026-09-22T19:43:39.839218+00:00"
+    }
+  ],
+  "file": "www-airinnovationsllc-com.json"
+}
