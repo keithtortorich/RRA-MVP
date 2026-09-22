@@ -69,7 +69,9 @@ captured before the fix.
 | Conversations initiated | | | |
 | Appointments booked | | | |
 | Jobs completed | | | |
-| Documented revenue from those jobs | | | |
+| Documented revenue from qualifying completed jobs | | | |
+
+Documented recovered revenue is not the modeled opportunity, booked revenue, or an unverified owner estimate. Count it only when at least one completed job is supported by a qualifying transaction reference such as an invoice or job ID. Record booked revenue separately. Customer ROI must remain hidden until this verification is explicit.
 
 ### 4. The result statement
 

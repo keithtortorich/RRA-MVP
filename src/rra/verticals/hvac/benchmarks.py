@@ -11,6 +11,7 @@ from typing import Any, Dict, Optional
 
 class Label(str, Enum):
     KNOWN     = "KNOWN"
+    BENCHMARK = "BENCHMARK"
     ASSUMED   = "ASSUMED"
     ESTIMATED = "ESTIMATED"
     UNKNOWN   = "UNKNOWN"
@@ -18,35 +19,35 @@ class Label(str, Enum):
 
 HVAC_BENCHMARKS: Dict[str, Dict[str, Any]] = {
     "monthly_inbound_calls": {
-        "value": 120, "label": Label.ESTIMATED,
+        "value": 120, "label": Label.BENCHMARK,
         "notes": "Conservative mid-range for 2–8 tech residential HVAC.",
         "source": "Industry ranges 2025-2026 (ServiceTitan / CallJolt aggregated)"},
     "missed_call_rate": {
-        "value": 0.45, "label": Label.ESTIMATED,
+        "value": 0.45, "label": Label.BENCHMARK,
         "notes": "Industry reports 25-62%. We use 45% as realistic average.",
         "source": "CallJolt / ServiceTitan 2025-2026"},
     "after_hours_call_share": {
-        "value": 0.35, "label": Label.ESTIMATED,
+        "value": 0.35, "label": Label.BENCHMARK,
         "notes": "Common observed range.",
         "source": "Multiple 2025-2026 home-service studies"},
     "call_to_book_rate": {
-        "value": 0.40, "label": Label.ESTIMATED,
+        "value": 0.40, "label": Label.BENCHMARK,
         "notes": "ServiceTitan average ~38%. Top performers 65-85%.",
         "source": "ServiceTitan / industry aggregates"},
     "estimate_close_rate": {
-        "value": 0.38, "label": Label.ESTIMATED,
+        "value": 0.38, "label": Label.BENCHMARK,
         "notes": "Residential HVAC replacement/service close rates 35-45%.",
         "source": "ACHR News / Service Roundtable ranges"},
     "web_form_to_conversation_rate": {
-        "value": 0.45, "label": Label.ESTIMATED,
+        "value": 0.45, "label": Label.BENCHMARK,
         "notes": "Many form leads never become a real conversation.",
         "source": "CallRail / home-service studies"},
     "average_service_ticket": {
-        "value": 550, "label": Label.ESTIMATED,
+        "value": 550, "label": Label.BENCHMARK,
         "notes": "Repair tickets often $300-600; blended service average.",
         "source": "MarginPlug / ACHR / 2026 reports"},
     "average_replacement_ticket": {
-        "value": 7500, "label": Label.ESTIMATED,
+        "value": 7500, "label": Label.BENCHMARK,
         "notes": "Typical residential replacement range.",
         "source": "Industry financial benchmarks 2026"},
     "contribution_margin_per_job": {
@@ -54,7 +55,7 @@ HVAC_BENCHMARKS: Dict[str, Dict[str, Any]] = {
         "notes": "Conservative contribution margin assumption.",
         "source": "Internal modeling assumption"},
     "response_under_5min_booking_lift": {
-        "value": 0.25, "label": Label.ESTIMATED,
+        "value": 0.25, "label": Label.BENCHMARK,
         "notes": "Modest recoverable portion of documented lifts.",
         "source": "MIT / Harvard lead response studies"},
 }

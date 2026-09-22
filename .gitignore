@@ -6,3 +6,4 @@ build/
 *.egg-info/
 .pytest_cache/
 reports/
+node_modules/

@@ -4,7 +4,7 @@ from __future__ import annotations
 import os
 from datetime import date
 from pathlib import Path
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 
 from rra.runner import run_workers_parallel
 
@@ -21,7 +21,7 @@ def scan(url: str, output_dir: Optional[str] = None,
 
     if workers:
         print(f"[scan] running optional workers: {', '.join(workers)}")
-        results = run_workers_parallel(workers, url)
+        results: Dict[str, Any] = run_workers_parallel(workers, url)
     else:
         from types import SimpleNamespace
         from rra.fallback_scan import scan_public_url

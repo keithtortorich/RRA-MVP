@@ -1,0 +1,10 @@
+{
+  "name": "rra-mvp-cockpit-tests",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/cockpit.test.mjs"
+  },
+  "devDependencies": {
+    "jsdom": "27.0.0"
+  }
+}
