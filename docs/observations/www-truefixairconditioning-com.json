@@ -1,0 +1,168 @@
+{
+  "rraObservations": 1,
+  "runId": "cd8333a70ad54757af88e9ce0dc1fcdd",
+  "generatedAt": "2026-09-22T19:38:51.637542+00:00",
+  "target": "https://www.truefixairconditioning.com",
+  "company": "True Fix A/C & Heating",
+  "host": "truefixairconditioning.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://www.truefixairconditioning.com/",
+    "https://www.truefixairconditioning.com/heating",
+    "https://www.truefixairconditioning.com/service-and-maintenance",
+    "https://www.truefixairconditioning.com/contact"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:38:51.637580+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-22T19:38:51.637586+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "No financing or payment-plan option visible.",
+      "observedAt": "2026-09-22T19:38:51.637590+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "Homepage rendered in 1299ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:38:51.637594+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:38:51.637600+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:38:51.637605+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-22T19:38:51.637608+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "Above-fold CTA(s): Contact; Request a Call Back",
+      "observedAt": "2026-09-22T19:38:51.637611+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "notes": "1 of 3 inner pages under 250 words.",
+      "observedAt": "2026-09-22T19:38:51.637617+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:38:51.637619+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:38:51.637621+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:38:51.637623+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:38:51.637625+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "Emergency Services Are Available",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:(281) 392-9334) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/www-truefixairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:38:51.637630+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency Services Are Available",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/www-truefixairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:38:51.637634+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "Emergency Services Are Available",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "1 of 8 conversion links returned an error: mailto:?Subject=HVAC%20Contractors%20%7C%20True%20Fix%20A/C%20&%20Heating%20%7C%20Katy,%20TX&body=Check%20out%20this%20site:%20https://www.truefixairconditioning.com/ (malformed link target).",
+      "evidenceReference": "docs/observations/screenshots/www-truefixairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:38:51.637646+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "Emergency Services Are Available",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\"],\"opens\":\"08:00\",\"closes\":\"17:00\"}']. Visible hours: ['Richmond, TX 77406']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/www-truefixairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:38:51.637654+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "Emergency Services Are Available",
+      "sourceUrl": "https://www.truefixairconditioning.com/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 4 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/www-truefixairconditioning-com/home.png",
+      "observedAt": "2026-09-22T19:38:51.637663+00:00"
+    }
+  ],
+  "file": "www-truefixairconditioning-com.json"
+}

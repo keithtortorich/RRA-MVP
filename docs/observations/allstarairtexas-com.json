@@ -1,0 +1,186 @@
+{
+  "rraObservations": 1,
+  "runId": "c9491cb297944d86bfe1f969e438165a",
+  "generatedAt": "2026-09-22T19:38:37.369584+00:00",
+  "target": "https://allstarairtexas.com",
+  "company": "All Star A/C",
+  "host": "allstarairtexas.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://allstarairtexas.com/",
+    "https://allstarairtexas.com/areas-we-serve/",
+    "https://allstarairtexas.com/air-conditioning/ac-installation-and-replacement/",
+    "https://allstarairtexas.com/air-conditioning/ac-maintenance/",
+    "https://allstarairtexas.com/air-conditioning/ac-repair/",
+    "https://allstarairtexas.com/heating/",
+    "https://allstarairtexas.com/heating/heating-installation-and-replacement/",
+    "https://allstarairtexas.com/heating/heating-maintenance/",
+    "https://allstarairtexas.com/heating/heating-repair/",
+    "https://allstarairtexas.com/ac-maintenance/",
+    "https://allstarairtexas.com/heating-faqs/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-22T19:38:37.369639+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "ABSENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "Booking path found: widget:housecallpro, https://allstarairtexas.com/#book-now",
+      "observedAt": "2026-09-22T19:38:37.369649+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-22T19:38:37.369654+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "Homepage rendered in 900ms (threshold 4000ms).",
+      "observedAt": "2026-09-22T19:38:37.369658+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "PRESENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "No sms: link or visible text-us option.",
+      "observedAt": "2026-09-22T19:38:37.369669+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-22T19:38:37.369673+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "PRESENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "No tappable phone number above the fold at 375px.",
+      "observedAt": "2026-09-22T19:38:37.369676+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "PRESENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "No clear call to action above the fold at 375px.",
+      "observedAt": "2026-09-22T19:38:37.369678+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "ABSENT",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "notes": "Inner pages carry reasonable content depth.",
+      "observedAt": "2026-09-22T19:38:37.369683+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:38:37.369686+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:38:37.369688+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:38:37.369689+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-22T19:38:37.369691+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:+17138429532) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/allstarairtexas-com/home.png",
+      "observedAt": "2026-09-22T19:38:37.369697+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 1 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/allstarairtexas-com/home.png",
+      "observedAt": "2026-09-22T19:38:37.369701+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "expectedResult": "",
+      "agentObservation": "8 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/allstarairtexas-com/home.png",
+      "observedAt": "2026-09-22T19:38:37.369710+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['{\"@type\":\"OpeningHoursSpecification\",\"dayOfWeek\":[\"Monday\",\"Tuesday\",\"Wednesday\",\"Thursday\",\"Friday\",\"Saturday\",\"Sunday\"],\"opens\":\"00:00\",\"closes\":\"23:59\"}']. Visible hours: ['Our business has been family-owned and operated since 2010 and is committed to providing the best in service and customer satisfaction in the Houston, Texas area. That\u2019s our promise to you. We offer a industry-leading quality guarantee with every new install we do, so we can assure you the job is done right the first time.']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/allstarairtexas-com/home.png",
+      "observedAt": "2026-09-22T19:38:37.369721+00:00"
+    },
+    {
+      "checkId": "EXT-013",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://allstarairtexas.com/",
+      "expectedResult": "",
+      "agentObservation": "3 service-area page(s) found, each with a conversion element.",
+      "evidenceReference": "docs/observations/screenshots/allstarairtexas-com/home.png",
+      "observedAt": "2026-09-22T19:38:37.369727+00:00"
+    },
+    {
+      "checkId": "EXT-014",
+      "status": "PLANNED",
+      "channel": "WEB_FORM",
+      "publicClaim": "",
+      "sourceUrl": "https://allstarairtexas.com/ac-maintenance/",
+      "expectedResult": "",
+      "agentObservation": "Public form has 9 field(s), 0 required. Agent did not submit it \u2014 complete EXT-005/EXT-006 manually.",
+      "evidenceReference": "docs/observations/screenshots/allstarairtexas-com/home.png",
+      "observedAt": "2026-09-22T19:38:37.369737+00:00"
+    }
+  ],
+  "file": "allstarairtexas-com.json"
+}

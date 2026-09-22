@@ -1,46 +1,96 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-21T19:13:08.996323+00:00",
+  "generatedAt": "2026-09-22T19:38:51.638069+00:00",
   "runs": [
     {
-      "runId": "33ab2bb4d433415cad4b269617ed06a2",
-      "company": "Exodus Mechanical",
-      "host": "exodusmechanical.com",
-      "target": "https://www.exodusmechanical.com",
-      "generatedAt": "2026-09-21T19:12:29.954789+00:00",
-      "file": "www-exodusmechanical-com.json",
+      "runId": "6f1a52f4af814412b6211fdd3e34509a",
+      "company": "Air Depot Cooling & Heating",
+      "host": "airdepot.com",
+      "target": "https://airdepot.com",
+      "generatedAt": "2026-09-22T19:38:04.078712+00:00",
+      "file": "airdepot-com.json",
       "signalCount": 9,
       "draftCount": 6
     },
     {
-      "runId": "1dfa7ad842244c43b5b3408329f2633c",
+      "runId": "c9491cb297944d86bfe1f969e438165a",
+      "company": "All Star A/C",
+      "host": "allstarairtexas.com",
+      "target": "https://allstarairtexas.com",
+      "generatedAt": "2026-09-22T19:38:37.369584+00:00",
+      "file": "allstarairtexas-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
+      "runId": "dfa8663521e5433d8e36a0936b18fafc",
       "company": "Ample Services",
       "host": "amplehouston.com",
       "target": "https://www.amplehouston.com",
-      "generatedAt": "2026-09-21T19:12:44.098530+00:00",
+      "generatedAt": "2026-09-22T19:35:56.520030+00:00",
       "file": "www-amplehouston-com.json",
       "signalCount": 9,
       "draftCount": 5
     },
     {
-      "runId": "21801827ac0c4784bdc051b0204c4e67",
+      "runId": "08bc22c30b244477b80ddccfb5bf3d45",
+      "company": "BVS Home Experts",
+      "host": "gobvs.com",
+      "target": "https://gobvs.com",
+      "generatedAt": "2026-09-22T19:36:54.029484+00:00",
+      "file": "gobvs-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "4ceed959549f455a9502460eea81acf0",
       "company": "Bill Anderson Air",
       "host": "billandersonair.com",
       "target": "https://www.billandersonair.com",
-      "generatedAt": "2026-09-21T19:12:48.640702+00:00",
+      "generatedAt": "2026-09-22T19:36:02.973171+00:00",
       "file": "www-billandersonair-com.json",
       "signalCount": 8,
       "draftCount": 5
     },
     {
-      "runId": "de5a20f38c0f4951beb2a49e84e0a807",
+      "runId": "7b3c99e3a4994e138e2274814bd4940f",
       "company": "Castle Air Conditioning & Heating",
       "host": "castleacandheating.com",
       "target": "https://castleacandheating.com",
-      "generatedAt": "2026-09-21T19:13:08.995685+00:00",
+      "generatedAt": "2026-09-22T19:36:23.040101+00:00",
       "file": "castleacandheating-com.json",
       "signalCount": 9,
       "draftCount": 4
+    },
+    {
+      "runId": "af206e3ab9f8415fa9751c3cbefe3d7a",
+      "company": "Exodus Mechanical",
+      "host": "exodusmechanical.com",
+      "target": "https://www.exodusmechanical.com",
+      "generatedAt": "2026-09-22T19:35:42.330371+00:00",
+      "file": "www-exodusmechanical-com.json",
+      "signalCount": 9,
+      "draftCount": 6
+    },
+    {
+      "runId": "a773eeaf8a5f47a28e436b3085a37ddc",
+      "company": "Majestic AC",
+      "host": "majestic-ac.com",
+      "target": "https://www.majestic-ac.com",
+      "generatedAt": "2026-09-22T19:37:31.563066+00:00",
+      "file": "www-majestic-ac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "cd8333a70ad54757af88e9ce0dc1fcdd",
+      "company": "True Fix A/C & Heating",
+      "host": "truefixairconditioning.com",
+      "target": "https://www.truefixairconditioning.com",
+      "generatedAt": "2026-09-22T19:38:51.637542+00:00",
+      "file": "www-truefixairconditioning-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     }
   ],
   "skipped": [
