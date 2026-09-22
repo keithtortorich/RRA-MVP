@@ -14,6 +14,18 @@ def evidence(signal="missed_call_rate_high",confidence=0.9): return [{"id":"EVD-
 def test_signal_matches_expected_hvac_leak():
     matches=match_signals(["missed_call_rate_high"]); assert matches; assert matches[0].leak_id=="HVAC-LEAK-001"
 
+def test_online_booking_signal_matches_booking_friction_leak():
+    matches=match_signals(["no_online_booking"]); assert matches; assert matches[0].leak_id=="HVAC-LEAK-002"
+
+def test_financing_signal_matches_new_leak():
+    matches=match_signals(["no_financing_options"]); assert matches; assert matches[0].leak_id=="HVAC-LEAK-011"
+
+def test_instant_contact_signal_matches_new_leak():
+    matches=match_signals(["no_instant_contact_channel"]); assert matches; assert matches[0].leak_id=="HVAC-LEAK-012"
+
+def test_new_leaks_size_and_score_end_to_end():
+    result=score_evidence("biz",evidence(signal="no_financing_options")); assert result.opportunities; assert result.opportunities[0]["leak_id"]=="HVAC-LEAK-011"; assert result.opportunities[0]["estimated_monthly_opportunity"]>0
+
 def test_low_confidence_evidence_is_dropped():
     result=score_evidence("biz",evidence(confidence=0.49)); assert result.opportunities==[]; assert "no signals extracted" in result.warnings
 
