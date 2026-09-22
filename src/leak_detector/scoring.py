@@ -37,6 +37,9 @@ OBSERVATION_HINTS = [
     ("service pages", DetectionSignal.WEAK_SERVICE_PAGES.value),
     ("maintenance", DetectionSignal.NO_MAINTENANCE_CONVERSION.value),
     ("referral", DetectionSignal.NO_REFERRAL_SYSTEM.value),
+    ("financing", DetectionSignal.NO_FINANCING_OPTIONS.value),
+    ("instant contact", DetectionSignal.NO_INSTANT_CONTACT_CHANNEL.value),
+    ("chat widget", DetectionSignal.NO_INSTANT_CONTACT_CHANNEL.value),
 ]
 
 def _dedupe(xs):
@@ -77,6 +80,8 @@ def _sizing(leak_id: str, client: Dict[str,float]):
     elif leak_id=="HVAC-LEAK-008": monthly=repl["value"]*margin["value"]
     elif leak_id=="HVAC-LEAK-009": monthly=4*service["value"]*margin["value"]
     elif leak_id=="HVAC-LEAK-010": monthly=3*service["value"]*margin["value"]
+    elif leak_id=="HVAC-LEAK-011": monthly=.5*repl["value"]*margin["value"]
+    elif leak_id=="HVAC-LEAK-012": monthly=calls["value"]*.05*.5*service["value"]*margin["value"]
     else: return 0, roi
     return round(float(monthly),2), roi
 

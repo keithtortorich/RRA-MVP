@@ -287,3 +287,41 @@ def test_patterns_cmd_rejects_nonpositive_min_companies(tmp_path, capsys):
     except SystemExit as exc:
         assert exc.code == 2
     assert "must be >= 1" in capsys.readouterr().err
+
+
+def test_compute_leak_candidates_bridges_online_booking_signal(tmp_path):
+    _write_observation(tmp_path, "a.json", "Alpha HVAC", "alpha.com", {
+        "NO_ONLINE_BOOKING": "PRESENT",
+        "WEAK_CTA": "PRESENT",
+    })
+    companies = patterns_mod.load_observations(str(tmp_path))
+    rows = patterns_mod.compute_leak_candidates(companies)
+    assert len(rows) == 1
+    row = rows[0]
+    assert row["company"] == "Alpha HVAC"
+    assert "no_online_booking" in row["bridgedSignals"]
+    leak_ids = {c["leakId"] for c in row["candidates"]}
+    assert "HVAC-LEAK-002" in leak_ids
+
+
+def test_compute_leak_candidates_skips_companies_with_no_bridgeable_signal(tmp_path):
+    _write_observation(tmp_path, "a.json", "Alpha HVAC", "alpha.com", {
+        "SLOW_PERFORMANCE": "PRESENT",  # not in OBSERVATION_SIGNAL_BRIDGE
+        "NO_ONLINE_BOOKING": "ABSENT",
+    })
+    companies = patterns_mod.load_observations(str(tmp_path))
+    rows = patterns_mod.compute_leak_candidates(companies)
+    assert rows == []
+
+
+def test_compute_leak_candidates_included_in_report_and_summary(tmp_path):
+    _write_observation(tmp_path, "a.json", "Alpha HVAC", "alpha.com", {
+        "NO_FINANCING": "PRESENT",
+    })
+    companies = patterns_mod.load_observations(str(tmp_path))
+    report = patterns_mod.build_patterns_report(companies)
+    assert report["leakCandidates"]
+    assert report["leakCandidates"][0]["candidates"][0]["leakId"] == "HVAC-LEAK-011"
+    md = patterns_mod.format_summary(report)
+    assert "HVAC-LEAK-011" in md
+    assert "Likely leak, by company" in md

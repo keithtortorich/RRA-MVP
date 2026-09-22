@@ -22,6 +22,39 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 from leak_detector.browser_scan import observation_key
+from leak_detector.verticals.hvac.leak_library import DetectionSignal, get_leak, match_signals
+
+# Maps a browser-observed signal (browser_scan.classify_signals(), the
+# vocabulary every published observation file actually uses) to the canonical
+# HVAC leak library's DetectionSignal vocabulary (verticals/hvac/leak_library.py),
+# so match_signals() can score real HVAC-LEAK-XXX candidates from what the
+# observation agent already recorded. Before this bridge existed, the two
+# vocabularies shared no names in common (the one literal overlap,
+# NO_ONLINE_BOOKING, wasn't referenced by any leak definition), so nothing the
+# browser agent found could ever produce a scored leak.
+#
+# Each mapping is a considered judgment call, not a mechanical rename — kept
+# 1:1 and only where the two concepts are close enough to defend out loud:
+#   WEAK_CTA            -> no clear above-fold call to action
+#   PHONE_NOT_PROMINENT -> no tappable click-to-call on mobile
+#   NO_ONLINE_BOOKING   -> no online booking path (exact match)
+#   THIN_SERVICE_PAGES  -> weak/thin service pages
+#   NO_SMS_OPTION       -> no sms: link or "text us" option
+#   NO_FINANCING        -> no financing/payment-plan option (HVAC-LEAK-011)
+#   NO_CHAT_WIDGET       -> no instant-contact channel (HVAC-LEAK-012)
+# NO_PRICING_GUIDANCE and SLOW_PERFORMANCE are left unmapped: neither has a
+# leak in the library that honestly fits it yet, and forcing one in just to
+# use the signal would be exactly the kind of overclaiming this project
+# guards against everywhere else.
+OBSERVATION_SIGNAL_BRIDGE: Dict[str, DetectionSignal] = {
+    "WEAK_CTA": DetectionSignal.NO_CTA_ABOVE_FOLD,
+    "PHONE_NOT_PROMINENT": DetectionSignal.NO_CLICK_TO_CALL,
+    "NO_ONLINE_BOOKING": DetectionSignal.NO_ONLINE_BOOKING,
+    "THIN_SERVICE_PAGES": DetectionSignal.WEAK_SERVICE_PAGES,
+    "NO_SMS_OPTION": DetectionSignal.NO_SMS_TEXTBACK,
+    "NO_FINANCING": DetectionSignal.NO_FINANCING_OPTIONS,
+    "NO_CHAT_WIDGET": DetectionSignal.NO_INSTANT_CONTACT_CHANNEL,
+}
 
 
 def now_iso() -> str:
@@ -218,6 +251,42 @@ def compute_company_scores(companies: List[CompanyObservation]) -> List[Dict[str
     return rows
 
 
+def compute_leak_candidates(companies: List[CompanyObservation]) -> List[Dict[str, Any]]:
+    """Score canonical HVAC-LEAK-XXX candidates from each company's observed signals.
+
+    Bridges browser_scan's PRESENT signals through OBSERVATION_SIGNAL_BRIDGE and
+    runs them against the leak library's match_signals(). Confidence reflects
+    only the observation-agent evidence available (min_signals=1 for most
+    library leaks, so one bridged signal is enough to surface a candidate) —
+    it is not the Minimum Truth Pass, and nothing here is a dollar claim. See
+    docs/MEASUREMENT_PROTOCOL.md for what actually turns a candidate into one.
+    """
+    rows = []
+    for c in companies:
+        bridged = sorted({OBSERVATION_SIGNAL_BRIDGE[sig].value
+                          for sig in c.present if sig in OBSERVATION_SIGNAL_BRIDGE})
+        if not bridged:
+            continue
+        candidates = match_signals(bridged)
+        if not candidates:
+            continue
+        rows.append({
+            "company": c.company,
+            "host": c.host,
+            "target": c.target,
+            "bridgedSignals": bridged,
+            "candidates": [{
+                "leakId": cand.leak_id,
+                "name": cand.name,
+                "category": cand.category,
+                "confidence": cand.confidence,
+                "matchedSignals": cand.matched_signals,
+            } for cand in candidates],
+        })
+    rows.sort(key=lambda r: (-r["candidates"][0]["confidence"], r["company"]))
+    return rows
+
+
 def build_patterns_report(companies: List[CompanyObservation],
                            min_companies: int = 2) -> Dict[str, Any]:
     warnings = []
@@ -235,6 +304,7 @@ def build_patterns_report(companies: List[CompanyObservation],
         "prevalence": compute_prevalence(companies),
         "cooccurrence": compute_cooccurrence(companies, min_companies=min_companies),
         "companyScores": compute_company_scores(companies),
+        "leakCandidates": compute_leak_candidates(companies),
     }
 
 
@@ -275,6 +345,20 @@ def format_summary(report: Dict[str, Any]) -> str:
                           f"| {row['companiesWithBoth']} | {row['lift']} |")
     else:
         lines.append("_No pair reached the minimum company count yet._")
+    lines.append("")
+
+    candidates = report.get("leakCandidates", [])
+    lines.append("### Likely leak, by company (canonical library match, top candidate only)")
+    if candidates:
+        lines.append("| Company | Leak | Confidence | Matched on |")
+        lines.append("|---|---|---|---|")
+        for row in candidates:
+            top = row["candidates"][0]
+            lines.append(f"| {row['company']} | {top['leakId']} — {top['name']} "
+                          f"| {top['confidence']:.0%} "
+                          f"| {', '.join(f'`{s}`' for s in top['matchedSignals'])} |")
+    else:
+        lines.append("_No observed signal bridges to a library leak yet._")
     lines.append("")
     return "\n".join(lines)
 
