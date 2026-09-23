@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-23T00:27:56.804061+00:00",
+  "generatedAt": "2026-09-23T00:51:10.564060+00:00",
   "runs": [
     {
       "runId": "c49a63f7895441dd84966e3e5a7e9ff3",
@@ -31,6 +31,16 @@
       "file": "leethompsonac-com.json",
       "signalCount": 0,
       "draftCount": 0
+    },
+    {
+      "runId": "511f0045c9344fd7acfc804f0c3655c2",
+      "company": "",
+      "host": "houkac.com",
+      "target": "https://houkac.com",
+      "generatedAt": "2026-09-23T00:51:10.563427+00:00",
+      "file": "houkac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     },
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
