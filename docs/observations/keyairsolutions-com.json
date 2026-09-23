@@ -1,0 +1,169 @@
+{
+  "rraObservations": 1,
+  "runId": "44ae3afe893b4926a7b12a985bf5a62b",
+  "generatedAt": "2026-09-23T00:06:10.471777+00:00",
+  "target": "https://keyairsolutions.com",
+  "company": "",
+  "host": "keyairsolutions.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [
+    "https://keyairsolutions.com/",
+    "https://keyairsolutions.com/service-area/",
+    "https://keyairsolutions.com/contact-us/",
+    "https://keyairsolutions.com/services/",
+    "https://keyairsolutions.com/heating/"
+  ],
+  "errors": [],
+  "signals": [
+    {
+      "signalType": "NO_CHAT_WIDGET",
+      "status": "PRESENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "No chat widget detected in rendered page.",
+      "observedAt": "2026-09-23T00:06:10.471819+00:00"
+    },
+    {
+      "signalType": "NO_ONLINE_BOOKING",
+      "status": "PRESENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "No booking or scheduling path found in rendered pages.",
+      "observedAt": "2026-09-23T00:06:10.471826+00:00"
+    },
+    {
+      "signalType": "NO_FINANCING",
+      "status": "ABSENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "Financing mentioned on the public site.",
+      "observedAt": "2026-09-23T00:06:10.471831+00:00"
+    },
+    {
+      "signalType": "SLOW_PERFORMANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "Homepage rendered in 948ms (threshold 4000ms).",
+      "observedAt": "2026-09-23T00:06:10.471835+00:00"
+    },
+    {
+      "signalType": "NO_SMS_OPTION",
+      "status": "ABSENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "SMS contact option found.",
+      "observedAt": "2026-09-23T00:06:10.471838+00:00"
+    },
+    {
+      "signalType": "NO_PRICING_GUIDANCE",
+      "status": "ABSENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "Some pricing guidance present.",
+      "observedAt": "2026-09-23T00:06:10.471842+00:00"
+    },
+    {
+      "signalType": "PHONE_NOT_PROMINENT",
+      "status": "ABSENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "Phone number present above the fold on mobile.",
+      "observedAt": "2026-09-23T00:06:10.471844+00:00"
+    },
+    {
+      "signalType": "WEAK_CTA",
+      "status": "ABSENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "Above-fold CTA(s): Call Now 832-514-0153",
+      "observedAt": "2026-09-23T00:06:10.471847+00:00"
+    },
+    {
+      "signalType": "THIN_SERVICE_PAGES",
+      "status": "PRESENT",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "notes": "2 of 4 inner pages under 250 words.",
+      "observedAt": "2026-09-23T00:06:10.471853+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_RESPONSE",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-23T00:06:10.471855+00:00"
+    },
+    {
+      "signalType": "OLD_LATEST_REVIEW",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-23T00:06:10.471857+00:00"
+    },
+    {
+      "signalType": "LOW_REVIEW_COUNT",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-23T00:06:10.471859+00:00"
+    },
+    {
+      "signalType": "WEAK_SEARCH_VISIBILITY",
+      "status": "NOT_REVIEWED",
+      "sourceUrl": "",
+      "notes": "Requires Google Business Profile / search data \u2014 not collected by the observation agent. Review manually.",
+      "observedAt": "2026-09-23T00:06:10.471861+00:00"
+    }
+  ],
+  "draftTests": [
+    {
+      "checkId": "EXT-008",
+      "status": "PLANNED",
+      "channel": "PHONE",
+      "publicClaim": "",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "Click-to-call link present (tel:832-514-0153) and tappable at 375px. Confirm it actually dials.",
+      "evidenceReference": "docs/observations/screenshots/keyairsolutions-com/home.png",
+      "observedAt": "2026-09-23T00:06:10.471866+00:00"
+    },
+    {
+      "checkId": "EXT-010",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "Emergency/after-hours contact path reachable in 0 click(s) from the homepage on mobile.",
+      "evidenceReference": "docs/observations/screenshots/keyairsolutions-com/home.png",
+      "observedAt": "2026-09-23T00:06:10.471870+00:00"
+    },
+    {
+      "checkId": "EXT-011",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "4 conversion link(s) resolved successfully, none returned an error.",
+      "evidenceReference": "docs/observations/screenshots/keyairsolutions-com/home.png",
+      "observedAt": "2026-09-23T00:06:10.471877+00:00"
+    },
+    {
+      "checkId": "EXT-012",
+      "status": "PLANNED",
+      "channel": "DIRECTORY_COMPARISON",
+      "publicClaim": "",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "Structured-data hours: ['Mo-Sa: 08:00-18:00']. Visible hours: ['Our VIP Maintenance Program provides you with year-round worry-free protection. Enjoy 15% Off Repairs and 10% Off Equipment Replacements. Learn how our VIP Maintenance program can save you money and offer peace of mind.']. Compare against Google Business Profile and directories.",
+      "evidenceReference": "docs/observations/screenshots/keyairsolutions-com/home.png",
+      "observedAt": "2026-09-23T00:06:10.471887+00:00"
+    },
+    {
+      "checkId": "EXT-013",
+      "status": "PLANNED",
+      "channel": "WEBSITE",
+      "publicClaim": "",
+      "sourceUrl": "https://keyairsolutions.com/",
+      "expectedResult": "",
+      "agentObservation": "3 service-area page(s) found, each with a conversion element.",
+      "evidenceReference": "docs/observations/screenshots/keyairsolutions-com/home.png",
+      "observedAt": "2026-09-23T00:06:10.471892+00:00"
+    }
+  ],
+  "file": "keyairsolutions-com.json"
+}
