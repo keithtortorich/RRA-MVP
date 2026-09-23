@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-23T00:06:10.472288+00:00",
+  "generatedAt": "2026-09-23T00:27:56.804061+00:00",
   "runs": [
     {
       "runId": "c49a63f7895441dd84966e3e5a7e9ff3",
@@ -21,6 +21,16 @@
       "file": "keyairsolutions-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "e7fd7126cb9b459c8315165b30b7752f",
+      "company": "",
+      "host": "leethompsonac.com",
+      "target": "https://leethompsonac.com",
+      "generatedAt": "2026-09-23T00:27:56.803748+00:00",
+      "file": "leethompsonac-com.json",
+      "signalCount": 0,
+      "draftCount": 0
     },
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",

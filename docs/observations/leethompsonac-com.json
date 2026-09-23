@@ -1,0 +1,20 @@
+{
+  "rraObservations": 1,
+  "runId": "e7fd7126cb9b459c8315165b30b7752f",
+  "generatedAt": "2026-09-23T00:27:56.803748+00:00",
+  "target": "https://leethompsonac.com",
+  "company": "",
+  "host": "leethompsonac.com",
+  "agent": "observation-only browser agent",
+  "contactChannelsUsed": [],
+  "pagesObserved": [],
+  "errors": [
+    {
+      "url": "https://leethompsonac.com",
+      "error": "Page.goto: net::ERR_CONNECTION_CLOSED at https://leethompsonac.com/\nCall log:\n  - navigating to \"https://leethompsonac.com/\", waiting until \"domcontentloaded\"\n"
+    }
+  ],
+  "signals": [],
+  "draftTests": [],
+  "file": "leethompsonac-com.json"
+}
