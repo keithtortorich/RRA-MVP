@@ -6,3 +6,15 @@ build/
 *.egg-info/
 .pytest_cache/
 reports/
+
+# Manually captured evidence files (contain real prospect data) and
+# local scan/audit working files not meant to be committed.
+metrics.json
+*.metrics.json
+opportunities.json
+*.opportunities.json
+
+# Playwright (used by the optional `browser` extra / leak-detector-observe)
+.playwright/
+playwright-report/
+test-results/
