@@ -5,7 +5,20 @@ build-backend="setuptools.build_meta"
 [project]
 name="leak-detector-mvp"
 version="0.1.0"
+description="Revenue Recovery Sprint tooling for independent residential HVAC contractors — scan, audit, and propose a $997 evidence-backed fix for a specific revenue leak."
+readme="README.md"
 requires-python=">=3.10"
+license={file="LICENSE"}
+authors=[{name="Keith Tortorich"}]
+
+# The default (fallback) scan/audit/propose path uses only the Python
+# standard library — no runtime dependencies are required to install or
+# run it. The optional `browser` extra below adds Playwright for
+# `leak-detector-observe`'s in-browser checks.
+dependencies=[]
+
+[project.urls]
+Repository="https://github.com/keithtortorich/RRA-MVP"
 
 [project.optional-dependencies]
 dev=["pytest>=8"]
