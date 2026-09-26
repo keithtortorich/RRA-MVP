@@ -4,7 +4,7 @@
   "runs": [
     {
       "runId": "c49a63f7895441dd84966e3e5a7e9ff3",
-      "company": "",
+      "company": "KAC Express",
       "host": "kacexpress.com",
       "target": "https://kacexpress.com",
       "generatedAt": "2026-09-22T23:45:34.842678+00:00",
@@ -14,7 +14,7 @@
     },
     {
       "runId": "44ae3afe893b4926a7b12a985bf5a62b",
-      "company": "",
+      "company": "Key Air Solutions",
       "host": "keyairsolutions.com",
       "target": "https://keyairsolutions.com",
       "generatedAt": "2026-09-23T00:06:10.471777+00:00",
@@ -24,7 +24,7 @@
     },
     {
       "runId": "e7fd7126cb9b459c8315165b30b7752f",
-      "company": "",
+      "company": "The Lee Thompson Co.",
       "host": "leethompsonac.com",
       "target": "https://leethompsonac.com",
       "generatedAt": "2026-09-23T00:27:56.803748+00:00",
@@ -34,7 +34,7 @@
     },
     {
       "runId": "511f0045c9344fd7acfc804f0c3655c2",
-      "company": "",
+      "company": "Houk Air Conditioning",
       "host": "houkac.com",
       "target": "https://houkac.com",
       "generatedAt": "2026-09-23T00:51:10.563427+00:00",
@@ -44,7 +44,7 @@
     },
     {
       "runId": "a74f6ad23a224595b64debf6eabcfb25",
-      "company": "",
+      "company": "Ample Services",
       "host": "amplehouston.com",
       "target": "https://amplehouston.com",
       "generatedAt": "2026-09-26T01:03:27.601705+00:00",
@@ -54,7 +54,7 @@
     },
     {
       "runId": "c6c85b80dd974f69bd0230292ff28728",
-      "company": "",
+      "company": "Bill Anderson Air",
       "host": "billandersonair.com",
       "target": "https://billandersonair.com",
       "generatedAt": "2026-09-26T01:03:36.107199+00:00",
@@ -64,7 +64,7 @@
     },
     {
       "runId": "304cc2b45aee432e88ea92ce9ce16301",
-      "company": "",
+      "company": "Castle Air Conditioning & Heating",
       "host": "castleacandheating.com",
       "target": "https://castleacandheating.com",
       "generatedAt": "2026-09-26T01:04:01.873769+00:00",
@@ -74,7 +74,7 @@
     },
     {
       "runId": "aee59645f1a14c3da3beb27f5815966c",
-      "company": "",
+      "company": "Exodus Mechanical",
       "host": "exodusmechanical.com",
       "target": "https://exodusmechanical.com",
       "generatedAt": "2026-09-26T01:04:27.521620+00:00",
@@ -84,7 +84,7 @@
     },
     {
       "runId": "c4cf76b4d1624ebd89d7fd789fccff8a",
-      "company": "",
+      "company": "Northwind AC",
       "host": "northwindac.com",
       "target": "https://www.northwindac.com",
       "generatedAt": "2026-09-26T09:50:37.777336+00:00",
