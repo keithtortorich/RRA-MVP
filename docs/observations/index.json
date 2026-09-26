@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-26T01:04:27.522705+00:00",
+  "generatedAt": "2026-09-26T09:50:37.777857+00:00",
   "runs": [
     {
       "runId": "c49a63f7895441dd84966e3e5a7e9ff3",
@@ -81,6 +81,16 @@
       "file": "exodusmechanical-com.json",
       "signalCount": 9,
       "draftCount": 6
+    },
+    {
+      "runId": "c4cf76b4d1624ebd89d7fd789fccff8a",
+      "company": "",
+      "host": "northwindac.com",
+      "target": "https://www.northwindac.com",
+      "generatedAt": "2026-09-26T09:50:37.777336+00:00",
+      "file": "www-northwindac-com.json",
+      "signalCount": 9,
+      "draftCount": 5
     },
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
