@@ -10,7 +10,7 @@
      impression worth risking. Note this is de-indexing, not access control:
      Pages is public, and anyone with the URL can still read it. -->
 <meta name="robots" content="noindex, nofollow">
-<title>Leak Detector — Revenue Recovery Agency</title>
+<title>Sizzle — Revenue Recovery Agency</title>
 <!-- Placeholder favicon. Replace with the approved Leak Detector Seal asset when available. -->
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%230B0E14'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='11' font-weight='600' fill='%23C5A059' text-anchor='middle'%3ELD%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -83,6 +83,7 @@ button{cursor:pointer;-webkit-appearance:none}
 .lockup{display:flex;flex-direction:column;gap:2px}
 .lockup .mark{display:flex;align-items:baseline;gap:1px}
 .lockup .mark-img{height:22px;width:auto;display:block}
+.lockup .sizzle-flame{width:25px;height:29px;display:block;margin-right:7px;align-self:center}
 .lockup .nb{font-family:var(--font-display);font-weight:500;font-size:19px;letter-spacing:.08em;color:var(--ld-bone)}
 .lockup .pro{font-family:var(--font-display);font-weight:500;font-size:12px;letter-spacing:.08em;color:var(--ld-brass)}
 .lockup .full{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--ld-muted);font-weight:600}
@@ -162,6 +163,57 @@ button{cursor:pointer;-webkit-appearance:none}
 .queue{border:1px solid var(--ld-border);border-radius:var(--r);overflow:hidden}
 .queueitem{padding:11px 13px;border-bottom:1px solid var(--ld-border);font-size:12.5px;display:flex;justify-content:space-between;gap:8px;align-items:center;color:var(--ld-bone)}
 .queueitem:last-child{border-bottom:0}
+
+/* Sizzle cockpit: the source of every count is the current local operator record. */
+.shell{max-width:1280px}
+#p-home{background:#f4f7fb;color:#15243c;min-height:100%;padding:18px 20px 96px}
+.cockpit-title{display:flex;justify-content:space-between;gap:16px;align-items:end;margin-bottom:16px}
+.cockpit-title h1{font:700 clamp(22px,3vw,30px)/1.1 var(--font-heading);color:#112341}
+.cockpit-title p{font-size:12px;color:#637389;margin-top:4px}
+.cockpit-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:12px}
+.cockpit-kpi,.cockpit-card{background:#fff;border:1px solid #dbe3ed;border-radius:9px;box-shadow:0 1px 4px rgba(21,39,67,.05)}
+.cockpit-kpi{padding:16px;min-height:112px}
+.cockpit-kpi .k-label{display:block;font-size:11px;font-weight:700;color:#52657c;text-transform:uppercase;letter-spacing:.04em}
+.cockpit-kpi strong{display:block;font:700 29px/1.15 var(--font-mono);color:#075cbd;margin:12px 0 4px}
+.cockpit-kpi small{color:#64748b;font-size:11px}
+.cockpit-kpi.gate{border-color:#85b4ef;background:#edf5ff}
+.cockpit-kpi.gate strong{color:#084b98}
+.cockpit-grid{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(280px,.85fr);gap:12px;margin-bottom:12px}
+.cockpit-card{padding:18px;margin-bottom:12px}
+.cockpit-grid .cockpit-card{margin-bottom:0}
+.cockpit-card h2{font:700 15px var(--font-heading);color:#172d49;margin-bottom:5px}
+.cockpit-card .subline{font-size:12px;color:#65758b;margin-bottom:14px;line-height:1.45}
+.engine{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.engine-step{border:1px solid #dce7f4;border-radius:7px;background:#f6faff;padding:12px;min-height:95px}
+.engine-step b{display:block;color:#075cbd;font:700 10px var(--font-mono);letter-spacing:.04em}
+.engine-step strong{display:block;color:#192e49;font-size:14px;margin:8px 0 2px}
+.engine-step span{font-size:11px;color:#65758b}
+.engine-step.current{border-color:#68a9f2;background:#eaf4ff}
+.gate-line{margin-top:12px;padding:10px 12px;border-radius:6px;background:#fff5e8;color:#855016;font-size:12px;line-height:1.45}
+.gate-line b{color:#8b4a08}
+.cockpit-next{padding:14px;border:1px solid #bcd8f5;border-left:4px solid #0874dd;border-radius:7px;background:#f3f9ff;margin-bottom:12px}
+.cockpit-next .label{font-size:10px;font-weight:700;letter-spacing:.06em;color:#0962b9;text-transform:uppercase}
+.cockpit-next .action{font-size:15px;font-weight:700;line-height:1.35;margin:7px 0 12px;color:#18324f}
+.cockpit-next button,.work-action{border:0;border-radius:5px;background:#0868c9;color:#fff;padding:8px 12px;font-size:11px;font-weight:700;min-height:36px}
+button:disabled{opacity:.48;cursor:not-allowed}
+.cockpit-next button:focus-visible,.work-action:focus-visible,.work-row:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.mini-list{display:grid;gap:9px}
+.mini-item{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #e6edf4;padding-bottom:9px;font-size:12px;color:#33445e}
+.mini-item:last-child{border:0}
+.mini-item b{color:#0d5ca9;white-space:nowrap}
+.work-wrap{overflow-x:auto}
+.work-table{width:100%;border-collapse:collapse;font-size:12px;min-width:750px}
+.work-table th{text-align:left;color:#63758a;text-transform:uppercase;font-size:10px;letter-spacing:.03em;border-bottom:1px solid #dce5ef;padding:9px 8px}
+.work-table td{color:#233851;border-bottom:1px solid #e6edf4;padding:11px 8px;vertical-align:middle}
+.work-table tr:last-child td{border-bottom:0}
+.work-table .company{font-weight:700;color:#075cbd}
+.work-table .caution{color:#97601d}
+.work-row{cursor:pointer}
+.work-row:hover,.work-row:focus-visible{background:#f2f8ff}
+.work-tag{display:inline-block;border-radius:4px;padding:4px 7px;background:#eaf3ff;color:#165ca5;font-weight:700;font-size:10px;white-space:nowrap}
+.work-tag.pending{background:#fff2df;color:#955a16}
+@media(max-width:850px){.cockpit-kpis{grid-template-columns:repeat(2,1fr)}.cockpit-grid{grid-template-columns:1fr}}
+@media(max-width:540px){#p-home{padding:14px 12px 90px}.cockpit-kpis{gap:8px}.cockpit-kpi{padding:12px;min-height:102px}.cockpit-kpi strong{font-size:23px}.engine{grid-template-columns:repeat(2,1fr)}.cockpit-title{align-items:start}}
 
 /* -- prospect board -- */
 .slotgrid{display:grid;grid-template-columns:1fr;gap:10px}
@@ -267,14 +319,10 @@ button{cursor:pointer;-webkit-appearance:none}
 <div class="shell" id="app">
 
   <div class="top">
-    <!-- Typographic placeholder lockup, not final brand art.
-         Swap-in point for the approved Seal: add
-         <img src="leak-detector-seal.svg" alt="" class="mark-img"> before .nb —
-         no other header markup needs to change. -->
     <div class="lockup">
-      <div class="mark"><span class="nb">Leak Detector</span></div>
-      <span class="full">Revenue Recovery Agency</span>
-      <span class="product">Leak Detector</span>
+      <div class="mark"><svg class="sizzle-flame" viewBox="0 0 32 40" aria-hidden="true"><path fill="#1878df" d="M18 0C19 8 8 13 7 22 4 17 4 14 5 10-5 22 2 40 16 40c10 0 16-7 16-17 0-8-5-13-8-16 1 8-2 10-4 11 1-7-1-13-2-18Z"/><path fill="#fff" d="M19 20c0 5-8 7-8 12a5 5 0 0 0 10 0c0-3-1-4 1-7-3 1-4 0-3-5Z"/></svg><span class="nb">Sizzle</span></div>
+      <span class="full">NETBUILD.PRO &middot; Revenue Recovery Agency</span>
+      <span class="product">Leak Detector / Operator Cockpit</span>
       <div class="meta">
         <span>Residential HVAC</span>
         <span id="campaignMetaBadge">Campaign 01</span>
@@ -300,20 +348,32 @@ button{cursor:pointer;-webkit-appearance:none}
     <!-- HOME -->
     <section class="panel active" id="p-home">
       <div id="corruptBanner"></div>
-      <div class="nextaction">
-        <small>Next Action</small>
-        <div class="txt" id="heroAction">Loading…</div>
-        <button class="btn accentbtn" id="heroGo">Open</button>
+      <div class="cockpit-title">
+        <div><h1>Sizzle · Revenue Leak Engine</h1><p>Batch 1 · residential HVAC · operator view</p></div>
+        <span class="work-tag pending" id="cockpitGateLabel">Validation gate</span>
       </div>
-      <div class="card">
-        <div class="head">Priority Queue<small id="queueCount"></small></div>
-        <div class="queue" id="queueList"></div>
+      <div class="cockpit-kpis" id="cockpitKpis"></div>
+      <div class="cockpit-grid">
+        <div class="cockpit-card">
+          <h2>Revenue Leak Engine</h2>
+          <p class="subline">Each step earns its count from recorded evidence. Later steps require the operator to verify and act.</p>
+          <div class="engine" id="cockpitEngine"></div>
+          <div class="gate-line" id="cockpitTruthGate"></div>
+        </div>
+        <div class="cockpit-card">
+          <h2>Next best action</h2>
+          <p class="subline">Work the first five toward client-facing proposals.</p>
+          <div class="cockpit-next"><div class="label">Do this now</div><div class="action" id="heroAction">Loading…</div><button id="heroGo">Open prospect</button></div>
+          <div class="mini-list" id="queueList"></div>
+          <span class="hidden" id="queueCount"></span>
+        </div>
       </div>
-      <div class="card">
-        <div class="head">Launch Metrics</div>
-        <div class="stats" id="homeStats"></div>
-        <p class="note">This tracks the first-five commercial validation cycle. It shows what happened — it does not decide whether Leak Detector works.</p>
+      <div class="cockpit-card">
+        <h2>Next best action · Batch 1</h2>
+        <p class="subline">Modeled opportunities are never recovered revenue. A browser observation is a draft until a person confirms it.</p>
+        <div class="work-wrap"><table class="work-table"><thead><tr><th>Prospect</th><th>Priority leak</th><th>Evidence</th><th>Opportunity</th><th>Stage</th><th>Next step</th></tr></thead><tbody id="cockpitWork"></tbody></table></div>
       </div>
+      <div class="hidden" id="homeStats"></div>
     </section>
 
     <!-- PROSPECTS -->
@@ -424,7 +484,7 @@ button{cursor:pointer;-webkit-appearance:none}
       </div>
       <div class="card">
         <div class="head">Launch Freeze</div>
-        <p class="note">No dashboard, CRM integration, billing system, second vertical, autonomous execution, orchestrator expansion, architecture refactor, or paid lead stack before the first-five cycle produces evidence.</p>
+        <p class="note">The Sizzle cockpit reads this device's operator records. No backend, CRM integration, billing system, second vertical, autonomous execution, orchestrator expansion, architecture refactor, or paid lead stack before the first-five cycle produces evidence.</p>
       </div>
       <div class="card">
         <div class="head">Data Management</div>
@@ -1579,6 +1639,7 @@ function copyText(text){
 /* ---------- tabs ---------- */
 document.getElementById("mainTabs").addEventListener("click",function(e){
   var btn=e.target.closest(".tab");if(!btn)return;
+  if(btn.dataset.p==="home")renderHome();
   document.querySelectorAll(".tab").forEach(function(x){x.classList.remove("active");});
   document.querySelectorAll(".panel").forEach(function(x){x.classList.remove("active");});
   btn.classList.add("active");
@@ -1595,18 +1656,19 @@ function renderHome(){
   var hero=q[0];
   document.getElementById("heroAction").textContent=hero?hero.text:"Nothing due — add a prospect to begin.";
   var goBtn=document.getElementById("heroGo");
+  goBtn.textContent=hero&&hero.kind==="add"?"Open prospects":"Open prospect";
   goBtn.onclick=function(){
     if(!hero||hero.kind==="add"){gotoTab("prospects");return;}
     openProspectSheet(hero.prospectId);
   };
-  var rest=q.slice(1,5);
+  var rest=q.slice(1,4);
   document.getElementById("queueCount").textContent=rest.length?(rest.length+" more"):"";
   var list=document.getElementById("queueList");
   if(!rest.length){
-    list.innerHTML='<div class="queueitem"><span class="note">Nothing else due right now.</span></div>';
+    list.innerHTML='<div class="mini-item">Nothing else due right now.</div>';
   }else{
     list.innerHTML=rest.map(function(it){
-      return '<div class="queueitem" data-goto="'+esc(it.prospectId||"")+'" data-kind="'+esc(it.kind)+'"><span>'+esc(it.text)+"</span><span>&rsaquo;</span></div>";
+      return '<div class="mini-item queueitem" data-goto="'+esc(it.prospectId||"")+'" data-kind="'+esc(it.kind)+'"><span>'+esc(it.text)+"</span><b>&rsaquo;</b></div>";
     }).join("");
     Array.prototype.forEach.call(list.querySelectorAll(".queueitem"),function(el){
       el.addEventListener("click",function(){
@@ -1616,30 +1678,49 @@ function renderHome(){
       });
     });
   }
-
-  var scans=STATE.prospects.filter(function(p){return p.state!=="TARGET"||(p.evidence||[]).length;}).length;
-  var opps=STATE.prospects.reduce(function(s,p){return s+(p.evidence||[]).length;},0);
-  var sent=STATE.prospects.filter(function(p){return !!p.sentDate;}).length;
-  var replies=STATE.activities.filter(function(a){return a.type==="reply";}).length;
-  var convos=STATE.prospects.filter(function(p){return p.state==="CONVERSATION"||p.outcome==="WON";}).length;
-  var proposals=STATE.activities.filter(function(a){return a.type==="proposal";}).length;
-  var wins=STATE.prospects.filter(function(p){return p.outcome==="WON";}).length;
-  var collected=STATE.prospects.reduce(function(s,p){return s+((p.wonDetails&&p.wonDetails.amount)||0);},0);
-
-  var stats=[
-    ["Prospects",STATE.prospects.length+"/"+MAX_SLOTS],
-    ["Scanned",scans],
-    ["Opportunities",opps],
-    ["Sent",sent],
-    ["Replies",replies],
-    ["Conversations",convos],
-    ["Proposals",proposals],
-    ["Won",wins]
+  var prospects=STATE.prospects;
+  function truthComplete(p){var ev=ensureExternalVerification(p);return reevaluateTruthPass(p).complete&&ev.truthPass.status==="COMPLETE";}
+  function proposalSent(p){return !!(p.packet&&p.packet.sentAt);}
+  var verified=prospects.filter(truthComplete).length;
+  var proposed=prospects.filter(proposalSent).length;
+  var paid=prospects.filter(isPaidSprint);
+  var proved=paid.filter(function(p){var w=p.wonDetails||{};return w.measurementStart&&w.measurementEnd&&w.fixDeployed&&Number(w.documentedRecoveredRevenue)>0;});
+  var recovery=proved.reduce(function(n,p){return n+Number(p.wonDetails.documentedRecoveredRevenue);},0);
+  var kpis=[
+    ["Batch 1 prospects",prospects.length+"/"+MAX_SLOTS,"Five active slots, no invented targets"],
+    ["Truth Pass complete",verified,"Manual verification recorded"],
+    ["Real proposals sent",proposed+"/5","Hard gate before expansion"],
+    ["Documented recovery",fmtMoney(recovery),"Paid Sprints with measurement record"]
   ];
-  document.getElementById("homeStats").innerHTML=stats.map(function(s){
-    var isWon=s[0]==="Won";
-    return '<div class="stat"><strong'+(isWon&&s[1]?' style="color:var(--ld-green-text)"':"")+'>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";
-  }).join("")+'<div class="stat" style="grid-column:span 4"><strong style="color:var(--ld-green-text)">'+fmtMoney(collected)+'</strong><span>Collected Revenue</span></div>';
+  document.getElementById("cockpitKpis").innerHTML=kpis.map(function(k,i){return '<div class="cockpit-kpi'+(i===2?' gate':'')+'"><span class="k-label">'+esc(k[0])+'</span><strong>'+esc(k[1])+'</strong><small>'+esc(k[2])+'</small></div>';}).join("");
+  document.getElementById("cockpitGateLabel").textContent=proposed>=5?"Gate reached · review outcomes":"Gate 1 · "+(5-proposed)+" proposals to go";
+  var scored=prospects.filter(function(p){return !!topEvidence(p)&&Number(topEvidence(p).impact)>0;});
+  var stages=[
+    ["SCAN",prospects.filter(function(p){return !!p.website;}).length,"Sites recorded"],
+    ["DETECT",prospects.filter(function(p){return (p.evidence||[]).length>0;}).length,"Findings recorded"],
+    ["SCORE",scored.length,"Modeled impact"],
+    ["VERIFY",verified,"Truth Pass complete"],
+    ["PRESCRIBE",prospects.filter(function(p){return !clientPacketBlocker(p);}).length,"Packet ready"],
+    ["PROPOSE",proposed,"Client packet sent"],
+    ["RECOVER",paid.length,"Paid Sprints"],
+    ["PROVE",proved.length,"Measured recovery"]
+  ];
+  document.getElementById("cockpitEngine").innerHTML=stages.map(function(s,i){return '<div class="engine-step'+(i===3?' current':'')+'"><b>'+String(i+1).padStart(2,"0")+' · '+s[0]+'</b><strong>'+s[1]+' / '+prospects.length+'</strong><span>'+s[2]+'</span></div>';}).join("");
+  document.getElementById("cockpitTruthGate").innerHTML='<b>Truth Pass is the firewall.</b> Public page observations are draft signals. No unverified finding becomes a client claim, and modeled opportunity never becomes recovered revenue. '+(proposed<5?"Finish five real proposals before expanding the platform.":"Review sales and delivery evidence before expanding the platform.");
+  var tbody=document.getElementById("cockpitWork");
+  tbody.innerHTML=prospects.map(function(p){
+    var top=topEvidence(p),a=prospectActionCard(p),quality=top?evidenceQuality(top):null;
+    var leak=top?top.issue:"No validated leak selected";
+    var evidence=truthComplete(p)?"Truth Pass complete":(top?"Recorded · "+(quality.observation||"ESTIMATED"):"Manual check needed");
+    var amount=top&&Number(top.impact)>0?fmtMoney(top.impact)+"/mo · modeled":"Not sized";
+    var stage=proposalSent(p)?"PROPOSED":(truthComplete(p)?"VERIFIED":prospectStage(p));
+    return '<tr class="work-row" tabindex="0" data-prospect="'+esc(p.id)+'"><td class="company">'+esc(p.company)+'</td><td>'+esc(leak)+'</td><td class="'+(truthComplete(p)?'':'caution')+'">'+esc(evidence)+'</td><td>'+esc(amount)+'</td><td><span class="work-tag'+(truthComplete(p)?'':' pending')+'">'+esc(stage)+'</span></td><td>'+esc(a?a.text:"Review record")+'</td></tr>';
+  }).join("")||'<tr><td colspan="6">No prospects in this batch. Add a prospect to begin.</td></tr>';
+  Array.prototype.forEach.call(tbody.querySelectorAll("[data-prospect]"),function(row){
+    function open(){openProspectSheet(row.getAttribute("data-prospect"));}
+    row.addEventListener("click",open);
+    row.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open();}});
+  });
 
   var banner=document.getElementById("corruptBanner");
   banner.innerHTML=corrupted?'<div class="banner">Local data on this device was corrupted and has been reset (a backup copy was used if one existed). If you have an exported JSON backup, use Launch &rarr; Import data to restore it.</div>':"";
@@ -2751,7 +2832,18 @@ function renderOfferPanel(p){
 
 /* ---------- client packet (Share stage) ---------- */
 function packetEvidence(p){
-  return evidenceSorted(p);
+  var top=topEvidence(p);
+  return top?[top]:[]; /* One verified wedge per $997 Sprint. */
+}
+function clientPacketBlocker(p){
+  if(!researchProgress(p).allDone||!verifyProgress(p).allDone)return "Complete the research and verification checklists first.";
+  var result=reevaluateTruthPass(p),tp=ensureExternalVerification(p).truthPass;
+  if(!result.complete||tp.status!=="COMPLETE")return "Complete the manual Truth Pass first.";
+  if(tp.result!=="EXTERNAL_LEAK_FOUND")return "No verified external leak was found. Investigate another wedge.";
+  var top=topEvidence(p);
+  if(!top||top.quality!=="KNOWN"||!top.verificationTestId||top._staleLink||!top.source)return "Promote a verified failure with its source as the top leak.";
+  if(!(Number(top.impact)>0)||!(top.financialProvenance&&top.financialProvenance.trim()))return "Size the top leak and record the financial assumptions before proposing.";
+  return "";
 }
 function buildPacketText(p){
   var ev=packetEvidence(p);
@@ -2792,6 +2884,8 @@ function renderPacket(p){
   var prev=document.getElementById("packetPreview");
   var statusEl=document.getElementById("packetSentStatus");
   if(!p){prev.innerHTML="";statusEl.textContent="";return;}
+  var blocker=clientPacketBlocker(p);
+  ["btnCopyPacket","btnPrintPacket","btnMarkPacketSent"].forEach(function(id){document.getElementById(id).disabled=!!blocker;});
   var ev=packetEvidence(p);
   var rProg=researchProgress(p),vProg=verifyProgress(p);
   var doneCount=rProg.done+vProg.done,totalCount=rProg.total+vProg.total;
@@ -2809,7 +2903,8 @@ function renderPacket(p){
           fmtMoney(e.impact)+"/mo &middot; "+fmtMoney(e.impact*12)+"/yr"):"Not yet quantified")+"</div></div>";
     }).join("");
   }
-  prev.innerHTML='<div class="pkhead" style="margin-bottom:4px">'+esc(p.company)+'<span class="pksub">'+esc(new Date().toLocaleDateString())+"</span></div>"+banner+body;
+  prev.innerHTML='<div class="pkhead" style="margin-bottom:4px">'+esc(p.company)+'<span class="pksub">'+esc(new Date().toLocaleDateString())+"</span></div>"+
+    (blocker?'<div class="warnflag"><span>&#9888;</span><span>Client packet blocked: '+esc(blocker)+'</span></div>':banner)+body;
   var pk=p.packet||{};
   statusEl.textContent=pk.sentAt?("Sent "+new Date(pk.sentAt).toLocaleDateString()+" via "+(pk.method||"unknown")):"Not yet sent.";
   document.getElementById("pkSentDate").value=pk.sentAt?pk.sentAt.slice(0,10):todayISO();
@@ -2817,18 +2912,21 @@ function renderPacket(p){
 }
 document.getElementById("btnCopyPacket").addEventListener("click",function(){
   var p=prospectById(currentProspectId);if(!p)return;
+  if(clientPacketBlocker(p)){toast("Finish verification before sharing");return;}
   copyText(buildPacketText(p));
 });
 document.getElementById("btnPrintPacket").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p||clientPacketBlocker(p)){toast("Finish verification before sharing");return;}
   window.print();
 });
 document.getElementById("btnMarkPacketSent").addEventListener("click",function(){
   var p=prospectById(currentProspectId);if(!p)return;
+  if(clientPacketBlocker(p)){toast("Finish verification before marking sent");renderPacket(p);return;}
   var date=document.getElementById("pkSentDate").value||todayISO();
   var method=document.getElementById("pkMethod").value;
   p.packet={sentAt:new Date(date).toISOString(),method:method};
   logActivity(p.id,"proposal","Client packet sent via "+method);
-  saveState();renderPacket(p);renderActivity();toast("Packet marked sent");
+  saveState();renderPacket(p);renderActivity();renderHome();renderLaunch();toast("Packet marked sent");
 });
 
 /* ---------- handoff checklist (Close and onboard stage) ---------- */
@@ -3039,7 +3137,7 @@ function renderLaunch(){
   var contacted=STATE.prospects.filter(function(p){return !!p.sentDate;}).length;
   var replies=STATE.activities.filter(function(a){return a.type==="reply";}).length;
   var convos=STATE.activities.filter(function(a){return a.type==="conversation";}).length;
-  var proposals=STATE.activities.filter(function(a){return a.type==="proposal";}).length;
+  var proposals=STATE.prospects.filter(function(p){return !!(p.packet&&p.packet.sentAt);}).length;
   var wins=STATE.prospects.filter(function(p){return p.outcome==="WON";}).length;
   var lost=STATE.prospects.filter(function(p){return p.outcome==="LOST";}).length;
   var collected=STATE.prospects.reduce(function(s,p){return s+((p.wonDetails&&p.wonDetails.amount)||0);},0);

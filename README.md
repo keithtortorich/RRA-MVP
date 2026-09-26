@@ -5,8 +5,9 @@ Revenue Recovery for independent residential HVAC contractors.
 Leak Detector finds a specific, evidence-backed revenue leak on an HVAC
 contractor's website or phone-handling process (a missed-call gap, a broken
 "24/7" claim, booking friction, etc.), then sells a $997 fixed-scope
-**Revenue Recovery Sprint** to fix it — no platform, no subscription, no
-dashboard until the offer itself is proven to sell and deliver.
+**Revenue Recovery Sprint** to fix it. Sizzle's static operator cockpit reads
+the local prospect record; it does not add a backend, subscription, or
+autonomous execution before the offer is proven to sell and deliver.
 
 **Validation question:** Can Leak Detector acquire an HVAC customer,
 profitably deliver a $997 Revenue Recovery Sprint, and document recovered
@@ -67,7 +68,9 @@ manually captured evidence from the 20-minute verification pass (see
 
 Do not expand the platform, add a second vertical, or build any of the
 post-validation architecture in `docs/MVP.md` until five real proposals have
-gone out and been read honestly against the gates above.
+gone out and been read honestly against the gates above. The dashboard in
+`docs/index.html` is a view of the existing local operator records, not a
+change to that gate.
 
 ## Privacy note
 
