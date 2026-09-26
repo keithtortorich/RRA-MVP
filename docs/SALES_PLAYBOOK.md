@@ -45,7 +45,11 @@ Record each target in `pipeline.md`: name, URL, phone, owner, why-them, status.
 
 ### Sourcing
 
-For the first five, manual Google Maps/search/referral sourcing is sufficient. Do not buy a sourcing stack to avoid doing five manual selections. If the first cycle validates the offer, NetBuild.Pro's vendor pattern can be reconsidered for scale.
+For the first five, manual Google Maps/search/referral sourcing is sufficient.
+The optional local scraper pass in `docs/GOOGLE_MAPS_RESEARCH.md` can speed up
+listing research, but every candidate still needs human qualification. Do not
+buy a sourcing stack to avoid doing five manual selections. If the first cycle
+validates the offer, NetBuild.Pro's vendor pattern can be reconsidered for scale.
 
 ## 2. Qualification and Priority
 

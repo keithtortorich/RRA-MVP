@@ -56,6 +56,11 @@ No agencies. No franchises. No commercial-only. No shops with a full-time market
 
 Write the list down in a file called pipeline.md. Columns: name, URL, phone, owner, why-them, status.
 
+For public listing research, optionally run the small local Google Maps pass
+in `docs/GOOGLE_MAPS_RESEARCH.md`. Check each candidate before adding it to
+the five. Listed hours and reviews are research evidence, not proof of call
+handling or revenue loss.
+
 Also open `docs/VALIDATION_SCOREBOARD.md` and add these five as Batch 1, row
 1-5. `pipeline.md` tracks each prospect's day-to-day state; the scoreboard
 tracks the batch-level read (sold / conversations / replies) you'll need at
@@ -72,6 +77,8 @@ Then — and this is the part most operators skip — open the output and do a r
 20 minutes per prospect:
 
 · Count their reviews on Google. Actual number.
+· Record the Maps listing URL and observation date; resolve same-name matches
+  by phone, website, and location. Check discrepancies with the company's site.
 · Check the last review date. If the owner hasn't responded in 6 months, that's a KNOWN datapoint.
 · Call them at 7pm. Does it ring out? Voicemail? Answering service? That's a KNOWN datapoint on after-hours capture.
 · Look at their site on your phone. Does the phone number appear without scrolling? Does a booking button exist? KNOWN.

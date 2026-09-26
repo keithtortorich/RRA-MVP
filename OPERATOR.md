@@ -144,14 +144,16 @@ Example `metrics.json`:
 
 ## Operating sequence
 
-1. Run `leak-detector-scan`.
-2. Review evidence and identify assumptions.
-3. Manually verify Google reviews, after-hours call handling, mobile site conversion, booking access, and 24/7 claims. Optionally run `leak-detector-observe` first to pre-fill the site-observation half — the call, text, form, and booking checks are still yours.
-4. Record observed metrics in `metrics.json`.
-5. Run `leak-detector-audit` again with the metrics file.
-6. Run `leak-detector-propose` on the resulting opportunities JSON.
-7. Send only the client-facing proposal.
-8. Record outreach and follow-up in `pipeline.md`.
+1. Select five qualified targets. For optional public listing research, see
+   `docs/GOOGLE_MAPS_RESEARCH.md`; the scraper does not establish revenue loss.
+2. Run `leak-detector-scan`.
+3. Review evidence and identify assumptions.
+4. Manually verify Google reviews, after-hours call handling, mobile site conversion, booking access, and 24/7 claims. Optionally run `leak-detector-observe` first to pre-fill the site-observation half — the call, text, form, and booking checks are still yours.
+5. Record genuinely observed metrics in `metrics.json`.
+6. Run `leak-detector-audit` again with the metrics file.
+7. Run `leak-detector-propose` on the resulting opportunities JSON.
+8. Send only the client-facing proposal.
+9. Record outreach and follow-up in `pipeline.md`.
 
 ## Output handling
 

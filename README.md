@@ -55,6 +55,7 @@ manually captured evidence from the 20-minute verification pass (see
 - **`OPERATOR.md`** — how to run the system end to end, and what's
   intentionally not built yet.
 - **`docs/LAUNCH_PLAN.md`** — the step-by-step launch sequence.
+- **`docs/GOOGLE_MAPS_RESEARCH.md`** — optional local listing research for the first five prospects.
 - **`docs/SALES_PLAYBOOK.md`** — how to qualify, verify, and sell a prospect.
 - **`docs/MEASUREMENT_PROTOCOL.md`** — how documented recovered revenue gets
   measured after delivery.
