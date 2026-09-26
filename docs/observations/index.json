@@ -1,6 +1,6 @@
 {
   "rraObservationsIndex": 1,
-  "generatedAt": "2026-09-23T00:51:10.564060+00:00",
+  "generatedAt": "2026-09-26T01:04:27.522705+00:00",
   "runs": [
     {
       "runId": "c49a63f7895441dd84966e3e5a7e9ff3",
@@ -41,6 +41,46 @@
       "file": "houkac-com.json",
       "signalCount": 9,
       "draftCount": 5
+    },
+    {
+      "runId": "a74f6ad23a224595b64debf6eabcfb25",
+      "company": "",
+      "host": "amplehouston.com",
+      "target": "https://amplehouston.com",
+      "generatedAt": "2026-09-26T01:03:27.601705+00:00",
+      "file": "amplehouston-com.json",
+      "signalCount": 9,
+      "draftCount": 5
+    },
+    {
+      "runId": "c6c85b80dd974f69bd0230292ff28728",
+      "company": "",
+      "host": "billandersonair.com",
+      "target": "https://billandersonair.com",
+      "generatedAt": "2026-09-26T01:03:36.107199+00:00",
+      "file": "billandersonair-com.json",
+      "signalCount": 8,
+      "draftCount": 5
+    },
+    {
+      "runId": "304cc2b45aee432e88ea92ce9ce16301",
+      "company": "",
+      "host": "castleacandheating.com",
+      "target": "https://castleacandheating.com",
+      "generatedAt": "2026-09-26T01:04:01.873769+00:00",
+      "file": "castleacandheating-com.json",
+      "signalCount": 9,
+      "draftCount": 4
+    },
+    {
+      "runId": "aee59645f1a14c3da3beb27f5815966c",
+      "company": "",
+      "host": "exodusmechanical.com",
+      "target": "https://exodusmechanical.com",
+      "generatedAt": "2026-09-26T01:04:27.521620+00:00",
+      "file": "exodusmechanical-com.json",
+      "signalCount": 9,
+      "draftCount": 6
     },
     {
       "runId": "f2a6356e3cce432a8b403cf4486becd5",
@@ -273,16 +313,6 @@
       "draftCount": 5
     },
     {
-      "runId": "dfa8663521e5433d8e36a0936b18fafc",
-      "company": "Ample Services",
-      "host": "amplehouston.com",
-      "target": "https://www.amplehouston.com",
-      "generatedAt": "2026-09-22T19:35:56.520030+00:00",
-      "file": "www-amplehouston-com.json",
-      "signalCount": 9,
-      "draftCount": 5
-    },
-    {
       "runId": "afd845672c62400381050b4900b5cfbc",
       "company": "Autumn Mechanical",
       "host": "autumnmechanical.com",
@@ -333,16 +363,6 @@
       "draftCount": 6
     },
     {
-      "runId": "4ceed959549f455a9502460eea81acf0",
-      "company": "Bill Anderson Air",
-      "host": "billandersonair.com",
-      "target": "https://www.billandersonair.com",
-      "generatedAt": "2026-09-22T19:36:02.973171+00:00",
-      "file": "www-billandersonair-com.json",
-      "signalCount": 8,
-      "draftCount": 5
-    },
-    {
       "runId": "d0407f531ab54b9b870d5fa0d38b79cd",
       "company": "Blue Label Services",
       "host": "bluelabeltoday.com",
@@ -379,16 +399,6 @@
       "target": "https://brucemechanicalhvac.com",
       "generatedAt": "2026-09-22T19:49:24.136788+00:00",
       "file": "brucemechanicalhvac-com.json",
-      "signalCount": 9,
-      "draftCount": 4
-    },
-    {
-      "runId": "7b3c99e3a4994e138e2274814bd4940f",
-      "company": "Castle Air Conditioning & Heating",
-      "host": "castleacandheating.com",
-      "target": "https://castleacandheating.com",
-      "generatedAt": "2026-09-22T19:36:23.040101+00:00",
-      "file": "castleacandheating-com.json",
       "signalCount": 9,
       "draftCount": 4
     },
@@ -471,16 +481,6 @@
       "file": "www-eascoair-com.json",
       "signalCount": 9,
       "draftCount": 5
-    },
-    {
-      "runId": "af206e3ab9f8415fa9751c3cbefe3d7a",
-      "company": "Exodus Mechanical",
-      "host": "exodusmechanical.com",
-      "target": "https://www.exodusmechanical.com",
-      "generatedAt": "2026-09-22T19:35:42.330371+00:00",
-      "file": "www-exodusmechanical-com.json",
-      "signalCount": 9,
-      "draftCount": 6
     },
     {
       "runId": "4c04bd0d5486461e99f9b3b311729a89",
