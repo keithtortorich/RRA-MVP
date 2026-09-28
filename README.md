@@ -62,6 +62,8 @@ manually captured evidence from the 20-minute verification pass (see
   measured after delivery.
 - **`docs/VALIDATION_SCOREBOARD.md`** — the three gates, KPI hierarchy, and
   the current Batch 1 read.
+- **`docs/NETBUILD_INTEGRATION_ROADMAP.md`** — gated long-term integrations;
+  options only, not launch authorization.
 - **`pipeline.md`** — the live prospect pipeline (Batch 1 + bench).
 
 ## Rule
