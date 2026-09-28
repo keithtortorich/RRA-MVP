@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B0E14">
 <!-- Keeps the operator tool out of search results. This page carries prospect
      research — named companies and findings about their sites — and a prospect
@@ -313,6 +313,14 @@ button:disabled{opacity:.48;cursor:not-allowed}
 .assumed{color:var(--ld-brass);font-weight:700}
 .badge.benchmark{background:var(--ld-brass-bg);color:var(--ld-brass);border-color:var(--ld-brass)}
 .badge.estimated{background:var(--ld-amber-bg);color:var(--ld-amber);border-color:var(--ld-amber)}
+.queueitem button{min-height:44px;text-align:left;width:100%;background:none;border:0;color:inherit}
+.input-action{display:flex;align-items:center;gap:8px;flex-wrap:wrap}.input-action input{flex:1;min-width:180px}
+.prospect-main{display:block;width:100%;padding:0;background:transparent;border:0;color:inherit;text-align:left;font:inherit}.prospect-card .contact-actions{margin-top:10px}.contact-actions a{display:inline-flex;align-items:center;min-height:40px;padding:7px 11px;border-radius:5px;background:#0868c9;color:#fff;font-size:12px;font-weight:700;text-decoration:none;margin:0 8px 4px 0}.contact-actions a:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.sheetbody{min-height:0}.sheet-actionbar{max-height:34vh;overflow:auto}
+.guided-check:focus-visible,summary:focus-visible{outline:2px solid var(--ld-brass)}
+.storage-error{position:fixed;top:0;left:0;right:0;z-index:120;background:var(--ld-slate);border:2px solid var(--ld-red);padding:14px}
+#unsavedOverlay{z-index:100}.contact-actions .note{width:100%}
+@media(max-width:480px){.closeicon{width:44px;height:44px}.sheethead{padding-top:10px}.sheet-actionbar .nextline{display:none}.field input,.field select,.field textarea{font-size:16px}.g2,.g3{grid-template-columns:minmax(0,1fr)}.head{flex-wrap:wrap}.badge{white-space:normal}.pill,.iconbtn,.ptype,.copybtn{min-height:44px}}
 </style>
 </head>
 <body>
@@ -351,6 +359,8 @@ button:disabled{opacity:.48;cursor:not-allowed}
       <div class="cockpit-title">
         <div><h1>Sizzle · Revenue Leak Engine</h1><p>Batch 1 · residential HVAC · operator view</p></div>
         <span class="work-tag pending" id="cockpitGateLabel">Validation gate</span>
+      <div class="row" style="margin-bottom:12px"><button class="pill on" data-work-mode="prepare">Website preparation</button><button class="pill" data-work-mode="calls">Call session</button></div>
+      <p class="note" style="margin-bottom:12px">Work is saved on this browser only. Use Launch → Export data to back up or move it.</p>
       </div>
       <div class="cockpit-kpis" id="cockpitKpis"></div>
       <div class="cockpit-grid">
@@ -371,7 +381,7 @@ button:disabled{opacity:.48;cursor:not-allowed}
       <div class="cockpit-card">
         <h2>Next best action · Batch 1</h2>
         <p class="subline">Modeled opportunities are never recovered revenue. A browser observation is a draft until a person confirms it.</p>
-        <div class="work-wrap"><table class="work-table"><thead><tr><th>Prospect</th><th>Priority leak</th><th>Evidence</th><th>Opportunity</th><th>Stage</th><th>Next step</th></tr></thead><tbody id="cockpitWork"></tbody></table></div>
+        <div class="work-wrap"><table class="work-table"><thead><tr><th>Prospect</th><th>Priority leak</th><th>Evidence</th><th>Opportunity</th><th>Stage</th><th>Next step</th><th>Contact</th></tr></thead><tbody id="cockpitWork"></tbody></table></div>
       </div>
       <div class="hidden" id="homeStats"></div>
     </section>
@@ -379,13 +389,13 @@ button:disabled{opacity:.48;cursor:not-allowed}
     <!-- PROSPECTS -->
     <section class="panel" id="p-prospects">
       <div class="card">
-        <div class="head">Launch Cohort — Five Prospects<small id="slotCount"></small></div>
+        <div class="head">Five-prospect priority queue<small id="slotCount"></small></div>
         <p class="note">Exactly five HVAC targets for this validation cycle. Replace a LOST slot rather than exceeding five.</p>
       </div>
       <div class="slotgrid" id="slotGrid"></div>
 
       <div class="card" style="margin-top:14px">
-        <div class="head">Bench<small id="benchCount"></small></div>
+        <details><summary class="head">Bench and add-prospect form<small id="benchCount"></small></summary>
         <p class="note">Raw contacts you've researched but haven't put into an active slot yet. Landing five real conversations takes more than five contacts — work this list, promote one in when a slot frees up.</p>
         <div class="field"><textarea id="bfDossier" rows="3" placeholder="Paste a dossier (Company:, City:, Contact:, Phone:, Website:, Source:, Notes:) and parse it into the fields below."></textarea></div>
         <button class="btn outline block" id="btnParseBenchDossier" type="button">Parse into fields</button>
@@ -395,11 +405,12 @@ button:disabled{opacity:.48;cursor:not-allowed}
         </div>
         <div class="g2">
           <div class="field"><label>Contact</label><input id="bfContact"></div>
-          <div class="field"><label>Phone</label><input id="bfPhone"></div>
+          <div class="field"><label>Phone</label><div class="input-action"><input id="bfPhone" type="tel"><span id="bfPhoneAction" class="contact-actions"></span></div></div>
         </div>
-        <div class="field"><label>Website</label><input id="bfWebsite" type="url" placeholder="https://"></div>
+        <div class="field"><label>Website</label><div class="input-action"><input id="bfWebsite" type="url" placeholder="https://"><span id="bfWebsiteAction" class="contact-actions"></span></div></div>
         <div class="field"><label>Why / source</label><textarea id="bfWhy" rows="2" placeholder="Why this target, and where the info came from"></textarea></div>
         <button class="btn outline block" id="btnAddBench">Add to bench</button>
+        </details>
       </div>
       <div id="benchList"></div>
     </section>
@@ -501,15 +512,16 @@ button:disabled{opacity:.48;cursor:not-allowed}
 </div>
 
 <!-- Prospect add/edit + detail sheet -->
-<div class="overlay hidden" id="prospectOverlay">
+<div class="overlay hidden" id="prospectOverlay" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
   <div class="sheet">
     <div class="sheethead">
       <div class="ttl" id="sheetTitle">Prospect</div>
-      <button class="closeicon" id="btnCloseSheet">&times;</button>
+      <button class="closeicon" id="btnCloseSheet" aria-label="Close prospect">&times;</button>
     </div>
+    <div class="sheet-actionbar" id="sheetActionbar"><div class="stage-line" id="sheetProgress"></div><div class="nextline" id="sheetNextAction"></div><div class="contact-actions" id="sheetContactActions"></div><button class="pill on" id="sheetTaskButton" style="margin-top:8px">Next task</button><div class="note" id="draftStatus" role="status"></div></div>
     <div class="subtabs" id="sheetSubtabs">
       <button class="subtab active" data-s="overview">Overview</button>
-      <button class="subtab" data-s="evidence">Evidence</button>
+      <button class="subtab" data-s="evidence">Verify / Evidence</button>
       <button class="subtab" data-s="outreach">Outreach</button>
       <button class="subtab" data-s="offer">Implementation</button>
       <button class="subtab" data-s="packet">Client Packet</button>
@@ -519,25 +531,26 @@ button:disabled{opacity:.48;cursor:not-allowed}
     <div class="sheetbody">
 
       <div class="subpanel active" id="s-overview">
-        <div class="card">
-          <div class="head">Paste dossier</div>
+        <details class="card">
+          <summary>Show paste helper</summary>
           <p class="note">Paste your research write-up (labeled lines like Company:, City:, Contact:, Phone:, Website:, Source:, Notes:). Parse fills the fields below — nothing is overwritten for a label the dossier didn't include.</p>
           <div class="field"><textarea id="pfDossier" rows="4" placeholder="Company: Reed Heating and Air&#10;City: Melissa, TX&#10;Contact: Eric Reed&#10;Phone: (972) 555-1234&#10;Website: https://reedhvac.com&#10;Source: Google Maps + Yelp reviews&#10;Notes: Site claims 24/7 but reviews complain about missed after-hours calls — needs verifying."></textarea></div>
           <button class="btn outline block" id="btnParseDossier" type="button">Parse into fields</button>
-        </div>
+        </details>
         <div class="g2">
           <div class="field"><label>Company</label><input id="pfCompany"></div>
           <div class="field"><label>City / State</label><input id="pfCity"></div>
         </div>
-        <div class="field"><label>Website</label><input id="pfWebsite" type="url" placeholder="https://"></div>
+        <div class="field"><label>Website</label><div class="input-action"><input id="pfWebsite" type="url" placeholder="https://"><span id="pfWebsiteAction" class="contact-actions"></span></div></div>
         <div class="g2">
           <div class="field"><label>Contact name</label><input id="pfContact"></div>
-          <div class="field"><label>Phone</label><input id="pfPhone" type="tel"></div>
+          <div class="field"><label>Phone</label><div class="input-action"><input id="pfPhone" type="tel"><span id="pfPhoneAction" class="contact-actions"></span></div></div>
         </div>
         <div class="g2">
           <div class="field"><label>Email</label><input id="pfEmail" type="email"></div>
           <div class="field"><label>Source</label><input id="pfSource" placeholder="Google Maps, referral..."></div>
         </div>
+        <button class="btn primary block" id="btnSaveContact" type="button">Save prospect changes</button>
         <div class="card">
           <div class="head">Research<small id="researchStatus"></small></div>
           <p class="note">Confirm identity and contact channels before anything gets sent.</p>
@@ -545,7 +558,7 @@ button:disabled{opacity:.48;cursor:not-allowed}
         </div>
         <div class="card">
           <div class="head">Verify<small id="verifyStatus"></small></div>
-          <p class="note">The manual pass: reviews and an after-hours call result. Confirm these before a dollar figure goes to the client. Each check can carry a short source note.</p>
+          <p class="note">Research public pages now; schedule calls and timed tests for a later session. Website prep does not complete the Truth Pass. Confirm evidence before sharing a proposal.</p>
           <div id="verifyList"></div>
         </div>
         <div class="field"><label>Why this target</label><textarea id="pfWhy" rows="2"></textarea></div>
@@ -594,6 +607,8 @@ button:disabled{opacity:.48;cursor:not-allowed}
       </div>
 
       <div class="subpanel" id="s-evidence">
+        <div class="card"><div class="head">Next Action</div><div class="note" id="verifyNextAction"></div><div class="contact-actions" id="verifyContactActions" style="margin-top:10px"></div></div>
+        <div class="card"><div class="head">20-minute preparation pass</div><p class="note">Inspect the website now. Complete contact-dependent and timed tests when available. Preparation does not complete the Truth Pass.</p><div class="row"><button class="pill on" data-work-mode="prepare">Website preparation</button><button class="pill" data-work-mode="calls">Call session</button></div><p class="note" id="callContext">Operator: Asia/Manila. Confirm the business's hours and timezone before calling. Add an explicit country prefix to the phone number.</p><div id="guidedChecks"></div></div>
         <div class="card" id="tpSuggestCard">
           <div class="head">Suggested Next Test</div>
           <div class="note" id="tpSuggestText">—</div>
@@ -641,7 +656,7 @@ button:disabled{opacity:.48;cursor:not-allowed}
           </div>
           <div class="g2">
             <div class="field"><label>Public claim</label><input id="tePublicClaim" placeholder="24/7 emergency service"></div>
-            <div class="field"><label>Source URL</label><input id="teSourceUrl" type="url" placeholder="https://"></div>
+            <div class="field"><label>Source URL</label><div class="input-action"><input id="teSourceUrl" type="url" placeholder="https://"><span class="contact-actions" id="teSourceAction"></span></div></div>
           </div>
           <div class="g2">
             <div class="field"><label>Expected result</label><input id="teExpectedResult"></div>
@@ -652,7 +667,7 @@ button:disabled{opacity:.48;cursor:not-allowed}
             <div class="field"><label>Response received at</label><input id="teResponseAt" type="datetime-local"></div>
           </div>
           <div class="g2">
-            <div class="field"><label>Operator timezone</label><input id="teTimezone" placeholder="America/Chicago"></div>
+            <div class="field"><label>Recorded operator timezone</label><input id="teTimezone" readonly><small class="note" id="teTimeHelp"></small></div>
             <div class="field"><label>Device</label><input id="teDevice" placeholder="iPhone Safari"></div>
           </div>
           <div class="field"><label>Evidence reference</label><input id="teEvidenceRef" placeholder="Screenshot filename, call-log reference"></div>
@@ -739,9 +754,10 @@ button:disabled{opacity:.48;cursor:not-allowed}
       </div>
 
       <div class="subpanel" id="s-packet">
+        <div class="field"><label for="packetKind">Client document</label><select id="packetKind"><option value="scan">Free scan · evidence only</option><option value="proposal">$997 proposal · validated single fix</option></select></div>
         <div class="card">
           <div class="head">Client Packet</div>
-          <p class="note">One page for the client: every recorded observation with its source and date beside it. Pulled straight from the Evidence tab — nothing added, nothing hidden.</p>
+          <p class="note">Review the exact message below. Copy and print use the same content. Unverified proposal drafts cannot be sent.</p>
           <div id="packetPreview"></div>
         </div>
         <div class="card">
@@ -749,7 +765,7 @@ button:disabled{opacity:.48;cursor:not-allowed}
           <button class="btn outline block" id="btnPrintPacket">Print / Save PDF</button>
         </div>
         <div class="card">
-          <div class="head">Mark as sent</div>
+          <div class="head">Record an actual send</div><p class="note">This does not send a message. Confirm only after you have delivered it through the selected channel.</p>
           <div class="g2">
             <div class="field"><label>Sent date</label><input id="pkSentDate" type="date"></div>
             <div class="field"><label>Method</label>
@@ -848,7 +864,9 @@ button:disabled{opacity:.48;cursor:not-allowed}
   <div class="callbody" id="callBody"></div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div id="storageFailure" class="storage-error hidden" role="alert">Changes are not saved. Keep this page open.<div class="row"><button class="pill" id="retrySave">Retry save</button><button class="pill" id="exportUnsaved">Export current work</button></div></div>
+<div class="overlay center hidden" id="unsavedOverlay" role="dialog" aria-modal="true" aria-labelledby="unsavedTitle"><div class="sheet"><div class="sheetbody"><h2 id="unsavedTitle">Unsaved changes</h2><p>Save this edit before leaving, discard it, or keep editing.</p><div class="row"><button class="btn primary" id="draftSave">Save</button><button class="btn outline" id="draftDiscard">Discard</button><button class="btn outline" id="draftKeep">Keep editing</button></div></div></div></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <script>
 (function(){
@@ -1144,6 +1162,129 @@ function fmtDate(d){if(!d)return "";var dt=(d instanceof Date)?d:new Date(d);if(
 function addDays(dateStr,days){var d=new Date(dateStr+"T00:00:00");d.setDate(d.getDate()+days);return d;}
 function daysBetween(a,b){return Math.round((b-a)/86400000);}
 function esc(s){var d=document.createElement("div");d.textContent=s==null?"":String(s);return d.innerHTML;}
+function attr(s){return esc(s).replace(/"/g,"&quot;").replace(/'/g,"&#39;");}
+function siteHref(value){
+  try{var u=new URL(String(value||"").trim());return (u.protocol==="https:"||u.protocol==="http:")&&u.hostname&&u.username===""&&u.password===""?u.href:null;}
+  catch(e){return null;}
+}
+function phoneHref(value){
+  var raw=String(value||"").trim();
+  if(!/^\+[\d\s().-]+$/.test(raw))return null;
+  var digits=raw.replace(/\D/g,"");
+  return digits.length>=7&&digits.length<=15?"tel:"+(raw[0]==="+"?"+":"")+digits:null;
+}
+function contactLinks(website,phone){
+  var site=siteHref(website),call=phoneHref(phone);
+  return (site?'<a href="'+attr(site)+'" target="_blank" rel="noopener noreferrer" aria-label="Open website">Open Site ↗</a>':"")+
+    (call?'<a href="'+attr(call)+'" aria-label="Call '+attr(phone)+'">Call '+esc(phone)+'</a>':(phone?'<span class="note">Add an explicit international country prefix before using Call.</span>':""));
+}
+function refreshDraftContactActions(){
+  ["bf","pf"].forEach(function(prefix){
+    var site=document.getElementById(prefix+"Website").value;
+    var phone=document.getElementById(prefix+"Phone").value;
+    document.getElementById(prefix+"WebsiteAction").innerHTML=contactLinks(site,"");
+    document.getElementById(prefix+"PhoneAction").innerHTML=contactLinks("",phone);
+    if(prefix==="pf"){
+      var saved=prospectById(currentProspectId);
+      var links=saved?contactLinks(saved.website,saved.phone):"";
+      document.getElementById("sheetContactActions").innerHTML=links;
+      document.getElementById("verifyContactActions").innerHTML=links;
+    }
+  });
+  document.getElementById("teSourceAction").innerHTML=contactLinks(document.getElementById("teSourceUrl").value,"");
+}
+["bfWebsite","bfPhone","pfWebsite","pfPhone"].forEach(function(id){document.getElementById(id).addEventListener("input",refreshDraftContactActions);});
+document.getElementById("teSourceUrl").addEventListener("input",refreshDraftContactActions);
+/* Derived UI only: no workflow fields are persisted. */
+var workMode="prepare",packetKind="scan";
+var INSPECT_IDS=["EXT-010","EXT-012","EXT-013","EXT-011"];
+function recordedPacket(p){return !!(p&&p.packet&&p.packet.sentAt&&!isNaN(new Date(p.packet.sentAt).getTime()));}
+function truthSnapshot(p){return computeTruthPass(JSON.parse(JSON.stringify(p)));}
+function proposalBlockers(p){
+  if(!p)return ["Save the prospect first."];
+  var reasons=[],top=topEvidence(p),tp=(p.externalVerification||{}).truthPass||{},computed=truthSnapshot(p);
+  if(!researchProgress(p).allDone)reasons.push("Confirm identity and contact channels.");
+  if(!verifyProgress(p).allDone)reasons.push("Finish the manual verification checklist.");
+  if(tp.status!=="COMPLETE"||!computed.complete||!sameIdSet(computed.qualifyingTestIds,tp.qualifyingTestIds||[])||computed.result!==tp.result)reasons.push("Complete the current Truth Pass.");
+  if(!top||evidenceQuality(top).observation!=="KNOWN"||top._staleLink)reasons.push("Select a current validated leak.");
+  if(!top||!top.source||!top.source.trim())reasons.push("Record the evidence source.");
+  if(!top||!(top.impact>0)||!top.financialProvenance||!top.financialProvenance.trim())reasons.push("Document a positive modeled opportunity and its assumptions.");
+  return reasons;
+}
+function workflowAction(p){
+  function task(label,subtab,targetId,extra){return Object.assign({text:label+" · "+p.company,label:label,kind:subtab,subtab:subtab,targetId:targetId,urgency:4},extra||{});}
+  if(p.outcome==="LOST")return null;
+  if(p.outcome==="WON"){var h=nextHandoffItem(p);return h?task("Complete handoff: "+h.label,"handoff","handoffList"):task("Review measurement","handoff","sdMeasureStart");}
+  if(p.outcome==="NURTURE"){
+    return p.nurtureReengageDate&&new Date(p.nurtureReengageDate)<=new Date()?task("Review re-engagement","outreach","pitchOut"):null;
+  }
+  var fu=followupInfo(p);
+  if(fu&&(fu.status==="today"||fu.status==="overdue"))return task(fu.label,"outreach","pitchOut",{urgency:0,pitch:(p.followupsSent||0)===0?"d4":"d11"});
+  var verify=p.verify||{};
+  if(!verify.business||!verify.business.done)return task("Confirm business identity","overview","researchList");
+  if(!siteHref(p.website)||!verify.website||!verify.website.done)return task("Confirm website","overview","pfWebsite");
+  if(workMode==="calls"&&(!verify.phone||!verify.phone.done))return task("Confirm international phone number","overview","pfPhone");
+  var tests=((p.externalVerification||{}).tests||[]).filter(function(t){return t.status!=="CANCELLED";});
+  var failure=tests.find(function(t){return t.status==="VERIFIED_FAILURE"&&isDeterminateTest(t)&&!t.evidenceId;});
+  if(failure)return task("Review verified failure","evidence","tpTestList",{testRow:failure.id});
+  var evidence=(p.evidence||[]).find(function(e){return e.verificationTestId&&!e._staleLink&&(!(e.impact>0)||!e.financialProvenance);});
+  if(evidence)return task("Review recovery assumptions","evidence","evList");
+  var ids=workMode==="prepare"?INSPECT_IDS:CHECK_CATALOG.filter(function(c){return c.highValue;}).map(function(c){return c.id;});
+  for(var i=0;i<ids.length;i++){
+    var records=tests.filter(function(t){return t.checkId===ids[i];});
+    if(records.some(isDeterminateTest))continue;
+    var c=checkMeta(ids[i]);
+    return task((records.length?"Resume: ":"Inspect: ")+c.name,"evidence","guidedChecks",{checkId:c.id});
+  }
+  var computed=truthSnapshot(p),tp=(p.externalVerification||{}).truthPass||{};
+  if(computed.complete&&tp.status!=="COMPLETE")return task("Complete Truth Pass","evidence","btnCompleteTruthPass");
+  if(!proposalBlockers(p).length&&!recordedPacket(p))return task("Review $997 proposal","packet","packetPreview",{packetKind:"proposal"});
+  if(recordedPacket(p))return task("Review sent proposal and follow-up","packet","packetSentStatus");
+  if(workMode==="prepare")return task("Review preparation; contact tests pending","evidence","tpMissingList",{blockedReason:"Website inspection is recorded. Phone/contact checks or response windows may still be required."});
+  return task("Review outstanding requirements","evidence","tpMissingList");
+}
+function progressStage(p){
+  if(!p)return 0;
+  if(recordedPacket(p))return 3;
+  if(!researchProgress(p).allDone)return 0;
+  return proposalBlockers(p).length?1:2;
+}
+function focusTask(id){
+  var el=document.getElementById(id);if(!el)return;
+  for(var parent=el.parentElement;parent;parent=parent.parentElement){if(parent.tagName==="DETAILS")parent.open=true;}
+  el.scrollIntoView({block:"nearest"});if(!el.matches("input,button,select,textarea,a"))el.tabIndex=-1;
+  el.focus({preventScroll:true});
+}
+function resumeCheck(p,id){
+  var records=((p.externalVerification||{}).tests||[]).filter(function(t){return t.checkId===id&&t.status!=="CANCELLED";});
+  if(records.length>1){focusTask("tpTestList");toast("Choose the relevant "+id+" record below.");return;}
+  openTestEditor(p,records.length?records[0].id:null,id);
+}
+function goAction(id){
+  var p=prospectById(id);if(!p)return;
+  if(!document.getElementById("prospectOverlay").classList.contains("hidden")&&currentProspectId===id){
+    if(!guardDraft(function(){goAction(id);}))return;
+  }else {if(!openProspectSheet(id))return;}
+  var a=workflowAction(p);if(!a)return;
+  if(a.pitch){pitchType=a.pitch;renderOutreachPanel(p);}
+  if(a.packetKind){packetKind=a.packetKind;renderPacket(p);}
+  setSubtab(a.subtab,true);
+  if(a.checkId)resumeCheck(p,a.checkId);else focusTask(a.targetId);
+}
+function renderSheetAction(p){
+  var stage=progressStage(p),outcome=p&&(p.outcome|| (p.state==="CONVERSATION"?"Conversation":""));
+  document.getElementById("sheetProgress").innerHTML=["Research","Verify","Propose","Sent"].map(function(label,i){return '<span class="'+(i===stage?"current":"")+'"'+(i===stage?' aria-current="step"':"")+'>'+label+"</span>";}).join("")+(outcome?'<span>'+esc(outcome)+"</span>":"");
+  var a=p?workflowAction(p):null;
+  document.getElementById("sheetNextAction").textContent=a?(a.blockedReason||a.text):(p?"No action due for this outcome.":"Add a prospect to begin.");
+  var btn=document.getElementById("sheetTaskButton");btn.textContent=a?a.label:"Save prospect";btn.disabled=!a;btn.onclick=function(){if(p)goAction(p.id);};
+  document.getElementById("verifyNextAction").textContent=a?(a.blockedReason||a.text):"No action due.";
+  refreshDraftContactActions();
+}
+document.querySelectorAll("[data-work-mode]").forEach(function(btn){btn.addEventListener("click",function(){
+  workMode=btn.dataset.workMode;
+  document.querySelectorAll("[data-work-mode]").forEach(function(x){x.classList.toggle("on",x.dataset.workMode===workMode);});
+  renderHome();renderSlots();var p=prospectById(currentProspectId);if(p){renderSheetAction(p);renderGuidedChecks(p);}
+});});
 
 /* ---------- dossier parser: paste labeled research notes, fill fields in one step ---------- */
 var DOSSIER_FIELD_MAP=[
@@ -1239,7 +1380,21 @@ var corrupted=false;
 function safeParse(raw){
   try{
     var obj=JSON.parse(raw);
-    if(!obj||typeof obj!=="object"||!Array.isArray(obj.prospects))return null;
+    if(!obj||typeof obj!=="object"||!Array.isArray(obj.prospects)||!Array.isArray(obj.activities)||!Array.isArray(obj.generalNotes))return null;
+    if(obj.prospects.length>MAX_SLOTS||obj.version>3)return null;
+    var seen={};
+    function object(x){return x&&typeof x==="object"&&!Array.isArray(x);}
+    function entries(a){return Array.isArray(a)&&a.every(object);}
+    if(!entries(obj.prospects)||!entries(obj.activities)||!entries(obj.generalNotes)||(obj.bench!==undefined&&!entries(obj.bench)))return null;
+    if(obj.settings!==undefined&&!object(obj.settings))return null;
+    if(obj.campaign!==undefined&&!object(obj.campaign))return null;
+    for(var i=0;i<obj.prospects.length;i++){
+      var p=obj.prospects[i];if(typeof p.id!=="string"||!p.id||seen[p.id]||typeof p.company!=="string")return null;seen[p.id]=true;
+      if(!["website","phone","city","contact","email","source"].every(function(k){return p[k]===undefined||typeof p[k]==="string";}))return null;
+      if(p.evidence!==undefined&&!entries(p.evidence)||p.notes!==undefined&&!entries(p.notes))return null;
+      if(!["verify","handoff","wonDetails","externalVerification","packet","calc"].every(function(k){return p[k]==null||object(p[k]);}))return null;
+      if(p.externalVerification&&(!entries(p.externalVerification.tests||[])||!entries(p.externalVerification.signals||[])))return null;
+    }
     return obj;
   }catch(e){return null;}
 }
@@ -1330,14 +1485,37 @@ function migrateExternalVerificationV3(state){
   return state;
 }
 
+var storageFailed=false;
 function saveState(){
   try{
-    var raw=JSON.stringify(STATE);
-    var prev=localStorage.getItem(STORAGE_KEY);
+    var raw=JSON.stringify(STATE),prev=localStorage.getItem(STORAGE_KEY);
     if(prev)localStorage.setItem(BACKUP_KEY,prev);
     localStorage.setItem(STORAGE_KEY,raw);
-  }catch(e){toast("Save failed — storage may be full");}
+    storageFailed=false;
+    var banner=document.getElementById("storageFailure");if(banner)banner.classList.add("hidden");
+    setTimeout(function(){
+      renderHome();renderSlots();
+      var p=prospectById(currentProspectId);
+      if(p&&!document.getElementById("prospectOverlay").classList.contains("hidden"))renderSheetAction(p);
+    },0);
+    return true;
+  }catch(e){
+    storageFailed=true;
+    var banner=document.getElementById("storageFailure");if(banner)banner.classList.remove("hidden");
+    toast("Not saved. Keep this page open; retry or export your work.");
+    return false;
+  }
 }
+document.getElementById("retrySave").addEventListener("click",function(){
+  if(saveState()){
+    contactBaseline=document.getElementById("prospectOverlay").classList.contains("hidden")?contactBaseline:formSnapshot(CONTACT_FIELDS);
+    testBaseline=document.getElementById("tpEditorCard").classList.contains("hidden")?testBaseline:testSnapshot();
+    draftStatus();renderAll();
+  }
+});
+document.getElementById("exportUnsaved").addEventListener("click",function(){
+  downloadFile("leak-detector-recovery-"+todayISO()+".json",JSON.stringify(STATE,null,2),"application/json");
+});
 
 /* ---------- derived helpers ---------- */
 function prospectById(id){for(var i=0;i<STATE.prospects.length;i++){if(STATE.prospects[i].id===id)return STATE.prospects[i];}return null;}
@@ -1373,7 +1551,7 @@ function nextResearchItem(p){return nextChecklistItem(RESEARCH_ITEMS,p);}
 function verifyProgress(p){return checklistProgress(VERIFY_ITEMS,p);}
 function nextVerifyItem(p){return nextChecklistItem(VERIFY_ITEMS,p);}
 function readyToShare(p){
-  return researchProgress(p).allDone&&verifyProgress(p).allDone&&(p.evidence||[]).length>0;
+  return proposalBlockers(p).length===0;
 }
 /* ---------- explicit readiness gates (spec: RESEARCH/VERIFY/DIAGNOSE/SHARE/...) ---------- */
 function freeScanReady(p){
@@ -1452,8 +1630,8 @@ function buildProofRecord(p){
 }
 function campaignStats(){
   var c=STATE.campaign||{id:1,targetTotal:25},targetTotal=c.targetTotal||25;
-  var raw=(STATE.bench||[]).length+STATE.prospects.length,processed=Math.min(raw,targetTotal);
-  return {campaignId:c.id||1,targetTotal:targetTotal,processed:processed,remaining:Math.max(0,targetTotal-raw),batch:Math.min(5,Math.max(1,Math.ceil(processed/MAX_SLOTS)||1)),active:STATE.prospects.length};
+  var processed=STATE.prospects.filter(recordedPacket).length;
+  return {campaignId:c.id||1,targetTotal:targetTotal,processed:processed,remaining:Math.max(0,targetTotal-processed),batch:null,active:STATE.prospects.length};
 }
 function preSeedMetrics(){
   var paid=STATE.prospects.filter(isPaidSprint),spend=STATE.settings&&STATE.settings.acquisitionSpend;
@@ -1520,83 +1698,8 @@ function truthPassNextAction(p){
   return null; /* nothing new to surface — fall through to existing contact/Sprint flow */
 }
 
-function prospectAction(p){
-  if(p.outcome==="WON"){
-    var hNext=nextHandoffItem(p);
-    if(hNext)return {text:"ONBOARD: "+hNext.label+" — "+p.company,urgency:1,kind:"handoff"};
-    return null;
-  }
-  if(p.outcome==="LOST")return null;
-  if(p.outcome==="NURTURE"){
-    if(p.nurtureReengageDate&&new Date(p.nurtureReengageDate)<=new Date()){
-      return {text:"FOLLOW UP: Re-engage "+p.company+" (30-day mark passed)",urgency:2,kind:"reengage"};
-    }
-    return null;
-  }
-  var fu=followupInfo(p);
-  if(fu&&fu.status==="overdue")return {text:"FOLLOW UP: "+fu.label+" OVERDUE — "+p.company,urgency:0,kind:"followup"};
-  if(fu&&fu.status==="today")return {text:"FOLLOW UP: "+fu.label+" due today — "+p.company,urgency:1,kind:"followup"};
-  if(p.state==="CONVERSATION")return {text:"FOLLOW UP: Continue conversation — push next step with "+p.company,urgency:2,kind:"conversation"};
-  var tpa=truthPassNextAction(p);
-  if(tpa)return {text:tpa.text+" — "+p.company,urgency:4,kind:tpa.kind};
-  if(p.state==="PROPOSAL_READY")return {text:"SHARE: Send initial outreach to "+p.company,urgency:3,kind:"send"};
-  if(p.state==="VERIFIED"){
-    if((p.evidence||[]).length)return {text:"SHARE: Build the $997 proposal for "+p.company,urgency:4,kind:"offer"};
-    return {text:"DIAGNOSE: Add evidence for "+p.company,urgency:4,kind:"evidence"};
-  }
-  if(p.state==="AUDITED"){
-    var vNext=nextVerifyItem(p);
-    if(vNext)return {text:"VERIFY: "+vNext.label+" — "+p.company,urgency:5,kind:"verify"};
-    return {text:"DIAGNOSE: Mark "+p.company+" VERIFIED — checklist complete",urgency:5,kind:"verify"};
-  }
-  if(p.state==="TARGET"){
-    var rNext=nextResearchItem(p);
-    if(rNext)return {text:"RESEARCH: "+rNext.label+" — "+p.company,urgency:6,kind:"research"};
-    if(!(p.evidence||[]).length)return {text:"DIAGNOSE: Scan "+p.company,urgency:6,kind:"scan"};
-    return {text:"VERIFY: Mark "+p.company+" AUDITED once scanned",urgency:6,kind:"audit"};
-  }
-  if(fu&&fu.status==="upcoming")return {text:"FOLLOW UP: "+p.company+" — "+fu.label+" upcoming ("+fmtDate(fu.due)+")",urgency:8,kind:"upcoming"};
-  return null;
-}
-
-function prospectActionCard(p){
-  if(p.outcome==="WON"){
-    var hNextC=nextHandoffItem(p);
-    if(hNextC)return {text:"ONBOARD: "+hNextC.label,due:null,status:""};
-    return null;
-  }
-  if(p.outcome==="LOST")return null;
-  if(p.outcome==="NURTURE"){
-    if(p.nurtureReengageDate&&new Date(p.nurtureReengageDate)<=new Date()){
-      return {text:"FOLLOW UP: Re-engage (30-day mark passed)",due:null,status:"today"};
-    }
-    return null;
-  }
-  var fu=followupInfo(p);
-  if(fu&&fu.status==="overdue")return {text:"FOLLOW UP: "+fu.label+" OVERDUE",due:fu.due,status:"overdue"};
-  if(fu&&fu.status==="today")return {text:"FOLLOW UP: "+fu.label+" due today",due:fu.due,status:"today"};
-  if(p.state==="CONVERSATION")return {text:"FOLLOW UP: Continue conversation — push next step",due:null,status:""};
-  var tpaC=truthPassNextAction(p);
-  if(tpaC)return {text:tpaC.text,due:null,status:""};
-  if(p.state==="PROPOSAL_READY")return {text:"SHARE: Send initial outreach",due:null,status:""};
-  if(p.state==="VERIFIED"){
-    if((p.evidence||[]).length)return {text:"SHARE: Build the $997 proposal",due:null,status:""};
-    return {text:"DIAGNOSE: Add evidence",due:null,status:""};
-  }
-  if(p.state==="AUDITED"){
-    var vNextC=nextVerifyItem(p);
-    if(vNextC)return {text:"VERIFY: "+vNextC.label,due:null,status:""};
-    return {text:"DIAGNOSE: Mark VERIFIED — checklist complete",due:null,status:""};
-  }
-  if(p.state==="TARGET"){
-    var rNextC=nextResearchItem(p);
-    if(rNextC)return {text:"RESEARCH: "+rNextC.label,due:null,status:""};
-    if(!(p.evidence||[]).length)return {text:"DIAGNOSE: Scan website",due:null,status:""};
-    return {text:"VERIFY: Mark AUDITED once scanned",due:null,status:""};
-  }
-  if(fu&&fu.status==="upcoming")return {text:"FOLLOW UP: "+fu.label+" upcoming",due:fu.due,status:"upcoming"};
-  return null;
-}
+function prospectAction(p){return workflowAction(p);}
+function prospectActionCard(p){var a=workflowAction(p);return a?{text:a.label,due:null,status:""}:null;}
 
 function nextActionQueue(){
   var items=[];
@@ -1615,6 +1718,7 @@ function nextActionQueue(){
 /* ---------- toast ---------- */
 var toastTimer=null;
 function toast(msg){
+  if(storageFailed&&msg.indexOf("Not saved.")!==0)msg="Changes are not saved yet — retry or export your work.";
   var el=document.getElementById("toast");
   el.textContent=msg;el.classList.add("show");
   clearTimeout(toastTimer);
@@ -1654,12 +1758,12 @@ function gotoTab(name){
 function renderHome(){
   var q=nextActionQueue();
   var hero=q[0];
-  document.getElementById("heroAction").textContent=hero?hero.text:"Nothing due — add a prospect to begin.";
+  document.getElementById("heroAction").textContent=hero?hero.text:"No action due. Review outcomes or select a prospect.";
   var goBtn=document.getElementById("heroGo");
   goBtn.textContent=hero&&hero.kind==="add"?"Open prospects":"Open prospect";
   goBtn.onclick=function(){
     if(!hero||hero.kind==="add"){gotoTab("prospects");return;}
-    openProspectSheet(hero.prospectId);
+    goAction(hero.prospectId);
   };
   var rest=q.slice(1,4);
   document.getElementById("queueCount").textContent=rest.length?(rest.length+" more"):"";
@@ -1670,11 +1774,11 @@ function renderHome(){
     list.innerHTML=rest.map(function(it){
       return '<div class="mini-item queueitem" data-goto="'+esc(it.prospectId||"")+'" data-kind="'+esc(it.kind)+'"><span>'+esc(it.text)+"</span><b>&rsaquo;</b></div>";
     }).join("");
-    Array.prototype.forEach.call(list.querySelectorAll(".queueitem"),function(el){
+    Array.prototype.forEach.call(list.querySelectorAll("[data-goto]"),function(el){
       el.addEventListener("click",function(){
         var id=el.getAttribute("data-goto");
         if(el.getAttribute("data-kind")==="add"){gotoTab("prospects");return;}
-        if(id)openProspectSheet(id);
+        if(id)goAction(id);
       });
     });
   }
@@ -1714,9 +1818,10 @@ function renderHome(){
     var evidence=truthComplete(p)?"Truth Pass complete":(top?"Recorded · "+(quality.observation||"ESTIMATED"):"Manual check needed");
     var amount=top&&Number(top.impact)>0?fmtMoney(top.impact)+"/mo · modeled":"Not sized";
     var stage=proposalSent(p)?"PROPOSED":(truthComplete(p)?"VERIFIED":prospectStage(p));
-    return '<tr class="work-row" tabindex="0" data-prospect="'+esc(p.id)+'"><td class="company">'+esc(p.company)+'</td><td>'+esc(leak)+'</td><td class="'+(truthComplete(p)?'':'caution')+'">'+esc(evidence)+'</td><td>'+esc(amount)+'</td><td><span class="work-tag'+(truthComplete(p)?'':' pending')+'">'+esc(stage)+'</span></td><td>'+esc(a?a.text:"Review record")+'</td></tr>';
-  }).join("")||'<tr><td colspan="6">No prospects in this batch. Add a prospect to begin.</td></tr>';
+    return '<tr class="work-row" tabindex="0" data-prospect="'+esc(p.id)+'"><td class="company">'+esc(p.company)+'</td><td>'+esc(leak)+'</td><td class="'+(truthComplete(p)?'':'caution')+'">'+esc(evidence)+'</td><td>'+esc(amount)+'</td><td><span class="work-tag'+(truthComplete(p)?'':' pending')+'">'+esc(stage)+'</span></td><td>'+esc(a?a.text:"Review record")+'</td><td class="contact-actions">'+contactLinks(p.website,p.phone)+'</td></tr>';
+  }).join("")||'<tr><td colspan="7">No prospects in this batch. Add a prospect to begin.</td></tr>';
   Array.prototype.forEach.call(tbody.querySelectorAll("[data-prospect]"),function(row){
+    Array.prototype.forEach.call(row.querySelectorAll(".contact-actions a"),function(link){link.addEventListener("click",function(e){e.stopPropagation();});});
     function open(){openProspectSheet(row.getAttribute("data-prospect"));}
     row.addEventListener("click",open);
     row.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open();}});
@@ -1749,7 +1854,7 @@ function renderSlots(){
       var acls=act.status==="overdue"?"overdue":(act.status==="today"?"today":"");
       nextHtml='<div class="nextrow"><span class="nextlabel">Next</span><span style="flex:1">'+esc(act.text)+"</span>"+(acls?'<span class="badge '+acls+'">'+act.status.toUpperCase()+"</span>":(act.due?'<span class="note">'+fmtDate(act.due)+"</span>":""))+"</div>";
     }
-    html+='<button class="pcard" data-open="'+p.id+'"><div class="top2"><div><div class="co">'+esc(p.company)+'</div><div class="sub">'+esc(p.city||"")+(p.contact?" &middot; "+esc(p.contact):"")+"</div></div>"+stateBadge+"</div>"+leakHtml+nextHtml+"</button>";
+    html+='<div class="pcard prospect-card"><button class="prospect-main" data-open="'+attr(p.id)+'"><div class="top2"><div><div class="co">'+esc(p.company)+'</div><div class="sub">'+esc(p.city||"")+(p.contact?" &middot; "+esc(p.contact):"")+"</div></div>"+stateBadge+"</div>"+leakHtml+nextHtml+'</button><div class="contact-actions">'+contactLinks(p.website,p.phone)+'</div></div>';
   }
   grid.innerHTML=html;
   Array.prototype.forEach.call(grid.querySelectorAll("[data-open]"),function(el){
@@ -1781,11 +1886,13 @@ function renderBench(){
     return '<div class="card pcard" data-bench="'+b.id+'">'+
       '<div class="top2"><div><div class="co">'+esc(b.company)+'</div><div class="sub">'+esc(b.city||"")+(b.contact?" &middot; "+esc(b.contact):"")+(b.phone?" &middot; "+esc(b.phone):"")+"</div></div></div>"+
       (b.notes?'<p class="note" style="margin-top:6px">'+esc(b.notes)+"</p>":"")+
+      '<div class="contact-actions">'+contactLinks(b.website,b.phone)+' </div>'+
       '<div class="row" style="margin-top:8px">'+
         '<button class="pill'+(slotsFull?"":" on")+'" data-promote="'+b.id+'"'+(slotsFull?" disabled":"")+'>'+(slotsFull?"Slots full":"Promote to active slot")+"</button>"+
         '<button class="pill" data-rmbench="'+b.id+'">Remove</button>'+
       "</div></div>";
   }).join("");
+  Array.prototype.forEach.call(list.querySelectorAll(".contact-actions a"),function(link){link.addEventListener("click",function(e){e.stopPropagation();});});
   Array.prototype.forEach.call(list.querySelectorAll("[data-promote]"),function(el){
     el.addEventListener("click",function(){promoteBench(el.getAttribute("data-promote"));});
   });
@@ -1840,7 +1947,34 @@ function promoteBench(id){
 
 /* ---------- prospect sheet ---------- */
 var currentProspectId=null;
+var contactBaseline="",testBaseline="",pendingNavigation=null,resolvingDraft=false,returnFocus=null;
+var CONTACT_FIELDS=["pfCompany","pfCity","pfWebsite","pfContact","pfPhone","pfEmail","pfSource","pfWhy","pfState","pfSentDate"];
+function formSnapshot(ids){return JSON.stringify(ids.map(function(id){return document.getElementById(id).value;}));}
+function testSnapshot(){return JSON.stringify(Array.prototype.map.call(document.querySelectorAll("#tpEditorCard input,#tpEditorCard select,#tpEditorCard textarea"),function(el){return [el.id,el.value];}))+Array.prototype.map.call(document.querySelectorAll("#teRelatedChecks .on"),function(el){return el.dataset.related;}).join(",");}
+function contactDirty(){return !!contactBaseline&&formSnapshot(CONTACT_FIELDS)!==contactBaseline;}
+function testDirty(){return !!testBaseline&&!document.getElementById("tpEditorCard").classList.contains("hidden")&&testSnapshot()!==testBaseline;}
+function draftStatus(){document.getElementById("draftStatus").textContent=contactDirty()?"Unsaved contact changes. Header links use the saved record.":(testDirty()?"Unsaved test changes.":"Saved record");}
+function guardDraft(callback){
+  if(resolvingDraft||(!contactDirty()&&!testDirty()))return true;
+  pendingNavigation=callback;document.getElementById("unsavedOverlay").classList.remove("hidden");document.getElementById("draftKeep").focus();return false;
+}
+function finishNavigation(){var fn=pendingNavigation;pendingNavigation=null;document.getElementById("unsavedOverlay").classList.add("hidden");if(fn)fn();}
+document.getElementById("draftKeep").addEventListener("click",function(){pendingNavigation=null;document.getElementById("unsavedOverlay").classList.add("hidden");document.getElementById("sheetTaskButton").focus();});
+document.getElementById("draftDiscard").addEventListener("click",function(){
+  if(contactDirty()){var values=JSON.parse(contactBaseline);CONTACT_FIELDS.forEach(function(id,i){document.getElementById(id).value=values[i];});}
+  testBaseline="";document.getElementById("tpEditorCard").classList.add("hidden");refreshDraftContactActions();draftStatus();finishNavigation();
+});
+document.getElementById("draftSave").addEventListener("click",function(){
+  resolvingDraft=true;try{document.getElementById(testDirty()?"btnSaveTest":"btnSaveProspect").click();}finally{resolvingDraft=false;}
+  if(!storageFailed&&!contactDirty()&&!testDirty())finishNavigation();
+});
+document.getElementById("prospectOverlay").addEventListener("input",draftStatus);
+document.getElementById("btnSaveContact").addEventListener("click",function(){document.getElementById("btnSaveProspect").click();});
 function openProspectSheet(id){
+  if(!document.getElementById("prospectOverlay").classList.contains("hidden")&&!guardDraft(function(){openProspectSheet(id);}))return false;
+  if(document.getElementById("prospectOverlay").classList.contains("hidden"))returnFocus=document.activeElement;
+  contactBaseline="";testBaseline="";
+  packetKind="scan";
   currentProspectId=id;
   var p=id?prospectById(id):null;
   document.getElementById("sheetTitle").textContent=p?p.company:"Add prospect";
@@ -1881,7 +2015,11 @@ function openProspectSheet(id){
   renderPacket(p);
   renderHandoff(p);
   if(p)renderProspectNotes(p);
+  if(!p){["evList","tpTestList","guidedChecks","tpCatalogList","tpAgentSummary","offerOut","pNoteList"].forEach(function(id){document.getElementById(id).innerHTML="";});document.getElementById("pitchOut").textContent="Save this prospect first.";}
+  contactBaseline=formSnapshot(CONTACT_FIELDS);testBaseline="";draftStatus();
   document.getElementById("prospectOverlay").classList.remove("hidden");
+  document.getElementById("btnCloseSheet").focus();
+  return true;
 }
 document.getElementById("btnLogCall").addEventListener("click",function(){
   var p=prospectById(currentProspectId);if(!p)return;
@@ -1916,7 +2054,7 @@ document.getElementById("btnLogCall").addEventListener("click",function(){
   openProspectSheet(p.id);
   toast("Call logged");
 });
-function closeProspectSheet(){document.getElementById("prospectOverlay").classList.add("hidden");currentProspectId=null;}
+function closeProspectSheet(){if(!guardDraft(closeProspectSheet))return;document.getElementById("prospectOverlay").classList.add("hidden");currentProspectId=null;contactBaseline="";testBaseline="";if(returnFocus&&returnFocus.isConnected)returnFocus.focus();}
 document.getElementById("btnCloseSheet").addEventListener("click",closeProspectSheet);
 document.getElementById("btnParseDossier").addEventListener("click",function(){
   var raw=document.getElementById("pfDossier").value;
@@ -2009,8 +2147,9 @@ document.getElementById("btnSaveProspect").addEventListener("click",function(){
   }
   if(newState==="WON"||newState==="LOST"||newState==="NURTURE"){p.outcome=newState;}
   else{p.outcome=null;}
-  saveState();
+  if(!saveState())return;
   toast("Saved");
+  contactBaseline=formSnapshot(CONTACT_FIELDS);
   renderAll();
   openProspectSheet(p.id);
 });
@@ -2027,6 +2166,7 @@ document.getElementById("sheetSubtabs").addEventListener("click",function(e){
   var btn=e.target.closest(".subtab");if(!btn)return;setSubtab(btn.dataset.s);
 });
 function setSubtab(name){
+  if(!guardDraft(function(){setSubtab(name);}))return;
   document.querySelectorAll(".subtab").forEach(function(x){x.classList.toggle("active",x.dataset.s===name);});
   document.querySelectorAll(".subpanel").forEach(function(x){x.classList.toggle("active",x.id==="s-"+name);});
 }
@@ -2197,6 +2337,17 @@ function suggestedNextTest(p){
   return "Continue Minimum Truth Pass coverage, or complete it if all requirements are satisfied below.";
 }
 function hasPhoneCheckTested(tests){return tests.some(function(t){var c=checkMeta(t.checkId);return c&&c.satisfiesPhone;});}
+function renderGuidedChecks(p){
+  var tests=((p.externalVerification||{}).tests||[]).filter(function(t){return t.status!=="CANCELLED";});
+  function group(ids,title){return '<h3 style="font-size:13px;margin-top:14px">'+title+'</h3>'+ids.map(function(id){
+    var c=checkMeta(id),records=tests.filter(function(t){return t.checkId===id;});
+    var status=records.length===1?records[0].status.replace(/_/g," "):(records.length?records.length+" records":"Not recorded");
+    return '<button class="guided-check" type="button" data-guided="'+id+'"><span>'+esc(c.name)+'<small>'+esc(status)+' · '+esc(c.procedure)+'</small></span></button>';
+  }).join("");}
+  var contacts=CHECK_CATALOG.filter(function(c){return INSPECT_IDS.indexOf(c.id)<0;}).map(function(c){return c.id;});
+  document.getElementById("guidedChecks").innerHTML=group(workMode==="prepare"?INSPECT_IDS:contacts,workMode==="prepare"?"Inspect public pages now":"Contact-dependent tests")+'<details class="disclosure"><summary>'+(workMode==="prepare"?"Contact tests / later":"Website inspection")+'</summary>'+group(workMode==="prepare"?contacts:INSPECT_IDS,"Existing catalog checks")+'</details>';
+  document.querySelectorAll("[data-guided]").forEach(function(el){el.addEventListener("click",function(){if(guardDraft(function(){resumeCheck(p,el.dataset.guided);}))resumeCheck(p,el.dataset.guided);});});
+}
 
 function renderTruthPassSection(p){
   if(!p)return;
@@ -2209,6 +2360,7 @@ function renderTruthPassSection(p){
   statusBadgeEl.innerHTML='<span class="badge '+statusCls+'">'+ev.truthPass.status+"</span>"+(ev.truthPass.status==="COMPLETE"?(' <span class="badge '+(ev.truthPass.result==="EXTERNAL_LEAK_FOUND"?"fail":"pass")+'">'+ev.truthPass.result.replace(/_/g," ")+"</span>"):"");
 
   var tests=activeTestsFor(p);
+  renderGuidedChecks(p);
   var qualifying=tests.filter(isQualifyingTest);
   var promoted=(p.evidence||[]).filter(function(e){return e.verificationTestId;}).length;
   var stats=[
@@ -2225,7 +2377,7 @@ function renderTruthPassSection(p){
   document.getElementById("tpProgressStats").innerHTML=stats.map(function(s){return '<div class="stat"><strong>'+esc(s[1])+"</strong><span>"+esc(s[0])+"</span></div>";}).join("");
   var warnHtml=(ev.warnings||[]).length?('<div class="warnflag"><span>&#9888;</span><span><b>Data review needed.</b><br>'+
     ev.warnings.map(esc).join("<br>")+"</span></div>"):"";
-  document.getElementById("tpMissingList").innerHTML=warnHtml+computed.missing.length?('<div class="warnflag"><span>&#9888;</span><span>'+computed.missing.map(esc).join("<br>")+"</span></div>"):(ev.truthPass.status==="COMPLETE"?'<div class="readyflag"><span>&#10003;</span><span>Minimum Truth Pass requirements satisfied as of last completion.</span></div>':'<div class="readyflag"><span>&#10003;</span><span>All current requirements satisfied — ready to complete.</span></div>');
+  document.getElementById("tpMissingList").innerHTML=warnHtml+(computed.missing.length?('<div class="warnflag"><span>&#9888;</span><span>'+computed.missing.map(esc).join("<br>")+"</span></div>"):(ev.truthPass.status==="COMPLETE"?'<div class="readyflag"><span>&#10003;</span><span>Minimum Truth Pass requirements satisfied as of last completion.</span></div>':'<div class="readyflag"><span>&#10003;</span><span>All current requirements satisfied — ready to complete.</span></div>'));
 
   var naEntries=ev.truthPass.notApplicable||[];
   var naPhone=naEntries.filter(function(n){return n.requirement==="PHONE";})[0];
@@ -2267,6 +2419,7 @@ function renderTruthPassSection(p){
   }
 
   renderTestCatalog(p);
+  renderSheetAction(p);
   renderTestLog(p);
   renderSignalList(p);
   /* Sync once per prospect+website per session. Keying on the website too means
@@ -2422,9 +2575,9 @@ function syncAgentObservations(p,opts){
       var skipped=(index.skipped||[]).filter(function(s){
         return (s.company||"").toLowerCase()===String(p.company||"").toLowerCase();
       })[0];
-      if(statusEl)statusEl.innerHTML=skipped?'<span class="badge pending">SKIPPED BY AGENT</span>':"";
+      if(statusEl&&currentProspectId===p.id)statusEl.innerHTML=skipped?'<span class="badge pending">SKIPPED BY AGENT</span>':"";
       if(skipped){
-        document.getElementById("tpAgentSummary").innerHTML=
+        if(currentProspectId===p.id)document.getElementById("tpAgentSummary").innerHTML=
           '<div class="warnflag"><span>&#9888;</span><span><b>'+esc(skipped.company)+
           " was skipped by the agent.</b> "+esc(skipped.reason||skipped.error||"")+"</span></div>";
       }
@@ -2432,7 +2585,7 @@ function syncAgentObservations(p,opts){
     }
     var ev=ensureExternalVerification(p);
     if((ev.importedRunIds||[]).indexOf(run.runId)>=0){
-      if(statusEl)statusEl.innerHTML='<span class="badge known">SYNCED '+esc(fmtDate(run.generatedAt))+"</span>";
+      if(statusEl&&currentProspectId===p.id)statusEl.innerHTML='<span class="badge known">SYNCED '+esc(fmtDate(run.generatedAt))+"</span>";
       return;
     }
     return fetch("observations/"+run.file,{cache:"no-store"}).then(function(r){
@@ -2444,19 +2597,19 @@ function syncAgentObservations(p,opts){
       saveState();
       if(currentProspectId===p.id)renderTruthPassSection(p);
       renderSlots();
-      if(statusEl)statusEl.innerHTML='<span class="badge known">SYNCED '+esc(fmtDate(run.generatedAt))+"</span>";
+      if(statusEl&&currentProspectId===p.id)statusEl.innerHTML='<span class="badge known">SYNCED '+esc(fmtDate(run.generatedAt))+"</span>";
       var warn=r.contactUsed?'<div class="warnflag"><span>&#9888;</span><span>This payload reports contact channels were used. The observation agent should never contact a business — check what produced this file.</span></div>':"";
-      document.getElementById("tpAgentSummary").innerHTML=warn+
+      if(currentProspectId===p.id)document.getElementById("tpAgentSummary").innerHTML=warn+
         '<div class="readyflag"><span>&#10003;</span><span>Auto-synced the agent run from '+esc(fmtDate(run.generatedAt))+
         ": "+(r.signalsAdded+r.signalsUpdated)+" signal(s), "+r.draftsAdded+
         " draft test(s), all PLANNED"+(r.unchanged?", "+r.unchanged+" unchanged since the last run":"")+
         ". Confirm each one yourself before it counts toward Truth Pass.</span></div>";
-      if(!opts.quiet&&r.draftsAdded)toast("Synced "+r.draftsAdded+" draft test(s) from the agent");
+      if(currentProspectId===p.id&&!opts.quiet&&r.draftsAdded)toast("Synced "+r.draftsAdded+" draft test(s) from the agent");
     });
   }).catch(function(){
     /* No published runs reachable (opened as a local file, or Pages not enabled).
        The manual import button stays available — this is an enhancement, not a dependency. */
-    if(statusEl&&!statusEl.innerHTML)statusEl.innerHTML="";
+    if(statusEl&&currentProspectId===p.id&&!statusEl.innerHTML)statusEl.innerHTML="";
   });
 }
 document.getElementById("btnImportObservations").addEventListener("click",function(){
@@ -2509,6 +2662,7 @@ function renderTestCatalog(p){
 
 var editingTestId=null;
 function openTestEditor(p,testId,presetCheckId){
+  if(!guardDraft(function(){openTestEditor(p,testId,presetCheckId);}))return;
   editingTestId=testId;
   var ev=ensureExternalVerification(p);
   var t=testId?ev.tests.filter(function(x){return x.id===testId;})[0]:null;
@@ -2528,10 +2682,12 @@ function openTestEditor(p,testId,presetCheckId){
   document.getElementById("teStartedAt").value=t&&t.testStartedAt?isoToLocalInput(t.testStartedAt):"";
   document.getElementById("teResponseAt").value=t&&t.responseReceivedAt?isoToLocalInput(t.responseReceivedAt):"";
   document.getElementById("teTimezone").value=(t&&t.operatorTimezone)||Intl.DateTimeFormat().resolvedOptions().timeZone||"";
+  document.getElementById("teTimeHelp").textContent="Datetime inputs use this browser's zone: "+Intl.DateTimeFormat().resolvedOptions().timeZone+". Existing stored instants are preserved.";
   document.getElementById("teDevice").value=(t&&t.device)||"";
   document.getElementById("teEvidenceRef").value=(t&&t.evidenceReference)||"";
   document.getElementById("teNotes").value=(t&&t.notes)||"";
   document.getElementById("teWarnings").innerHTML="";
+  refreshDraftContactActions();testBaseline=testSnapshot();draftStatus();
   document.getElementById("tpEditorCard").scrollIntoView({block:"nearest"});
 }
 function isoToLocalInput(iso){var d=new Date(iso);if(isNaN(d))return"";var pad=function(n){return String(n).padStart(2,"0");};return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate())+"T"+pad(d.getHours())+":"+pad(d.getMinutes());}
@@ -2553,6 +2709,7 @@ function renderRelatedCheckPicker(t){
   });
 }
 document.getElementById("btnCancelTestEdit").addEventListener("click",function(){
+  if(!guardDraft(function(){document.getElementById("btnCancelTestEdit").click();}))return;
   document.getElementById("tpEditorCard").classList.add("hidden");editingTestId=null;
 });
 document.getElementById("btnSaveTest").addEventListener("click",function(){
@@ -2622,11 +2779,12 @@ document.getElementById("btnSaveTest").addEventListener("click",function(){
     /* status changed away from determinate — immediately drops from Truth Pass, may reopen it */
   }
   reevaluateTruthPass(p);
-  saveState();
-  document.getElementById("tpEditorCard").classList.add("hidden");
-  editingTestId=null;
+  if(!saveState())return;
+  testBaseline=testSnapshot();
+  if(!warnings.length)document.getElementById("tpEditorCard").classList.add("hidden");
+  editingTestId=warnings.length?t.id:null;
   renderTruthPassSection(p);renderSlots();
-  toast(isNew?"Test logged":"Test updated");
+  draftStatus();toast(warnings.length?"Saved as "+t.status.replace(/_/g," ")+": "+warnings.join(" "):(isNew?"Test logged":"Test updated"));
 });
 
 function renderTestLog(p){
@@ -2674,6 +2832,7 @@ function renderTestLog(p){
   }
   wireConfirm("data-confirmfail","VERIFIED_FAILURE");
   wireConfirm("data-confirmpass","VERIFIED_PASS");
+  Array.prototype.forEach.call(list.querySelectorAll(".contact-actions a"),function(link){link.addEventListener("click",function(e){e.stopPropagation();});});
   Array.prototype.forEach.call(list.querySelectorAll("[data-promote]"),function(el){
     el.addEventListener("click",function(){
       var r=promoteTestToEvidence(p,el.getAttribute("data-promote"));
@@ -2735,7 +2894,7 @@ function renderSignalList(p){
 }
 
 /* ---------- outreach generator ---------- */
-var pitchType="email";
+var pitchType="scan";
 document.querySelectorAll(".ptype").forEach(function(btn){
   btn.addEventListener("click",function(){
     pitchType=btn.getAttribute("data-t");
@@ -2755,7 +2914,7 @@ function buildPitch(p,type){
   var top=topEvidence(p);
   if(!top)return null;
   var leak=top.issue||"a revenue leak";
-  var ev=top.source||"observed directly";
+  var ev=top.source||"Source not recorded";
   var impact=top.impact?fmtMoney(top.impact)+"/month":"a meaningful monthly amount";
   var hedge=evidenceQuality(top).financial==="KNOWN"?"":"roughly ";
   var pitches={
@@ -2767,6 +2926,8 @@ function buildPitch(p,type){
   return pitches[type];
 }
 function renderOutreachPanel(p){
+  document.getElementById("btnCopyPitch").disabled=pitchType!=="scan"&&proposalBlockers(p).length>0;
+  document.querySelectorAll(".ptype").forEach(function(el){el.classList.toggle("active",el.dataset.t===pitchType);});
   var text=buildPitch(p,pitchType);
   document.getElementById("pitchOut").textContent=text||"Add evidence first, then generate outreach.";
   var top=topEvidence(p);
@@ -2784,6 +2945,7 @@ function renderOutreachPanel(p){
   warn.innerHTML=msgs.join("");
 }
 document.getElementById("btnCopyPitch").addEventListener("click",function(){
+  var p=prospectById(currentProspectId);if(!p||(pitchType!=="scan"&&proposalBlockers(p).length)){toast("Complete proposal requirements or use the free scan invite.");return;}
   var text=document.getElementById("pitchOut").textContent;
   if(!text||text.indexOf("Add evidence")===0){toast("Nothing to copy yet");return;}
   copyText(text);
@@ -2803,8 +2965,8 @@ function renderOfferPanel(p){
   var qualityNote=tq.financial==="KNOWN"?"This figure is based on owner-confirmed numbers.":(tq.financial==="BENCHMARK"?"This figure is a conservative industry-benchmark approximation.":"This is a modeled, estimated recovery opportunity — not documented recovered revenue.");
   var offerWarn=tq.financial!=="KNOWN"?('<div class="warnflag"><span>&#9888;</span><span><b>Unverified financial input.</b> '+esc(qualityNote)+' Confirm the underlying number with the owner before quoting this figure as fact.</span></div>'):"";
   var rReadyProg=researchProgress(p),vReadyProg=verifyProgress(p);
-  var readyBanner=(rReadyProg.allDone&&vReadyProg.allDone)?
-    '<div class="readyflag"><span>&#10003;</span><span><b>Ready to share.</b> Verification checklist complete.</span></div>':
+  var readyBanner=(!proposalBlockers(p).length)?
+    '<div class="readyflag"><span>&#10003;</span><span><b>Ready to share.</b> Current evidence and proposal requirements satisfied.</span></div>':
     '<div class="warnflag"><span>&#9888;</span><span><b>Verification checklist incomplete ('+(rReadyProg.done+vReadyProg.done)+'/'+(rReadyProg.total+vReadyProg.total)+').</b> Finish it on the Overview tab before sending this as a confident client claim.</span></div>';
   out.innerHTML=
     readyBanner+
@@ -2846,87 +3008,62 @@ function clientPacketBlocker(p){
   return "";
 }
 function buildPacketText(p){
-  var ev=packetEvidence(p);
-  var lines=[];
-  lines.push(p.company+" — Revenue Recovery Scan");
-  lines.push("Prepared "+new Date().toLocaleDateString());
-  lines.push("");
-  if(!ev.length){
-    lines.push("No findings recorded yet.");
-    return lines.join("\n");
-  }
-  lines.push("FINDINGS");
-  ev.forEach(function(e,i){
-    lines.push((i+1)+". "+e.issue);
-    var eq=evidenceQuality(e);
-    lines.push("   Source: "+(e.source||"observed directly")+" ("+new Date(e.ts).toLocaleDateString()+")");
-    lines.push("   Operational evidence: "+eq.observation+"  |  Financial opportunity: "+eq.financial);
-    if(e.impact>0){
-      lines.push("   "+(eq.financial==="KNOWN"?"Recovery opportunity: ":"Estimated recovery opportunity: ")+
-                 fmtMoney(e.impact)+"/mo ("+fmtMoney(e.impact*12)+"/yr)");
-      if(!(e.financialProvenance&&e.financialProvenance.trim())){
-        lines.push("   Pending confirmation of your call volume and booking economics.");
-      }
-    }else{
-      lines.push("   Not yet quantified.");
+  var proposal=packetKind==="proposal",top=topEvidence(p),items=proposal?(top?[top]:[]):packetEvidence(p);
+  var reasons=proposal?proposalBlockers(p):[],lines=[p.company+(proposal?" — $997 Revenue Recovery Sprint proposal":" — Free revenue-leak scan"),"Prepared "+new Date().toLocaleDateString(),""];
+  if(reasons.length)lines.push("INTERNAL DRAFT — NOT READY TO SEND",reasons.join(" "), "");
+  if(!items.length)lines.push("No findings recorded. Complete the preparation pass first.");
+  items.forEach(function(e,i){
+    var q=evidenceQuality(e);
+    lines.push((i+1)+". "+e.issue,"Source: "+(e.source||"Source not recorded"),"Observation: "+q.observation);
+    if(e.ts)lines.push("Recorded: "+fmtDate(e.ts));
+    if(proposal){
+      lines.push((q.financial==="KNOWN"?"Modeled recovery opportunity: ":"Estimated recovery opportunity: ")+fmtMoney(e.impact)+"/month");
+      lines.push("Financial classification: "+q.financial,"Assumptions: "+(e.financialProvenance||"Not recorded"),"This is an opportunity estimate, not documented recovered revenue.");
     }
     lines.push("");
   });
-  var rProg=researchProgress(p),vProg=verifyProgress(p);
-  if(!(rProg.allDone&&vProg.allDone)){
-    lines.push("Note: verification in progress ("+(rProg.done+vProg.done)+"/"+(rProg.total+vProg.total)+") — figures above are subject to confirmation.");
-    lines.push("");
-  }
-  lines.push("Next step: a fixed-fee $997 implementation of the top validated leak, or a free walkthrough of these findings.");
+  if(proposal){
+    var leak=top&&leakById(top.leakId);
+    lines.push("One fix: "+(leak?leak.action:"Fix the single validated leak above"),"Fixed fee: $997","Includes the agreed fix and a 30-day measurement period.","Next step: review the evidence and confirm the scope. No revenue guarantee.");
+  }else lines.push("Public claims and unverified observations still require confirmation. No revenue-loss estimate is made in this free scan.","Next step: review the findings together.");
   return lines.join("\n");
 }
 function renderPacket(p){
-  var prev=document.getElementById("packetPreview");
-  var statusEl=document.getElementById("packetSentStatus");
-  if(!p){prev.innerHTML="";statusEl.textContent="";return;}
-  var blocker=clientPacketBlocker(p);
-  ["btnCopyPacket","btnPrintPacket","btnMarkPacketSent"].forEach(function(id){document.getElementById(id).disabled=!!blocker;});
-  var ev=packetEvidence(p);
-  var rProg=researchProgress(p),vProg=verifyProgress(p);
-  var doneCount=rProg.done+vProg.done,totalCount=rProg.total+vProg.total;
-  var banner=(rProg.allDone&&vProg.allDone)?
-    '<div class="readyflag"><span>&#10003;</span><span><b>Ready to share.</b> Verification checklist complete.</span></div>':
-    (ev.length?'<div class="warnflag"><span>&#9888;</span><span><b>Verification checklist incomplete ('+doneCount+'/'+totalCount+').</b> The figures below are still subject to confirmation — that note is included in the copied/printed packet.</span></div>':"");
-  var body;
-  if(!ev.length){
-    body='<p class="note">No findings recorded yet. Add evidence on the Evidence tab first.</p>';
-  }else{
-    body=ev.map(function(e){
-      return '<div class="pkitem"><div class="pkhead"><span>'+esc(e.issue)+"</span></div>"+dualQualityBadges(e)+
-        '<div class="pksub">Source: '+esc(e.source||"observed directly")+" &middot; "+esc(new Date(e.ts).toLocaleDateString())+"</div>"+
-        '<div class="pknote">'+(e.impact>0?((evidenceQuality(e).financial==="KNOWN"?"Recovery opportunity: ":"Estimated recovery opportunity: ")+
-          fmtMoney(e.impact)+"/mo &middot; "+fmtMoney(e.impact*12)+"/yr"):"Not yet quantified")+"</div></div>";
-    }).join("");
-  }
-  prev.innerHTML='<div class="pkhead" style="margin-bottom:4px">'+esc(p.company)+'<span class="pksub">'+esc(new Date().toLocaleDateString())+"</span></div>"+
-    (blocker?'<div class="warnflag"><span>&#9888;</span><span>Client packet blocked: '+esc(blocker)+'</span></div>':banner)+body;
+  var prev=document.getElementById("packetPreview"),status=document.getElementById("packetSentStatus");
+  if(!p){prev.textContent="Save the prospect first.";status.textContent="";return;}
+  document.getElementById("packetKind").value=packetKind;
+  var blocked=packetKind==="proposal"?proposalBlockers(p).length>0:!(p.evidence||[]).length;
+  prev.style.whiteSpace="pre-wrap";prev.textContent=buildPacketText(p);
+  ["btnCopyPacket","btnPrintPacket","btnMarkPacketSent"].forEach(function(id){document.getElementById(id).disabled=blocked;});
   var pk=p.packet||{};
-  statusEl.textContent=pk.sentAt?("Sent "+new Date(pk.sentAt).toLocaleDateString()+" via "+(pk.method||"unknown")):"Not yet sent.";
+  status.textContent=recordedPacket(p)?("Proposal recorded sent "+fmtDate(pk.sentAt)+" via "+(pk.method||"unknown")+". "+(!p.sentDate?"First-contact date is not recorded; review follow-up timing.":"")):(p.sentDate?"First contact recorded; no proposal-send record.":"No proposal-send record.");
   document.getElementById("pkSentDate").value=pk.sentAt?pk.sentAt.slice(0,10):todayISO();
   document.getElementById("pkMethod").value=pk.method||"email";
+  document.getElementById("btnMarkPacketSent").textContent=packetKind==="proposal"?"Confirm proposal was sent":"Confirm free scan was sent";
 }
+document.getElementById("packetKind").addEventListener("change",function(){packetKind=this.value;var p=prospectById(currentProspectId);if(p)renderPacket(p);});
+function packetCanShare(p){return !!p&&(packetKind==="proposal"?!proposalBlockers(p).length:!!(p.evidence||[]).length);}
 document.getElementById("btnCopyPacket").addEventListener("click",function(){
-  var p=prospectById(currentProspectId);if(!p)return;
-  if(clientPacketBlocker(p)){toast("Finish verification before sharing");return;}
-  copyText(buildPacketText(p));
+  var p=prospectById(currentProspectId);if(!packetCanShare(p)){toast("Finish the document requirements first.");return;}copyText(buildPacketText(p));
 });
 document.getElementById("btnPrintPacket").addEventListener("click",function(){
-  var p=prospectById(currentProspectId);if(!p||clientPacketBlocker(p)){toast("Finish verification before sharing");return;}
-  window.print();
+  var p=prospectById(currentProspectId);if(!packetCanShare(p)){toast("Finish the document requirements first.");return;}renderPacket(p);window.print();
 });
 document.getElementById("btnMarkPacketSent").addEventListener("click",function(){
-  var p=prospectById(currentProspectId);if(!p)return;
-  if(clientPacketBlocker(p)){toast("Finish verification before marking sent");renderPacket(p);return;}
-  var date=document.getElementById("pkSentDate").value||todayISO();
-  var method=document.getElementById("pkMethod").value;
-  p.packet={sentAt:new Date(date).toISOString(),method:method};
-  logActivity(p.id,"proposal","Client packet sent via "+method);
-  saveState();renderPacket(p);renderActivity();renderHome();renderLaunch();toast("Packet marked sent");
+  var p=prospectById(currentProspectId);if(!packetCanShare(p)){toast("Finish the document requirements first.");return;}
+  var date=document.getElementById("pkSentDate").value,method=document.getElementById("pkMethod").value;
+  if(!date||isNaN(new Date(date).getTime())){toast("Enter a valid sent date.");return;}
+  if(date>todayISO()){toast("Sent date cannot be in the future.");return;}
+  if(!confirm("Confirm you actually sent this "+(packetKind==="proposal"?"proposal":"free scan")+" via "+method+"?"))return;
+  if(packetKind==="proposal"){
+    var sentAt=new Date(date).toISOString();
+    if(p.packet&&p.packet.sentAt===sentAt&&p.packet.method===method){toast("This send is already recorded.");return;}
+    p.packet={sentAt:sentAt,method:method};
+    if(!p.sentDate)p.sentDate=date;
+    if(!p.outcome&&p.state!=="CONVERSATION")p.state="SENT";
+    logActivity(p.id,"proposal","Client proposal sent via "+method);
+  }else logActivity(p.id,"email","Free scan sent via "+method+" on "+date);
+  if(!saveState())return;renderPacket(p);renderActivity();toast("Actual send recorded. Follow-up dates are unchanged.");
 });
 
 /* ---------- handoff checklist (Close and onboard stage) ---------- */
@@ -3123,11 +3260,11 @@ function renderGenNotes(){
 }
 
 /* ============ LAUNCH / SCOREBOARD / DATA ============ */
-function renderCampaignBadges(){var c=campaignStats(),a=document.getElementById("campaignMetaBadge"),b=document.getElementById("batchMetaBadge");if(a)a.textContent="Campaign "+String(c.campaignId).padStart(2,"0");if(b)b.textContent="Batch "+c.batch+"/5";}
+function renderCampaignBadges(){var c=campaignStats(),a=document.getElementById("campaignMetaBadge"),b=document.getElementById("batchMetaBadge");if(a)a.textContent="Campaign "+String(c.campaignId).padStart(2,"0");if(b)b.textContent="Active cohort · "+c.active+"/5";}
 function renderPreSeedScoreboard(){
   var m=preSeedMetrics(),c=campaignStats(),rows=[["Paid Sprints",m.paidSprints],["CAC",m.cac==null?"UNKNOWN / —":fmtMoney(m.cac)],["Profit / Sprint",m.avgProfit==null?"—":fmtMoney(m.avgProfit)],["Delivery Hours",m.deliveryHours],["Documented Recovery",fmtMoney(m.documentedRevenue)]];
   document.getElementById("preSeedStats").innerHTML=rows.map(function(r){return '<div class="stat"><strong>'+esc(r[1])+"</strong><span>"+esc(r[0])+"</span></div>";}).join("");
-  document.getElementById("campaignStats").innerHTML=[["Campaign",c.campaignId],["Batch",c.batch+"/5"],["Processed",c.processed+"/"+c.targetTotal],["Active Slots",c.active+"/"+MAX_SLOTS],["Remaining",c.remaining]].map(function(r){return '<div class="stat"><strong>'+esc(r[1])+"</strong><span>"+esc(r[0])+"</span></div>";}).join("");
+  document.getElementById("campaignStats").innerHTML=[["Campaign",c.campaignId],["Cohort","5 slots"],["Proposals recorded",c.processed+"/"+c.targetTotal],["Active Slots",c.active+"/"+MAX_SLOTS],["Remaining",c.remaining]].map(function(r){return '<div class="stat"><strong>'+esc(r[1])+"</strong><span>"+esc(r[0])+"</span></div>";}).join("");
   var i=document.getElementById("acqSpendInput");if(i&&document.activeElement!==i)i.value=STATE.settings&&STATE.settings.acquisitionSpend!=null?STATE.settings.acquisitionSpend:"";
 }
 document.getElementById("acqSpendInput").addEventListener("change",function(){STATE.settings=STATE.settings||{};STATE.settings.acquisitionSpend=this.value===""?null:(+this.value||0);saveState();renderPreSeedScoreboard();});
@@ -3137,10 +3274,10 @@ function renderLaunch(){
   var contacted=STATE.prospects.filter(function(p){return !!p.sentDate;}).length;
   var replies=STATE.activities.filter(function(a){return a.type==="reply";}).length;
   var convos=STATE.activities.filter(function(a){return a.type==="conversation";}).length;
-  var proposals=STATE.prospects.filter(function(p){return !!(p.packet&&p.packet.sentAt);}).length;
+var proposals=STATE.prospects.filter(recordedPacket).length;
   var wins=STATE.prospects.filter(function(p){return p.outcome==="WON";}).length;
   var lost=STATE.prospects.filter(function(p){return p.outcome==="LOST";}).length;
-  var collected=STATE.prospects.reduce(function(s,p){return s+((p.wonDetails&&p.wonDetails.amount)||0);},0);
+var collected=STATE.prospects.filter(function(p){return p.outcome==="WON"&&p.wonDetails&&p.wonDetails.paymentStatus==="PAID";}).reduce(function(s,p){return s+(Number(p.wonDetails.amount)||0);},0);
   var scoreStats=[
     ["Prospects",total+"/"+MAX_SLOTS],["Contacted",contacted+"/"+MAX_SLOTS],["Replies",replies],
     ["Conversations",convos],["Proposals",proposals],["Wins",wins],["Lost",lost],["Collected",fmtMoney(collected)]
@@ -3178,7 +3315,9 @@ document.getElementById("importFile").addEventListener("change",function(e){
     var parsed=safeParse(reader.result);
     if(!parsed){toast("That file doesn't look like a valid data export");return;}
     if(!confirm("Import will overwrite all current data on this device. Continue?"))return;
-    STATE=parsed;corrupted=false;saveState();renderAll();toast("Data imported");
+    var previous=STATE,wasCorrupted=corrupted;STATE=parsed;corrupted=false;
+    if(!saveState()){STATE=previous;corrupted=wasCorrupted;return;}
+    renderAll();toast("Data imported");
   };
   reader.readAsText(file);
   e.target.value="";
@@ -3190,9 +3329,10 @@ document.getElementById("btnResetTool").addEventListener("click",function(){
 document.getElementById("btnCloseReset").addEventListener("click",function(){document.getElementById("resetOverlay").classList.add("hidden");});
 document.getElementById("btnConfirmReset").addEventListener("click",function(){
   if(document.getElementById("resetConfirmInput").value.trim()!=="RESET"){toast('Type "RESET" exactly to confirm');return;}
+  downloadFile("leak-detector-before-reset-"+todayISO()+".json",JSON.stringify(STATE,null,2),"application/json");
   localStorage.removeItem(STORAGE_KEY);localStorage.removeItem(BACKUP_KEY);
   localStorage.removeItem("rra_leads");localStorage.removeItem("rra_activity");localStorage.removeItem("rra_notes");
-  STATE=defaultState();corrupted=false;saveState();
+  STATE=defaultState();corrupted=false;if(!saveState())return;
   document.getElementById("resetOverlay").classList.add("hidden");
   renderAll();toast("Tool reset");
 });
