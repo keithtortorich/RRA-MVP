@@ -1169,14 +1169,19 @@ function siteHref(value){
 }
 function phoneHref(value){
   var raw=String(value||"").trim();
-  if(!/^\+[\d\s().-]+$/.test(raw))return null;
+  if(!/^[+\d\s().-]+$/.test(raw))return null;
   var digits=raw.replace(/\D/g,"");
-  return digits.length>=7&&digits.length<=15?"tel:"+(raw[0]==="+"?"+":"")+digits:null;
+  if(digits.length<7||digits.length>15)return null;
+  if(raw.charAt(0)==="+")return "tel:+"+digits;
+  /* RRA's initial cohort is US HVAC. Normalize familiar US formats to E.164. */
+  if(digits.length===10)return "tel:+1"+digits;
+  if(digits.length===11&&digits.charAt(0)==="1")return "tel:+"+digits;
+  return null;
 }
 function contactLinks(website,phone){
   var site=siteHref(website),call=phoneHref(phone);
   return (site?'<a href="'+attr(site)+'" target="_blank" rel="noopener noreferrer" aria-label="Open website">Open Site ↗</a>':"")+
-    (call?'<a href="'+attr(call)+'" aria-label="Call '+attr(phone)+'">Call '+esc(phone)+'</a>':(phone?'<span class="note">Add an explicit international country prefix before using Call.</span>':""));
+    (call?'<a href="'+attr(call)+'" aria-label="Call '+attr(phone)+'">Call '+esc(phone)+'</a>':(phone?'<span class="note">Use an international country prefix to enable Call.</span>':""));
 }
 function refreshDraftContactActions(){
   ["bf","pf"].forEach(function(prefix){
