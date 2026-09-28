@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#0B0E14">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
 <!-- Keeps the operator tool out of search results. This page carries prospect
      research — named companies and findings about their sites — and a prospect
      finding your working notes by searching their own name is not a first
@@ -255,6 +257,12 @@ button:disabled{opacity:.48;cursor:not-allowed}
 .pill.confirmfail:active{background:var(--ld-red-bg)}
 .pill.confirmpass{border-color:var(--ld-green);color:var(--ld-green-text)}
 .pill.confirmpass:active{background:var(--ld-green-bg)}
+/* Home sits on a light panel; the default pill is bone-on-transparent (built for dark cards) and vanishes here. */
+#p-home > .row .pill:not(.on){color:#112341;background:#fff;border-color:#9fb0c6}
+.backup-bar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin:0 0 12px;padding:9px 12px;border:1px solid #c9d3e0;border-radius:8px;background:#fff;color:#112341;font-size:12px}
+.backup-bar.warn{border-color:#c98a00;background:#fff7e0}
+.backup-bar button{min-height:34px;padding:6px 12px;border-radius:6px;border:1px solid #112341;background:#112341;color:#fff;font-weight:600;font-size:12px}
+.snap-row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 0;border-top:1px solid var(--ld-border);font-size:12px}
 
 /* -- modal / detail -- */
 .overlay{position:fixed;inset:0;background:rgba(11,14,20,.72);display:flex;align-items:flex-end;justify-content:center;z-index:50}
@@ -359,9 +367,9 @@ button:disabled{opacity:.48;cursor:not-allowed}
       <div class="cockpit-title">
         <div><h1>Sizzle · Revenue Leak Engine</h1><p>Batch 1 · residential HVAC · operator view</p></div>
         <span class="work-tag pending" id="cockpitGateLabel">Validation gate</span>
-      <div class="row" style="margin-bottom:12px"><button class="pill on" data-work-mode="prepare">Website preparation</button><button class="pill" data-work-mode="calls">Call session</button></div>
-      <p class="note" style="margin-bottom:12px">Work is saved on this browser only. Use Launch → Export data to back up or move it.</p>
       </div>
+      <div class="row" style="margin-bottom:12px"><button class="pill on" data-work-mode="prepare">Website preparation</button><button class="pill" data-work-mode="calls">Call session</button></div>
+      <div class="backup-bar" id="backupBar"></div>
       <div class="cockpit-kpis" id="cockpitKpis"></div>
       <div class="cockpit-grid">
         <div class="cockpit-card">
@@ -379,7 +387,7 @@ button:disabled{opacity:.48;cursor:not-allowed}
         </div>
       </div>
       <div class="cockpit-card">
-        <h2>Next best action · Batch 1</h2>
+        <h2>Batch 1 queue</h2>
         <p class="subline">Modeled opportunities are never recovered revenue. A browser observation is a draft until a person confirms it.</p>
         <div class="work-wrap"><table class="work-table"><thead><tr><th>Prospect</th><th>Priority leak</th><th>Evidence</th><th>Opportunity</th><th>Stage</th><th>Next step</th><th>Contact</th></tr></thead><tbody id="cockpitWork"></tbody></table></div>
       </div>
@@ -504,6 +512,8 @@ button:disabled{opacity:.48;cursor:not-allowed}
           <button class="btn outline" id="btnImportJson">Import data</button>
           <input type="file" id="importFile" accept="application/json" class="hidden">
         </div>
+        <p class="note" style="margin-top:10px">Automatic snapshots on this device (one per 30 minutes of work, newest 3). They protect against a bad save or import, not against clearing browser data. Export a file for that.</p>
+        <div id="snapList"></div>
         <button class="btn danger block" id="btnResetTool">Reset tool</button>
       </div>
     </section>
@@ -662,6 +672,14 @@ button:disabled{opacity:.48;cursor:not-allowed}
             <div class="field"><label>Expected result</label><input id="teExpectedResult"></div>
             <div class="field"><label>Observed result</label><input id="teObservedResult"></div>
           </div>
+          <div class="field"><label>Call outcome (fills Observed result and start time; you still choose the status)</label>
+            <div class="row" id="teOutcomeRow">
+              <button type="button" class="pill" data-outcome="Went to voicemail">Voicemail</button>
+              <button type="button" class="pill" data-outcome="No answer, rang out">No answer</button>
+              <button type="button" class="pill" data-outcome="Answered live by a person">Answered</button>
+              <button type="button" class="pill" data-outcome="Busy signal or call failed">Busy</button>
+            </div>
+          </div>
           <div class="g2">
             <div class="field"><label>Test started at</label><input id="teStartedAt" type="datetime-local"></div>
             <div class="field"><label>Response received at</label><input id="teResponseAt" type="datetime-local"></div>
@@ -712,6 +730,7 @@ button:disabled{opacity:.48;cursor:not-allowed}
           <div class="field"><label>Input quality</label>
             <select id="cQuality"><option>KNOWN</option><option selected>ESTIMATED</option><option>BENCHMARK</option></select>
           </div>
+          <button class="btn outline block" id="btnExportMetrics" type="button" style="margin-bottom:10px">Export metrics.json for the audit (KNOWN inputs only)</button>
           <div class="diagresult">
             <div class="diagrow">
               <span class="diaglabel">Monthly Leakage <span id="calcQualityLabel" class="diagqual">estimated</span></span>
@@ -1496,6 +1515,7 @@ function saveState(){
     var raw=JSON.stringify(STATE),prev=localStorage.getItem(STORAGE_KEY);
     if(prev)localStorage.setItem(BACKUP_KEY,prev);
     localStorage.setItem(STORAGE_KEY,raw);
+    trackSaveForBackup(raw);
     storageFailed=false;
     var banner=document.getElementById("storageFailure");if(banner)banner.classList.add("hidden");
     setTimeout(function(){
@@ -1761,6 +1781,7 @@ function gotoTab(name){
 
 /* ============ HOME ============ */
 function renderHome(){
+  renderBackupBar();
   var q=nextActionQueue();
   var hero=q[0];
   document.getElementById("heroAction").textContent=hero?hero.text:"No action due. Review outcomes or select a prospect.";
@@ -3310,6 +3331,7 @@ function downloadFile(filename,content,mime){
 }
 document.getElementById("btnExportJson").addEventListener("click",function(){
   downloadFile("leak-detector-data-"+todayISO()+".json",JSON.stringify(STATE,null,2),"application/json");
+  markExported();
   toast("Exported");
 });
 document.getElementById("btnImportJson").addEventListener("click",function(){document.getElementById("importFile").click();});
@@ -3340,6 +3362,82 @@ document.getElementById("btnConfirmReset").addEventListener("click",function(){
   STATE=defaultState();corrupted=false;if(!saveState())return;
   document.getElementById("resetOverlay").classList.add("hidden");
   renderAll();toast("Tool reset");
+});
+
+/* ============ BACKUP SAFETY / SNAPSHOTS / OUTCOMES / METRICS EXPORT ============ */
+var EXPORT_KEY="rra_last_export",CHANGES_KEY="rra_changes_since_export",SNAPS_KEY="rra_state_v2_snaps";
+function lsGet(k){try{return localStorage.getItem(k);}catch(e){return null;}}
+function lsSet(k,v){try{localStorage.setItem(k,v);}catch(e){}}
+function trackSaveForBackup(raw){
+  lsSet(CHANGES_KEY,String((parseInt(lsGet(CHANGES_KEY),10)||0)+1));
+  try{
+    var snaps=JSON.parse(lsGet(SNAPS_KEY)||"[]");if(!Array.isArray(snaps))snaps=[];
+    var last=snaps.length?snaps[0].t:0;
+    if(Date.now()-last>30*60*1000&&raw&&raw.length<1500000){
+      snaps.unshift({t:Date.now(),raw:raw});snaps=snaps.slice(0,3);
+      localStorage.setItem(SNAPS_KEY,JSON.stringify(snaps));
+    }
+  }catch(e){/* snapshots are best-effort; never block a real save */}
+}
+function markExported(){lsSet(EXPORT_KEY,new Date().toISOString());lsSet(CHANGES_KEY,"0");renderBackupBar();}
+function renderBackupBar(){
+  var el=document.getElementById("backupBar");if(!el)return;
+  var last=lsGet(EXPORT_KEY),changes=parseInt(lsGet(CHANGES_KEY),10)||0;
+  var hasData=STATE&&(STATE.prospects||[]).length>0;
+  var stale=!last||changes>0;
+  el.classList.toggle("warn",stale&&hasData);
+  var msg=last?("Last file backup: "+esc(new Date(last).toLocaleString())+(changes?" · "+changes+" change"+(changes===1?"":"s")+" since":" · up to date")):"No file backup yet";
+  el.innerHTML='<span>'+msg+'. Work lives in this browser only.</span><button type="button" id="btnBackupNow">Back up now</button>';
+  document.getElementById("btnBackupNow").addEventListener("click",function(){
+    downloadFile("leak-detector-data-"+todayISO()+".json",JSON.stringify(STATE,null,2),"application/json");
+    markExported();toast("Backup downloaded");
+  });
+}
+function renderSnapshots(){
+  var el=document.getElementById("snapList");if(!el)return;
+  var snaps=[];try{snaps=JSON.parse(lsGet(SNAPS_KEY)||"[]");}catch(e){}
+  if(!snaps.length){el.innerHTML='<p class="note">No snapshots yet.</p>';return;}
+  el.innerHTML=snaps.map(function(sn,i){
+    var n=0;try{n=(JSON.parse(sn.raw).prospects||[]).length;}catch(e){}
+    return '<div class="snap-row"><span>'+esc(new Date(sn.t).toLocaleString())+' · '+n+' prospects</span><button type="button" class="btn outline" data-snap="'+i+'">Restore</button></div>';
+  }).join("");
+  el.querySelectorAll("[data-snap]").forEach(function(b){b.addEventListener("click",function(){
+    var sn=snaps[+b.getAttribute("data-snap")];var parsed=sn&&safeParse(sn.raw);
+    if(!parsed){toast("Snapshot unreadable");return;}
+    if(!confirm("Restore this snapshot? Current data will be replaced (export first if unsure)."))return;
+    var previous=STATE;STATE=parsed;
+    if(!saveState()){STATE=previous;return;}
+    renderAll();toast("Snapshot restored");
+  });});
+}
+document.querySelectorAll('.tab[data-p="launch"]').forEach(function(t){t.addEventListener("click",renderSnapshots);});
+
+document.getElementById("teOutcomeRow").addEventListener("click",function(e){
+  var b=e.target.closest("[data-outcome]");if(!b)return;
+  document.getElementById("teObservedResult").value=b.getAttribute("data-outcome");
+  var st=document.getElementById("teStartedAt");
+  if(!st.value){st.value=isoToLocalInput(new Date().toISOString());}
+  document.getElementById("teObservedResult").dispatchEvent(new Event("input",{bubbles:true}));
+  toast("Outcome filled. Check the status, then save.");
+});
+
+document.getElementById("btnExportMetrics").addEventListener("click",function(){
+  var q=document.getElementById("cQuality").value;
+  if(q!=="KNOWN"){toast("Set Input quality to KNOWN first. metrics.json only carries numbers the owner or a record confirmed.");return;}
+  var num=function(id){var v=document.getElementById(id).value;return v===""?null:+v;};
+  var m={};
+  if(calcMode==="missed"){
+    var inbound=num("cMissedInbound"),pct=num("cMissedPct"),ticket=num("cMissedTicket");
+    if(!(inbound>0)||pct===null||!(ticket>0)){toast("Enter inbound calls, missed-call rate and job value first.");return;}
+    m={monthly_inbound_calls:inbound,missed_call_rate:pct/100,average_service_ticket:ticket};
+  }else{
+    var now=num("cBookNow"),t2=num("cBookTicket");
+    if(now===null||!(t2>0)){toast("Enter the current booking rate and job value first.");return;}
+    m={web_form_to_conversation_rate:now/100,average_service_ticket:t2};
+  }
+  var p=prospectById(currentProspectId),slug=p&&p.company?p.company.toLowerCase().replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,""):"prospect";
+  downloadFile("metrics-"+slug+".json",JSON.stringify(m,null,2),"application/json");
+  toast("Saved. Run: leak-detector-audit \"Name\" URL --metrics metrics-"+slug+".json");
 });
 
 /* ============ CALL MODE ============ */
