@@ -12,6 +12,7 @@ from __future__ import annotations
 import ipaddress
 import socket
 import ssl
+import threading
 from html.parser import HTMLParser
 from http.client import HTTPConnection, HTTPSConnection
 from urllib.parse import urljoin, urlparse
@@ -19,6 +20,7 @@ from urllib.parse import urljoin, urlparse
 MAX_REDIRECTS = 5
 MAX_BODY_BYTES = 2_000_000
 ALLOWED_SCHEMES = {"http", "https"}
+DNS_TIMEOUT_SECONDS = 10.0
 
 
 class _Signals(HTMLParser):
@@ -56,11 +58,41 @@ def _is_blocked_ip(ip: ipaddress.IPv4Address | ipaddress.IPv6Address) -> bool:
     )
 
 
+def _getaddrinfo_with_timeout(hostname: str, port: int, timeout: float = DNS_TIMEOUT_SECONDS):
+    """socket.getaddrinfo() has no timeout parameter — it's a blocking C call
+    Python cannot interrupt. An unresponsive (not NXDOMAIN, just silent)
+    resolver hangs this indefinitely, which previously stalled a single
+    observe run for 60+ minutes and burned an entire scheduled workflow's
+    job timeout on one bad host. Bound it with a daemon worker thread
+    instead; a thread that times out is abandoned (leaked), not killed —
+    Python has no safe way to cancel a blocking syscall — but it never
+    blocks the caller past `timeout`.
+    """
+    outcome: dict = {}
+
+    def worker() -> None:
+        try:
+            outcome["infos"] = socket.getaddrinfo(hostname, port, proto=socket.IPPROTO_TCP)
+        except socket.gaierror as exc:
+            outcome["error"] = exc
+
+    thread = threading.Thread(target=worker, daemon=True)
+    thread.start()
+    thread.join(timeout)
+    if thread.is_alive():
+        raise TimeoutError(f"DNS resolution for {hostname} did not respond within {timeout:.0f}s")
+    if "error" in outcome:
+        raise outcome["error"]
+    return outcome.get("infos") or []
+
+
 def _resolve_safe_ip(hostname: str, port: int) -> str:
     try:
-        infos = socket.getaddrinfo(hostname, port, proto=socket.IPPROTO_TCP)
+        infos = _getaddrinfo_with_timeout(hostname, port)
     except socket.gaierror as exc:
         raise ValueError(f"could not resolve host: {hostname}") from exc
+    except TimeoutError as exc:
+        raise ValueError(f"could not resolve host: {hostname} ({exc})") from exc
     if not infos:
         raise ValueError(f"could not resolve host: {hostname}")
     resolved_ip = None
