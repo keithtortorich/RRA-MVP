@@ -199,8 +199,14 @@ button{cursor:pointer;-webkit-appearance:none}
 .cockpit-next button,.work-action{border:0;border-radius:5px;background:#0868c9;color:#fff;padding:8px 12px;font-size:11px;font-weight:700;min-height:36px}
 button:disabled{opacity:.48;cursor:not-allowed}
 .cockpit-next button:focus-visible,.work-action:focus-visible,.work-row:focus-visible{outline:3px solid #f59e0b;outline-offset:2px}
+.deferred-queue{margin-top:12px;padding-top:10px;border-top:1px solid var(--ld-border)}
+.deferred-queue h3{margin:0 0 6px;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--ld-muted)}
+.stage-line{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;width:100%}
+.stage-line span{font-size:10px;text-align:center;padding:4px 2px;border-radius:4px;background:rgba(255,255,255,.08);color:#9aa5b8}
+.stage-line span.current{background:#C5A059;color:#0B0E14;font-weight:700}
 .mini-list{display:grid;gap:9px}
 .mini-item{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid #e6edf4;padding-bottom:9px;font-size:12px;color:#33445e}
+.mini-item.queueitem{width:100%;background:transparent;border:0;text-align:left;cursor:pointer;font:inherit;color:inherit}
 .mini-item:last-child{border:0}
 .mini-item b{color:#0d5ca9;white-space:nowrap}
 .work-wrap{overflow-x:auto}
@@ -381,8 +387,9 @@ button:disabled{opacity:.48;cursor:not-allowed}
         <div class="cockpit-card">
           <h2>Next best action</h2>
           <p class="subline">Work the first five toward client-facing proposals.</p>
-          <div class="cockpit-next"><div class="label">Do this now</div><div class="action" id="heroAction">Loading…</div><button id="heroGo">Open prospect</button></div>
+          <div class="cockpit-next"><div class="label">Do this now</div><div class="action" id="heroAction">Loading…</div><div class="note" id="heroReason"></div><button id="heroGo">Open prospect</button></div>
           <div class="mini-list" id="queueList"></div>
+          <div class="deferred-queue"><h3>Deferred — available later</h3><div class="mini-list" id="deferredQueue"></div></div>
           <span class="hidden" id="queueCount"></span>
         </div>
       </div>
@@ -1235,43 +1242,91 @@ function proposalBlockers(p){
   if(!top||!(top.impact>0)||!top.financialProvenance||!top.financialProvenance.trim())reasons.push("Document a positive modeled opportunity and its assumptions.");
   return reasons;
 }
-function workflowAction(p){
-  function task(label,subtab,targetId,extra){return Object.assign({text:label+" · "+p.company,label:label,kind:subtab,subtab:subtab,targetId:targetId,urgency:4},extra||{});}
+function actionDescriptor(label,reason,subtab,targetId,extra){
+  return Object.assign({label:label,reason:reason||"",subtab:subtab||"",targetId:targetId||"",existingTestId:null,blockedReason:null,priority:50,phase:"draft"},extra||{});
+}
+function isDeferredCheck(check){return !!check&&(check.channelFamily==="PHONE"||check.channelFamily==="MESSAGE"||check.responseObservation===true);}
+/* Pure, transient selector. It reads existing records and never writes to STATE/localStorage. */
+function getNextAction(p,options){
+  options=options||{};
+  if(!p){
+    if(storageFailed)return actionDescriptor("Retry save or export","Local changes could not be saved.","launch","retrySave",{blockedReason:"Resolve the storage error before continuing.",priority:0,phase:"error"});
+    if(corrupted)return actionDescriptor("Review data recovery","Local data was reset after a read or validation error.","launch","corruptBanner",{blockedReason:"Import your JSON backup if you have one.",priority:0,phase:"error"});
+    return null;
+  }
+  function task(label,reason,subtab,targetId,extra){return actionDescriptor(label,reason,subtab,targetId,extra);}
   if(p.outcome==="LOST")return null;
-  if(p.outcome==="WON"){var h=nextHandoffItem(p);return h?task("Complete handoff: "+h.label,"handoff","handoffList"):task("Review measurement","handoff","sdMeasureStart");}
-  if(p.outcome==="NURTURE"){
-    return p.nurtureReengageDate&&new Date(p.nurtureReengageDate)<=new Date()?task("Review re-engagement","outreach","pitchOut"):null;
+  if(p.outcome==="WON"){
+    var h=nextHandoffItem(p);
+    return h?task("Complete handoff: "+h.label,"Finish the recorded client handoff.","handoff","handoffList",{phase:"closed"}):task("Review measurement","Record measured results from real records.","handoff","sdMeasureStart",{phase:"closed"});
   }
-  var fu=followupInfo(p);
-  if(fu&&(fu.status==="today"||fu.status==="overdue"))return task(fu.label,"outreach","pitchOut",{urgency:0,pitch:(p.followupsSent||0)===0?"d4":"d11"});
-  var verify=p.verify||{};
-  if(!verify.business||!verify.business.done)return task("Confirm business identity","overview","researchList");
-  if(!siteHref(p.website)||!verify.website||!verify.website.done)return task("Confirm website","overview","pfWebsite");
-  if(workMode==="calls"&&(!verify.phone||!verify.phone.done))return task("Confirm international phone number","overview","pfPhone");
+  if(p.outcome==="NURTURE")return p.nurtureReengageDate&&new Date(p.nurtureReengageDate)<=new Date()?task("Review re-engagement","The recorded re-contact date has arrived.","outreach","pitchOut",{phase:"closed"}):null;
+
   var tests=((p.externalVerification||{}).tests||[]).filter(function(t){return t.status!=="CANCELLED";});
-  var failure=tests.find(function(t){return t.status==="VERIFIED_FAILURE"&&isDeterminateTest(t)&&!t.evidenceId;});
-  if(failure)return task("Review verified failure","evidence","tpTestList",{testRow:failure.id});
-  var evidence=(p.evidence||[]).find(function(e){return e.verificationTestId&&!e._staleLink&&(!(e.impact>0)||!e.financialProvenance);});
-  if(evidence)return task("Review recovery assumptions","evidence","evList");
-  var ids=workMode==="prepare"?INSPECT_IDS:CHECK_CATALOG.filter(function(c){return c.highValue;}).map(function(c){return c.id;});
-  for(var i=0;i<ids.length;i++){
-    var records=tests.filter(function(t){return t.checkId===ids[i];});
-    if(records.some(isDeterminateTest))continue;
-    var c=checkMeta(ids[i]);
-    return task((records.length?"Resume: ":"Inspect: ")+c.name,"evidence","guidedChecks",{checkId:c.id});
+  if(options.deferred){
+    var deferredIds=CHECK_CATALOG.filter(isDeferredCheck).map(function(c){return c.id;});
+    for(var d=0;d<deferredIds.length;d++){
+      var dc=checkMeta(deferredIds[d]);
+      if((dc.channelFamily==="PHONE"||dc.channelFamily==="MESSAGE")&&!p.phone)continue;
+      if(dc.responseObservation&&!p.website)continue;
+      var dr=tests.filter(function(t){return t.checkId===dc.id;});
+      if(dr.some(isDeterminateTest))continue;
+      var resumable=dr.filter(function(t){return t.status==="PLANNED"||t.status==="IN_PROGRESS";});
+      var dt=resumable.length===1?resumable[0]:null;
+      if(resumable.length>1)return task("Deferred — available later: choose existing "+dc.name,"Existing records need review; no new test will be created.","evidence","tpTestList",{phase:"phone",blockedReason:"Resume one of the existing records when phone access or the response window is available."});
+      if(dr.length&&!dt)dt=dr[0];
+      return task("Deferred — available later: "+(dt?"resume ":"")+dc.name,dc.responseObservation?"Requires submitting the public form and waiting for its response window.":"Requires phone or message access.","evidence",dt?"tpTestList":"guidedChecks",{phase:"phone",blockedReason:"Complete after website preparation, when phone access or the response window is available.",checkId:dc.id,existingTestId:dt?dt.id:null,priority:90});
+    }
+    return null;
   }
+
+  var verify=p.verify||{};
+  if(!verify.business||!verify.business.done)return task("Confirm business identity","Resolve the business name and identity before evaluating it.","overview","researchList",{phase:"research",priority:10});
+  if(!siteHref(p.website)||!verify.website||!verify.website.done)return task("Confirm website","Confirm the correct public website before reviewing it.","overview","pfWebsite",{phase:"research",priority:11});
+  if(!p.phone||!phoneHref(p.phone)||!verify.phone||!verify.phone.done)return task("Confirm public phone number","Find and confirm the published number from public sources; calling can wait.","overview","pfPhone",{phase:"research",priority:12});
+
+  var fu=followupInfo(p);
+  if(fu&&(fu.status==="today"||fu.status==="overdue"))return task(fu.label,"A sent proposal follow-up is due.","outreach","pitchOut",{priority:15,pitch:(p.followupsSent||0)===0?"d4":"d11",phase:"draft"});
+
+  var digitalIds=INSPECT_IDS.concat(CHECK_CATALOG.filter(function(c){return c.highValue&&!isDeferredCheck(c)&&INSPECT_IDS.indexOf(c.id)<0;}).map(function(c){return c.id;}));
+  /* Resume an existing digital check before suggesting any new check. */
+  for(var r=0;r<digitalIds.length;r++){
+    var rc=checkMeta(digitalIds[r]),rr=tests.filter(function(t){return t.checkId===rc.id;});
+    var active=rr.filter(function(t){return t.status==="PLANNED"||t.status==="IN_PROGRESS";});
+    if(active.length===1&&active[0].agentObservation)return task("Review site observation","Check the published browser observation before confirming or rejecting it.","evidence","testRow-"+active[0].id,{phase:"verify",checkId:rc.id,existingTestId:active[0].id,reviewObservation:true,priority:19});
+    if(rr.some(isDeterminateTest))continue;
+    if(active.length>1)return task("Review existing "+rc.name+" records","Resolve duplicate records before continuing; no new test will be created.","evidence","tpTestList",{phase:"verify",blockedReason:"Select the existing record to resume.",checkId:rc.id,priority:20});
+    if(active.length===1)return task("Resume "+rc.name,"Continue the existing test record.","evidence","guidedChecks",{phase:"verify",checkId:rc.id,existingTestId:active[0].id,priority:20});
+    if(rr.length)return task("Review existing "+rc.name+" result","Review the existing inconclusive or invalid record before taking another test.","evidence","tpTestList",{phase:"verify",blockedReason:"The existing record must be reviewed before a repeat; no duplicate will be created.",checkId:rc.id,existingTestId:rr[0].id,priority:21});
+  }
+  for(var i=0;i<digitalIds.length;i++){
+    var c=checkMeta(digitalIds[i]),records=tests.filter(function(t){return t.checkId===c.id;});
+    if(records.length)continue;
+    return task("Inspect "+c.name,"Review this public website path; this is preparation, not proof of a leak.","evidence","guidedChecks",{phase:"verify",checkId:c.id,priority:30});
+  }
+
+  var failure=tests.find(function(t){return t.status==="VERIFIED_FAILURE"&&isDeterminateTest(t)&&!t.evidenceId;});
+  if(failure)return task("Review verified failure","Promote the recorded test result into linked evidence.","evidence","tpTestList",{phase:"draft",testRow:failure.id,priority:40});
+  var evidence=(p.evidence||[]).find(function(e){return e.verificationTestId&&!e._staleLink&&(!(e.impact>0)||!e.financialProvenance);});
+  if(evidence)return task("Review recovery assumptions","Complete the source and assumptions for the verified leak.","evidence","evList",{phase:"draft",priority:41});
   var computed=truthSnapshot(p),tp=(p.externalVerification||{}).truthPass||{};
-  if(computed.complete&&tp.status!=="COMPLETE")return task("Complete Truth Pass","evidence","btnCompleteTruthPass");
-  if(!proposalBlockers(p).length&&!recordedPacket(p))return task("Review $997 proposal","packet","packetPreview",{packetKind:"proposal"});
-  if(recordedPacket(p))return task("Review sent proposal and follow-up","packet","packetSentStatus");
-  if(workMode==="prepare")return task("Review preparation; contact tests pending","evidence","tpMissingList",{blockedReason:"Website inspection is recorded. Phone/contact checks or response windows may still be required."});
-  return task("Review outstanding requirements","evidence","tpMissingList");
+  if(computed.complete&&tp.status!=="COMPLETE")return task("Complete Truth Pass","Review the current qualifying records and lock the derived result.","evidence","btnCompleteTruthPass",{phase:"draft",priority:50});
+  if(!proposalBlockers(p).length&&!recordedPacket(p))return task("Review $997 proposal","Review the client packet before recording an actual send.","packet","packetPreview",{packetKind:"proposal",phase:"draft",priority:60});
+  if(recordedPacket(p))return task("Review sent proposal and follow-up","A packet has a recorded send timestamp.","packet","packetSentStatus",{phase:"sent",priority:70});
+  var deferred=getNextAction(p,{deferred:true});
+  if(deferred)return task("Review outstanding requirements","Digital preparation is exhausted. Phone and response-window tasks remain deferred.","evidence","tpMissingList",{phase:"phone",blockedReason:deferred.blockedReason,priority:80});
+  return task("Review outstanding requirements","Review the remaining Truth Pass requirements.","evidence","tpMissingList",{phase:"draft",priority:80});
 }
 function progressStage(p){
   if(!p)return 0;
-  if(recordedPacket(p))return 3;
-  if(!researchProgress(p).allDone)return 0;
-  return proposalBlockers(p).length?1:2;
+  if(p.outcome==="WON"||p.outcome==="LOST"||p.outcome==="NURTURE")return 5;
+  if(recordedPacket(p))return 4;
+  var a=getNextAction(p);
+  if(!a||a.phase==="research")return 0;
+  if(a.phase==="verify")return 1;
+  if(a.phase==="phone")return 3;
+  if(a.phase==="sent")return 4;
+  return 2;
 }
 function focusTask(id){
   var el=document.getElementById(id);if(!el)return;
@@ -1284,24 +1339,26 @@ function resumeCheck(p,id){
   if(records.length>1){focusTask("tpTestList");toast("Choose the relevant "+id+" record below.");return;}
   openTestEditor(p,records.length?records[0].id:null,id);
 }
-function goAction(id){
+function goAction(id,selectedAction){
   var p=prospectById(id);if(!p)return;
   if(!document.getElementById("prospectOverlay").classList.contains("hidden")&&currentProspectId===id){
-    if(!guardDraft(function(){goAction(id);}))return;
+    if(!guardDraft(function(){goAction(id,selectedAction);}))return;
   }else {if(!openProspectSheet(id))return;}
-  var a=workflowAction(p);if(!a)return;
+  var a=selectedAction||getNextAction(p);if(!a)return;
   if(a.pitch){pitchType=a.pitch;renderOutreachPanel(p);}
   if(a.packetKind){packetKind=a.packetKind;renderPacket(p);}
   setSubtab(a.subtab,true);
-  if(a.checkId)resumeCheck(p,a.checkId);else focusTask(a.targetId);
+  if(a.reviewObservation)focusTask(a.targetId);
+  else if(a.existingTestId){var existing=((p.externalVerification||{}).tests||[]).filter(function(t){return t.id===a.existingTestId;})[0];openTestEditor(p,a.existingTestId,existing&&existing.checkId);}
+  else if(a.checkId)resumeCheck(p,a.checkId);else focusTask(a.targetId);
 }
 function renderSheetAction(p){
   var stage=progressStage(p),outcome=p&&(p.outcome|| (p.state==="CONVERSATION"?"Conversation":""));
-  document.getElementById("sheetProgress").innerHTML=["Research","Verify","Propose","Sent"].map(function(label,i){return '<span class="'+(i===stage?"current":"")+'"'+(i===stage?' aria-current="step"':"")+'>'+label+"</span>";}).join("")+(outcome?'<span>'+esc(outcome)+"</span>":"");
-  var a=p?workflowAction(p):null;
-  document.getElementById("sheetNextAction").textContent=a?(a.blockedReason||a.text):(p?"No action due for this outcome.":"Add a prospect to begin.");
-  var btn=document.getElementById("sheetTaskButton");btn.textContent=a?a.label:"Save prospect";btn.disabled=!a;btn.onclick=function(){if(p)goAction(p.id);};
-  document.getElementById("verifyNextAction").textContent=a?(a.blockedReason||a.text):"No action due.";
+  document.getElementById("sheetProgress").innerHTML=["Research","Verify · website prep","Draft","Phone pending","Sent","Closed / launched"].map(function(label,i){return '<span class="'+(i===stage?"current":"")+'"'+(i===stage?' aria-current="step"':"")+'>'+label+"</span>";}).join("")+(outcome?'<span>'+esc(outcome)+"</span>":"");
+  var a=getNextAction(null)||(p?getNextAction(p):null);
+  document.getElementById("sheetNextAction").textContent=a?(a.blockedReason||a.reason||a.label):(p?"No action due for this outcome.":"Add a prospect to begin.");
+  var btn=document.getElementById("sheetTaskButton");btn.textContent=a?a.label:(p?"No next step":"Save prospect");btn.disabled=!a;btn.onclick=function(){if(a&&a.phase==="error")focusTask(a.targetId);else if(p&&a)goAction(p.id,a);else if(a)focusTask(a.targetId);};
+  document.getElementById("verifyNextAction").textContent=a?(a.blockedReason||a.reason||a.label):"No action due.";
   refreshDraftContactActions();
 }
 document.querySelectorAll("[data-work-mode]").forEach(function(btn){btn.addEventListener("click",function(){
@@ -1521,7 +1578,11 @@ function saveState(){
     setTimeout(function(){
       renderHome();renderSlots();
       var p=prospectById(currentProspectId);
-      if(p&&!document.getElementById("prospectOverlay").classList.contains("hidden"))renderSheetAction(p);
+      if(p&&!document.getElementById("prospectOverlay").classList.contains("hidden")){
+        renderSheetAction(p);
+        var guided=document.getElementById("guidedChecks");
+        if(!guided.contains(document.activeElement))renderGuidedChecks(p);
+      }
     },0);
     return true;
   }catch(e){
@@ -1723,21 +1784,25 @@ function truthPassNextAction(p){
   return null; /* nothing new to surface — fall through to existing contact/Sprint flow */
 }
 
-function prospectAction(p){return workflowAction(p);}
-function prospectActionCard(p){var a=workflowAction(p);return a?{text:a.label,due:null,status:""}:null;}
+function actionText(a,p){return a?a.label+(p?" · "+p.company:""):"No action due for this outcome.";}
 
 function nextActionQueue(){
   var items=[];
+  var globalAction=getNextAction(null);
+  if(globalAction)items.push(Object.assign({prospectId:null},globalAction));
   STATE.prospects.forEach(function(p){
-    var a=prospectAction(p);
-    if(a){a.prospectId=p.id;items.push(a);}
+    var a=getNextAction(p);
+    if(a)items.push(Object.assign({prospectId:p.id},a));
   });
   var filled=STATE.prospects.length;
   if(filled<MAX_SLOTS){
-    items.push({text:"Add Prospect #"+(filled+1)+" — cohort not full",urgency:9,kind:"add"});
+    items.push(Object.assign({prospectId:null},actionDescriptor("Add Prospect #"+(filled+1),"The five active slots are not full.","prospects","slotGrid",{priority:90,kind:"add"})));
   }
-  items.sort(function(a,b){return a.urgency-b.urgency;});
+  items.sort(function(a,b){return a.priority-b.priority;});
   return items;
+}
+function deferredActionQueue(){
+  return STATE.prospects.map(function(p){var a=getNextAction(p,{deferred:true});return a?Object.assign({prospectId:p.id},a):null;}).filter(Boolean);
 }
 
 /* ---------- toast ---------- */
@@ -1784,12 +1849,15 @@ function renderHome(){
   renderBackupBar();
   var q=nextActionQueue();
   var hero=q[0];
-  document.getElementById("heroAction").textContent=hero?hero.text:"No action due. Review outcomes or select a prospect.";
+  document.getElementById("heroAction").textContent=hero?actionText(hero,hero.prospectId?prospectById(hero.prospectId):null):"No action due. Review outcomes or select a prospect.";
+  document.getElementById("heroReason").textContent=hero?(hero.blockedReason||hero.reason||""):"";
   var goBtn=document.getElementById("heroGo");
-  goBtn.textContent=hero&&hero.kind==="add"?"Open prospects":"Open prospect";
+  goBtn.textContent=hero&&hero.kind==="add"?"Open prospects":(hero&&hero.prospectId?"Open next step":"Review notice");
+  goBtn.disabled=!hero;
   goBtn.onclick=function(){
-    if(!hero||hero.kind==="add"){gotoTab("prospects");return;}
-    goAction(hero.prospectId);
+    if(!hero)return;
+    if(hero.kind==="add"){gotoTab("prospects");focusTask(hero.targetId);return;}
+    if(hero.prospectId)goAction(hero.prospectId,hero);else focusTask(hero.targetId);
   };
   var rest=q.slice(1,4);
   document.getElementById("queueCount").textContent=rest.length?(rest.length+" more"):"";
@@ -1798,16 +1866,19 @@ function renderHome(){
     list.innerHTML='<div class="mini-item">Nothing else due right now.</div>';
   }else{
     list.innerHTML=rest.map(function(it){
-      return '<div class="mini-item queueitem" data-goto="'+esc(it.prospectId||"")+'" data-kind="'+esc(it.kind)+'"><span>'+esc(it.text)+"</span><b>&rsaquo;</b></div>";
+      return '<button type="button" class="mini-item queueitem" data-goto="'+esc(it.prospectId||"")+'" data-kind="'+esc(it.kind)+'"><span>'+esc(actionText(it,it.prospectId?prospectById(it.prospectId):null))+"</span><b>&rsaquo;</b></button>";
     }).join("");
     Array.prototype.forEach.call(list.querySelectorAll("[data-goto]"),function(el){
       el.addEventListener("click",function(){
         var id=el.getAttribute("data-goto");
-        if(el.getAttribute("data-kind")==="add"){gotoTab("prospects");return;}
+        if(el.getAttribute("data-kind")==="add"){gotoTab("prospects");focusTask("slotGrid");return;}
         if(id)goAction(id);
       });
     });
   }
+  var dq=deferredActionQueue(),deferred=document.getElementById("deferredQueue");
+  deferred.innerHTML=dq.length?dq.map(function(it){return '<button type="button" class="mini-item queueitem" data-deferred="'+esc(it.prospectId)+'"><span>'+esc(actionText(it,prospectById(it.prospectId)))+'</span><b>&rsaquo;</b></button>';}).join(""):'<div class="mini-item">No phone or response-window work is waiting.</div>';
+  Array.prototype.forEach.call(deferred.querySelectorAll("[data-deferred]"),function(el){el.addEventListener("click",function(){var id=el.getAttribute("data-deferred"),p=prospectById(id);if(p)goAction(id,getNextAction(p,{deferred:true}));});});
   var prospects=STATE.prospects;
   function truthComplete(p){var ev=ensureExternalVerification(p);return reevaluateTruthPass(p).complete&&ev.truthPass.status==="COMPLETE";}
   function proposalSent(p){return !!(p.packet&&p.packet.sentAt);}
@@ -1839,16 +1910,16 @@ function renderHome(){
   document.getElementById("cockpitTruthGate").innerHTML='<b>Truth Pass is the firewall.</b> Public page observations are draft signals. No unverified finding becomes a client claim, and modeled opportunity never becomes recovered revenue. '+(proposed<5?"Finish five real proposals before expanding the platform.":"Review sales and delivery evidence before expanding the platform.");
   var tbody=document.getElementById("cockpitWork");
   tbody.innerHTML=prospects.map(function(p){
-    var top=topEvidence(p),a=prospectActionCard(p),quality=top?evidenceQuality(top):null;
+    var top=topEvidence(p),a=getNextAction(p),quality=top?evidenceQuality(top):null;
     var leak=top?top.issue:"No validated leak selected";
     var evidence=truthComplete(p)?"Truth Pass complete":(top?"Recorded · "+(quality.observation||"ESTIMATED"):"Manual check needed");
     var amount=top&&Number(top.impact)>0?fmtMoney(top.impact)+"/mo · modeled":"Not sized";
     var stage=proposalSent(p)?"PROPOSED":(truthComplete(p)?"VERIFIED":prospectStage(p));
-    return '<tr class="work-row" tabindex="0" data-prospect="'+esc(p.id)+'"><td class="company">'+esc(p.company)+'</td><td>'+esc(leak)+'</td><td class="'+(truthComplete(p)?'':'caution')+'">'+esc(evidence)+'</td><td>'+esc(amount)+'</td><td><span class="work-tag'+(truthComplete(p)?'':' pending')+'">'+esc(stage)+'</span></td><td>'+esc(a?a.text:"Review record")+'</td><td class="contact-actions">'+contactLinks(p.website,p.phone)+'</td></tr>';
+    return '<tr class="work-row" tabindex="0" data-prospect="'+esc(p.id)+'"><td class="company">'+esc(p.company)+'</td><td>'+esc(leak)+'</td><td class="'+(truthComplete(p)?'':'caution')+'">'+esc(evidence)+'</td><td>'+esc(amount)+'</td><td><span class="work-tag'+(truthComplete(p)?'':' pending')+'">'+esc(stage)+'</span></td><td>'+esc(a?actionText(a,p):"Open record")+'</td><td class="contact-actions">'+contactLinks(p.website,p.phone)+'</td></tr>';
   }).join("")||'<tr><td colspan="7">No prospects in this batch. Add a prospect to begin.</td></tr>';
   Array.prototype.forEach.call(tbody.querySelectorAll("[data-prospect]"),function(row){
     Array.prototype.forEach.call(row.querySelectorAll(".contact-actions a"),function(link){link.addEventListener("click",function(e){e.stopPropagation();});});
-    function open(){openProspectSheet(row.getAttribute("data-prospect"));}
+    function open(){var id=row.getAttribute("data-prospect"),a=getNextAction(prospectById(id));if(a)goAction(id,a);else openProspectSheet(id);}
     row.addEventListener("click",open);
     row.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();open();}});
   });
@@ -1874,17 +1945,17 @@ function renderSlots(){
     if(p.outcome==="WON")stateBadge='<span class="badge won">WON</span>';
     if(p.outcome==="LOST")stateBadge='<span class="badge lost">LOST</span>';
     var leakHtml=top?('<div class="leak"><b>'+esc(top.issue||"Top leak")+"</b><br>"+fmtMoney(top.impact)+"/mo &middot; "+fmtMoney(top.impact*12)+"/yr &middot; "+qualityBadge(evidenceQuality(top).financial)+(evidenceQuality(top).financial!=="KNOWN"?' <span class="note">estimated — confirm before quoting</span>':"")+"</div>"):'<div class="leak note">No evidence yet — run a scan and add findings.</div>';
-    var act=prospectActionCard(p);
+    var act=getNextAction(p);
     var nextHtml="";
     if(act){
       var acls=act.status==="overdue"?"overdue":(act.status==="today"?"today":"");
-      nextHtml='<div class="nextrow"><span class="nextlabel">Next</span><span style="flex:1">'+esc(act.text)+"</span>"+(acls?'<span class="badge '+acls+'">'+act.status.toUpperCase()+"</span>":(act.due?'<span class="note">'+fmtDate(act.due)+"</span>":""))+"</div>";
+      nextHtml='<div class="nextrow"><span class="nextlabel">Next</span><span style="flex:1">'+esc(act.label)+"</span>"+(acls?'<span class="badge '+acls+'">'+act.status.toUpperCase()+"</span>":(act.due?'<span class="note">'+fmtDate(act.due)+"</span>":""))+"</div>";
     }
     html+='<div class="pcard prospect-card"><button class="prospect-main" data-open="'+attr(p.id)+'"><div class="top2"><div><div class="co">'+esc(p.company)+'</div><div class="sub">'+esc(p.city||"")+(p.contact?" &middot; "+esc(p.contact):"")+"</div></div>"+stateBadge+"</div>"+leakHtml+nextHtml+'</button><div class="contact-actions">'+contactLinks(p.website,p.phone)+'</div></div>';
   }
   grid.innerHTML=html;
   Array.prototype.forEach.call(grid.querySelectorAll("[data-open]"),function(el){
-    el.addEventListener("click",function(){openProspectSheet(el.getAttribute("data-open"));});
+    el.addEventListener("click",function(){var id=el.getAttribute("data-open"),p=prospectById(id),a=getNextAction(p);if(a)goAction(id,a);else openProspectSheet(id);});
   });
   Array.prototype.forEach.call(grid.querySelectorAll("[data-add]"),function(el){
     el.addEventListener("click",function(){openProspectSheet(null);});
@@ -2365,13 +2436,16 @@ function suggestedNextTest(p){
 function hasPhoneCheckTested(tests){return tests.some(function(t){var c=checkMeta(t.checkId);return c&&c.satisfiesPhone;});}
 function renderGuidedChecks(p){
   var tests=((p.externalVerification||{}).tests||[]).filter(function(t){return t.status!=="CANCELLED";});
+  var digitalIds=INSPECT_IDS.concat(CHECK_CATALOG.filter(function(c){return c.highValue&&!isDeferredCheck(c)&&INSPECT_IDS.indexOf(c.id)<0;}).map(function(c){return c.id;}));
+  var digitalPending=digitalIds.some(function(id){return !tests.some(function(t){return t.checkId===id&&isDeterminateTest(t);});});
   function group(ids,title){return '<h3 style="font-size:13px;margin-top:14px">'+title+'</h3>'+ids.map(function(id){
     var c=checkMeta(id),records=tests.filter(function(t){return t.checkId===id;});
     var status=records.length===1?records[0].status.replace(/_/g," "):(records.length?records.length+" records":"Not recorded");
-    return '<button class="guided-check" type="button" data-guided="'+id+'"><span>'+esc(c.name)+'<small>'+esc(status)+' · '+esc(c.procedure)+'</small></span></button>';
+    var deferred=isDeferredCheck(c),locked=deferred&&digitalPending;
+    return '<button class="guided-check" type="button" data-guided="'+id+'"'+(locked?' disabled aria-disabled="true"':"")+'><span>'+esc(deferred?"Deferred — available later: "+c.name:c.name)+'<small>'+esc(status)+' · '+esc(locked?"Finish website preparation first.":c.procedure)+'</small></span></button>';
   }).join("");}
   var contacts=CHECK_CATALOG.filter(function(c){return INSPECT_IDS.indexOf(c.id)<0;}).map(function(c){return c.id;});
-  document.getElementById("guidedChecks").innerHTML=group(workMode==="prepare"?INSPECT_IDS:contacts,workMode==="prepare"?"Inspect public pages now":"Contact-dependent tests")+'<details class="disclosure"><summary>'+(workMode==="prepare"?"Contact tests / later":"Website inspection")+'</summary>'+group(workMode==="prepare"?contacts:INSPECT_IDS,"Existing catalog checks")+'</details>';
+  document.getElementById("guidedChecks").innerHTML=group(workMode==="prepare"?INSPECT_IDS:contacts,workMode==="prepare"?"Inspect public pages now":"Website and contact checks")+'<details class="disclosure"><summary>'+(workMode==="prepare"?"More checks · phone/response work deferred":"Website inspection")+'</summary>'+group(workMode==="prepare"?contacts:INSPECT_IDS,"Existing catalog checks")+'</details>';
   document.querySelectorAll("[data-guided]").forEach(function(el){el.addEventListener("click",function(){if(guardDraft(function(){resumeCheck(p,el.dataset.guided);}))resumeCheck(p,el.dataset.guided);});});
 }
 
@@ -2838,7 +2912,7 @@ function renderTestLog(p){
         "</div></div>";
     }
     var methodBadge=t.observationMethod==="AGENT_CONFIRMED"?' <span class="badge agent">AGENT-CONFIRMED</span>':"";
-    return '<div class="tprow"><div class="tptop"><span class="tpname">'+esc(c?c.id+" — "+c.name:t.checkId)+'</span><span class="badge '+statusCls+'">'+esc(t.status)+"</span>"+methodBadge+"</div>"+confirmRow+
+    return '<div class="tprow" id="testRow-'+attr(t.id)+'"><div class="tptop"><span class="tpname">'+esc(c?c.id+" — "+c.name:t.checkId)+'</span><span class="badge '+statusCls+'">'+esc(t.status)+"</span>"+methodBadge+"</div>"+confirmRow+
       '<div class="tpmeta">'+esc(t.channel||"")+(t.channelFamily?" &middot; "+esc(t.channelFamily):"")+(testObservedAt(t)?" &middot; "+fmtDate(testObservedAt(t)):"")+"</div>"+
       (t.publicClaim?'<div class="note">Claim: '+esc(t.publicClaim)+"</div>":"")+
       (t.observedResult?"<div><b>Observed:</b> "+esc(t.observedResult)+"</div>":"")+
@@ -3461,7 +3535,7 @@ function renderCallBody(){
   var body=document.getElementById("callBody");
   if(!p){body.innerHTML='<p class="note">No prospect selected.</p>';return;}
   var top=topEvidence(p);
-  var action=prospectAction(p);
+  var action=getNextAction(p);
   var opener=buildPitch(p,"call")||"No evidence yet — add at least one finding before calling.";
   body.innerHTML=
     '<div class="callco">'+esc(p.company)+"</div>"+
@@ -3474,7 +3548,7 @@ function renderCallBody(){
     '<div class="callsection"><h4>Call Opener</h4><div class="calltext">'+esc(opener)+"</div></div>"+
     '<div class="callsection"><h4>Discovery Questions</h4>'+DISCOVERY_QUESTIONS.map(function(q){return '<div class="callq">'+esc(q)+"</div>";}).join("")+"</div>"+
     '<div class="callsection"><h4>Objection Responses</h4>'+OBJECTIONS.map(function(o){return '<details class="callobj"><summary>&ldquo;'+esc(o[0])+'&rdquo;</summary><p>'+esc(o[1])+"</p></details>";}).join("")+"</div>"+
-    '<div class="callsection"><h4>Next Step</h4><div class="calltext">'+esc(action?action.text:"No action needed right now.")+"</div></div>";
+    '<div class="callsection"><h4>Next Step</h4><div class="calltext">'+esc(action?actionText(action,p):"No action needed right now.")+"</div></div>";
 }
 
 /* ============ global render ============ */
