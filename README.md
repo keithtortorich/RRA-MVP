@@ -74,6 +74,16 @@ gone out and been read honestly against the gates above. The dashboard in
 `docs/index.html` is a view of the existing local operator records, not a
 change to that gate.
 
+## Claude Code skills
+
+`.claude/skills/` contains four optional, plain-Markdown Claude Code skills
+for market research, investor materials, article writing, and content
+creation. Claude Code may load them to guide matching requests; they do not
+add application runtime, scripts, hooks, or launch steps. Their presence does
+not authorize work outside the five-proposal validation gate or expand the
+Leak Detector MVP. The four copied ECC skills are MIT-licensed; see
+`THIRD_PARTY_NOTICES.md`.
+
 ## Privacy note
 
 `docs/observations/` and any scan/audit reports contain real business names,

@@ -8,3 +8,8 @@ copyright holder.
 
 No license, express or implied, to any intellectual property rights is
 granted by this document.
+
+Exception: the four ECC-derived Claude Code skill files under
+`.claude/skills/` are excluded from the proprietary terms above and are
+licensed under the MIT License. See `THIRD_PARTY_NOTICES.md` for the
+copyright and permission notice that applies to those files.
